@@ -1,0 +1,76 @@
+<div id="sidebar" class="w3-sidebar w3-bar-block w3-theme-primary-d3 w3-show">
+  <div id="logo-holder" class="w3-white w3-padding-small">
+    <img src="assets/images/logo.png">
+  </div>
+
+  <div id="menu_home" data-menuitem="home"
+    class="menuitem w3-bar-item w3-button w3-hover-theme-accent w3-padding-left-16 w3-padding-large ripple-btn"
+    (click)="redirectTo('/home', 400)">
+    <div class="c-ripple js-ripple">
+      <span class="c-ripple__circle"></span>
+    </div>
+    <fa-icon icon={{config.page_map.home.fas_icon}}></fa-icon>&nbsp;Home
+  </div>
+  <!-- <div id="submenu_annotator" class="w3-theme-primary-dark">
+    <div id="menu_annotator-download" data-menuitem="annotator-download"
+      class="menuitem w3-bar-item w3-button w3-hover-theme-accent w3-padding-large w3-padding-left-32 ripple-btn"
+      (click)="redirectTo('/annotator/download', 400)">
+      <div class="c-ripple js-ripple">
+        <span class="c-ripple__circle"></span>
+      </div>
+      <fa-icon [icon]="['fas', 'cloud-download-alt']"></fa-icon>&nbsp;Download
+    </div>
+    <div id="menu_annotator-upload" data-menuitem="annotator-upload"
+      class="menuitem w3-bar-item w3-button w3-hover-theme-accent w3-padding-large w3-padding-left-32 ripple-btn"
+      (click)="redirectTo('/annotator/upload', 400)">
+      <div class="c-ripple js-ripple">
+        <span class="c-ripple__circle"></span>
+      </div>
+      <fa-icon [icon]="['fas', 'cloud-upload-alt']"></fa-icon>&nbsp;Upload
+    </div>
+  </div>
+  <div id="menu_trainer" data-menuitem="trainer"
+    class="menuitem w3-bar-item w3-button w3-hover-theme-accent w3-padding-large w3-padding-left-16 ripple-btn"
+    (click)="redirectTo('/trainer', 400)">
+    <div class="c-ripple js-ripple">
+      <span class="c-ripple__circle"></span>
+    </div>
+    <fa-icon [icon]="['fas', 'brain']"></fa-icon>&nbsp;Trainer
+  </div> -->
+
+
+</div>
+
+<!-- <div id="logo-holder-collapsed" class="w3-white w3-padding-small w3-show">
+  <img src="assets/images/logo.png">
+</div> -->
+
+<div id="sidebar-collapsed" class="w3-sidebar w3-bar-block w3-theme-primary-d3 w3-hide">
+  <div id="logo-holder-collapsed" class="w3-white w3-padding-small">
+    <img src="assets/images/logo-favicon-1024x1024.png">
+  </div>
+  <div id="menu_home" data-menuitem="home"
+    class="menuitem w3-bar-item w3-button w3-hover-theme-accent w3-padding-left-16 w3-padding-right-16 w3-padding-large ripple-btn"
+    (click)="redirectTo('/home', 400)">
+    <div class="c-ripple js-ripple">
+      <span class="c-ripple__circle"></span>
+    </div>
+    <fa-icon icon={{config.page_map.home.fas_icon}}></fa-icon>
+  </div>
+</div>
+
+<div id="logout" class="w3-red">
+  <div id="btn-logout" (click)="logout()">
+    <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon>&nbsp;Logout
+    <fa-icon [icon]="['fas', 'chevron-right']" class="w3-right"></fa-icon>
+  </div>
+</div>
+
+<button id="btn-sidebar-toggle" mat-mini-fab color="" (click)="toggleSidebarCollapse()"
+  [matTooltip]="getToggleButtonTooltipContent()" matTooltipPosition="after">
+  <div class="hamburger hamburger--arrow is-active">
+    <div class="hamburger-box">
+      <div class="hamburger-inner"></div>
+    </div>
+  </div>
+</button>

@@ -1,0 +1,29 @@
+.content {
+  margin: 0;
+  background: #3f51b5;
+  background: -webkit-linear-gradient(-135deg, #3f51b5, #9c27b0);
+  background: -o-linear-gradient(-135deg, #3f51b5, #9c27b0);
+  background: -moz-linear-gradient(-135deg, #3f51b5, #9c27b0);
+  background: linear-gradient(-135deg, #3f51b5, #9c27b0);
+}
+
+#logo-holder img {
+  width: 50%;
+}
+
+#login-form-holder {
+  min-height: calc(100vh - 140px);
+}
+
+#login-form {
+  width: 100%;
+  height: auto;
+}
+
+#login-form img {
+  height: 36px;
+}
+
+mat-form-field {
+  width: 100%;
+}

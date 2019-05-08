@@ -19,11 +19,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/assets/libraries/w3.css/4/w3.css",
+              "src/assets/libraries/w3.css/themes/w3-theme-primary.css",
+              "src/assets/libraries/w3.css/themes/w3-theme-accent.css",
+              "src/assets/libraries/hamburgers/hamburgers.min.css",
+              "src/styles.css",
+              "src/app-theme.scss"
             ],
             "scripts": [],
             "es5BrowserSupport": true
@@ -48,7 +52,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
+                  "maximumWarning": "3mb",
                   "maximumError": "5mb"
                 }
               ]

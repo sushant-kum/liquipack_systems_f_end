@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Config } from './configs/config';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'liquipack-systems-f-end';
+  config: Config = new Config();
+
+  constructor(
+    private title: Title
+  ) {
+    this.title.setTitle(this.config.app_title);
+  }
 }
