@@ -5,14 +5,14 @@ import { HeaderService } from 'src/app/services/header/header.service';
 import { FormControl, Validators } from '@angular/forms';
 import * as $ from 'jquery';
 
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 
 /* Services Imports */
 import { CookieService } from 'src/app/services/cookie/cookie.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 
 /* Interfaces Imports */
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 // import { PageMap } from 'src/app/interfaces/page-map';
 
 

@@ -13,7 +13,7 @@ import { LocalStorageService } from 'src/app/services/local-storage/local-storag
 
 /* Interfaces Imports */
 import { ApiResponse } from 'src/app/interfaces/api-response';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 interface Mode {
