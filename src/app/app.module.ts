@@ -23,15 +23,14 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
 
 /* Components Imports */
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { LoginComponent } from './components/login/login.component';
-import { Error404Component } from './errors/error404/error404.component';
-import { HomeComponent } from './components/home/home.component';
-import { Config } from './configs/config';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { AppComponent } from 'src/app/app.component';
+import { HeaderComponent } from 'src/app/components/header/header.component';
+import { FooterComponent } from 'src/app/components/footer/footer.component';
+import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
+import { Error404Component } from 'src/app/errors/error404/error404.component';
+import { HomeComponent } from 'src/app/pages/home/home.component';
+import { Config } from 'src/app/configs/config';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { Config } from './configs/config';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    LoginComponent,
     Error404Component,
     HomeComponent
   ],

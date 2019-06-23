@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from 'src/app/components/home/home.component';
+import { HomeComponent } from 'src/app/pages/home/home.component';
 import { Error404Component } from './errors/error404/error404.component';
 
 const routes: Routes = [
@@ -14,7 +13,8 @@ const routes: Routes = [
   {
     path: 'login',
     pathMatch: 'full',
-    component: LoginComponent
+    // component: LoginComponent
+    loadChildren: 'src/app/pages/login/login.module#LoginModule'
   },
   {
     path: 'home',
