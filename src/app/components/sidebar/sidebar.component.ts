@@ -104,7 +104,7 @@ export class SidebarComponent implements OnInit {
   }
 
   logout() {
-    this.cookie_service.deleteAll();
+    this.localstorage_service.deleteAll();
     window.location.href = this.config.app_base_path;
   }
 
