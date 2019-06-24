@@ -29,7 +29,6 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 import { Error404Component } from 'src/app/errors/error404/error404.component';
-import { HomeComponent } from 'src/app/pages/home/home.component';
 import { Config } from 'src/app/configs/config';
 
 @NgModule({
@@ -38,8 +37,7 @@ import { Config } from 'src/app/configs/config';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    Error404Component,
-    HomeComponent
+    Error404Component
   ],
   imports: [
     /* Angular Imports Begin */
@@ -55,7 +53,6 @@ import { Config } from 'src/app/configs/config';
     MatSnackBarModule,
     MatTooltipModule,
     MatDividerModule,
-    MatCardModule,
     /* Angular Material Imports End */
     /**/
     /* Fontawesome Imports Begin */

@@ -8,17 +8,15 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login'
+    redirectTo: 'home'
   },
   {
     path: 'login',
-    // component: LoginComponent
-    loadChildren: 'src/app/pages/login/login.module#LoginModule'
+    loadChildren: () => import('src/app/pages/login/login.module').then(module => module.LoginModule)
   },
   {
     path: 'home',
-    pathMatch: 'full',
-    component: HomeComponent
+    loadChildren: () => import('src/app/pages/home/home.module').then(module => module.HomeModule)
   },
   {
     path: '**',

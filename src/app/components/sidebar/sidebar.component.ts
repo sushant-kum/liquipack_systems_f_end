@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as $ from 'jquery';
 
 /* Service Imports */
@@ -19,7 +20,8 @@ export class SidebarComponent implements OnInit {
   constructor(
     private auth_service: AuthService,
     private cookie_service: CookieService,
-    private localstorage_service: LocalStorageService
+    private localstorage_service: LocalStorageService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -63,11 +65,15 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  redirectTo(path, timeout = 0, absolute_path: boolean = false) {
+  redirectTo(path, timeout = 0, router_path: boolean = false, absolute_path: boolean = false) {
     const url = absolute_path ? path : this.config.app_base_path + path;
-    setTimeout(() => {
-      window.location.href = url;
-    }, timeout);
+    if (router_path) {
+      this.router.navigate([path])
+    } else {
+      setTimeout(() => {
+        window.location.href = url;
+      }, timeout);
+    }
   }
 
   showMenuItems() {

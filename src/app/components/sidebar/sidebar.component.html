@@ -51,7 +51,7 @@
   </div>
   <div id="menu_home" data-menuitem="home"
     class="menuitem w3-bar-item w3-button w3-hover-theme-accent w3-padding-left-16 w3-padding-right-16 w3-padding-large ripple-btn"
-    (click)="redirectTo('/home', 400)">
+    (click)="redirectTo('/home', 400, true)">
     <div class="c-ripple js-ripple">
       <span class="c-ripple__circle"></span>
     </div>
@@ -61,8 +61,8 @@
 
 <div id="logout" class="w3-red">
   <div id="btn-logout" (click)="logout()">
-    <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon>&nbsp;Logout
-    <fa-icon [icon]="['fas', 'chevron-right']" class="w3-right"></fa-icon>
+    Logout
+    <fa-icon [icon]="['fas', 'sign-out-alt']" class="w3-right"></fa-icon>
   </div>
 </div>
 

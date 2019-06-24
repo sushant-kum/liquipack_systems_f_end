@@ -6,6 +6,7 @@
   transition-property: left;
   transition-duration: 0.15s;
   transition-timing-function: linear;
+  box-shadow: 0 46px 5px 0 rgba(0, 0, 0, 0.16), 0 46px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 #sidebar.sidebar-collapsed {
@@ -17,12 +18,12 @@
   top: 0;
   left: 0;
   z-index: 500;
+  box-shadow: 0 46px 5px 0 rgba(0, 0, 0, 0.16), 0 46px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 #sidebar #logo-holder {
   z-index: 501;
-  height: 42px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  height: 43px;
 }
 
 #sidebar #logo-holder img {
@@ -36,9 +37,8 @@
     z-index: 501;
     height: 42px;
     width: 200px; */
-  height: 42px;
+  height: 43px;
   z-index: 501;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 #logo-holder-collapsed img {

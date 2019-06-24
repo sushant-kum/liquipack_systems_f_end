@@ -80,6 +80,7 @@ export class HttpTransactionsService {
       return this.http_client.get<ApiResponse>(url, http_options);
     }
   };
+  
   get_users_user_id: API = {
     hostname: null,
     basepath: null,

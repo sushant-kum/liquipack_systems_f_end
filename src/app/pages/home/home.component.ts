@@ -54,7 +54,6 @@ export class HomeComponent implements OnInit {
     private title: Title,
     private toast: MatSnackBar,
     private header_service: HeaderService,
-    private cookie_service: CookieService,
     private sidebar: SidebarComponent,
     private localstorage_service: LocalStorageService
   ) { }

@@ -132,6 +132,14 @@ export class LoginComponent implements OnInit {
             this.localstorage_service.set(this.localstorage_service.lsname.user_id, data.user_id);
             this.localstorage_service.set(this.localstorage_service.lsname.username, this.username_ctrl.value);
             this.localstorage_service.set(this.localstorage_service.lsname.token, data.token);
+            for (let global_app of this.config.global_apps) {
+              data.data.app_permissions.push({
+                app: global_app.app.identifier,
+                permissions: global_app.permissions,
+                _id: 'client_grown'
+              });
+            }
+            console.log(data.data.app_permissions);
             this.localstorage_service.set(this.localstorage_service.lsname.app_permissions, JSON.stringify(data.data.app_permissions));
             window.location.href = redirect_path;
           } else {
