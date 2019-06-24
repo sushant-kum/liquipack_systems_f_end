@@ -7,7 +7,7 @@
       <mat-card-content>
         <div class="w3-light-grey w3-padding-large w3-round" *ngIf="bookmarked_apps.length == 0">
           No Bookmarked apps found. Go to <a class="w3-text-theme-primary"
-            (click)="sidebar.redirectTo('/settings/profile', 400)">Settings/Profile</a> to mark apps as favourite.
+            (click)="sidebar.redirectTo('/settings/profile', 400)">Settings/Profile</a> to mark apps as favourite, or mark them below
         </div>
         <div class="w3-row" *ngIf="bookmarked_apps.length != 0">
           <div class="w3-col m3 w3-padding-small" *ngFor="let app of bookmarked_apps; let i=index">
@@ -36,7 +36,7 @@
             <div [id]="app.identifier"
               class="tile w3-card w3-white w3-round-small w3-padding-large w3-display-container w3-text-theme-primary w3-hover-theme-primary w3-hover-text-white w3-center w3-large"
               (click)="sidebar.redirectTo(app.path)">
-              <button mat-icon-button color="accent" class="tile-bookmark" (click)="bookmarkApp(i, $event)">
+              <button mat-icon-button color="accent" class="tile-bookmark" (click)="toggleBookmarkApp(i, $event)">
                 <fa-icon class="w3-text-grey w3-hover-text-light-grey" [icon]="['fas', 'heart']" *ngIf="bookmarked_apps.indexOf(app) < 0"></fa-icon>
                 <fa-icon class="w3-text-red w3-hover-text-light-grey" [icon]="['fas', 'heart']" *ngIf="bookmarked_apps.indexOf(app) >= 0"></fa-icon>
               </button>

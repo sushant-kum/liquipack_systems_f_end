@@ -55,7 +55,8 @@ export class HomeComponent implements OnInit {
     private toast: MatSnackBar,
     private header_service: HeaderService,
     private sidebar: SidebarComponent,
-    private localstorage_service: LocalStorageService
+    private localstorage_service: LocalStorageService,
+    private cookie_service: CookieService
   ) { }
 
   ngOnInit() {
@@ -87,6 +88,25 @@ export class HomeComponent implements OnInit {
       }
       return 0;
     });
+
+    console.log(this.my_apps);
+
+    try {
+      let bookmarked_apps_identifier_arr = JSON.parse(this.cookie_service.get(this.cookie_service.cname.bookmarked_apps));
+      for (let bookmarked_apps_identifier of bookmarked_apps_identifier_arr) {
+        for(let my_app of this.my_apps) {
+          console.log('bookmarked_apps_identifier, my_app.identifier, bookmarked_apps_identifier == my_app.identifier', bookmarked_apps_identifier, my_app.identifier, bookmarked_apps_identifier == my_app.identifier)
+          if(bookmarked_apps_identifier == my_app.identifier) {
+            this.bookmarked_apps.push(my_app);
+            break;
+          }
+        }
+      }
+    } catch(err) {
+      console.error(err);
+      this.bookmarked_apps = []
+    }
+    
   }
 
   onCardMouseOver(index: number) {
@@ -97,14 +117,23 @@ export class HomeComponent implements OnInit {
     this.my_apps[index].hovered = false;
   }
 
-  bookmarkApp(index: number, event: Event) {
+  toggleBookmarkApp(index: number, event: Event) {
     event.stopPropagation();
     if (this.bookmarked_apps.indexOf(this.my_apps[index]) < 0) {
       this.bookmarked_apps.push(this.my_apps[index]);
     } else {
       this.bookmarked_apps.splice(this.bookmarked_apps.indexOf(this.my_apps[index]), 1);
     }
-    console.log(this.bookmarked_apps);
+
+    let bookmarked_apps_identifier_arr: string[] = [];
+    for (let bookmarked_app of this.bookmarked_apps) {
+      bookmarked_apps_identifier_arr.push(bookmarked_app.identifier)
+    }
+    if(bookmarked_apps_identifier_arr.length >= 1)
+      this.cookie_service.set(this.cookie_service.cname.bookmarked_apps, JSON.stringify(bookmarked_apps_identifier_arr), 15);
+    else
+      this.cookie_service.delete(this.cookie_service.cname.bookmarked_apps);
+    console.log('this.bookmarked_apps', this.bookmarked_apps);
   }
 
   showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {
