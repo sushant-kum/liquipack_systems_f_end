@@ -3,14 +3,16 @@
     <img src="assets/images/logo.png">
   </div>
 
-  <div id="menu_home" data-menuitem="home"
-    class="menuitem w3-bar-item w3-button w3-hover-theme-accent w3-padding-left-16 w3-padding-large ripple-btn"
-    (click)="redirectTo('/home', 400)">
+  <div *ngFor="let page of config.pages" [id]="'menu_' + config.page_map[page].identifier"
+    [attr.data-menuitem]="config.page_map[page].identifier"
+    class="menuitem w3-bar-item w3-button w3-hover-theme-accent w3-padding-large ripple-btn" [ngClass]="{'w3-padding-left-16': !config.page_map[page].is_subpage, 'w3-padding-left-32 w3-theme-primary-dark': config.page_map[page].is_subpage}"
+    (click)="redirectTo(config.page_map[page].path, 400, true)">
     <div class="c-ripple js-ripple">
       <span class="c-ripple__circle"></span>
     </div>
-    <fa-icon icon={{config.page_map.home.fas_icon}}></fa-icon>&nbsp;Home
+    <fa-icon icon={{config.page_map[page].fas_icon}}></fa-icon>&nbsp;{{config.page_map[page].short_name}}
   </div>
+
   <!-- <div id="submenu_annotator" class="w3-theme-primary-dark">
     <div id="menu_annotator-download" data-menuitem="annotator-download"
       class="menuitem w3-bar-item w3-button w3-hover-theme-accent w3-padding-large w3-padding-left-32 ripple-btn"
@@ -41,21 +43,19 @@
 
 </div>
 
-<!-- <div id="logo-holder-collapsed" class="w3-white w3-padding-small w3-show">
-  <img src="assets/images/logo.png">
-</div> -->
-
 <div id="sidebar-collapsed" class="w3-sidebar w3-bar-block w3-theme-primary-d3 w3-hide">
   <div id="logo-holder-collapsed" class="w3-white w3-padding-small">
     <img src="assets/images/logo-favicon-1024x1024.png">
   </div>
-  <div id="menu_home" data-menuitem="home"
-    class="menuitem w3-bar-item w3-button w3-hover-theme-accent w3-padding-left-16 w3-padding-right-16 w3-padding-large ripple-btn"
-    (click)="redirectTo('/home', 400, true)">
+
+  <div *ngFor="let page of config.pages" [id]="'menu_' + config.page_map[page].identifier"
+    [attr.data-menuitem]="config.page_map[page].identifier"
+    class="menuitem w3-bar-item w3-button w3-hover-theme-accent w3-padding-left-16 w3-padding-large ripple-btn" [ngClass]="{'w3-theme-primary-dark': config.page_map[page].is_subpage}"
+    (click)="redirectTo(config.page_map[page].path, 400, true)">
     <div class="c-ripple js-ripple">
       <span class="c-ripple__circle"></span>
     </div>
-    <fa-icon icon={{config.page_map.home.fas_icon}}></fa-icon>
+    <fa-icon icon={{config.page_map[page].fas_icon}}></fa-icon>
   </div>
 </div>
 

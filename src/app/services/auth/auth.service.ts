@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   get_access(user_id: string, callback): void {
-    this.http_client.get_users_user_id.sendRequest(user_id).subscribe(
+    this.http_client.get_profile_user_id.sendRequest(user_id).subscribe(
       (data) => {
         for (let global_app of this.config.global_apps) {
           data.data.app_permissions.push({

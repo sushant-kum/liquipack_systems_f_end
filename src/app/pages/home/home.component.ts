@@ -71,7 +71,6 @@ export class HomeComponent implements OnInit {
     this.sidebar.colorize(this.config.page_map[this.app_id].identifier);
 
     const app_permissions = JSON.parse(this.localstorage_service.get(this.localstorage_service.lsname.app_permissions));
-    console.log(app_permissions);
 
     for (let app of app_permissions) {
       const temp_app = this.config.page_map[app.app];
@@ -89,13 +88,10 @@ export class HomeComponent implements OnInit {
       return 0;
     });
 
-    console.log(this.my_apps);
-
     try {
       let bookmarked_apps_identifier_arr = JSON.parse(this.cookie_service.get(this.cookie_service.cname.bookmarked_apps));
       for (let bookmarked_apps_identifier of bookmarked_apps_identifier_arr) {
         for(let my_app of this.my_apps) {
-          console.log('bookmarked_apps_identifier, my_app.identifier, bookmarked_apps_identifier == my_app.identifier', bookmarked_apps_identifier, my_app.identifier, bookmarked_apps_identifier == my_app.identifier)
           if(bookmarked_apps_identifier == my_app.identifier) {
             this.bookmarked_apps.push(my_app);
             break;

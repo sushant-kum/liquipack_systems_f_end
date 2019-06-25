@@ -91,9 +91,7 @@ export class HttpTransactionsService {
       const basepath: string = this.get_users_user_id.basepath == null ? this.default_basepath : this.get_users_user_id.basepath;
       let url: string = hostname + basepath + this.get_users_user_id.path;
 
-      console.log(user_id, url);
       url = url.replace(/:user_id/ , user_id);
-      console.log(user_id, url);
 
       const token = this.localstorage_service.get(this.localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
@@ -101,4 +99,23 @@ export class HttpTransactionsService {
       return this.http_client.get<ApiResponse>(url, http_options);
     }
   };
+
+  get_profile_user_id: API = {
+    hostname: null,
+    basepath: null,
+    method: 'GET',
+    path: '/profile/:user_id',
+    sendRequest: (user_id: string) => {
+      const hostname: string = this.get_profile_user_id.hostname == null ? this.default_hostname : this.get_profile_user_id.hostname;
+      const basepath: string = this.get_profile_user_id.basepath == null ? this.default_basepath : this.get_profile_user_id.basepath;
+      let url: string = hostname + basepath + this.get_profile_user_id.path;
+
+      url = url.replace(/:user_id/ , user_id);
+
+      const token = this.localstorage_service.get(this.localstorage_service.lsname.token);
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = { headers };
+      return this.http_client.get<ApiResponse>(url, http_options);
+    }
+  }
 }

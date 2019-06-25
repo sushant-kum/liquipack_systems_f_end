@@ -27,9 +27,14 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
-  activate() {
+  ngAfterViewInit() {
     this.activateRippleEffect();
     this.showMenuItems();
+  }
+
+  activate() {
+    // this.activateRippleEffect();
+    // this.showMenuItems();
 
     if (window.innerWidth <= 700) {
       this.cookie_service.set(this.cookie_service.cname.sidebar_collapsed, 'true');
@@ -87,9 +92,11 @@ export class SidebarComponent implements OnInit {
         const menuitems = document.getElementsByClassName('menuitem');
         for (let i = 0; i < menuitems.length; i++) {
           menuitems[i].classList.add('w3-hide');
-          for (let access of data.access) {
-            if (menuitems[i].getAttribute('data-menuitem') === access.app) {
-              menuitems[i].classList.remove('w3-hide');
+          if (menuitems[i].getAttribute('data-menuitem') !== 'login') {
+            for (let access of data.access) {
+              if (menuitems[i].getAttribute('data-menuitem') === access.app) {
+                menuitems[i].classList.remove('w3-hide');
+              }
             }
           }
         }
