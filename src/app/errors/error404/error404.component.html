@@ -1,3 +1,37 @@
-<p>
-  error404 works!
-</p>
+<div class="content w3-padding-large w3-white">
+  <div class="w3-content">
+    <div id="notfound">
+      <div class="notfound">
+        <div class="notfound-404">
+          <h1 class="w3-text-theme-accent w3-opacity-max">
+            <!-- <fa-icon [icon]="['fas', 'exclamation']"></fa-icon>&nbsp;404 -->
+            404
+          </h1>
+        </div>
+        <h2 class="w3-text-theme-primary">Oops, The Page you are looking for couldn't be found!</h2>
+        <form class="notfound-search">
+          <mat-form-field>
+            <input type="text" placeholder="Search Page" aria-label="Search Page" matInput [formControl]="page_ctrl" [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption  #auto="matAutocomplete">
+              <mat-option *ngFor="let page of filtered_pages | async" [value]="page.name">
+                <fa-icon icon="{{page.fas_icon}}" class="w3-text-theme-primary"></fa-icon>&nbsp;{{page.name}}
+                <span class="w3-right w3-small w3-text-theme-accent">{{page.path}}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <button mat-raised-button color="primary" [disabled]="!page_ctrl.value">
+            Go&nbsp;<fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
+          </button>
+        </form>
+        <button mat-button color="primary" (click)="goBack()">
+          <fa-icon [icon]="['fas', 'arrow-left']"></fa-icon>
+          Go Back
+        </button>
+        <button mat-raised-button color="primary" routerLink="/home" class="w3-margin-left">
+          Go Home
+          <fa-icon [icon]="['fas', 'home']"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

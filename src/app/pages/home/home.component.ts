@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Config } from 'src/app/configs/config';
-import { HeaderService } from 'src/app/services/header/header.service';
-import { FormControl, Validators } from '@angular/forms';
-import * as $ from 'jquery';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
+/* Component Imports */
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 
 /* Services Imports */
 import { CookieService } from 'src/app/services/cookie/cookie.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { HeaderService } from 'src/app/services/header/header.service';
+
+/* Config Imports */
+import { Config } from 'src/app/configs/config';
 
 /* Interfaces Imports */
-import { MatSnackBar } from '@angular/material/snack-bar';
 // import { PageMap } from 'src/app/interfaces/page-map';
 
 
-const APP_ID = 'home';
+const PAGE_ID = 'home';
 
 interface Mode {
   password_visible: boolean;
@@ -39,7 +40,7 @@ interface PageMapWithHover {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private app_id = APP_ID;
+  private page_id = PAGE_ID;
   config: Config = new Config();
 
   mode: Mode = {
@@ -60,15 +61,15 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title.setTitle(this.config.page_map[this.app_id].name + ' - ' + this.config.app_title);
+    this.title.setTitle(this.config.page_map[this.page_id].name + ' - ' + this.config.app_title);
     this.header_service.changePageInfo(
-      this.config.page_map[this.app_id].identifier,
-      this.config.page_map[this.app_id].name,
-      this.config.page_map[this.app_id].fas_icon
+      this.config.page_map[this.page_id].identifier,
+      this.config.page_map[this.page_id].name,
+      this.config.page_map[this.page_id].fas_icon
     );
 
     this.sidebar.activate();
-    this.sidebar.colorize(this.config.page_map[this.app_id].identifier);
+    this.sidebar.colorize(this.config.page_map[this.page_id].identifier);
 
     const app_permissions = JSON.parse(this.localstorage_service.get(this.localstorage_service.lsname.app_permissions));
 

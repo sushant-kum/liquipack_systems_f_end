@@ -17,6 +17,7 @@ import { Config } from 'src/app/configs/config';
 })
 export class SidebarComponent implements OnInit {
   config: Config = new Config();
+
   constructor(
     private auth_service: AuthService,
     private cookie_service: CookieService,
@@ -27,15 +28,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
-    this.activateRippleEffect();
-    this.showMenuItems();
-  }
-
   activate() {
-    // this.activateRippleEffect();
-    // this.showMenuItems();
-
     if (window.innerWidth <= 700) {
       this.cookie_service.set(this.cookie_service.cname.sidebar_collapsed, 'true');
     }
@@ -46,6 +39,13 @@ export class SidebarComponent implements OnInit {
       this.uncollapseSidebar();
     }
     document.getElementById('app-sidebar').classList.remove('w3-hide');
+
+    this.activateRippleEffect();
+    this.showMenuItems();
+  }
+
+  destroy() {
+    document.getElementById('app-sidebar').classList.add('w3-hide');
   }
 
   activateRippleEffect() {
@@ -106,9 +106,11 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  colorize(menu_name) {
+  colorize(menu_name: string = null) {
     const menuitems = document.getElementsByClassName('menuitem');
     for (let i = 0; i < menuitems.length; i++) {
+      menuitems[i].classList.remove('w3-text-theme-primary');
+      menuitems[i].classList.remove('w3-white');
       if (menuitems[i].getAttribute('data-menuitem') === menu_name) {
         menuitems[i].classList.add('w3-text-theme-primary');
         menuitems[i].classList.add('w3-white');

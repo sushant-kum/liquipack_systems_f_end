@@ -95,6 +95,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(use_token: boolean = false) {
+    console.log(use_token);
     const urlParams = new URLSearchParams(window.location.search);
     let redirect_path: string = this.config.default_app_path;
     console.log(urlParams.has('redirect'), urlParams.get('redirect'), this.config.page_map[urlParams.get('redirect')]);
@@ -109,16 +110,20 @@ export class LoginComponent implements OnInit {
       const token = this.localstorage_service.get(this.localstorage_service.lsname.token);
       if (username && token) {
         this.auth_service.auth_user_token((error, new_token) => {
-          if (new_token) {
-            this.localstorage_service.set(this.localstorage_service.lsname.token, new_token);
-            window.location.href = redirect_path;
+          if(error) {
+            console.error(error);
           } else {
-            this.localstorage_service.deleteMulti([
-              this.localstorage_service.lsname.app_permissions,
-              this.localstorage_service.lsname.token,
-              this.localstorage_service.lsname.user_id,
-              this.localstorage_service.lsname.username
-            ]);
+            if (new_token) {
+              this.localstorage_service.set(this.localstorage_service.lsname.token, new_token);
+              window.location.href = redirect_path;
+            } else {
+              this.localstorage_service.deleteMulti([
+                this.localstorage_service.lsname.app_permissions,
+                this.localstorage_service.lsname.token,
+                this.localstorage_service.lsname.user_id,
+                this.localstorage_service.lsname.username
+              ]);
+            }
           }
         });
       } else {

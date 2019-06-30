@@ -28,7 +28,8 @@ import { AppComponent } from 'src/app/app.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
-import { Error404Component } from 'src/app/errors/error404/error404.component';
+
+/* Config Imports */
 import { Config } from 'src/app/configs/config';
 
 @NgModule({
@@ -36,8 +37,7 @@ import { Config } from 'src/app/configs/config';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SidebarComponent,
-    Error404Component
+    SidebarComponent
   ],
   imports: [
     /* Angular Imports Begin */
