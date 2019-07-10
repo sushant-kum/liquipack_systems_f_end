@@ -19,7 +19,7 @@
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
-          <button mat-raised-button color="primary" [disabled]="!page_ctrl.value">
+          <button mat-raised-button color="primary" [disabled]="!page_ctrl.value" (click)="goToPage()">
             Go&nbsp;<fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
           </button>
         </form>

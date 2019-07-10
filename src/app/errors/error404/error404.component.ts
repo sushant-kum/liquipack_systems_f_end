@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 /* Component Imports */
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
@@ -41,6 +42,7 @@ export class Error404Component implements OnInit {
     private toast: MatSnackBar,
     private header_service: HeaderService,
     private sidebar: SidebarComponent,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -78,6 +80,15 @@ export class Error404Component implements OnInit {
         return option.value.toLowerCase().indexOf(filter_value) >= 0
       }
     );
+  }
+
+  goToPage(): void {
+    console.log(this.page_ctrl.value, this.pages);
+    for (let page of this.pages) {
+      if(this.page_ctrl.value == page.name) {
+        this.router.navigate([page.path]);
+      }
+    }
   }
 
   goBack(): void {
