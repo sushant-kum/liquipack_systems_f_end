@@ -9,6 +9,8 @@ import { Config } from 'src/app/configs/config';
 export class FooterComponent implements OnInit {
   config: Config = new Config();
 
+  current_year: number = new Date().getFullYear();
+
   constructor() { }
 
   ngOnInit() {
