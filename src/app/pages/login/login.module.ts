@@ -9,6 +9,23 @@ import { MatButtonModule } from '@angular/material/button';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+/* Solid Icons */
+import {
+  faUser as fasUser,
+  faKey as fasKey,
+  faEye as fasEye,
+  faEyeSlash as fasEyeSlash,
+  faSignInAlt as fasSignInAlt,
+  faCircleNotch as fasCircleNotch
+} from '@fortawesome/free-solid-svg-icons';
+library.add(fasUser, fasKey, fasEye, fasEyeSlash, fasSignInAlt, fasCircleNotch);
+/* Regular Icons */
+import {} from '@fortawesome/free-regular-svg-icons';
+library.add();
+/* Brand Icons */
+import {} from '@fortawesome/free-brands-svg-icons';
+library.add();
 
 /* Components Imports */
 import { LoginRoutingModule } from './login-routing.module';
