@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('src/app/pages/settings/settings.module').then(module => module.SettingsModule)
   },
   {
+    path: 'developer',
+    loadChildren: () => import('src/app/pages/developer/developer.module').then(module => module.DeveloperModule)
+  },
+  {
     path: 'error',
     loadChildren: () => import('src/app/errors/errors.module').then(module => module.ErrorsModule)
   },
