@@ -17,10 +17,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
+/* Solid Icons */
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
-// Add an icon to the library for convenient access in other components
 library.add(fas);
+/* Regular Icons */
+import {} from '@fortawesome/free-regular-svg-icons';
+library.add();
+/* Brand Icons */
+import {} from '@fortawesome/free-brands-svg-icons';
+library.add();
+
 
 /* Components Imports */
 import { AppRoutingModule } from 'src/app/app-routing.module';

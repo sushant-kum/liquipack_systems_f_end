@@ -1,19 +1,39 @@
+@media (max-width: 600px) {
+    .profile-ripple, .profile {
+        top: 100px;
+        right: 50%;
+    }
+    #card-content #profile-name {
+        text-align: center;
+    }
+    .button-row {
+        text-align: center;
+    }
+}
+
+@media (min-width:600px) {
+    #card {
+        min-height: 300px;
+    }
+    .profile-ripple, .profile {
+        top: 100px;
+        right: 100px;
+    }
+}
+
 #arch {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 400px;
+    height: 300px;
     border-radius: 4px;
-    clip-path: ellipse(100% 50% at 50% 30%);
+    clip-path: ellipse(300px 300px at 100% 0);
 }
 
-.profile-ripple,
-.profile {
+.profile-ripple, .profile {
     position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(50%, -50%);
     border-radius: 50%;
 }
 
@@ -45,45 +65,34 @@
 
 @keyframes bubble-outer {
     0% {
-    height: 170px;
-    width: 170px;
+        height: 160px;
+        width: 160px;
     }
-
     50% {
-    height: 160px;
-    width: 160px;
+        height: 170px;
+        width: 170px;
     }
-
     100% {
-    height: 170px;
-    width: 170px;
+        height: 160px;
+        width: 160px;
     }
 }
 
 @keyframes bubble-inner {
     0% {
-    height: 140px;
-    width: 140px;
+        height: 130px;
+        width: 130px;
     }
-
     50% {
-    height: 130px;
-    width: 130px;
+        height: 140px;
+        width: 140px;
     }
-
     100% {
-    height: 140px;
-    width: 140px;
+        height: 130px;
+        width: 130px;
     }
 }
 
-#profile-name {
-    position: absolute;
-    top: 250px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#card-header-space {
-    height: 320px;
+.card-space.small {
+    height: 184px;
 }
