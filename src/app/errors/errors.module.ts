@@ -10,6 +10,21 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+/* Solid Icons */
+import {
+  faExclamationCircle as fasExclamationCircle,
+  faChevronRight as fasChevronRight,
+  faArrowLeft as fasArrowLeft,
+  faHome as fasHome
+} from '@fortawesome/free-solid-svg-icons';
+library.add(fasExclamationCircle, fasChevronRight, fasArrowLeft, fasHome);
+/* Regular Icons */
+import {} from '@fortawesome/free-regular-svg-icons';
+library.add();
+/* Brand Icons */
+import {} from '@fortawesome/free-brands-svg-icons';
+library.add();
 
 import { ErrorsRoutingModule } from './errors-routing.module';
 import { Error404Component } from './error404/error404.component';

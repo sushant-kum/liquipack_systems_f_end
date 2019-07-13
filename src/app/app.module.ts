@@ -18,8 +18,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 /* Solid Icons */
-import { fas } from '@fortawesome/free-solid-svg-icons';
-library.add(fas);
+import {
+  faUnlockAlt as fasUnlockAlt,
+  faHome as fasHome,
+  faCogs as fasCogs,
+  faUser as fasUser,
+  faSlidersH as fasSlidersH,
+  faUsers as fasUsers,
+  faCode as fasCode,
+  faCircleNotch as fasCircleNotch,
+  faSignOutAlt as fasSignOutAlt,
+  faCopyright as fasCopyright
+} from '@fortawesome/free-solid-svg-icons';
+library.add(fasUnlockAlt, fasHome, fasCogs, fasUser, fasSlidersH, fasUsers, fasCode, fasCircleNotch, fasSignOutAlt, fasCopyright);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
 library.add();

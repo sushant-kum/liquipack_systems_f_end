@@ -7,6 +7,18 @@ import { MatButtonModule } from '@angular/material/button';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+/* Solid Icons */
+import {
+  faHeart as fasHeart
+} from '@fortawesome/free-solid-svg-icons';
+library.add(fasHeart);
+/* Regular Icons */
+import {} from '@fortawesome/free-regular-svg-icons';
+library.add();
+/* Brand Icons */
+import {} from '@fortawesome/free-brands-svg-icons';
+library.add();
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
