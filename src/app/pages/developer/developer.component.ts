@@ -16,7 +16,7 @@ import { Config } from 'src/app/configs/config';
 @Component({
   selector: 'app-developer',
   templateUrl: './developer.component.html',
-  styleUrls: ['./developer.component.css']
+  styleUrls: ['./developer.component.scss']
 })
 export class DeveloperComponent implements OnInit {
   config: Config = new Config();

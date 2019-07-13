@@ -6,7 +6,7 @@ import { HeaderService } from 'src/app/services/header/header.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   page_info: PageInfo;
