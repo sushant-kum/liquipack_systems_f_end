@@ -11,17 +11,17 @@
   width: 50%;
 }
 
-#login-form-holder {
-  min-height: calc(100vh - 140px);
-}
-
 #login-form {
   width: 100%;
   height: auto;
-}
 
-#login-form img {
-  height: 36px;
+  &-holder {
+    min-height: calc(100vh - 140px);
+  }
+
+  img {
+    height: 36px;
+  }
 }
 
 mat-form-field {
