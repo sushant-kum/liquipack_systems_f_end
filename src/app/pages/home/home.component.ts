@@ -37,7 +37,7 @@ interface PageMapWithHover {
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
   private page_id = PAGE_ID;
@@ -107,11 +107,11 @@ export class HomeComponent implements OnInit {
   }
 
   onCardMouseOver(index: number) {
-    this.my_apps[index].hovered = true;
+    this.bookmarked_apps[index].hovered = true;
   }
 
   onCardMouseOut(index: number) {
-    this.my_apps[index].hovered = false;
+    this.bookmarked_apps[index].hovered = false;
   }
 
   toggleBookmarkApp(index: number, event: Event) {

@@ -26,7 +26,7 @@
               "src/assets/libraries/w3.css/themes/w3-theme-primary.css",
               "src/assets/libraries/w3.css/themes/w3-theme-accent.css",
               "src/assets/libraries/hamburgers/hamburgers.min.css",
-              "src/styles.css",
+              "src/styles.scss",
               "src/app-theme.scss"
             ],
             "scripts": [],
@@ -136,5 +136,10 @@
       }
     }
   },
-  "defaultProject": "liquipack-systems-f-end"
+  "defaultProject": "liquipack-systems-f-end",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

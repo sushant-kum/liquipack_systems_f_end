@@ -16,7 +16,7 @@ const PAGE_ID = 'settings';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
   private page_id = PAGE_ID;
