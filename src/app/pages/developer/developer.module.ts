@@ -12,9 +12,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 /* Solid Icons */
 import {
-  faGlobe as fasGlobe
+  faGlobe as fasGlobe,
+  faEnvelopeOpen as fasEnvelopeOpen
 } from '@fortawesome/free-solid-svg-icons';
-library.add(fasGlobe);
+library.add(fasGlobe, fasEnvelopeOpen);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
