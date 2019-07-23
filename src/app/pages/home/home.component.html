@@ -12,18 +12,7 @@
         </div>
         <div class="w3-row" *ngIf="bookmarked_apps.length != 0">
           <div class="w3-col m3 w3-padding-small" *ngFor="let app of bookmarked_apps; let i=index">
-            <div [id]="app.identifier"
-              class="tile w3-card w3-white w3-round-small w3-padding-large w3-display-container w3-text-theme-primary w3-hover-theme-primary w3-hover-text-white w3-center w3-large"
-              (click)="sidebar.redirectTo(app.path, 400, true)" (mouseover)="onCardMouseOver(i)"
-              (mouseout)="onCardMouseOut(i)">
-              <div class="tile-overlay"></div>
-              <img class="tile-icon" src={{app.img_icon_theme}} *ngIf="!app.hovered" />
-              <img class="tile-icon" src={{app.img_icon_white}} *ngIf="app.hovered" />
-              <div class="tile-text">
-                <fa-icon icon={{app.fas_icon}} class="tile-text-icon"></fa-icon>
-                {{app.name}}
-              </div>
-            </div>
+            <comp-card-link [app]="app" (click)="sidebar.redirectTo(app.path, 400, true)"></comp-card-link>
           </div>
         </div>
       </mat-card-content>

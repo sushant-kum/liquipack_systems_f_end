@@ -22,10 +22,12 @@ library.add();
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+import { CardLinkComponent } from 'src/app/components/card-link/card-link.component';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    CardLinkComponent
   ],
   imports: [
     /* Angular Material Imports */

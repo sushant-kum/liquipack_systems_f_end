@@ -38,6 +38,8 @@ library.add();
 import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
+/* Config Imports */
+import { Config } from 'src/app/configs/config';
 
 /* Components Imports */
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -45,9 +47,6 @@ import { AppComponent } from 'src/app/app.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
-
-/* Config Imports */
-import { Config } from 'src/app/configs/config';
 
 @NgModule({
   declarations: [

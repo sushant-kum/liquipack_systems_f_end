@@ -90,20 +90,19 @@ export class HomeComponent implements OnInit {
     });
 
     try {
-      let bookmarked_apps_identifier_arr = JSON.parse(this.cookie_service.get(this.cookie_service.cname.bookmarked_apps));
+      const bookmarked_apps_identifier_arr = JSON.parse(this.cookie_service.get(this.cookie_service.cname.bookmarked_apps));
       for (let bookmarked_apps_identifier of bookmarked_apps_identifier_arr) {
-        for(let my_app of this.my_apps) {
-          if(bookmarked_apps_identifier == my_app.identifier) {
+        for (let my_app of this.my_apps) {
+          if(bookmarked_apps_identifier === my_app.identifier) {
             this.bookmarked_apps.push(my_app);
             break;
           }
         }
       }
-    } catch(err) {
+    } catch (err) {
       console.error(err);
-      this.bookmarked_apps = []
+      this.bookmarked_apps = [];
     }
-    
   }
 
   onCardMouseOver(index: number) {
@@ -124,12 +123,13 @@ export class HomeComponent implements OnInit {
 
     let bookmarked_apps_identifier_arr: string[] = [];
     for (let bookmarked_app of this.bookmarked_apps) {
-      bookmarked_apps_identifier_arr.push(bookmarked_app.identifier)
+      bookmarked_apps_identifier_arr.push(bookmarked_app.identifier);
     }
-    if(bookmarked_apps_identifier_arr.length >= 1)
+    if (bookmarked_apps_identifier_arr.length >= 1) {
       this.cookie_service.set(this.cookie_service.cname.bookmarked_apps, JSON.stringify(bookmarked_apps_identifier_arr), 15);
-    else
+    } else {
       this.cookie_service.delete(this.cookie_service.cname.bookmarked_apps);
+    }
     console.log('this.bookmarked_apps', this.bookmarked_apps);
   }
 
