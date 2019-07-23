@@ -110,10 +110,10 @@ export class SidebarComponent implements OnInit {
     const menuitems = document.getElementsByClassName('menuitem');
     for (let i = 0; i < menuitems.length; i++) {
       menuitems[i].classList.remove('w3-text-theme-primary');
-      menuitems[i].classList.remove('w3-white');
+      menuitems[i].classList.remove('bg-white');
       if (menuitems[i].getAttribute('data-menuitem') === menu_name) {
         menuitems[i].classList.add('w3-text-theme-primary');
-        menuitems[i].classList.add('w3-white');
+        menuitems[i].classList.add('bg-white');
       }
     }
   }
