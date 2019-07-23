@@ -5,8 +5,11 @@ import { SettingsComponent } from './settings.component';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: SettingsComponent
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('src/app/pages/settings/profile/profile.module').then(module => module.ProfileModule)
   }
 ];
 
