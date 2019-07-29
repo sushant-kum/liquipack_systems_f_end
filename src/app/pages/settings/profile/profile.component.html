@@ -2,7 +2,42 @@
   <div class="w3-content">
     <mat-card>
       <mat-card-content>
-        asd
+        <form [formGroup]="form_profile">
+          <div class="w3-row">
+            <div class="w3-col m6 w3-padding-small">
+              <mat-form-field appearance="standard">
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="username" placeholder="Username">
+                <span matPrefix>
+                  <fa-icon [icon]="['fas', 'user-shield']" class="w3-text-theme-primary"></fa-icon>&nbsp;
+                </span>
+                <mat-hint>User's username</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="w3-row">
+            <div class="w3-col m6 w3-padding-small">
+              <mat-form-field appearance="standard">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="Name">
+                <span matPrefix>
+                  <fa-icon [icon]="['fas', 'user']"
+                    [ngClass]="{
+                      'w3-text-red': form_profile.get('name').invalid && form_profile.get('name').touched,
+                      'w3-text-theme-primary': !(form_profile.get('name').invalid && form_profile.get('name').touched)
+                    }"></fa-icon>&nbsp;
+                </span>
+                <mat-hint>User's name</mat-hint>
+                <mat-error *ngIf="form_profile.get('name').hasError('required')">
+                  Name is required field.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+        form_profile.get('name').invalid && form_profile.get('name').touched: {{form_profile.get('name').invalid && form_profile.get('name').touched}}<br />
+        form_profile.get('name').invalid: {{form_profile.get('name').invalid}}<br />
+        form_profile.get('name').touched: {{form_profile.get('name').touched}}
       </mat-card-content>
     </mat-card>
   </div>
