@@ -10,6 +10,7 @@ import { HeaderService } from 'src/app/services/header/header.service';
 
 /* Config Imports */
 import { Config } from 'src/app/configs/config';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 const PAGE_ID = 'settings-profile';
 
@@ -21,6 +22,11 @@ const PAGE_ID = 'settings-profile';
 export class ProfileComponent implements OnInit {
   private page_id = PAGE_ID;
   config: Config = new Config();
+
+  form_profile: FormGroup = new FormGroup({
+    username: new FormControl({value: 'admin', disabled: true}, Validators.required),
+    name: new FormControl(null, Validators.required)
+  });
 
   constructor(
     private title: Title,
