@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   config: Config = new Config();
 
   form_profile: FormGroup = new FormGroup({
-    username: new FormControl({value: 'admin', disabled: true}, Validators.required),
+    username: new FormControl(null, Validators.required),
     name: new FormControl(null, Validators.required)
   });
 
@@ -36,7 +36,6 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.page_id);
     this.title.setTitle(this.config.page_map[this.page_id].name + ' - ' + this.config.app_title);
     this.header_service.changePageInfo(
       this.config.page_map[this.page_id].identifier,
