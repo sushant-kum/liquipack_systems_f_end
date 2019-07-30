@@ -23,8 +23,6 @@
             ],
             "styles": [
               "src/assets/libraries/w3.css/4/w3.css",
-              "src/assets/libraries/w3.css/themes/w3-theme-primary.css",
-              "src/assets/libraries/w3.css/themes/w3-theme-accent.css",
               "src/assets/libraries/hamburgers/hamburgers.min.css",
               "src/styles/index.scss"
             ],

@@ -1,0 +1,15 @@
+/**
+ * @author Sushant Kumar
+ * @email sushant.kum96@gmail.com
+ * @create date 2019-07-30 16:02:13
+ * @modify date 2019-07-30 16:02:13
+ * @desc Helper elements of scss
+ */
+
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+
+  @return $map;
+}
