@@ -8,12 +8,12 @@ import { Config } from 'src/app/configs/config';
 })
 export class AuthService {
   constructor(
-    private http_client: HttpTransactionsService,
-    private config: Config
+    private _http_client: HttpTransactionsService,
+    private _config: Config
   ) { }
 
   auth_user_token(callback): void {
-    this.http_client.get_login_token.sendRequest().subscribe(
+    this._http_client.get_login_token.sendRequest().subscribe(
       (data) => {
         return callback(null, data.token);
       },
@@ -24,9 +24,9 @@ export class AuthService {
   }
 
   get_access(user_id: string, callback): void {
-    this.http_client.get_profile_user_id.sendRequest(user_id).subscribe(
+    this._http_client.get_profile_user_id.sendRequest(user_id).subscribe(
       (data) => {
-        for (let global_app of this.config.global_apps) {
+        for (const global_app of this._config.global_apps) {
           data.data.app_permissions.push({
             app: global_app.app.identifier,
             permissions: global_app.permissions,

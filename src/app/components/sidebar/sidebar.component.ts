@@ -19,10 +19,10 @@ export class SidebarComponent implements OnInit {
   config: Config = new Config();
 
   constructor(
-    private auth_service: AuthService,
-    private cookie_service: CookieService,
-    private localstorage_service: LocalStorageService,
-    private router: Router
+    private _auth_service: AuthService,
+    private _cookie_service: CookieService,
+    private _localstorage_service: LocalStorageService,
+    private _router: Router
   ) { }
 
   ngOnInit() {
@@ -30,10 +30,10 @@ export class SidebarComponent implements OnInit {
 
   activate() {
     if (window.innerWidth <= 700) {
-      this.cookie_service.set(this.cookie_service.cname.sidebar_collapsed, 'true');
+      this._cookie_service.set(this._cookie_service.cname.sidebar_collapsed, 'true');
     }
 
-    if (this.cookie_service.get(this.cookie_service.cname.sidebar_collapsed) === 'true') {
+    if (this._cookie_service.get(this._cookie_service.cname.sidebar_collapsed) === 'true') {
       this.collapseSidebar();
     } else {
       this.uncollapseSidebar();
@@ -50,7 +50,7 @@ export class SidebarComponent implements OnInit {
 
   activateRippleEffect() {
     const $ripple = $('.js-ripple');
-    $ripple.on('click.ui.ripple', function (e) {
+    $ripple.on('click.ui.ripple', function(e) {
       const $this = $(this);
       const $offset = $this.parent().offset();
       const $circle = $this.find('.c-ripple__circle');
@@ -65,7 +65,7 @@ export class SidebarComponent implements OnInit {
 
       $this.addClass('is-active');
     });
-    $ripple.on('animationend webkitAnimationEnd oanimationend MSAnimationEnd', function (e) {
+    $ripple.on('animationend webkitAnimationEnd oanimationend MSAnimationEnd', function(e) {
       $(this).removeClass('is-active');
     });
   }
@@ -73,7 +73,7 @@ export class SidebarComponent implements OnInit {
   redirectTo(path, timeout = 0, router_path: boolean = false, absolute_path: boolean = false) {
     const url = absolute_path ? path : this.config.app_base_path + path;
     if (router_path) {
-      this.router.navigate([path])
+      this._router.navigate([path]);
     } else {
       setTimeout(() => {
         window.location.href = url;
@@ -82,26 +82,26 @@ export class SidebarComponent implements OnInit {
   }
 
   showMenuItems() {
-    const user_id = this.localstorage_service.get(this.localstorage_service.lsname.user_id);
-    this.auth_service.get_access(user_id, (error, data) => {
+    const user_id = this._localstorage_service.get(this._localstorage_service.lsname.user_id);
+    this._auth_service.get_access(user_id, (error, data) => {
       if (error) {
         console.error(error);
-        this.localstorage_service.deleteAll();
+        this._localstorage_service.deleteAll();
         window.location.href = this.config.page_map.login.path;
       } else {
         const menuitems = document.getElementsByClassName('menuitem');
         for (let i = 0; i < menuitems.length; i++) {
           menuitems[i].classList.add('w3-hide');
           if (menuitems[i].getAttribute('data-menuitem') !== 'login') {
-            for (let access of data.access) {
+            for (const access of data.access) {
               if (menuitems[i].getAttribute('data-menuitem') === access.app) {
                 menuitems[i].classList.remove('w3-hide');
               }
             }
           }
         }
-        this.localstorage_service.set(this.localstorage_service.lsname.token, data.token);
-        this.localstorage_service.set(this.localstorage_service.lsname.app_permissions, JSON.stringify(data.access));
+        this._localstorage_service.set(this._localstorage_service.lsname.token, data.token);
+        this._localstorage_service.set(this._localstorage_service.lsname.app_permissions, JSON.stringify(data.access));
       }
     });
   }
@@ -109,17 +109,17 @@ export class SidebarComponent implements OnInit {
   colorize(menu_name: string = null) {
     const menuitems = document.getElementsByClassName('menuitem');
     for (let i = 0; i < menuitems.length; i++) {
-      menuitems[i].classList.remove('w3-text-theme-primary');
+      menuitems[i].classList.remove('app-text-theme-primary');
       menuitems[i].classList.remove('w3-white');
       if (menuitems[i].getAttribute('data-menuitem') === menu_name) {
-        menuitems[i].classList.add('w3-text-theme-primary');
+        menuitems[i].classList.add('app-text-theme-primary');
         menuitems[i].classList.add('w3-white');
       }
     }
   }
 
   logout() {
-    this.localstorage_service.deleteAll();
+    this._localstorage_service.deleteAll();
     window.location.href = this.config.app_base_path;
   }
 
@@ -152,7 +152,7 @@ export class SidebarComponent implements OnInit {
     }
     const logout = document.getElementById('logout');
     logout.classList.remove('sidebar-collapsed');
-    this.cookie_service.set(this.cookie_service.cname.sidebar_collapsed, false.toString());
+    this._cookie_service.set(this._cookie_service.cname.sidebar_collapsed, false.toString());
   }
 
   collapseSidebar() {
@@ -177,7 +177,7 @@ export class SidebarComponent implements OnInit {
     }
     const logout = document.getElementById('logout');
     logout.classList.add('sidebar-collapsed');
-    this.cookie_service.set(this.cookie_service.cname.sidebar_collapsed, true.toString());
+    this._cookie_service.set(this._cookie_service.cname.sidebar_collapsed, true.toString());
   }
 
   getToggleButtonTooltipContent() {

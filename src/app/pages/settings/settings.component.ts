@@ -29,29 +29,31 @@ const PAGE_ID = 'settings';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  private page_id = PAGE_ID;
+  private _page_id = PAGE_ID;
   config: Config = new Config();
+  sidebar: SidebarComponent;
 
   apps: PageMapWithHover[] = [];
   constructor(
-    private title: Title,
-    private toast: MatSnackBar,
-    private header_service: HeaderService,
-    private sidebar: SidebarComponent,
+    private _title: Title,
+    private _header_service: HeaderService,
+    private _sidebar: SidebarComponent,
   ) { }
 
   ngOnInit() {
-    this.title.setTitle(this.config.page_map[this.page_id].name + ' - ' + this.config.app_title);
-    this.header_service.changePageInfo(
-      this.config.page_map[this.page_id].identifier,
-      this.config.page_map[this.page_id].name,
-      this.config.page_map[this.page_id].fas_icon
+    this.sidebar = this._sidebar;
+
+    this._title.setTitle(this.config.page_map[this._page_id].name + ' - ' + this.config.app_title);
+    this._header_service.changePageInfo(
+      this.config.page_map[this._page_id].identifier,
+      this.config.page_map[this._page_id].name,
+      this.config.page_map[this._page_id].fas_icon
     );
 
     this.sidebar.activate();
-    this.sidebar.colorize(this.config.page_map[this.page_id].identifier);
+    this.sidebar.colorize(this.config.page_map[this._page_id].identifier);
 
-    for (let app_name of this.config.pages) {
+    for (const app_name of this.config.pages) {
       if (app_name.indexOf('settings-') === 0) {
         const temp_app = JSON.parse(JSON.stringify(this.config.page_map[app_name]));
         temp_app.hovered = false;

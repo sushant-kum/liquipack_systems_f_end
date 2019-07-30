@@ -40,7 +40,7 @@ interface PageMapWithHover {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  private page_id = PAGE_ID;
+  private _page_id = PAGE_ID;
   config: Config = new Config();
 
   mode: Mode = {
@@ -50,30 +50,31 @@ export class HomeComponent implements OnInit {
 
   bookmarked_apps: PageMapWithHover[] = [];
   my_apps: PageMapWithHover[] = [];
-
+  sidebar: SidebarComponent;
   constructor(
-    private title: Title,
-    private toast: MatSnackBar,
-    private header_service: HeaderService,
-    private sidebar: SidebarComponent,
-    private localstorage_service: LocalStorageService,
-    private cookie_service: CookieService
+    private _title: Title,
+    private _toast: MatSnackBar,
+    private _header_service: HeaderService,
+    private _sidebar: SidebarComponent,
+    private _localstorage_service: LocalStorageService,
+    private _cookie_service: CookieService
   ) { }
 
   ngOnInit() {
-    this.title.setTitle(this.config.page_map[this.page_id].name + ' - ' + this.config.app_title);
-    this.header_service.changePageInfo(
-      this.config.page_map[this.page_id].identifier,
-      this.config.page_map[this.page_id].name,
-      this.config.page_map[this.page_id].fas_icon
+    this.sidebar = this._sidebar;
+    this._title.setTitle(this.config.page_map[this._page_id].name + ' - ' + this.config.app_title);
+    this._header_service.changePageInfo(
+      this.config.page_map[this._page_id].identifier,
+      this.config.page_map[this._page_id].name,
+      this.config.page_map[this._page_id].fas_icon
     );
 
     this.sidebar.activate();
-    this.sidebar.colorize(this.config.page_map[this.page_id].identifier);
+    this.sidebar.colorize(this.config.page_map[this._page_id].identifier);
 
-    const app_permissions = JSON.parse(this.localstorage_service.get(this.localstorage_service.lsname.app_permissions));
+    const app_permissions = JSON.parse(this._localstorage_service.get(this._localstorage_service.lsname.app_permissions));
 
-    for (let app of app_permissions) {
+    for (const app of app_permissions) {
       const temp_app = this.config.page_map[app.app];
       temp_app.hovered = false;
       this.my_apps.push(temp_app);
@@ -90,10 +91,10 @@ export class HomeComponent implements OnInit {
     });
 
     try {
-      const bookmarked_apps_identifier_arr = JSON.parse(this.cookie_service.get(this.cookie_service.cname.bookmarked_apps));
-      for (let bookmarked_apps_identifier of bookmarked_apps_identifier_arr) {
-        for (let my_app of this.my_apps) {
-          if(bookmarked_apps_identifier === my_app.identifier) {
+      const bookmarked_apps_identifier_arr = JSON.parse(this._cookie_service.get(this._cookie_service.cname.bookmarked_apps));
+      for (const bookmarked_apps_identifier of bookmarked_apps_identifier_arr) {
+        for (const my_app of this.my_apps) {
+          if (bookmarked_apps_identifier === my_app.identifier) {
             this.bookmarked_apps.push(my_app);
             break;
           }
@@ -121,26 +122,26 @@ export class HomeComponent implements OnInit {
       this.bookmarked_apps.splice(this.bookmarked_apps.indexOf(this.my_apps[index]), 1);
     }
 
-    let bookmarked_apps_identifier_arr: string[] = [];
-    for (let bookmarked_app of this.bookmarked_apps) {
+    const bookmarked_apps_identifier_arr: string[] = [];
+    for (const bookmarked_app of this.bookmarked_apps) {
       bookmarked_apps_identifier_arr.push(bookmarked_app.identifier);
     }
     if (bookmarked_apps_identifier_arr.length >= 1) {
-      this.cookie_service.set(this.cookie_service.cname.bookmarked_apps, JSON.stringify(bookmarked_apps_identifier_arr), 15);
+      this._cookie_service.set(this._cookie_service.cname.bookmarked_apps, JSON.stringify(bookmarked_apps_identifier_arr), 15);
     } else {
-      this.cookie_service.delete(this.cookie_service.cname.bookmarked_apps);
+      this._cookie_service.delete(this._cookie_service.cname.bookmarked_apps);
     }
     console.log('this.bookmarked_apps', this.bookmarked_apps);
   }
 
   showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {
     if (duration == null) {
-      this.toast.open(message, action, {
+      this._toast.open(message, action, {
         horizontalPosition: 'end',
         panelClass: [is_error ? 'toast-error' : '']
       });
     } else {
-      this.toast.open(message, action, {
+      this._toast.open(message, action, {
         horizontalPosition: 'end',
         duration,
         panelClass: [is_error ? 'toast-error' : '']

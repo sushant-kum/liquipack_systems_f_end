@@ -11,8 +11,8 @@ export class AppComponent {
   config: Config = new Config();
 
   constructor(
-    private title: Title
+    private _title: Title
   ) {
-    this.title.setTitle(this.config.app_title);
+    this._title.setTitle(this.config.app_title);
   }
 }

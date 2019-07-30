@@ -12,11 +12,11 @@ export class HeaderComponent implements OnInit {
   page_info: PageInfo;
 
   constructor(
-    private header_service: HeaderService
+    private _header_service: HeaderService
   ) { }
 
   ngOnInit() {
-    this.header_service.current_page_info.subscribe(
+    this._header_service.current_page_info.subscribe(
       (page_info: PageInfo) => {
         this.page_info = page_info;
       }
