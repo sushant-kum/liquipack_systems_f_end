@@ -9,7 +9,7 @@
                 <mat-label>Username</mat-label>
                 <input matInput formControlName="username" placeholder="Username">
                 <span matPrefix>
-                  <fa-icon [icon]="['fas', 'user-shield']" class="w3-text-theme-primary"></fa-icon>&nbsp;
+                  <fa-icon [icon]="['fas', 'user-shield']" class="app-text-theme-primary"></fa-icon>&nbsp;
                 </span>
                 <mat-hint>User's username</mat-hint>
               </mat-form-field>
@@ -23,8 +23,8 @@
                 <span matPrefix>
                   <fa-icon [icon]="['fas', 'user']"
                     [ngClass]="{
-                      'w3-text-red': form_profile.get('name').invalid && form_profile.get('name').touched,
-                      'w3-text-theme-primary': !(form_profile.get('name').invalid && form_profile.get('name').touched)
+                      'app-text-theme-warn': form_profile.get('name').invalid && form_profile.get('name').touched,
+                      'app-text-theme-primary': !(form_profile.get('name').invalid && form_profile.get('name').touched)
                     }"></fa-icon>&nbsp;
                 </span>
                 <mat-hint>User's name</mat-hint>
