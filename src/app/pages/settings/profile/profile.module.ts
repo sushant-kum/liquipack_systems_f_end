@@ -6,6 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -13,9 +15,32 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 /* Solid Icons */
 import {
   faUser as fasUser,
-  faUserShield as fasUserShield
+  faUserShield as fasUserShield,
+  faCalendar as fasCalendar,
+  faVenusMars as fasVenusMars,
+  faEnvelope as fasEnvelope,
+  faMobile as fasMobile,
+  faSave as fasSave,
+  faUndoAlt as fasUndoAlt,
+  faMars as fasMars,
+  faVenus as fasVenus,
+  faTransgender as fasTransgender,
+  faKey as fasKey
 } from '@fortawesome/free-solid-svg-icons';
-library.add(fasUser, fasUserShield);
+library.add(
+  fasUser,
+  fasUserShield,
+  fasCalendar,
+  fasVenusMars,
+  fasEnvelope,
+  fasMobile,
+  fasSave,
+  fasUndoAlt,
+  fasMars,
+  fasVenus,
+  fasTransgender,
+  fasKey
+);
 /* Regular Icons */
 import { } from '@fortawesome/free-regular-svg-icons';
 library.add();
@@ -33,6 +58,8 @@ import { ProfileComponent } from './profile.component';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
 
     /* Font-awesome Impors */
     FontAwesomeModule,

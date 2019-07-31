@@ -111,7 +111,7 @@ export class LoginComponent implements OnInit {
       const username = this._localstorage_service.get(this._localstorage_service.lsname.username);
       const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       if (username && token) {
-        this._auth_service.auth_user_token((error, new_token) => {
+        this._auth_service.authUserToken((error, new_token) => {
           if (error) {
             console.error(error);
           } else {
