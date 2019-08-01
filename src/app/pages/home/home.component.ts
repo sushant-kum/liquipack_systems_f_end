@@ -135,18 +135,17 @@ export class HomeComponent implements OnInit {
   }
 
   showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {
-    if (duration == null) {
-      this._toast.open(message, action, {
-        horizontalPosition: 'end',
-        panelClass: [is_error ? 'toast-error' : '']
-      });
-    } else {
-      this._toast.open(message, action, {
-        horizontalPosition: 'end',
-        duration,
-        panelClass: [is_error ? 'toast-error' : '']
-      });
+    const toast_config: any = {
+      horizontalPosition: 'end'
+    };
+    if (duration !== null) {
+      toast_config.duration = duration;
     }
+    if (is_error) {
+      toast_config.panelClass = 'toast-error';
+    }
+
+    this._toast.open(message, action, toast_config);
   }
 
   stringify(obj: object) {

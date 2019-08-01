@@ -25,7 +25,8 @@ import {
   faMars as fasMars,
   faVenus as fasVenus,
   faTransgender as fasTransgender,
-  faKey as fasKey
+  faKey as fasKey,
+  faCircleNotch as fasCircleNotch
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   fasUser,
@@ -39,7 +40,8 @@ library.add(
   fasMars,
   fasVenus,
   fasTransgender,
-  fasKey
+  fasKey,
+  fasCircleNotch
 );
 /* Regular Icons */
 import { } from '@fortawesome/free-regular-svg-icons';
