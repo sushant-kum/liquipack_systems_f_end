@@ -83,11 +83,12 @@ export class SidebarComponent implements OnInit {
 
   showMenuItems() {
     const user_id = this._localstorage_service.get(this._localstorage_service.lsname.user_id);
-    this._auth_service.get_access(user_id, (error, data) => {
+    this._auth_service.getAccess(user_id, (error, data) => {
       if (error) {
         console.error(error);
         this._localstorage_service.deleteAll();
         window.location.href = this.config.page_map.login.path;
+        this._auth_service.changeAuthState(false);
       } else {
         const menuitems = document.getElementsByClassName('menuitem');
         for (let i = 0; i < menuitems.length; i++) {
@@ -102,6 +103,7 @@ export class SidebarComponent implements OnInit {
         }
         this._localstorage_service.set(this._localstorage_service.lsname.token, data.token);
         this._localstorage_service.set(this._localstorage_service.lsname.app_permissions, JSON.stringify(data.access));
+        this._auth_service.changeAuthState(true);
       }
     });
   }
@@ -110,10 +112,10 @@ export class SidebarComponent implements OnInit {
     const menuitems = document.getElementsByClassName('menuitem');
     for (let i = 0; i < menuitems.length; i++) {
       menuitems[i].classList.remove('app-text-theme-primary');
-      menuitems[i].classList.remove('w3-white');
+      menuitems[i].classList.remove('bg-white');
       if (menuitems[i].getAttribute('data-menuitem') === menu_name) {
         menuitems[i].classList.add('app-text-theme-primary');
-        menuitems[i].classList.add('w3-white');
+        menuitems[i].classList.add('bg-white');
       }
     }
   }
@@ -121,6 +123,7 @@ export class SidebarComponent implements OnInit {
   logout() {
     this._localstorage_service.deleteAll();
     window.location.href = this.config.app_base_path;
+    this._auth_service.changeAuthState(false);
   }
 
   toggleSidebarCollapse() {

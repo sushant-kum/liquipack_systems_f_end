@@ -1,0 +1,23 @@
+.btn {
+  &-form {
+    &-profile {
+      &-reset {
+        margin: 0 8px;
+      }
+  
+      &-save {
+        margin: 0 8px;
+      }
+    }
+
+    &-password {
+      &-clear {
+        margin: 0 8px;
+      }
+
+      &-save {
+        margin: 0 8px;
+      }
+    }
+  }
+}

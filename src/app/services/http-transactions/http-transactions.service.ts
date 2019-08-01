@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Md5 } from 'ts-md5/dist/md5';
 
 import { ApiResponse } from 'src/app/interfaces/api-response';
-import { CookieService } from '../cookie/cookie.service';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 
 
@@ -115,6 +113,25 @@ export class HttpTransactionsService {
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
       return this._http_client.get<ApiResponse>(url, http_options);
+    }
+  };
+
+  put_profile_user_id: API = {
+    hostname: null,
+    basepath: null,
+    method: 'PUT',
+    path: '/profile/:user_id',
+    sendRequest: (user_id: string, profile: any) => {
+      const hostname: string = this.put_profile_user_id.hostname == null ? this._default_hostname : this.put_profile_user_id.hostname;
+      const basepath: string = this.put_profile_user_id.basepath == null ? this._default_basepath : this.put_profile_user_id.basepath;
+      let url: string = hostname + basepath + this.put_profile_user_id.path;
+
+      url = url.replace(/:user_id/ , user_id);
+
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = { headers };
+      return this._http_client.put<ApiResponse>(url, profile, http_options);
     }
   };
 }

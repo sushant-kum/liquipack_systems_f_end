@@ -111,7 +111,7 @@ export class LoginComponent implements OnInit {
       const username = this._localstorage_service.get(this._localstorage_service.lsname.username);
       const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       if (username && token) {
-        this._auth_service.auth_user_token((error, new_token) => {
+        this._auth_service.authUserToken((error, new_token) => {
           if (error) {
             console.error(error);
           } else {
@@ -168,17 +168,16 @@ export class LoginComponent implements OnInit {
   }
 
   showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {
-    if (duration == null) {
-      this._toast.open(message, action, {
-        horizontalPosition: 'end',
-        panelClass: [is_error ? 'toast-error' : '']
-      });
-    } else {
-      this._toast.open(message, action, {
-        horizontalPosition: 'end',
-        duration,
-        panelClass: [is_error ? 'toast-error' : '']
-      });
+    const toast_config: any = {
+      horizontalPosition: 'end'
+    };
+    if (duration !== null) {
+      toast_config.duration = duration;
     }
+    if (is_error) {
+      toast_config.panelClass = 'toast-error';
+    }
+
+    this._toast.open(message, action, toast_config);
   }
 }
