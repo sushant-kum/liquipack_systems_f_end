@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('src/app/pages/settings/settings.module').then(module => module.SettingsModule)
   },
   {
+    path: 'system',
+    loadChildren: () => import('src/app/pages/system/system.module').then(module => module.SystemModule)
+  },
+  {
     path: 'developer',
     loadChildren: () => import('src/app/pages/developer/developer.module').then(module => module.DeveloperModule)
   },
