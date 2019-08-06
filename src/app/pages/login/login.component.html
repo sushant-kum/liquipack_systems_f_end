@@ -43,7 +43,7 @@
                 Password is <strong>required.</strong>
               </mat-error>
             </mat-form-field>
-            <button mat-raised-button color="primary" class="w3-margin-top"
+            <button mat-flat-button color="primary" class="w3-margin-top"
               [disabled]="!loginFormValid() || mode.logging_in" (click)="login()">
               Login&nbsp;
               <fa-icon [icon]="['fas', 'sign-in-alt']" *ngIf="!mode.logging_in"></fa-icon>

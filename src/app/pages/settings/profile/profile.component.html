@@ -1,6 +1,6 @@
 <div class="content w3-padding-large">
   <div class="w3-content">
-    <mat-card>
+    <mat-card class="mat-elevation-z">
       <mat-card-header class="w3-padding-small">
         <img mat-card-avatar src="assets/images/icons/icon_user.svg" />
         <mat-card-title class="app-text-theme-primary">
@@ -119,7 +119,7 @@
           <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>
         </button>
 
-        <button mat-raised-button color="primary" class="btn-form-profile-save"
+        <button mat-flat-button color="primary" class="btn-form-profile-save"
           [disabled]="form_profile.invalid || !isProfileFormEdited() || mode.saving_profile" (click)="saveProfile()">
           Save Profile&nbsp;
           <fa-icon *ngIf="!mode.saving_profile" [icon]="['fas', 'save']"></fa-icon>
@@ -128,7 +128,7 @@
       </mat-card-actions>
     </mat-card>
 
-    <mat-card class="w3-margin-top">
+    <mat-card class="w3-margin-top mat-elevation-z">
       <mat-card-header class="w3-padding-small">
         <img mat-card-avatar src="assets/images/icons/icon_password.svg" />
         <mat-card-title class="app-text-theme-primary">
@@ -199,7 +199,7 @@
           <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>
         </button>
 
-        <button mat-raised-button color="primary" class="btn-form-password-save"
+        <button mat-flat-button color="primary" class="btn-form-password-save"
           [disabled]="form_possword.invalid || !isPasswordFormEdited()" (click)="changePassword()">
           Save Password&nbsp;
           <fa-icon *ngIf="!mode.changing_password" [icon]="['fas', 'save']"></fa-icon>

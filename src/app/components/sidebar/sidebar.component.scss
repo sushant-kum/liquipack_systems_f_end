@@ -6,7 +6,7 @@
     transition-property: left;
     transition-duration: 0.15s;
     transition-timing-function: linear;
-    box-shadow: 0 46px 5px 0 rgba(0, 0, 0, 0.16), 0 46px 10px 0 rgba(0, 0, 0, 0.12);
+    // box-shadow: 0 46px 5px 0 rgba(0, 0, 0, 0.16), 0 46px 10px 0 rgba(0, 0, 0, 0.12);
 
     &.sidebar-collapsed {
         left: -200px;
@@ -26,7 +26,7 @@
         top: 0;
         left: 0;
         z-index: 500;
-        box-shadow: 0 46px 5px 0 rgba(0, 0, 0, 0.16), 0 46px 10px 0 rgba(0, 0, 0, 0.12);
+        // box-shadow: 0 46px 5px 0 rgba(0, 0, 0, 0.16), 0 46px 10px 0 rgba(0, 0, 0, 0.12);
 
         #logo-holder-collapsed {
             height: 43px;
