@@ -16,6 +16,11 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 /* Theme */
 /* Primary */
+.app-theme-primary-l5 {
+  color: map-deep-get($mat-palette-primary, "contrast", 50) !important;
+  background-color: map-get($mat-palette-primary, 50) !important
+}
+
 .app-theme-primary-l4 {
   color: map-deep-get($mat-palette-primary, "contrast", 100) !important;
   background-color: map-get($mat-palette-primary, 100) !important
@@ -57,8 +62,8 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 }
 
 .app-theme-primary-light {
-  color: map-deep-get($mat-palette-primary, "contrast", 100) !important;
-  background-color: map-get($mat-palette-primary, 100) !important
+  color: map-deep-get($mat-palette-primary, "contrast", 50) !important;
+  background-color: map-get($mat-palette-primary, 50) !important
 }
 
 .app-theme-primary-dark {
@@ -98,6 +103,11 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 }
 
 /* accent */
+.app-theme-accent-l5 {
+  color: map-deep-get($mat-palette-accent, "contrast", 50) !important;
+  background-color: map-get($mat-palette-accent, 50) !important
+}
+
 .app-theme-accent-l4 {
   color: map-deep-get($mat-palette-accent, "contrast", 100) !important;
   background-color: map-get($mat-palette-accent, 100) !important
@@ -139,8 +149,8 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 }
 
 .app-theme-accent-light {
-  color: map-deep-get($mat-palette-accent, "contrast", 100) !important;
-  background-color: map-get($mat-palette-accent, 100) !important
+  color: map-deep-get($mat-palette-accent, "contrast", 50) !important;
+  background-color: map-get($mat-palette-accent, 50) !important
 }
 
 .app-theme-accent-dark {
@@ -180,6 +190,11 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 }
 
 /* warn */
+.app-theme-warn-l5 {
+  color: map-deep-get($mat-palette-warn, "contrast", 50) !important;
+  background-color: map-get($mat-palette-warn, 50) !important
+}
+
 .app-theme-warn-l4 {
   color: map-deep-get($mat-palette-warn, "contrast", 100) !important;
   background-color: map-get($mat-palette-warn, 100) !important
@@ -221,8 +236,8 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 }
 
 .app-theme-warn-light {
-  color: map-deep-get($mat-palette-warn, "contrast", 100) !important;
-  background-color: map-get($mat-palette-warn, 100) !important
+  color: map-deep-get($mat-palette-warn, "contrast", 50) !important;
+  background-color: map-get($mat-palette-warn, 50) !important
 }
 
 .app-theme-warn-dark {
