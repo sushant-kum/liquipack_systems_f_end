@@ -26,8 +26,8 @@ export class Config {
             identifier: 'home',
             name: 'Home',
             short_name: 'Home',
-            img_icon_theme: 'assets/images/icons/icon_home_theme.svg',
-            img_icon_white: 'assets/images/icons/icon_home_white.svg',
+            img_icon_theme: 'assets/images/icons/apps/icon_home_theme.svg',
+            img_icon_white: 'assets/images/icons/apps/icon_home_white.svg',
             fas_icon: 'home',
             is_subpage: false
         },
@@ -36,8 +36,8 @@ export class Config {
             identifier: 'settings',
             name: 'Settings',
             short_name: 'Settings',
-            img_icon_theme: 'assets/images/icons/icon_settings_theme.svg',
-            img_icon_white: 'assets/images/icons/icon_settings_white.svg',
+            img_icon_theme: 'assets/images/icons/apps/icon_settings_theme.svg',
+            img_icon_white: 'assets/images/icons/apps/icon_settings_white.svg',
             fas_icon: 'cogs',
             is_subpage: false
         },
@@ -46,8 +46,8 @@ export class Config {
             identifier: 'settings-profile',
             name: 'Settings/Profile',
             short_name: 'Profile',
-            img_icon_theme: 'assets/images/icons/icon_settings-profile_theme.svg',
-            img_icon_white: 'assets/images/icons/icon_settings-profile_white.svg',
+            img_icon_theme: 'assets/images/icons/apps/icon_settings-profile_theme.svg',
+            img_icon_white: 'assets/images/icons/apps/icon_settings-profile_white.svg',
             fas_icon: 'user',
             is_subpage: true
         },
@@ -56,8 +56,8 @@ export class Config {
             identifier: 'system',
             name: 'System',
             short_name: 'System',
-            img_icon_theme: 'assets/images/icons/icon_system_theme.svg',
-            img_icon_white: 'assets/images/icons/icon_system_white.svg',
+            img_icon_theme: 'assets/images/icons/apps/icon_system_theme.svg',
+            img_icon_white: 'assets/images/icons/apps/icon_system_white.svg',
             fas_icon: 'sliders-h',
             is_subpage: false
         },
@@ -66,8 +66,8 @@ export class Config {
             identifier: 'system-users',
             name: 'System/Users',
             short_name: 'Users',
-            img_icon_theme: 'assets/images/icons/icon_system-users_theme.svg',
-            img_icon_white: 'assets/images/icons/icon_system-users_white.svg',
+            img_icon_theme: 'assets/images/icons/apps/icon_system-users_theme.svg',
+            img_icon_white: 'assets/images/icons/apps/icon_system-users_white.svg',
             fas_icon: 'users',
             is_subpage: true
         }
