@@ -1,7 +1,7 @@
 <div class="content w3-padding-large">
   <div class="w3-content">
     <mat-card>
-      <mat-card-header>
+      <mat-card-header class="w3-padding-small">
         <img mat-card-avatar src="assets/images/icons/icon_user.svg" />
         <mat-card-title class="app-text-theme-primary">
           My Profile
@@ -13,7 +13,7 @@
       <mat-card-content>
         <form [formGroup]="form_profile">
           <div class="w3-row">
-            <div class="w3-col m6 w3-padding">
+            <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Username</mat-label>
                 <input matInput formControlName="username" placeholder="Username" readonly>
@@ -23,7 +23,7 @@
               </mat-form-field>
             </div>
 
-            <div class="w3-col m6 w3-padding">
+            <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Created At</mat-label>
                 <input matInput formControlName="created_date" placeholder="Created At" readonly>
@@ -33,7 +33,7 @@
               </mat-form-field>
             </div>
 
-            <div class="w3-col m6 w3-padding">
+            <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Name</mat-label>
                 <input matInput formControlName="name" placeholder="John Doe">
@@ -49,7 +49,7 @@
               </mat-form-field>
             </div>
 
-            <div class="w3-col m6 w3-padding">
+            <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Gender</mat-label>
                 <mat-select formControlName="gender">
@@ -75,7 +75,7 @@
               </mat-form-field>
             </div>
 
-            <div class="w3-col m6 w3-padding">
+            <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Email</mat-label>
                 <input matInput formControlName="email" placeholder="email@domain.ext">
@@ -94,7 +94,7 @@
               </mat-form-field>
             </div>
 
-            <div class="w3-col m6 w3-padding">
+            <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Phone</mat-label>
                 <input matInput formControlName="phone" placeholder="9876543210">
@@ -129,7 +129,7 @@
     </mat-card>
 
     <mat-card class="w3-margin-top">
-      <mat-card-header>
+      <mat-card-header class="w3-padding-small">
         <img mat-card-avatar src="assets/images/icons/icon_password.svg" />
         <mat-card-title class="app-text-theme-primary">
           Change Password
@@ -138,7 +138,7 @@
       <mat-card-content>
         <form [formGroup]="form_possword">
           <div class="w3-row">
-            <div class="w3-col m6 l4 w3-padding">
+            <div class="w3-col m6 l4 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Current Password</mat-label>
                 <input matInput type="password" formControlName="current_password" placeholder="********">
@@ -154,7 +154,7 @@
               </mat-form-field>
             </div>
 
-            <div class="w3-col m6 l4 w3-padding">
+            <div class="w3-col m6 l4 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>New Password</mat-label>
                 <input matInput type="password" formControlName="new_password" placeholder="********">
@@ -170,7 +170,7 @@
               </mat-form-field>
             </div>
 
-            <div class="w3-col m6 l4 w3-padding">
+            <div class="w3-col m6 l4 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Repeat Password</mat-label>
                 <input matInput type="password" formControlName="repeat_password" placeholder="********">
