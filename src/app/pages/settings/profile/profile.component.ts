@@ -1,5 +1,5 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from 'moment';
@@ -17,6 +17,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 /* Config Imports */
 import { Config } from 'src/app/configs/config';
 import { RegexService } from 'src/app/services/regex/regex.service';
+import { Subscription } from 'rxjs';
 
 interface Mode {
   saving_profile: boolean;
@@ -38,9 +39,12 @@ const PAGE_ID = 'settings-profile';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   private _page_id = PAGE_ID;
   config: Config = new Config();
+  
+  private _auth_state_change_subscription: Subscription;
+  
   mode: Mode = {
     saving_profile: false,
     changing_password: false
@@ -88,13 +92,17 @@ export class ProfileComponent implements OnInit {
     this._sidebar.colorize(this.config.page_map[this._page_id].identifier);
 
     this.user_id = this._localstorage_service.get(this._localstorage_service.lsname.user_id);
-    this._auth_service.auth_state_change.subscribe(
+    this._auth_state_change_subscription = this._auth_service.auth_state_change.subscribe(
       (auth_state: boolean) => {
         if (auth_state) {
           this.getProfile();
         }
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    this._auth_state_change_subscription.unsubscribe();
   }
 
   getProfile(): void {
@@ -122,6 +130,7 @@ export class ProfileComponent implements OnInit {
       },
       (error) => {
         console.error(error);
+        this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
       }
     );
   }
@@ -181,7 +190,7 @@ export class ProfileComponent implements OnInit {
   }
 
   private _passwordMatchValidator(form: FormGroup): {[key: string]: boolean} | null {
-    return form.get('new_password').value === form.get('repeat_password').value ? null : {'passwordMismatch': true};
+    return form.get('new_password').value === form.get('repeat_password').value ? null : {passwordMismatch: true};
   }
 
   isPasswordFormEdited(): boolean {

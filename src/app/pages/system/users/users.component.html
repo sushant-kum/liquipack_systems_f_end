@@ -1,0 +1,70 @@
+<div class="content w3-padding-large">
+  <div class="w3-content">
+    <mat-card class="mat-elevation-z">
+      <mat-card-header class="w3-padding-small">
+        <img mat-card-avatar src="assets/images/icons/icon_users.svg" />
+        <mat-card-title class="app-text-theme-primary">
+          Users
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <!-- {{stringify(users_data)}} -->
+        <div class="w3-row">
+          <div *ngFor="let user of users_data; let i=index" class="w3-col m6 l4 w3-padding-small">
+            <mat-card [ngClass]="{'w3-card': user.is_active, 'app-theme-accent-light app-text-theme-accent mat-elevation-z': !user.is_active}">
+              <mat-card-header class="w3-line-height-1">
+                <img mat-card-avatar *ngIf="user.is_active"
+                  [src]="'https://ui-avatars.com/api/?background=9fbdff&color=1f66ff&name=' + user.name" />
+                <img mat-card-avatar *ngIf="!user.is_active" class="app-theme-accent-l4 w3-padding-small" src="assets/images/icons/icon_disabled_user.svg" />
+                <mat-card-title class="w3-margin-0" [ngClass]="{'app-text-theme-primary': user.is_active}">
+                  {{user.name}}
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <a *ngIf="user.phone" mat-icon-button color="primary" [href]="'tel:' + user.phone"
+                    [matTooltip]="user.is_active ? user.phone : null" [disabled]="!user.is_active" aria-label="Call user">
+                    <fa-icon [icon]="['fas', 'phone']"></fa-icon>
+                  </a>
+                  <a *ngIf="user.email" mat-icon-button color="primary" [href]="'mailto:' + user.email"
+                    [matTooltip]="user.is_active ? user.email : null" [disabled]="!user.is_active" aria-label="Mail user">
+                    <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+                  </a>
+                  <button mat-icon-button color="primary" matTooltip="View user details" (click)="viewUserDetails(user)" [disabled]="!user.is_active" aria-label="View user details">
+                    <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                  </button>
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="w3-row w3-center">
+                  <div class="w3-col s6 w3-padding-small app-border-theme-accent w3-border-right">
+                    <span class="w3-text-bold" [ngClass]="{'app-text-theme-primary': user.is_active}">Username</span><br />
+                    {{user.username}}
+                  </div>
+                  <div class="w3-col s6 w3-padding-small">
+                    <span class="w3-text-bold" [ngClass]="{'app-text-theme-primary': user.is_active}">Created On</span><br />
+                    {{helper.time.format(user.created_date, 'DD MMM, YYYY')}}
+                  </div>
+                </div>
+              </mat-card-content>
+              <mat-card-actions *ngIf="app_permission.includes('write')" class="w3-right-align">
+                <button mat-button color="warn" class="w3-margin-right" [disabled]="!user.is_active">
+                  <fa-icon [icon]="['fas', 'user-times']"></fa-icon>&nbsp;
+                  Disable
+                </button>
+                <button mat-flat-button color="primary" [disabled]="!user.is_active" (click)="editUser(user)">
+                  <fa-icon [icon]="['fas', 'user-edit']"></fa-icon>&nbsp;
+                  Edit
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions *ngIf="app_permission.includes('write')" class="w3-right-align">
+        <button mat-flat-button color="primary" (click)="addUser()">
+          <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>&nbsp;
+          Add User
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

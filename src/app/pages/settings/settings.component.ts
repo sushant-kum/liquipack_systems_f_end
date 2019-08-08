@@ -30,18 +30,15 @@ const PAGE_ID = 'settings';
 export class SettingsComponent implements OnInit {
   private _page_id = PAGE_ID;
   config: Config = new Config();
-  sidebar: SidebarComponent;
 
   apps: PageMapWithHover[] = [];
   constructor(
     private _title: Title,
     private _header_service: HeaderService,
-    private _sidebar: SidebarComponent,
+    public sidebar: SidebarComponent
   ) { }
 
   ngOnInit() {
-    this.sidebar = this._sidebar;
-
     this._title.setTitle(this.config.page_map[this._page_id].name + ' - ' + this.config.app_title);
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
