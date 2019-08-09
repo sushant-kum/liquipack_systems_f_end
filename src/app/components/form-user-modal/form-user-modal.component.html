@@ -179,12 +179,12 @@
             </td>
             <td class="w3-center">
               <mat-checkbox color="primary" [(ngModel)]="pages_info[page].permissions.read"
-                [disabled]="global_pages.includes(page)">
+                [disabled]="global_pages.includes(page)" (change)="permissionChanged($event, page, 'read')">
               </mat-checkbox>
             </td>
             <td class="w3-center">
               <mat-checkbox color="primary" [(ngModel)]="pages_info[page].permissions.write"
-                [disabled]="global_pages.includes(page)">
+                [disabled]="global_pages.includes(page)" (change)="permissionChanged($event, page, 'write')">
               </mat-checkbox>
             </td>
           </tr>

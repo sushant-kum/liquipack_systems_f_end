@@ -11,6 +11,7 @@ import { RegexService } from 'src/app/services/regex/regex.service';
 
 /* Interface Imports */
 import { UserData } from 'src/app/interfaces/user-data';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 interface PageInfo {
   identifier: string;
@@ -45,7 +46,6 @@ export class FormUserModalComponent implements OnInit {
   pages: string[] = [];
   pages_info: { [key: string]: PageInfo } = {};
   global_pages: string[] = [];
-  // global_pages_info: {[key: string]: PageInfo} = {};
 
   constructor(
     private _regex_service: RegexService,
@@ -97,6 +97,24 @@ export class FormUserModalComponent implements OnInit {
       }
     } else {
       this.new_user = true;
+    }
+  }
+
+  permissionChanged(event: MatCheckboxChange, page: string, permission: 'read' | 'write') {
+    // console.log(
+    //   'permissionChanged($event: MatCheckboxChange, page: string, permission: \'read\' | \'write\')',
+    //   'event', event,
+    //   'page', page,
+    //   'permission', permission
+    // );
+    if (this.pages_info[page].is_subpage && event.checked === true) {
+      this.pages_info[this.pages_info[page].parent_page].permissions[permission] = true;
+    } else if (event.checked === false) {
+      for (const pg of this.pages) {
+        if (this.pages_info[pg].parent_page === page) {
+          this.pages_info[pg].permissions[permission] = false;
+        }
+      }
     }
   }
 
