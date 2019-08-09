@@ -1,4 +1,4 @@
-<div mat-dialog-content class="dialog-content" [ngClass]="{'app-text-theme-accent': !user.is_active}">
+<div mat-dialog-content class="dialog-title" [ngClass]="{'app-text-theme-accent': !user.is_active}">
   <button class="close-icon-button w3-large" mat-icon-button color="accent" (click)="onCloseClick()">
     <fa-icon [icon]="['fas', 'times']"></fa-icon>
   </button>
@@ -15,57 +15,59 @@
       <span class="app-text-theme-primary">ID</span> {{user.id}}
     </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
-    <div class="w3-row">
-      <div class="w3-col l6 w3-padding-small">
-        <comp-sub-head>
-          <fa-icon [icon]="['fas', 'address-card']"></fa-icon>
-          &nbsp;Details
-        </comp-sub-head>
-        <div class="w3-margin-bottom">
-          <span class="app-text-theme-accent w3-padding-right-16">Username:</span>{{user.username}}
-        </div>
-        <div class="w3-margin-bottom">
-          <span class="app-text-theme-accent w3-padding-right-16">Gender:</span>{{user.gender}}
-        </div>
-        <div *ngIf="user.email" class="w3-margin-bottom">
-          <span class="app-text-theme-accent w3-padding-right-16">Email:</span>
-          <a [href]="'mailto:' + user.email">{{user.email}}</a>
-        </div>
-        <div *ngIf="user.phone" class="w3-margin-bottom">
-          <span class="app-text-theme-accent w3-padding-right-16">Phone:</span>
-          <a [href]="'tel:' + user.phone">{{user.phone}}</a>
-        </div>
+</div>
+
+<mat-dialog-content>
+  <div class="w3-row">
+    <div class="w3-col l12 w3-padding-small">
+      <comp-sub-head>
+        <fa-icon [icon]="['fas', 'address-card']"></fa-icon>
+        &nbsp;Details
+      </comp-sub-head>
+      <div class="w3-margin-bottom">
+        <span class="app-text-theme-accent w3-padding-right-16">Username:</span>{{user.username}}
       </div>
-      <div class="w3-col l6 w3-padding-small">
-        <comp-sub-head>
-          <fa-icon [icon]="['fas', 'tasks']"></fa-icon>
-          &nbsp;Permissions
-        </comp-sub-head>
-          <table class="w3-table w3-striped">
-            <tr>
-              <td class="w3-padding-bottom-16 w3-padding-0"></td>
-              <td class="w3-padding-bottom-16 w3-padding-0 w3-center">Read</td>
-              <td class="w3-padding-bottom-16 w3-padding-0 w3-center">Write</td>
-            </tr>
-            <tr *ngFor="let app of user.app_permissions">
-              <td class="w3-padding-bottom-16 w3-padding-0">
-                {{config.page_map[app.app].name}}
-              </td>
-              <td class="w3-padding-bottom-16 w3-padding-0 w3-center">
-                <fa-icon *ngIf="app.permissions.includes('read')" [icon]="['fas', 'check']"></fa-icon>
-              </td>
-              <td class="w3-padding-bottom-16 w3-padding-0 w3-center">
-                <fa-icon *ngIf="app.permissions.includes('write')" [icon]="['fas', 'check']"></fa-icon>
-              </td>
-            </tr>
-          </table>
+      <div class="w3-margin-bottom">
+        <span class="app-text-theme-accent w3-padding-right-16">Gender:</span>{{user.gender}}
+      </div>
+      <div *ngIf="user.email" class="w3-margin-bottom">
+        <span class="app-text-theme-accent w3-padding-right-16">Email:</span>
+        <a [href]="'mailto:' + user.email">{{user.email}}</a>
+      </div>
+      <div *ngIf="user.phone" class="w3-margin-bottom">
+        <span class="app-text-theme-accent w3-padding-right-16">Phone:</span>
+        <a [href]="'tel:' + user.phone">{{user.phone}}</a>
       </div>
     </div>
-  </mat-card-content>
-  <div mat-dialog-actions class="w3-right-align">
-    <button mat-button color="warn" (click)="onCloseClick()">
-      Close
-    </button>
+    <div class="w3-col l12 w3-padding-small">
+      <comp-sub-head>
+        <fa-icon [icon]="['fas', 'tasks']"></fa-icon>
+        &nbsp;Permissions
+      </comp-sub-head>
+      <table class="w3-table w3-striped">
+        <tr>
+          <td class="w3-padding-bottom-16 w3-padding-0"></td>
+          <td class="w3-padding-bottom-16 w3-padding-0 w3-center">Read</td>
+          <td class="w3-padding-bottom-16 w3-padding-0 w3-center">Write</td>
+        </tr>
+        <tr *ngFor="let page of pages; let i=index">
+          <td class="w3-padding-0 w3-padding-bottom-16">
+            {{pages_info[page].name}}
+          </td>
+          <td class="w3-padding-0 w3-padding-bottom-16 w3-center">
+            <fa-icon *ngIf="pages_info[page].permissions.read" [icon]="['fas', 'check']"></fa-icon>
+          </td>
+          <td class="w3-padding-0 w3-padding-bottom-16 w3-center">
+            <fa-icon *ngIf="pages_info[page].permissions.write" [icon]="['fas', 'check']"></fa-icon>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
-</div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="warn" (click)="onCloseClick()">
+    Close
+  </button>
+</mat-dialog-actions>

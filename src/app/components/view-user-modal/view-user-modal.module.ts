@@ -6,6 +6,7 @@ import { ViewUserModalComponent } from './view-user-modal.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -39,6 +40,7 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
     MatCardModule,
     MatButtonModule,
     MatTooltipModule,
+    MatDialogModule,
 
     /* Font-awesome Impors */
     FontAwesomeModule,

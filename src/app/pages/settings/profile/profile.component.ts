@@ -42,9 +42,9 @@ const PAGE_ID = 'settings-profile';
 export class ProfileComponent implements OnInit, OnDestroy {
   private _page_id = PAGE_ID;
   config: Config = new Config();
-  
+
   private _auth_state_change_subscription: Subscription;
-  
+
   mode: Mode = {
     saving_profile: false,
     changing_password: false

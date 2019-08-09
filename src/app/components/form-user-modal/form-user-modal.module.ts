@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 /* Angular Material Imports */
 import { MatCardModule } from '@angular/material/card';
@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -32,7 +34,8 @@ import {
   faVenus as fasVenus,
   faTransgender as fasTransgender,
   faKey as fasKey,
-  faCircleNotch as fasCircleNotch
+  faCircleNotch as fasCircleNotch,
+  faUserLock as fasUserLock
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   fasTimes,
@@ -51,7 +54,8 @@ library.add(
   fasVenus,
   fasTransgender,
   fasKey,
-  fasCircleNotch
+  fasCircleNotch,
+  fasUserLock
 );
 /* Regular Icons */
 import { } from '@fortawesome/free-regular-svg-icons';
@@ -68,6 +72,7 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
   declarations: [FormUserModalComponent],
   imports: [
     ReactiveFormsModule,
+    FormsModule,
 
     /* Angular Material Imports */
     MatCardModule,
@@ -77,6 +82,8 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
     MatInputModule,
     MatSelectModule,
     MatDividerModule,
+    MatCheckboxModule,
+    MatDialogModule,
 
     /* Font-awesome Impors */
     FontAwesomeModule,
