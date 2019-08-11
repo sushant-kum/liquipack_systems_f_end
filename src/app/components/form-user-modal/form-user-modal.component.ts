@@ -39,9 +39,9 @@ export class FormUserModalComponent implements OnInit {
     gender: new FormControl(null, [Validators.required]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     phone: new FormControl(null, [Validators.pattern(this._regex_service.phone)]),
-    password: new FormControl(null, [Validators.required]),
-    confirm_password: new FormControl(null, [Validators.required]),
-  });
+    password: new FormControl(null),
+    confirm_password: new FormControl(null),
+  }, this._passwordMatchValidator);
 
   pages: string[] = [];
   pages_info: { [key: string]: PageInfo } = {};
@@ -83,20 +83,27 @@ export class FormUserModalComponent implements OnInit {
 
     if (this.user != null) {
       this.new_user = false;
-      this.form_user_details.get('username').setValue(this.user.username);
-      this.form_user_details.get('name').setValue(this.user.name);
-      this.form_user_details.get('gender').setValue(this.user.gender);
-      this.form_user_details.get('email').setValue(this.user.email);
-      this.form_user_details.get('phone').setValue(this.user.phone);
-
-      for (const app_permission of this.user.app_permissions) {
-        this.pages_info[app_permission.app].permissions = {
-          read: app_permission.permissions.includes('read'),
-          write: app_permission.permissions.includes('write')
-        };
-      }
+      this._populateUserDetails();
+      this._populateUserPermissions();
     } else {
       this.new_user = true;
+    }
+  }
+
+  private _populateUserDetails(): void {
+    this.form_user_details.get('username').setValue(this.user.username);
+    this.form_user_details.get('name').setValue(this.user.name);
+    this.form_user_details.get('gender').setValue(this.user.gender);
+    this.form_user_details.get('email').setValue(this.user.email);
+    this.form_user_details.get('phone').setValue(this.user.phone);
+  }
+
+  private _populateUserPermissions(): void {
+    for (const app_permission of this.user.app_permissions) {
+      this.pages_info[app_permission.app].permissions = {
+        read: app_permission.permissions.includes('read'),
+        write: app_permission.permissions.includes('write')
+      };
     }
   }
 
@@ -115,6 +122,61 @@ export class FormUserModalComponent implements OnInit {
           this.pages_info[pg].permissions[permission] = false;
         }
       }
+    }
+  }
+
+  private _passwordMatchValidator(form: FormGroup): {[key: string]: boolean} | null {
+    return form.get('password').value === form.get('confirm_password').value ? null : {passwordMismatch: true};
+  }
+
+  resetForm() {
+    if (this.new_user) {
+      this.form_user_details.get('username').setValue(null);
+      this.form_user_details.get('name').setValue(null);
+      this.form_user_details.get('gender').setValue(null);
+      this.form_user_details.get('email').setValue(null);
+      this.form_user_details.get('phone').setValue(null);
+      this.form_user_details.get('password').setValue(null);
+      this.form_user_details.get('confirm_password').setValue(null);
+
+      for (const page of this.pages) {
+        if (!this.global_pages.includes(page)) {
+          this.pages_info[page].permissions = {
+            read: false,
+            write: false
+          };
+        }
+      }
+    } else {
+      this._populateUserDetails();
+      this.form_user_details.get('password').setValue(null);
+      this.form_user_details.get('confirm_password').setValue(null);
+
+      this._populateUserPermissions();
+    }
+    this.form_user_details.markAsUntouched();
+  }
+
+  isProfileFormEdited(): boolean {
+    if (this.new_user) {
+      return (
+        this.form_user_details.get('username') != null ||
+        this.form_user_details.get('name') != null ||
+        this.form_user_details.get('gender') != null ||
+        this.form_user_details.get('email') != null ||
+        this.form_user_details.get('phone') != null ||
+        this.form_user_details.get('password') != null ||
+        this.form_user_details.get('confirm_password') != null
+      );
+    } else {
+      return (
+        this.form_user_details.get('name').value !== this.user.name ||
+        this.form_user_details.get('gender').value !== this.user.gender ||
+        this.form_user_details.get('email').value !== this.user.email ||
+        this.form_user_details.get('phone').value !== this.user.phone ||
+        this.form_user_details.get('password') != null ||
+        this.form_user_details.get('confirm_password') != null
+      );
     }
   }
 

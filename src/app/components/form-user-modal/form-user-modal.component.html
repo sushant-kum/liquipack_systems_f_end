@@ -4,15 +4,18 @@
   </button>
 
   <mat-card-header *ngIf="new_user; else templateEditUserHeading" class="w3-line-height-1 w3-padding-small">
-    <img mat-card-avatar class="app-theme-primary-light w3-padding-small" src="assets/images/icons/icon_add_user.svg" />
+    <div mat-card-avatar class="app-theme-primary-light w3-padding-small">
+      <img src="assets/images/icons/icon_add_user.svg" />
+    </div>
     <mat-card-title class="app-text-theme-primary">
       Add User
     </mat-card-title>
   </mat-card-header>
   <ng-template #templateEditUserHeading>
     <mat-card-header class="w3-line-height-1 w3-padding-small">
-      <img mat-card-avatar class="app-theme-primary-light w3-padding-small"
-        src="assets/images/icons/icon_edit_user.svg" />
+      <div mat-card-avatar class="app-theme-primary-light w3-padding-small">
+        <img src="assets/images/icons/icon_edit_user.svg" />
+      </div>
       <mat-card-title class="app-text-theme-primary">
         Edit User
       </mat-card-title>
@@ -154,6 +157,11 @@
             Password is required field
           </mat-error>
         </mat-form-field>
+
+        <div class="app-theme-warn w3-padding w3-round w3-animate-zoom"
+          *ngIf="!form_user_details.get('confirm_password').hasError('required') && form_user_details.hasError('passwordMismatch')">
+          Passwords do not match.
+        </div>
       </form>
     </div>
 
@@ -194,16 +202,18 @@
   </div>
 </mat-dialog-content>
 
-<mat-dialog-actions>
-  <button mat-button color="warn" class="w3-margin-right" (click)="onCloseClick()">
-    Cancel
+<mat-dialog-actions class="w3-flex-right-align">
+  <button mat-button color="primary" class="w3-margin-right" (click)="resetForm()">
+    <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>&nbsp;
+    Reset
   </button>
-  <button *ngIf="this.new_user;else templateSaveUserButton" mat-flat-button color="primary">
+  <button *ngIf="this.new_user;else templateSaveUserButton" mat-flat-button color="primary"
+    [disabled]="form_user_details.invalid && isProfileFormEdited">
     <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>&nbsp;
     Add
   </button>
   <ng-template #templateSaveUserButton>
-    <button mat-flat-button color="primary">
+    <button mat-flat-button color="primary" [disabled]="form_user_details.invalid && isProfileFormEdited">
       <fa-icon [icon]="['fas', 'save']"></fa-icon>&nbsp;
       Save
     </button>

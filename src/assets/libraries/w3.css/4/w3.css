@@ -248,3 +248,4 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 /* Custom */
 .w3-text-thin{font-weight:100}.w3-text-light{font-weight:300}.w3-text-normal{font-weight:400}.w3-text-medium{font-weight:500}.w3-text-semi-bold{font-weight:600}.w3-text-bold{font-weight:700}.w3-text-extra-bold{font-weight:800}.w3-text-black{font-weight:900}
 .w3-line-height-1{line-height:1}
+.w3-flex-right-align{justify-content: flex-end}
