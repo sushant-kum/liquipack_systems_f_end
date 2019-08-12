@@ -8,6 +8,8 @@ import { Config } from 'src/app/configs/config';
 /* Service Imports */
 import { HelperService } from 'src/app/services/helper/helper.service';
 import { RegexService } from 'src/app/services/regex/regex.service';
+import { HttpTransactionsService } from 'src/app/services/http-transactions/http-transactions.service';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 
 /* Interface Imports */
 import { UserData } from 'src/app/interfaces/user-data';
@@ -49,6 +51,8 @@ export class FormUserModalComponent implements OnInit {
 
   constructor(
     private _regex_service: RegexService,
+    private _http_service: HttpTransactionsService,
+    private _localstorage_service: LocalStorageService,
     public config: Config,
     public helper: HelperService,
     public dialogRef: MatDialogRef<FormUserModalComponent>,
@@ -87,6 +91,8 @@ export class FormUserModalComponent implements OnInit {
       this._populateUserPermissions();
     } else {
       this.new_user = true;
+      this.form_user_details.get('password').setValidators(Validators.required);
+      this.form_user_details.get('confirm_password').setValidators(Validators.required);
     }
   }
 
@@ -108,12 +114,6 @@ export class FormUserModalComponent implements OnInit {
   }
 
   permissionChanged(event: MatCheckboxChange, page: string, permission: 'read' | 'write') {
-    // console.log(
-    //   'permissionChanged($event: MatCheckboxChange, page: string, permission: \'read\' | \'write\')',
-    //   'event', event,
-    //   'page', page,
-    //   'permission', permission
-    // );
     if (this.pages_info[page].is_subpage && event.checked === true) {
       this.pages_info[this.pages_info[page].parent_page].permissions[permission] = true;
     } else if (event.checked === false) {
@@ -125,8 +125,8 @@ export class FormUserModalComponent implements OnInit {
     }
   }
 
-  private _passwordMatchValidator(form: FormGroup): {[key: string]: boolean} | null {
-    return form.get('password').value === form.get('confirm_password').value ? null : {passwordMismatch: true};
+  private _passwordMatchValidator(form: FormGroup): { [key: string]: boolean } | null {
+    return form.get('password').value === form.get('confirm_password').value ? null : { passwordMismatch: true };
   }
 
   resetForm() {
@@ -180,8 +180,89 @@ export class FormUserModalComponent implements OnInit {
     }
   }
 
-  onCloseClick(): void {
-    this.dialogRef.close();
+  onAddUserClick(): void {
+    this._http_service.get_users.sendRequest().subscribe(
+      (res: any) => {
+        let flag_non_unique_username = false;
+        for (const user_data of res.data) {
+          if (user_data.username === this.form_user_details.get('username').value) {
+            this.form_user_details.get('username').setErrors({ notUnique: true });
+            document.getElementById('input-username').focus();
+            setTimeout(() => {
+              this.form_user_details.get('username').setErrors({ notUnique: false });
+            }, 5000);
+            flag_non_unique_username = true;
+            break;
+          }
+        }
+
+        if (!flag_non_unique_username) {
+          const return_data = this.form_user_details.getRawValue();
+          return_data.id = null;
+          delete return_data.confirm_password;
+
+          return_data.app_permissions = [];
+          for (const page of this.pages) {
+            if (!this.global_pages.includes(page)) {
+              const permissions: string[] = [];
+              if (this.pages_info[page].permissions.read) {
+                permissions.push('read');
+              }
+              if (this.pages_info[page].permissions.write) {
+                permissions.push('write');
+              }
+
+              return_data.app_permissions.push({
+                app: this.pages_info[page].identifier,
+                permissions
+              });
+            }
+          }
+
+          this._localstorage_service.set(this._localstorage_service.lsname.token, res.token);
+
+          this.dialogRef.close({
+            data: return_data,
+            operation: 'user.add'
+          });
+        }
+      }
+    );
   }
 
+  onEditUserClick(): void {
+    const return_data = this.form_user_details.getRawValue();
+    return_data.id = this.user.id;
+    delete return_data.confirm_password;
+
+    return_data.app_permissions = [];
+    for (const page of this.pages) {
+      if (!this.global_pages.includes(page)) {
+        const permissions: string[] = [];
+        if (this.pages_info[page].permissions.read) {
+          permissions.push('read');
+        }
+        if (this.pages_info[page].permissions.write) {
+          permissions.push('write');
+        }
+
+        return_data.app_permissions.push({
+          app: this.pages_info[page].identifier,
+          permissions
+        });
+      }
+    }
+
+    this.dialogRef.close({
+      data: return_data,
+      operation: 'user.edit'
+    });
+  }
+
+  onCloseClick(): void {
+    this.dialogRef.close({
+      data: null,
+      operation: 'close'
+    });
+  }
 }

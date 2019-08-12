@@ -34,7 +34,7 @@
       <form [formGroup]="form_user_details">
         <mat-form-field appearance="standard">
           <mat-label>Username</mat-label>
-          <input matInput formControlName="username" placeholder="Username" [readonly]="!new_user">
+          <input id="input-username" matInput formControlName="username" placeholder="Username" [readonly]="!new_user">
           <span matPrefix>
             <fa-icon [icon]="['fas', 'user-shield']" [ngClass]="{
                 'app-text-theme-warn': form_user_details.get('username').invalid && form_user_details.get('username').touched,
@@ -43,6 +43,9 @@
           </span>
           <mat-error *ngIf="form_user_details.get('username').hasError('required')">
             Username is required field
+          </mat-error>
+          <mat-error *ngIf="form_user_details.get('username').hasError('notUnique')">
+            Username already exists
           </mat-error>
         </mat-form-field>
 
@@ -208,12 +211,12 @@
     Reset
   </button>
   <button *ngIf="this.new_user;else templateSaveUserButton" mat-flat-button color="primary"
-    [disabled]="form_user_details.invalid && isProfileFormEdited">
+    [disabled]="form_user_details.invalid && isProfileFormEdited" (click)="onAddUserClick()">
     <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>&nbsp;
     Add
   </button>
   <ng-template #templateSaveUserButton>
-    <button mat-flat-button color="primary" [disabled]="form_user_details.invalid && isProfileFormEdited">
+    <button mat-flat-button color="primary" [disabled]="form_user_details.invalid && isProfileFormEdited" (click)="onEditUserClick()">
       <fa-icon [icon]="['fas', 'save']"></fa-icon>&nbsp;
       Save
     </button>

@@ -22,6 +22,7 @@ import { RegexService } from 'src/app/services/regex/regex.service';
 
 /* Interface Imports */
 import { UserData } from 'src/app/interfaces/user-data';
+import { DialogResponse } from 'src/app/interfaces/dialog-response';
 
 /* Modals Imports */
 import { ViewUserModalComponent } from 'src/app/components/view-user-modal/view-user-modal.component';
@@ -147,9 +148,13 @@ export class UsersComponent implements OnInit, OnDestroy {
       data: null
     });
 
-    dialog_ref.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    dialog_ref.afterClosed().subscribe(
+      (dialog_response: DialogResponse) => {
+        if (dialog_response.operation === 'user.add') {
+
+        }
+      }
+    );
 
   }
 
