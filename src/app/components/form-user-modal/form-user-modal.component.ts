@@ -244,8 +244,6 @@ export class FormUserModalComponent implements OnInit {
             }
           }
 
-          this._localstorage_service.set(this._localstorage_service.lsname.token, res.token);
-
           this.dialogRef.close({
             data: return_data,
             operation: 'user.add'

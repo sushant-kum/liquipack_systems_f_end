@@ -110,8 +110,6 @@ export class UsersComponent implements OnInit, OnDestroy {
             phone: user.phone
           });
         }
-
-        this._localstorage_service.set(this._localstorage_service.lsname.token, response.token);
       },
       (error) => {
         console.error(error);

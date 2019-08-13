@@ -125,8 +125,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
           phone: response.data.phone,
           password_hash: response.data.password_hash
         };
-
-        this._localstorage_service.set(this._localstorage_service.lsname.token, response.token);
       },
       (error) => {
         console.error(error);
@@ -178,7 +176,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
         this.showToast('Profile Saved Successfully', 'Close', 3000, false);
 
-        this._localstorage_service.set(this._localstorage_service.lsname.token, res.token);
         this.mode.saving_profile = false;
       },
       (error) => {
@@ -227,7 +224,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
           this.showToast('Password changed successfully.', 'Close', 3000, false);
 
-          this._localstorage_service.set(this._localstorage_service.lsname.token, res.token);
           this.mode.changing_password = false;
         },
         (error) => {

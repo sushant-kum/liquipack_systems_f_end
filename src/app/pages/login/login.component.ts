@@ -116,7 +116,6 @@ export class LoginComponent implements OnInit {
             console.error(error);
           } else {
             if (new_token) {
-              this._localstorage_service.set(this._localstorage_service.lsname.token, new_token);
               window.location.href = redirect_path;
             } else {
               this._localstorage_service.deleteMulti([
@@ -138,7 +137,6 @@ export class LoginComponent implements OnInit {
           if (data.status === 'success') {
             this._localstorage_service.set(this._localstorage_service.lsname.user_id, data.user_id);
             this._localstorage_service.set(this._localstorage_service.lsname.username, this.username_ctrl.value);
-            this._localstorage_service.set(this._localstorage_service.lsname.token, data.token);
             for (const global_app of this.config.global_apps) {
               data.data.app_permissions.push({
                 app: global_app.app.identifier,
