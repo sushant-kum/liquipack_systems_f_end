@@ -1,0 +1,9 @@
+::ng-deep.mat-card-header-text {
+  width: calc(100% - 72px);
+  mat-card-title {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
