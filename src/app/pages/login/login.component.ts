@@ -97,10 +97,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(use_token: boolean = false) {
-    console.log(use_token);
     const urlParams = new URLSearchParams(window.location.search);
     let redirect_path: string = this.config.default_app_path;
-    console.log(urlParams.has('redirect'), urlParams.get('redirect'), this.config.page_map[urlParams.get('redirect')]);
     if (urlParams.has('redirect')) {
       if (this.config.page_map[urlParams.get('redirect')] !== undefined) {
         redirect_path = this.config.page_map[urlParams.get('redirect')].path;

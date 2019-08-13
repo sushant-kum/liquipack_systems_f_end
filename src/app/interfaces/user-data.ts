@@ -1,5 +1,5 @@
 export interface UserData {
-  id: string;
+  _id: string;
   app_permissions: {
     app: string;
     permissions: ('read' | 'write')[]
@@ -13,4 +13,4 @@ export interface UserData {
   phone?: string;
   username: string;
   extra_data?: any;
-};
+}

@@ -180,28 +180,29 @@ export class FormUserModalComponent implements OnInit {
         this.form_user_details.get('confirm_password').value != null
       );
     } else {
-      for (const page of this.pages) {
-        if (!this.global_pages.includes(page)) {
-          for (const app_permission of this.user.app_permissions) {
-            if (
-              app_permission.app === page && (
-                this.pages_info[page].permissions.read !== app_permission.permissions.includes('read') ||
-                this.pages_info[page].permissions.write !== app_permission.permissions.includes('write')
-              )
-            ) {
-              return true;
-            }
-          }
-        }
-      }
-      return (
-        this.form_user_details.get('name').value !== this.user.name ||
-        this.form_user_details.get('gender').value !== this.user.gender ||
-        this.form_user_details.get('email').value !== this.user.email ||
-        this.form_user_details.get('phone').value !== this.user.phone ||
-        this.form_user_details.get('password').value != null ||
-        this.form_user_details.get('confirm_password').value != null
-      );
+      // for (const page of this.pages) {
+      //   if (!this.global_pages.includes(page)) {
+      //     for (const app_permission of this.user.app_permissions) {
+      //       if (
+      //         app_permission.app === page && (
+      //           this.pages_info[page].permissions.read !== app_permission.permissions.includes('read') ||
+      //           this.pages_info[page].permissions.write !== app_permission.permissions.includes('write')
+      //         )
+      //       ) {
+      //         return true;
+      //       }
+      //     }
+      //   }
+      // }
+      // return (
+      //   this.form_user_details.get('name').value !== this.user.name ||
+      //   this.form_user_details.get('gender').value !== this.user.gender ||
+      //   this.form_user_details.get('email').value !== this.user.email ||
+      //   this.form_user_details.get('phone').value !== this.user.phone ||
+      //   this.form_user_details.get('password').value != null ||
+      //   this.form_user_details.get('confirm_password').value != null
+      // );
+      return true;
     }
   }
 
@@ -223,7 +224,7 @@ export class FormUserModalComponent implements OnInit {
 
         if (!flag_non_unique_username) {
           const return_data = this.form_user_details.getRawValue();
-          return_data.id = null;
+          return_data._id = null;
           delete return_data.confirm_password;
 
           return_data.app_permissions = [];
@@ -255,7 +256,7 @@ export class FormUserModalComponent implements OnInit {
 
   onEditUserClick(): void {
     const return_data = this.form_user_details.getRawValue();
-    return_data.id = this.user.id;
+    return_data._id = this.user._id;
     if (return_data.password == null) {
       return_data.password_hash = this.user.password_hash;
     } else {

@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import * as moment from 'moment';
-import { Md5 } from 'ts-md5/dist/md5';
 
 /* Component Imports */
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
@@ -23,6 +20,7 @@ import { RegexService } from 'src/app/services/regex/regex.service';
 /* Interface Imports */
 import { UserData } from 'src/app/interfaces/user-data';
 import { DialogResponse } from 'src/app/interfaces/dialog-response';
+import { ApiResponse } from 'src/app/interfaces/api-response';
 
 /* Modals Imports */
 import { ViewUserModalComponent } from 'src/app/components/view-user-modal/view-user-modal.component';
@@ -30,6 +28,10 @@ import { FormUserModalComponent } from 'src/app/components/form-user-modal/form-
 import { Subscription } from 'rxjs';
 
 const PAGE_ID = 'system-users';
+
+interface Mode {
+  editing_user_ids: string[];
+}
 
 @Component({
   selector: 'app-users',
@@ -39,6 +41,10 @@ const PAGE_ID = 'system-users';
 export class UsersComponent implements OnInit, OnDestroy {
   private _page_id = PAGE_ID;
   config: Config = new Config();
+
+  mode: Mode = {
+    editing_user_ids: []
+  };
 
   private _auth_state_change_subscription: Subscription;
 
@@ -98,7 +104,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       (response: any) => {
         for (const user of response.data) {
           this.users_data.push({
-            id: user._id,
+            _id: user._id,
             username: user.username,
             created_date: user.created_date,
             app_permissions: user.app_permissions,
@@ -124,9 +130,9 @@ export class UsersComponent implements OnInit, OnDestroy {
       data: user
     });
 
-    dialog_ref.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    // dialog_ref.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    // });
   }
 
   editUser(user: UserData): void {
@@ -138,7 +144,31 @@ export class UsersComponent implements OnInit, OnDestroy {
     dialog_ref.afterClosed().subscribe(
       (dialog_response: DialogResponse) => {
         if (dialog_response.operation === 'user.edit') {
-          console.log(dialog_response.data);
+          const user_data = dialog_response.data;
+          this.mode.editing_user_ids.push(user_data._id);
+
+          this._http_service.put_users_user_id.sendRequest(user_data._id, user_data).subscribe(
+            (res: ApiResponse) => {
+              for (const userdata of this.users_data) {
+                if (userdata._id === res.data._id) {
+                  this.users_data[this.users_data.indexOf(userdata)] = res.data;
+                }
+              }
+
+              this.showToast('Successfully saved user details.', 'OK', null, false);
+
+              if (this.mode.editing_user_ids.includes(dialog_response.data._id)) {
+                this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(res.data._id), 1);
+              }
+            },
+            (error: Error) => {
+              console.error(error);
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              if (this.mode.editing_user_ids.includes(dialog_response.data._id)) {
+                this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(dialog_response.data._id), 1);
+              }
+            }
+          );
         }
       }
     );
@@ -153,7 +183,16 @@ export class UsersComponent implements OnInit, OnDestroy {
     dialog_ref.afterClosed().subscribe(
       (dialog_response: DialogResponse) => {
         if (dialog_response.operation === 'user.add') {
-          console.log(dialog_response.data);
+          const user_data = dialog_response.data;
+
+          this._http_service.post_users.sendRequest(user_data).subscribe(
+            (res: ApiResponse) => {
+              console.log(res);
+            },
+            (err: Error) => {
+              console.error(err);
+            }
+          );
         }
       }
     );

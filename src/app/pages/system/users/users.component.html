@@ -34,16 +34,22 @@
                 </mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
-                <div class="w3-row w3-center">
-                  <div class="w3-col s6 w3-padding-small app-border-theme-accent w3-border-right">
-                    <span class="w3-text-bold" [ngClass]="{'app-text-theme-primary': user.is_active}">Username</span><br />
-                    {{user.username}}
-                  </div>
-                  <div class="w3-col s6 w3-padding-small">
-                    <span class="w3-text-bold" [ngClass]="{'app-text-theme-primary': user.is_active}">Created On</span><br />
-                    {{helper.time.format(user.created_date, 'DD MMM, YYYY')}}
-                  </div>
+                <div *ngIf="mode.editing_user_ids.includes(user._id); else templateUserData" class="w3-row w3-center">
+                  <mat-spinner color="primary" diameter="50" strokeWidth="3" class="w3-center">
+                  </mat-spinner>
                 </div>
+                <ng-template #templateUserData>
+                  <div class="w3-row w3-center" style="min-height: 50px;">
+                    <div class="w3-col s6 w3-padding-small app-border-theme-accent w3-border-right">
+                      <span class="w3-text-bold" [ngClass]="{'app-text-theme-primary': user.is_active}">Username</span><br />
+                      {{user.username}}
+                    </div>
+                    <div class="w3-col s6 w3-padding-small">
+                      <span class="w3-text-bold" [ngClass]="{'app-text-theme-primary': user.is_active}">Created On</span><br />
+                      {{helper.time.format(user.created_date, 'DD MMM, YYYY')}}
+                    </div>
+                  </div>
+                </ng-template>
               </mat-card-content>
               <mat-card-actions *ngIf="app_permission.includes('write')" class="w3-right-align">
                 <button mat-button color="warn" class="w3-margin-right" [disabled]="!user.is_active">
