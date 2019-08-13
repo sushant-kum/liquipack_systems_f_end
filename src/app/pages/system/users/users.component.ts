@@ -137,9 +137,13 @@ export class UsersComponent implements OnInit, OnDestroy {
       data: user
     });
 
-    dialog_ref.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    dialog_ref.afterClosed().subscribe(
+      (dialog_response: DialogResponse) => {
+        if (dialog_response.operation === 'user.edit') {
+          console.log(dialog_response.data);
+        }
+      }
+    );
   }
 
   addUser(): void {
@@ -151,7 +155,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     dialog_ref.afterClosed().subscribe(
       (dialog_response: DialogResponse) => {
         if (dialog_response.operation === 'user.add') {
-
+          console.log(dialog_response.data);
         }
       }
     );

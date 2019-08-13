@@ -19,20 +19,24 @@
       <mat-card-title class="app-text-theme-primary">
         Edit User
       </mat-card-title>
+      <mat-card-subtitle>
+        Username: {{form_user_details.get('username').value}}
+      </mat-card-subtitle>
     </mat-card-header>
   </ng-template>
 </div>
 
 <mat-dialog-content>
   <div class="w3-row">
-    <div class="w3-col l6 w3-padding-small">
-      <comp-sub-head>
-        <fa-icon [icon]="['fas', 'address-card']"></fa-icon>
-        &nbsp;Details
-      </comp-sub-head>
+    <form [formGroup]="form_user_details">
+      <div class="w3-col l4 w3-padding-small">
+        <comp-sub-head>
+          <fa-icon [icon]="['fas', 'address-card']"></fa-icon>
+          &nbsp;Details
+        </comp-sub-head>
 
-      <form [formGroup]="form_user_details">
-        <mat-form-field appearance="standard">
+
+        <mat-form-field appearance="standard" [ngClass]="{'w3-hide': !new_user}">
           <mat-label>Username</mat-label>
           <input id="input-username" matInput formControlName="username" placeholder="Username" [readonly]="!new_user">
           <span matPrefix>
@@ -123,7 +127,8 @@
             Phone format is incorrect.
           </mat-error>
         </mat-form-field>
-
+      </div>
+      <div class="w3-col l4 w3-padding-small">
         <comp-sub-head>
           <fa-icon [icon]="['fas', 'user-lock']"></fa-icon>
           &nbsp;Password
@@ -165,10 +170,10 @@
           *ngIf="!form_user_details.get('confirm_password').hasError('required') && form_user_details.hasError('passwordMismatch')">
           Passwords do not match.
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
 
-    <div class="w3-col l6 w3-padding-small">
+    <div class="w3-col l4 w3-padding-small">
       <comp-sub-head>
         <fa-icon [icon]="['fas', 'tasks']"></fa-icon>
         &nbsp;Permissions
@@ -210,13 +215,16 @@
     <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>&nbsp;
     Reset
   </button>
+
   <button *ngIf="this.new_user;else templateSaveUserButton" mat-flat-button color="primary"
-    [disabled]="form_user_details.invalid && isProfileFormEdited" (click)="onAddUserClick()">
+    [disabled]="form_user_details.invalid || !isProfileFormEdited()" (click)="onAddUserClick()">
     <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>&nbsp;
     Add
   </button>
+
   <ng-template #templateSaveUserButton>
-    <button mat-flat-button color="primary" [disabled]="form_user_details.invalid && isProfileFormEdited" (click)="onEditUserClick()">
+    <button mat-flat-button color="primary" [disabled]="form_user_details.invalid || !isProfileFormEdited()"
+      (click)="onEditUserClick()">
       <fa-icon [icon]="['fas', 'save']"></fa-icon>&nbsp;
       Save
     </button>

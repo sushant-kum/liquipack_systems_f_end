@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Md5 } from 'ts-md5/dist/md5';
 
 /* Config Imports */
 import { Config } from 'src/app/configs/config';
@@ -159,23 +160,47 @@ export class FormUserModalComponent implements OnInit {
 
   isProfileFormEdited(): boolean {
     if (this.new_user) {
+      for (const page of this.pages) {
+        if (
+          !this.global_pages.includes(page) && (
+            this.pages_info[page].permissions.read ||
+            this.pages_info[page].permissions.write
+          )
+        ) {
+          return true;
+        }
+      }
       return (
-        this.form_user_details.get('username') != null ||
-        this.form_user_details.get('name') != null ||
-        this.form_user_details.get('gender') != null ||
-        this.form_user_details.get('email') != null ||
-        this.form_user_details.get('phone') != null ||
-        this.form_user_details.get('password') != null ||
-        this.form_user_details.get('confirm_password') != null
+        this.form_user_details.get('username').value != null ||
+        this.form_user_details.get('name').value != null ||
+        this.form_user_details.get('gender').value != null ||
+        this.form_user_details.get('email').value != null ||
+        this.form_user_details.get('phone').value != null ||
+        this.form_user_details.get('password').value != null ||
+        this.form_user_details.get('confirm_password').value != null
       );
     } else {
+      for (const page of this.pages) {
+        if (!this.global_pages.includes(page)) {
+          for (const app_permission of this.user.app_permissions) {
+            if (
+              app_permission.app === page && (
+                this.pages_info[page].permissions.read !== app_permission.permissions.includes('read') ||
+                this.pages_info[page].permissions.write !== app_permission.permissions.includes('write')
+              )
+            ) {
+              return true;
+            }
+          }
+        }
+      }
       return (
         this.form_user_details.get('name').value !== this.user.name ||
         this.form_user_details.get('gender').value !== this.user.gender ||
         this.form_user_details.get('email').value !== this.user.email ||
         this.form_user_details.get('phone').value !== this.user.phone ||
-        this.form_user_details.get('password') != null ||
-        this.form_user_details.get('confirm_password') != null
+        this.form_user_details.get('password').value != null ||
+        this.form_user_details.get('confirm_password').value != null
       );
     }
   }
@@ -233,6 +258,12 @@ export class FormUserModalComponent implements OnInit {
   onEditUserClick(): void {
     const return_data = this.form_user_details.getRawValue();
     return_data.id = this.user.id;
+    if (return_data.password == null) {
+      return_data.password_hash = this.user.password_hash;
+    } else {
+      return_data.password_hash = new Md5().appendStr(return_data.password).end().toString();
+    }
+    delete return_data.password;
     delete return_data.confirm_password;
 
     return_data.app_permissions = [];
