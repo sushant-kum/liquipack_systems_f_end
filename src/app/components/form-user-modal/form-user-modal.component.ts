@@ -225,6 +225,9 @@ export class FormUserModalComponent implements OnInit {
         if (!flag_non_unique_username) {
           const return_data = this.form_user_details.getRawValue();
           return_data._id = null;
+          
+          return_data.password_hash = new Md5().appendStr(return_data.password).end().toString();
+          delete return_data.password;
           delete return_data.confirm_password;
 
           return_data.app_permissions = [];

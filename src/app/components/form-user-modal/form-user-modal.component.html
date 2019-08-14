@@ -211,7 +211,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="w3-flex-right-align">
-  <button mat-button color="primary" class="w3-margin-right" (click)="resetForm()">
+  <button mat-button color="primary" class="w3-margin-right" [disabled]="!isProfileFormEdited()" (click)="resetForm()">
     <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>&nbsp;
     Reset
   </button>
