@@ -7,8 +7,8 @@
           Users
         </mat-card-title>
       </mat-card-header>
+
       <mat-card-content>
-        <!-- {{stringify(users_data)}} -->
         <div class="w3-row">
           <div *ngFor="let user of users_data; let i=index" class="w3-col m6 l4 w3-padding-small">
             <mat-card [ngClass]="{'w3-card': user.is_active, 'app-theme-accent-light app-text-theme-accent mat-elevation-z': !user.is_active}">
@@ -60,6 +60,39 @@
                   <fa-icon [icon]="['fas', 'user-edit']"></fa-icon>&nbsp;
                   Edit
                 </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+
+          <div *ngIf="mode.adding_user" class="w3-col m6 l4 w3-padding-small">
+            <mat-card class="w3-card user-loading-card">
+              <mat-card-header class="w3-line-height-1">
+                <div mat-card-avatar class="card-avatar" ></div>
+                <mat-card-title>
+                  <div class="card-title-content">
+                    &nbsp;
+                  </div>
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <div class="card-subtitle-content">
+                    &nbsp;
+                  </div>
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="card-content-content"></div>
+              </mat-card-content>
+              <mat-card-actions class="w3-right-align">
+                <div class="card-action-btn card-action-btn-warn w3-margin-right"></div>
+                <div class="card-action-btn card-action-btn-primary"></div>
+                <!-- <button mat-button color="warn" class="w3-margin-right" [disabled]="!user.is_active">
+                  <fa-icon [icon]="['fas', 'user-times']"></fa-icon>&nbsp;
+                  Disable
+                </button> -->
+                <!-- <button mat-flat-button color="primary" [disabled]="!user.is_active" (click)="editUser(user)">
+                  <fa-icon [icon]="['fas', 'user-edit']"></fa-icon>&nbsp;
+                  Edit
+                </button> -->
               </mat-card-actions>
             </mat-card>
           </div>

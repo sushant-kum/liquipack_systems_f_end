@@ -31,6 +31,7 @@ const PAGE_ID = 'system-users';
 
 interface Mode {
   editing_user_ids: string[];
+  adding_user: boolean;
 }
 
 @Component({
@@ -43,7 +44,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   config: Config = new Config();
 
   mode: Mode = {
-    editing_user_ids: []
+    editing_user_ids: [],
+    adding_user: false
   };
 
   private _auth_state_change_subscription: Subscription;
@@ -183,14 +185,19 @@ export class UsersComponent implements OnInit, OnDestroy {
     dialog_ref.afterClosed().subscribe(
       (dialog_response: DialogResponse) => {
         if (dialog_response.operation === 'user.add') {
+          this.mode.adding_user = true;
           const user_data = dialog_response.data;
 
           this._http_service.post_users.sendRequest(user_data).subscribe(
             (res: ApiResponse) => {
-              console.log(res);
+              this.users_data.push(res.data);
+              this.showToast('Successfully added user.', 'OK', null, false);
+              this.mode.adding_user = false;
             },
             (err: Error) => {
               console.error(err);
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              this.mode.adding_user = false;
             }
           );
         }

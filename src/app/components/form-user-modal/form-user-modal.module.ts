@@ -35,7 +35,8 @@ import {
   faTransgender as fasTransgender,
   faKey as fasKey,
   faCircleNotch as fasCircleNotch,
-  faUserLock as fasUserLock
+  faUserLock as fasUserLock,
+  faQuestionCircle as fasQuestionCircle
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   fasTimes,
@@ -55,7 +56,8 @@ library.add(
   fasTransgender,
   fasKey,
   fasCircleNotch,
-  fasUserLock
+  fasUserLock,
+  fasQuestionCircle
 );
 /* Regular Icons */
 import { } from '@fortawesome/free-regular-svg-icons';

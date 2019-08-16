@@ -45,8 +45,16 @@
                 'app-text-theme-primary': !(form_user_details.get('username').invalid && form_user_details.get('username').touched)
               }"></fa-icon>&nbsp;
           </span>
+          <span class="w3-text-gray" matSuffix>
+            <fa-icon [ngClass]="{'app-text-theme-warn': form_user_details.get('username').hasError('pattern')}" [icon]="['fas', 'question-circle']"
+              matTooltip="Username must be 2-50 characters long and must contain only lowercase alphabets, digits or (., _) as special character, and must not begin or end with special characters or contain consecutive special characters.">
+            </fa-icon>
+          </span>
           <mat-error *ngIf="form_user_details.get('username').hasError('required')">
             Username is required field
+          </mat-error>
+          <mat-error *ngIf="form_user_details.get('username').hasError('pattern')">
+            Username format is incorrect
           </mat-error>
           <mat-error *ngIf="form_user_details.get('username').hasError('notUnique')">
             Username already exists

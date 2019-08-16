@@ -37,7 +37,7 @@ export class FormUserModalComponent implements OnInit {
   new_user: boolean;
 
   form_user_details: FormGroup = new FormGroup({
-    username: new FormControl(null, [Validators.required]),
+    username: new FormControl(null, [Validators.required, Validators.pattern(this._regex_service.username)]),
     name: new FormControl(null, [Validators.required]),
     gender: new FormControl(null, [Validators.required]),
     email: new FormControl(null, [Validators.required, Validators.email]),
@@ -53,7 +53,6 @@ export class FormUserModalComponent implements OnInit {
   constructor(
     private _regex_service: RegexService,
     private _http_service: HttpTransactionsService,
-    private _localstorage_service: LocalStorageService,
     public config: Config,
     public helper: HelperService,
     public dialogRef: MatDialogRef<FormUserModalComponent>,
