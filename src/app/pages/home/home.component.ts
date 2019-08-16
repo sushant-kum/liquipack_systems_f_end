@@ -50,18 +50,16 @@ export class HomeComponent implements OnInit {
 
   bookmarked_apps: PageMapWithHover[] = [];
   my_apps: PageMapWithHover[] = [];
-  sidebar: SidebarComponent;
   constructor(
     private _title: Title,
     private _toast: MatSnackBar,
     private _header_service: HeaderService,
-    private _sidebar: SidebarComponent,
     private _localstorage_service: LocalStorageService,
-    private _cookie_service: CookieService
+    private _cookie_service: CookieService,
+    public sidebar: SidebarComponent
   ) { }
 
   ngOnInit() {
-    this.sidebar = this._sidebar;
     this._title.setTitle(this.config.page_map[this._page_id].name + ' - ' + this.config.app_title);
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,

@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: SystemComponent
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('src/app/pages/system/users/users.module').then(module => module.UsersModule)
   }
 ];
 

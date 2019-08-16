@@ -28,14 +28,27 @@ import {
   faCode as fasCode,
   faCircleNotch as fasCircleNotch,
   faSignOutAlt as fasSignOutAlt,
-  faCopyright as fasCopyright
+  faCopyright as fasCopyright,
+  faTimes as fasTimes
 } from '@fortawesome/free-solid-svg-icons';
-library.add(fasUnlockAlt, fasHome, fasCogs, fasUser, fasSlidersH, fasUsers, fasCode, fasCircleNotch, fasSignOutAlt, fasCopyright);
+library.add(
+  fasUnlockAlt,
+  fasHome,
+  fasCogs,
+  fasUser,
+  fasSlidersH,
+  fasUsers,
+  fasCode,
+  fasCircleNotch,
+  fasSignOutAlt,
+  fasCopyright,
+  fasTimes
+);
 /* Regular Icons */
-import {} from '@fortawesome/free-regular-svg-icons';
+import { } from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import {} from '@fortawesome/free-brands-svg-icons';
+import { } from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 /* Config Imports */
@@ -72,7 +85,7 @@ import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
     /* Angular Material Imports End */
     /**/
     /* Fontawesome Imports Begin */
-    FontAwesomeModule
+    FontAwesomeModule,
     /* Fontaweseom Imports End */
     /**/
     /* Other Imports Begin */

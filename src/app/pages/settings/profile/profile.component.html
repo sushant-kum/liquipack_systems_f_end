@@ -104,6 +104,9 @@
                     'app-text-theme-primary': !(form_profile.get('phone').invalid && form_profile.get('phone').touched)
                   }"></fa-icon>&nbsp;
                 </span>
+                <span matPrefix>
+                  +91&nbsp;
+                </span>
                 <mat-error *ngIf="form_profile.get('phone').hasError('pattern')">
                   Phone format is incorrect.
                 </mat-error>

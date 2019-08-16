@@ -101,7 +101,6 @@ export class SidebarComponent implements OnInit {
             }
           }
         }
-        this._localstorage_service.set(this._localstorage_service.lsname.token, data.token);
         this._localstorage_service.set(this._localstorage_service.lsname.app_permissions, JSON.stringify(data.access));
         this._auth_service.changeAuthState(true);
       }

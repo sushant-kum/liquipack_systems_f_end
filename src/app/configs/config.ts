@@ -1,119 +1,128 @@
 export class Config {
-    private _app_title = 'Liquipack Workflow';
-    private _api_base_path = '/api';
-    private _app_base_path = '';
-    private _pages = [
-        'login',
-        'home',
-        'settings',
-        'settings-profile',
-        'system',
-        'system-users'
-    ]
-    private _page_map = {
-        login : {
-            path: this._app_base_path + '/login',
-            identifier: 'login',
-            name: 'Login',
-            short_name: 'Login',
-            img_icon_theme: null,
-            img_icon_white: null,
-            fas_icon: 'unlock-alt',
-            is_subpage: false
-        },
-        home : {
-            path: this._app_base_path + '/home',
-            identifier: 'home',
-            name: 'Home',
-            short_name: 'Home',
-            img_icon_theme: 'assets/images/icons/apps/icon_home_theme.svg',
-            img_icon_white: 'assets/images/icons/apps/icon_home_white.svg',
-            fas_icon: 'home',
-            is_subpage: false
-        },
-        settings: {
-            path: this._app_base_path + '/settings',
-            identifier: 'settings',
-            name: 'Settings',
-            short_name: 'Settings',
-            img_icon_theme: 'assets/images/icons/apps/icon_settings_theme.svg',
-            img_icon_white: 'assets/images/icons/apps/icon_settings_white.svg',
-            fas_icon: 'cogs',
-            is_subpage: false
-        },
-        'settings-profile': {
-            path: this._app_base_path + '/settings/profile',
-            identifier: 'settings-profile',
-            name: 'Settings/Profile',
-            short_name: 'Profile',
-            img_icon_theme: 'assets/images/icons/apps/icon_settings-profile_theme.svg',
-            img_icon_white: 'assets/images/icons/apps/icon_settings-profile_white.svg',
-            fas_icon: 'user',
-            is_subpage: true
-        },
-        system: {
-            path: this._app_base_path + '/system',
-            identifier: 'system',
-            name: 'System',
-            short_name: 'System',
-            img_icon_theme: 'assets/images/icons/apps/icon_system_theme.svg',
-            img_icon_white: 'assets/images/icons/apps/icon_system_white.svg',
-            fas_icon: 'sliders-h',
-            is_subpage: false
-        },
-        'system-users': {
-            path: this._app_base_path + '/system/users',
-            identifier: 'system-users',
-            name: 'System/Users',
-            short_name: 'Users',
-            img_icon_theme: 'assets/images/icons/apps/icon_system-users_theme.svg',
-            img_icon_white: 'assets/images/icons/apps/icon_system-users_white.svg',
-            fas_icon: 'users',
-            is_subpage: true
-        }
-    };
-    private _global_apps = [
-        {
-            app: this._page_map.home,
-            permissions: ['read', 'write']
-        },
-        {
-            app: this._page_map.settings,
-            permissions: ['read', 'write']
-        },
-        {
-            app: this._page_map['settings-profile'],
-            permissions: ['read', 'write']
-        },
-    ]
-
-    private _default_app_path = this._app_base_path + '/home';
-
-    get app_title() {
-        return this._app_title;
+  private _app_title = 'Liquipack Workflow';
+  private _api_base_path = '/api';
+  private _app_base_path = '';
+  private _pages = [
+    'login',
+    'home',
+    'settings',
+    'settings-profile',
+    'system',
+    'system-users'
+  ];
+  private _page_map = {
+    login: {
+      path: this._app_base_path + '/login',
+      identifier: 'login',
+      name: 'Login',
+      short_name: 'Login',
+      img_icon_theme: null,
+      img_icon_white: null,
+      fas_icon: 'unlock-alt',
+      is_subpage: false,
+      parent_page: null
+    },
+    home: {
+      path: this._app_base_path + '/home',
+      identifier: 'home',
+      name: 'Home',
+      short_name: 'Home',
+      img_icon_theme: 'assets/images/icons/apps/icon_home_theme.svg',
+      img_icon_white: 'assets/images/icons/apps/icon_home_white.svg',
+      fas_icon: 'home',
+      is_subpage: false,
+      parent_page: null
+    },
+    settings: {
+      path: this._app_base_path + '/settings',
+      identifier: 'settings',
+      name: 'Settings',
+      short_name: 'Settings',
+      img_icon_theme: 'assets/images/icons/apps/icon_settings_theme.svg',
+      img_icon_white: 'assets/images/icons/apps/icon_settings_white.svg',
+      fas_icon: 'cogs',
+      is_subpage: false,
+      parent_page: null
+    },
+    'settings-profile': {
+      path: this._app_base_path + '/settings/profile',
+      identifier: 'settings-profile',
+      name: 'Settings/Profile',
+      short_name: 'Profile',
+      img_icon_theme: 'assets/images/icons/apps/icon_settings-profile_theme.svg',
+      img_icon_white: 'assets/images/icons/apps/icon_settings-profile_white.svg',
+      fas_icon: 'user',
+      is_subpage: true,
+      parent_page: 'settings'
+    },
+    system: {
+      path: this._app_base_path + '/system',
+      identifier: 'system',
+      name: 'System',
+      short_name: 'System',
+      img_icon_theme: 'assets/images/icons/apps/icon_system_theme.svg',
+      img_icon_white: 'assets/images/icons/apps/icon_system_white.svg',
+      fas_icon: 'sliders-h',
+      is_subpage: false,
+      parent_page: null
+    },
+    'system-users': {
+      path: this._app_base_path + '/system/users',
+      identifier: 'system-users',
+      name: 'System/Users',
+      short_name: 'Users',
+      img_icon_theme: 'assets/images/icons/apps/icon_system-users_theme.svg',
+      img_icon_white: 'assets/images/icons/apps/icon_system-users_white.svg',
+      fas_icon: 'users',
+      is_subpage: true,
+      parent_page: 'system'
     }
+  };
+  private _global_apps = [
+    {
+      identifier: 'home',
+      app: this._page_map.home,
+      permissions: ['read', 'write']
+    },
+    {
+      identifier: 'settings',
+      app: this._page_map.settings,
+      permissions: ['read', 'write']
+    },
+    {
+      identifier: 'settings-profile',
+      app: this._page_map['settings-profile'],
+      permissions: ['read', 'write']
+    },
+  ];
 
-    get api_base_path() {
-        return this._api_base_path;
-    }
+  private _default_app_path = this._app_base_path + '/home';
 
-    get app_base_path() {
-        return this._app_base_path;
-    }
+  get app_title() {
+    return this._app_title;
+  }
 
-    get pages() {
-        return this._pages;
-    }
-    
-    get page_map() {
-        return this._page_map;
-    }
+  get api_base_path() {
+    return this._api_base_path;
+  }
 
-    get default_app_path() {
-        return this._default_app_path;
-    }
+  get app_base_path() {
+    return this._app_base_path;
+  }
 
-    get global_apps() {
-        return this._global_apps;
-    }
+  get pages() {
+    return this._pages;
+  }
+
+  get page_map() {
+    return this._page_map;
+  }
+
+  get default_app_path() {
+    return this._default_app_path;
+  }
+
+  get global_apps() {
+    return this._global_apps;
+  }
 }
