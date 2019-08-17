@@ -12,10 +12,10 @@ import { HttpTransactionsService } from 'src/app/services/http-transactions/http
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HelperService } from 'src/app/services/helper/helper.service';
+import { ConfirmService } from 'src/app/services/confirm/confirm.service';
 
 /* Config Imports */
 import { Config } from 'src/app/configs/config';
-import { RegexService } from 'src/app/services/regex/regex.service';
 
 /* Interface Imports */
 import { UserData } from 'src/app/interfaces/user-data';
@@ -61,8 +61,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     private _http_service: HttpTransactionsService,
     private _localstorage_service: LocalStorageService,
     private _auth_service: AuthService,
-    private _regexp_sevice: RegexService,
     private _dialog: MatDialog,
+    private _confirm_service: ConfirmService,
     public helper: HelperService
   ) { }
 
@@ -127,14 +127,42 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   viewUserDetails(user: UserData) {
-    const dialog_ref = this._dialog.open(ViewUserModalComponent, {
+    this._dialog.open(ViewUserModalComponent, {
       autoFocus: false,
       data: user
     });
+  }
 
-    // dialog_ref.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    // });
+  disableUser(user: UserData): void {
+    const confirm_sub = this._confirm_service.confirm({
+      title: 'Confirm Disable User',
+      message: `Are you sure you want to disable user <b>${user.username}</b>?`,
+      positive_btn_text: 'Yes',
+      negative_btn_text: 'No'
+    }).subscribe(
+      (resp: DialogResponse) => {
+        if (resp.operation === 'confirm.ok') {
+          this.mode.editing_user_ids.push(user._id);
+          this._http_service.delete_users_user_id.sendRequest(user._id).subscribe(
+            (res: ApiResponse) => {
+              user.is_active = res.data.is_active;
+              this.showToast('User disabled successfully', 'Close', 3000, false);
+              if (this.mode.editing_user_ids.includes(user._id)) {
+                this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(user._id), 1);
+              }
+            },
+            (err: Error) => {
+              console.error(err);
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              if (this.mode.editing_user_ids.includes(user._id)) {
+                this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(user._id), 1);
+              }
+            }
+          );
+        }
+        confirm_sub.unsubscribe();
+      }
+    );
   }
 
   editUser(user: UserData): void {

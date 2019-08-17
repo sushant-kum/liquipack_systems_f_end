@@ -52,7 +52,7 @@
                 </ng-template>
               </mat-card-content>
               <mat-card-actions *ngIf="app_permission.includes('write')" class="w3-right-align">
-                <button mat-button color="warn" class="w3-margin-right" [disabled]="!user.is_active">
+                <button mat-button color="warn" class="w3-margin-right" [disabled]="!user.is_active" (click)="disableUser(user)">
                   <fa-icon [icon]="['fas', 'user-times']"></fa-icon>&nbsp;
                   Disable
                 </button>
