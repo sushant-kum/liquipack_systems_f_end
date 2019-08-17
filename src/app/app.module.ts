@@ -59,6 +59,7 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 import { AlertComponent, AlertModalComponent } from 'src/app/components/alert/alert.component';
+import { ConfirmComponent, ConfirmModalComponent } from './components/confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,9 @@ import { AlertComponent, AlertModalComponent } from 'src/app/components/alert/al
     FooterComponent,
     SidebarComponent,
     AlertComponent,
-    AlertModalComponent
+    AlertModalComponent,
+    ConfirmComponent,
+    ConfirmModalComponent
   ],
   imports: [
     /* Angular Imports Begin */
@@ -99,7 +102,8 @@ import { AlertComponent, AlertModalComponent } from 'src/app/components/alert/al
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    AlertModalComponent
+    AlertModalComponent,
+    ConfirmModalComponent
   ]
 })
 export class AppModule { }
