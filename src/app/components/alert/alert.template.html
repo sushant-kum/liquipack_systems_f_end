@@ -2,11 +2,11 @@
   <button class="close-icon-button w3-large" mat-icon-button color="accent" (click)="onCloseClick()">
     <fa-icon [icon]="['fas', 'times']"></fa-icon>
   </button>
-  <h3 class="app-text-theme-primary">{{alert_data.title}}</h3>
+  <h4 class="app-text-theme-primary">{{alert_data.title}}</h4>
 </div>
 <div mat-dialog-content>
   {{alert_data.message}}
-  <div class="w3-margin-top app-text-theme-accent w3-small">
+  <div *ngIf="alert_data.info" class="w3-margin-top app-text-theme-accent w3-small">
     {{alert_data.info}}
   </div>
 </div>

@@ -65,8 +65,10 @@ export class AlertComponent implements OnInit {
       AlertModalComponent, {
         data: alert_data,
         closeOnNavigation: true,
-        disableClose: true,
-        minWidth: 250
+        minWidth: 250,
+        position: {
+          top: '50px'
+        }
       }
     );
 
