@@ -6,13 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 /* Angular Material Imports */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
-// import { MatFormFieldModule } from '@angular/material/form-field';
-// import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -60,13 +58,16 @@ import { AppComponent } from 'src/app/app.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
+import { AlertComponent, AlertModalComponent } from 'src/app/components/alert/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SidebarComponent
+    SidebarComponent,
+    AlertComponent,
+    AlertModalComponent
   ],
   imports: [
     /* Angular Imports Begin */
@@ -82,6 +83,7 @@ import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
     MatSnackBarModule,
     MatTooltipModule,
     MatDividerModule,
+    MatDialogModule,
     /* Angular Material Imports End */
     /**/
     /* Fontawesome Imports Begin */
@@ -95,6 +97,9 @@ import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
     SidebarComponent,
     Config
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AlertModalComponent
+  ]
 })
 export class AppModule { }

@@ -1,0 +1,15 @@
+<div mat-dialog-title class="dialog-title">
+  <button class="close-icon-button w3-large" mat-icon-button color="accent" (click)="onCloseClick()">
+    <fa-icon [icon]="['fas', 'times']"></fa-icon>
+  </button>
+  <h3 class="app-text-theme-primary">{{alert_data.title}}</h3>
+</div>
+<div mat-dialog-content>
+  {{alert_data.message}}
+  <div class="w3-margin-top app-text-theme-accent w3-small">
+    {{alert_data.info}}
+  </div>
+</div>
+<div mat-dialog-actions class="w3-flex-right-align">
+  <button mat-flat-button color="primary" cdkFocusInitial (click)="onOkClick()">{{alert_data.positive_btn_text}}</button>
+</div>

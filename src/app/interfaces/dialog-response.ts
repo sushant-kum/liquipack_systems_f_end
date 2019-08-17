@@ -1,4 +1,4 @@
 export interface DialogResponse {
-  data: any;
-  operation: 'close' | 'user.add' | 'user.edit';
+  data?: any;
+  operation: 'close' | 'alert.close' | 'alert.ok' | 'user.add' | 'user.edit';
 }
