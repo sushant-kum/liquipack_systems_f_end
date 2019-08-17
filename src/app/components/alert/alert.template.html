@@ -5,11 +5,12 @@
   <h4 class="app-text-theme-primary">{{alert_data.title}}</h4>
 </div>
 <div mat-dialog-content>
-  {{alert_data.message}}
-  <div *ngIf="alert_data.info" class="w3-margin-top app-text-theme-accent w3-small">
-    {{alert_data.info}}
+  <div class="w3-margin-bottom" [innerHTML]="alert_data.message"></div>
+  <div *ngIf="alert_data.info" [innerHTML]="alert_data.info" class="w3-margin-bottom app-text-theme-accent w3-small">
   </div>
 </div>
 <div mat-dialog-actions class="w3-flex-right-align">
-  <button mat-flat-button color="primary" cdkFocusInitial (click)="onOkClick()">{{alert_data.positive_btn_text}}</button>
+  <button mat-flat-button color="primary" cdkFocusInitial (click)="onOkClick()">
+    {{alert_data.positive_btn_text}}
+  </button>
 </div>

@@ -21,7 +21,7 @@ export class AlertModalComponent {
 
   onCloseClick(): void {
     const response: DialogResponse = {
-      operation: 'alert.close'
+      operation: 'close'
     };
     this._dialogRef.close(response);
   }
