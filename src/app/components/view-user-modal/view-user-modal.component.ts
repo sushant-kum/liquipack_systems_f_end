@@ -35,7 +35,7 @@ export class ViewUserModalComponent implements OnInit {
   constructor(
     public config: Config,
     public helper: HelperService,
-    public dialogRef: MatDialogRef<ViewUserModalComponent>,
+    private _dialogRef: MatDialogRef<ViewUserModalComponent>,
     @Inject(MAT_DIALOG_DATA) public user: UserData
   ) { }
 
@@ -74,7 +74,7 @@ export class ViewUserModalComponent implements OnInit {
   }
 
   onCloseClick(): void {
-    this.dialogRef.close();
+    this._dialogRef.close();
   }
 
 }
