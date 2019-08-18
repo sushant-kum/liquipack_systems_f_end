@@ -146,7 +146,7 @@ export class UsersComponent implements OnInit, OnDestroy {
           this._http_service.delete_users_user_id.sendRequest(user._id).subscribe(
             (res: ApiResponse) => {
               user.is_active = res.data.is_active;
-              this.showToast('User disabled successfully', 'Close', 3000, false);
+              this.showToast('User disabled successfully', 'OK', 3000, false);
               if (this.mode.editing_user_ids.includes(user._id)) {
                 this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(user._id), 1);
               }
@@ -185,7 +185,7 @@ export class UsersComponent implements OnInit, OnDestroy {
                 }
               }
 
-              this.showToast('Successfully saved user details.', 'OK', null, false);
+              this.showToast('Successfully saved user details.', 'OK', 3000, false);
 
               if (this.mode.editing_user_ids.includes(dialog_response.data._id)) {
                 this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(res.data._id), 1);
@@ -219,7 +219,7 @@ export class UsersComponent implements OnInit, OnDestroy {
           this._http_service.post_users.sendRequest(user_data).subscribe(
             (res: ApiResponse) => {
               this.users_data.push(res.data);
-              this.showToast('Successfully added user.', 'OK', null, false);
+              this.showToast('Successfully added user.', 'OK', 3000, false);
               this.mode.adding_user = false;
             },
             (err: Error) => {
@@ -232,6 +232,39 @@ export class UsersComponent implements OnInit, OnDestroy {
       }
     );
 
+  }
+
+  deleteUserPermanently(user: UserData): void {
+    const confirm_sub = this._confirm_service.confirm({
+      title: 'Confirm Disable User',
+      message: `Are you sure you want to delete user <b>${user.username}</b> permanently?`,
+      info: 'All data related to the user will be deleted. This operation cannot be undone.',
+      positive_btn_text: 'Yes',
+      negative_btn_text: 'No'
+    }).subscribe(
+      (resp: DialogResponse) => {
+        // if (resp.operation === 'confirm.ok') {
+        //   this.mode.editing_user_ids.push(user._id);
+        //   this._http_service.delete_users_user_id.sendRequest(user._id).subscribe(
+        //     (res: ApiResponse) => {
+        //       user.is_active = res.data.is_active;
+        //       this.showToast('User disabled successfully', 'OK', 3000, false);
+        //       if (this.mode.editing_user_ids.includes(user._id)) {
+        //         this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(user._id), 1);
+        //       }
+        //     },
+        //     (err: Error) => {
+        //       console.error(err);
+        //       this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+        //       if (this.mode.editing_user_ids.includes(user._id)) {
+        //         this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(user._id), 1);
+        //       }
+        //     }
+        //   );
+        // }
+        confirm_sub.unsubscribe();
+      }
+    );
   }
 
   showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {

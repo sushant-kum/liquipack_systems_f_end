@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -22,7 +23,9 @@ import {
   faEye as fasEye,
   faUserTimes as fasUserTimes,
   faUserEdit as fasUserEdit,
-  faUserPlus as fasUserPlus
+  faUserPlus as fasUserPlus,
+  faCheckCircle as fasCheckCircle,
+  faChevronDown as fasChevronDown
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   fasPhone,
@@ -30,7 +33,9 @@ library.add(
   fasEye,
   fasUserTimes,
   fasUserEdit,
-  fasUserPlus
+  fasUserPlus,
+  fasCheckCircle,
+  fasChevronDown
 );
 /* Regular Icons */
 import { } from '@fortawesome/free-regular-svg-icons';
@@ -61,6 +66,7 @@ import { FormUserModalModule } from 'src/app/components/form-user-modal/form-use
     MatTooltipModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatMenuModule,
 
     /* Font-awesome Impors */
     FontAwesomeModule,

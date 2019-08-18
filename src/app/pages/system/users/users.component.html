@@ -52,14 +52,36 @@
                 </ng-template>
               </mat-card-content>
               <mat-card-actions *ngIf="app_permission.includes('write')" class="w3-right-align">
-                <button mat-button color="warn" class="w3-margin-right" [disabled]="!user.is_active" (click)="disableUser(user)">
+                <button mat-button color="warn" class="w3-margin-right" *ngIf="user.is_active" (click)="disableUser(user)">
                   <fa-icon [icon]="['fas', 'user-times']"></fa-icon>&nbsp;
                   Disable
                 </button>
-                <button mat-flat-button color="primary" [disabled]="!user.is_active" (click)="editUser(user)">
+                <button mat-flat-button color="primary" *ngIf="user.is_active" (click)="editUser(user)">
                   <fa-icon [icon]="['fas', 'user-edit']"></fa-icon>&nbsp;
                   Edit
                 </button>
+                <button mat-button color="primary" matTooltip="Disabled User Options" *ngIf="!user.is_active" [matMenuTriggerFor]="menu" aria-label="Disabled User Options">
+                  Options&nbsp;
+                  <fa-icon [icon]="['fas', 'chevron-down']"></fa-icon>
+                </button>
+                <mat-menu #menu="matMenu" >
+                  <button mat-menu-item (click)="deleteUserPermanently(user)">
+                    <fa-icon [icon]="['fas', 'user-times']"></fa-icon>&nbsp;
+                    Delete Permanently
+                  </button>
+                  <button mat-menu-item color="primary">
+                    <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>&nbsp;
+                    Enable User
+                  </button>
+                </mat-menu>
+                <!-- <button mat-button color="warn" class="w3-margin-right" *ngIf="!user.is_active" (click)="disableUser(user)">
+                  <fa-icon [icon]="['fas', 'user-times']"></fa-icon>&nbsp;
+                  Delete Permanently
+                </button>
+                <button mat-flat-button color="primary" *ngIf="!user.is_active" (click)="editUser(user)">
+                  <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>&nbsp;
+                  Enable User
+                </button> -->
               </mat-card-actions>
             </mat-card>
           </div>
