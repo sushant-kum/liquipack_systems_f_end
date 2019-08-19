@@ -20,10 +20,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 library.add(fasExclamationCircle, fasChevronRight, fasArrowLeft, fasHome);
 /* Regular Icons */
-import {} from '@fortawesome/free-regular-svg-icons';
+import { } from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import {} from '@fortawesome/free-brands-svg-icons';
+import { } from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 import { ErrorsRoutingModule } from './errors-routing.module';
