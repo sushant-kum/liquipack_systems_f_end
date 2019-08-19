@@ -12,5 +12,4 @@ export class SubHeadComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
