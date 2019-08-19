@@ -240,10 +240,12 @@ export class FormUserModalComponent implements OnInit {
                 permissions.push('write');
               }
 
-              return_data.app_permissions.push({
-                app: this.pages_info[page].identifier,
-                permissions
-              });
+              if (permissions.length > 0) {
+                return_data.app_permissions.push({
+                  app: this.pages_info[page].identifier,
+                  permissions
+                });
+              }
             }
           }
 
@@ -278,10 +280,12 @@ export class FormUserModalComponent implements OnInit {
           permissions.push('write');
         }
 
-        return_data.app_permissions.push({
-          app: this.pages_info[page].identifier,
-          permissions
-        });
+        if (permissions.length > 0) {
+          return_data.app_permissions.push({
+            app: this.pages_info[page].identifier,
+            permissions
+          });
+        }
       }
     }
 
