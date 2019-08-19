@@ -5,7 +5,8 @@
 
   <div *ngFor="let page of config.pages" [id]="'menu_' + config.page_map[page].identifier"
     [attr.data-menuitem]="config.page_map[page].identifier"
-    class="menuitem w3-bar-item w3-button app-hover-theme-accent w3-padding-large ripple-btn" [ngClass]="{'w3-padding-left-16': !config.page_map[page].is_subpage, 'w3-padding-left-32 app-theme-primary-dark': config.page_map[page].is_subpage}"
+    class="menuitem w3-bar-item w3-button app-hover-theme-accent w3-padding-large ripple-btn"
+    [ngClass]="{'w3-padding-left-16': !config.page_map[page].is_subpage, 'w3-padding-left-32 app-theme-primary-dark': config.page_map[page].is_subpage}"
     (click)="redirectTo(config.page_map[page].path, 400, true)">
     <div class="c-ripple js-ripple">
       <span class="c-ripple__circle"></span>
@@ -50,7 +51,8 @@
 
   <div *ngFor="let page of config.pages" [id]="'menu_' + config.page_map[page].identifier"
     [attr.data-menuitem]="config.page_map[page].identifier"
-    class="menuitem w3-bar-item w3-button app-hover-theme-accent w3-padding-left-16 w3-padding-large ripple-btn" [ngClass]="{'app-theme-primary-dark': config.page_map[page].is_subpage}"
+    class="menuitem w3-bar-item w3-button app-hover-theme-accent w3-padding-left-16 w3-padding-large ripple-btn"
+    [ngClass]="{'app-theme-primary-dark': config.page_map[page].is_subpage}"
     (click)="redirectTo(config.page_map[page].path, 400, true)">
     <div class="c-ripple js-ripple">
       <span class="c-ripple__circle"></span>
