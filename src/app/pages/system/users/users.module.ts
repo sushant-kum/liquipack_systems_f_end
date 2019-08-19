@@ -25,7 +25,8 @@ import {
   faUserEdit as fasUserEdit,
   faUserPlus as fasUserPlus,
   faCheckCircle as fasCheckCircle,
-  faChevronDown as fasChevronDown
+  faChevronDown as fasChevronDown,
+  faTrash as fasTrash
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   fasPhone,
@@ -35,7 +36,8 @@ library.add(
   fasUserEdit,
   fasUserPlus,
   fasCheckCircle,
-  fasChevronDown
+  fasChevronDown,
+  fasTrash
 );
 /* Regular Icons */
 import { } from '@fortawesome/free-regular-svg-icons';

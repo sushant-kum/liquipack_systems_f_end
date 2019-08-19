@@ -13,8 +13,7 @@ interface API {
   hostname: string;
   basepath: string;
   path: string;
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  sendRequest: any;
+  sendRequest: (...args: any[]) => Observable<ApiResponse>;
 }
 
 @Injectable({
@@ -32,7 +31,6 @@ export class HttpTransactionsService {
   get_login: API = {
     hostname: null,
     basepath: null,
-    method: 'GET',
     path: '/login',
     sendRequest: (username: string, password: string): Observable<ApiResponse> => {
       const hostname: string = this.get_login.hostname == null ? this._default_hostname : this.get_login.hostname;
@@ -59,7 +57,6 @@ export class HttpTransactionsService {
   get_login_token: API = {
     hostname: null,
     basepath: null,
-    method: 'GET',
     path: '/login/token',
     sendRequest: (): Observable<ApiResponse> => {
       const hostname: string = this.get_login_token.hostname == null ? this._default_hostname : this.get_login_token.hostname;
@@ -85,7 +82,6 @@ export class HttpTransactionsService {
   get_users: API = {
     hostname: null,
     basepath: null,
-    method: 'GET',
     path: '/users',
     sendRequest: (): Observable<ApiResponse> => {
       const hostname: string = this.get_users.hostname == null ? this._default_hostname : this.get_users.hostname;
@@ -111,7 +107,6 @@ export class HttpTransactionsService {
   post_users: API = {
     hostname: null,
     basepath: null,
-    method: 'PUT',
     path: '/users',
     sendRequest: (user_data: UserData): Observable<ApiResponse> => {
       const hostname: string = this.post_users.hostname == null ? this._default_hostname : this.post_users.hostname;
@@ -137,7 +132,6 @@ export class HttpTransactionsService {
   get_users_user_id: API = {
     hostname: null,
     basepath: null,
-    method: 'GET',
     path: '/users/:user_id',
     sendRequest: (user_id: string): Observable<ApiResponse> => {
       const hostname: string = this.get_users_user_id.hostname == null ? this._default_hostname : this.get_users_user_id.hostname;
@@ -165,7 +159,6 @@ export class HttpTransactionsService {
   put_users_user_id: API = {
     hostname: null,
     basepath: null,
-    method: 'PUT',
     path: '/users/:user_id',
     sendRequest: (user_id: string, user_data: UserData): Observable<ApiResponse> => {
       const hostname: string = this.put_users_user_id.hostname == null ? this._default_hostname : this.put_users_user_id.hostname;
@@ -193,9 +186,8 @@ export class HttpTransactionsService {
   delete_users_user_id: API = {
     hostname: null,
     basepath: null,
-    method: 'DELETE',
     path: '/users/:user_id',
-    sendRequest: (user_id: string, delete_permanently?: boolean): Observable<ApiResponse> => {
+    sendRequest: (user_id: string): Observable<ApiResponse> => {
       const hostname: string = this.delete_users_user_id.hostname == null ? this._default_hostname : this.delete_users_user_id.hostname;
       const basepath: string = this.delete_users_user_id.basepath == null ? this._default_basepath : this.delete_users_user_id.basepath;
       let url: string = hostname + basepath + this.delete_users_user_id.path;
@@ -204,13 +196,8 @@ export class HttpTransactionsService {
 
       const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-      let params = new HttpParams();
-      if (delete_permanently) {
-        params = params.append('delete_permanently', 'true');
-      }
       const http_options = {
-        headers,
-        params
+        headers
       };
 
       return this._http_client.delete<ApiResponse>(url, http_options).pipe(
@@ -226,10 +213,85 @@ export class HttpTransactionsService {
     }
   };
 
+  patch_users_user_id_disable: API = {
+    hostname: null,
+    basepath: null,
+    path: '/users/:user_id/disable',
+    sendRequest: (user_id: string): Observable<ApiResponse> => {
+      const hostname: string = (
+        this.patch_users_user_id_disable.hostname == null ?
+        this._default_hostname :
+        this.patch_users_user_id_disable.hostname
+      );
+      const basepath: string = (
+        this.patch_users_user_id_disable.basepath == null ?
+        this._default_basepath :
+        this.patch_users_user_id_disable.basepath
+      );
+      let url: string = hostname + basepath + this.patch_users_user_id_disable.path;
+
+      url = url.replace(/:user_id/, user_id);
+
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = {
+        headers
+      };
+
+      return this._http_client.patch<ApiResponse>(url, null, http_options).pipe(
+        map(
+          (response) => {
+            if (response.token) {
+              this._set_token(response.token);
+            }
+            return response;
+          }
+        ), catchError(this._errorHandler<ApiResponse>())
+      );
+    }
+  };
+
+  patch_users_user_id_enable: API = {
+    hostname: null,
+    basepath: null,
+    path: '/users/:user_id/enable',
+    sendRequest: (user_id: string): Observable<ApiResponse> => {
+      const hostname: string = (
+        this.patch_users_user_id_enable.hostname == null ?
+        this._default_hostname :
+        this.patch_users_user_id_enable.hostname
+      );
+      const basepath: string = (
+        this.patch_users_user_id_enable.basepath == null ?
+        this._default_basepath :
+        this.patch_users_user_id_enable.basepath
+      );
+      let url: string = hostname + basepath + this.patch_users_user_id_enable.path;
+
+      url = url.replace(/:user_id/, user_id);
+
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = {
+        headers
+      };
+
+      return this._http_client.patch<ApiResponse>(url, null, http_options).pipe(
+        map(
+          (response) => {
+            if (response.token) {
+              this._set_token(response.token);
+            }
+            return response;
+          }
+        ), catchError(this._errorHandler<ApiResponse>())
+      );
+    }
+  };
+
   get_profile_user_id: API = {
     hostname: null,
     basepath: null,
-    method: 'GET',
     path: '/profile/:user_id',
     sendRequest: (user_id: string): Observable<ApiResponse> => {
       const hostname: string = this.get_profile_user_id.hostname == null ? this._default_hostname : this.get_profile_user_id.hostname;
@@ -257,7 +319,6 @@ export class HttpTransactionsService {
   put_profile_user_id: API = {
     hostname: null,
     basepath: null,
-    method: 'PUT',
     path: '/profile/:user_id',
     sendRequest: (user_id: string, profile: any): Observable<ApiResponse> => {
       const hostname: string = this.put_profile_user_id.hostname == null ? this._default_hostname : this.put_profile_user_id.hostname;
