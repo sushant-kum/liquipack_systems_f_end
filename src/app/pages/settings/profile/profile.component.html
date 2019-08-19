@@ -190,7 +190,8 @@
             </div>
           </div>
 
-          <div class="app-theme-warn w3-padding w3-round w3-animate-zoom" *ngIf="!form_possword.get('repeat_password').hasError('required') && form_possword.hasError('passwordMismatch')">
+          <div class="app-theme-warn w3-padding w3-round w3-animate-zoom"
+            *ngIf="!form_possword.get('repeat_password').hasError('required') && form_possword.hasError('passwordMismatch')">
             Passwords do not match.
           </div>
         </form>
