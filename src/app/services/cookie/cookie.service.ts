@@ -49,7 +49,7 @@ export class CookieService {
   }
 
   deleteMulti(cnames: string[]) {
-    for (let cname of cnames) {
+    for (const cname of cnames) {
       if (this.exists(cname)) {
         this.delete(cname);
       }

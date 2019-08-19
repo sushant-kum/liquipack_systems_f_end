@@ -18,5 +18,4 @@ export class HelperService {
       return JSON.stringify(obj);
     }
   };
-
 }

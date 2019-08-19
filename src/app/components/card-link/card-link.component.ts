@@ -29,5 +29,4 @@ export class CardLinkComponent implements OnInit {
   onCardMouseOut() {
     this.app.hovered = false;
   }
-
 }

@@ -186,8 +186,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     );
   }
 
-  private _passwordMatchValidator(form: FormGroup): {[key: string]: boolean} | null {
-    return form.get('new_password').value === form.get('repeat_password').value ? null : {passwordMismatch: true};
+  private _passwordMatchValidator(form: FormGroup): { [key: string]: boolean } | null {
+    return form.get('new_password').value === form.get('repeat_password').value ? null : { passwordMismatch: true };
   }
 
   isPasswordFormEdited(): boolean {

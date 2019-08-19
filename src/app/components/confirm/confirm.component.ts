@@ -63,13 +63,13 @@ export class ConfirmComponent implements OnInit {
             info: this._confirm_service.confirm_data.info ? this._confirm_service.confirm_data.info : null,
             negative_btn_text: (
               this._confirm_service.confirm_data.negative_btn_text ?
-              this._confirm_service.confirm_data.negative_btn_text :
-              'Cancel'
+                this._confirm_service.confirm_data.negative_btn_text :
+                'Cancel'
             ),
             positive_btn_text: (
               this._confirm_service.confirm_data.positive_btn_text ?
-              this._confirm_service.confirm_data.positive_btn_text :
-              'OK'
+                this._confirm_service.confirm_data.positive_btn_text :
+                'OK'
             )
           });
         }
@@ -96,5 +96,4 @@ export class ConfirmComponent implements OnInit {
       }
     );
   }
-
 }

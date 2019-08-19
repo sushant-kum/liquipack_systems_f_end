@@ -82,7 +82,7 @@ export class UsersComponent implements OnInit, OnDestroy {
         if (auth_state) {
           this.getUsers();
           const app_permissions = JSON.parse(this._localstorage_service.get(this._localstorage_service.lsname.app_permissions));
-          for (const  app of app_permissions) {
+          for (const app of app_permissions) {
             if (app.app === this._page_id) {
               this.app_permission = app.permissions;
               break;

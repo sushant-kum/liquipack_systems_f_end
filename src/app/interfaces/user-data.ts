@@ -6,7 +6,7 @@ export interface UserData {
   }[];
   created_date: Date;
   email: string;
-  gender: "male" | 'female' | 'others';
+  gender: 'male' | 'female' | 'others';
   is_active: boolean;
   name: string;
   password_hash: string;
