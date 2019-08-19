@@ -39,7 +39,7 @@ export class LocalStorageService {
   }
 
   deleteMulti(lsnames: string[]) {
-    for (let lsname of lsnames) {
+    for (const lsname of lsnames) {
       if (this.exists(lsname)) {
         this.delete(lsname);
       }

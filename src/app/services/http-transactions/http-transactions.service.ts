@@ -220,13 +220,13 @@ export class HttpTransactionsService {
     sendRequest: (user_id: string): Observable<ApiResponse> => {
       const hostname: string = (
         this.patch_users_user_id_disable.hostname == null ?
-        this._default_hostname :
-        this.patch_users_user_id_disable.hostname
+          this._default_hostname :
+          this.patch_users_user_id_disable.hostname
       );
       const basepath: string = (
         this.patch_users_user_id_disable.basepath == null ?
-        this._default_basepath :
-        this.patch_users_user_id_disable.basepath
+          this._default_basepath :
+          this.patch_users_user_id_disable.basepath
       );
       let url: string = hostname + basepath + this.patch_users_user_id_disable.path;
 
@@ -258,13 +258,13 @@ export class HttpTransactionsService {
     sendRequest: (user_id: string): Observable<ApiResponse> => {
       const hostname: string = (
         this.patch_users_user_id_enable.hostname == null ?
-        this._default_hostname :
-        this.patch_users_user_id_enable.hostname
+          this._default_hostname :
+          this.patch_users_user_id_enable.hostname
       );
       const basepath: string = (
         this.patch_users_user_id_enable.basepath == null ?
-        this._default_basepath :
-        this.patch_users_user_id_enable.basepath
+          this._default_basepath :
+          this.patch_users_user_id_enable.basepath
       );
       let url: string = hostname + basepath + this.patch_users_user_id_enable.path;
 
