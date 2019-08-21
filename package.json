@@ -4,18 +4,19 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --disableHostCheck --proxy-config proxy.conf.json",
-    "build": "ng build --baseHref=/ --output-path=./dist/build/",
-    "build_deploy": "npm run --silent build_min && npm run --silent minify_vendor_min && npm run --silent replace_vendor_min",
-    "build_min": "echo '***Building App Start***' && ng build --baseHref=/ --output-path=./dist/build_min/ && echo '***Building App Complete***'",
-    "minify_vendor_min": "echo '***Minifying vendor.js Start***' && uglifyjs dist/build_min/vendor.js --screw-ie8 --compress --mangle --output dist/build_min/vendor.min.js --verbose  && echo '***Minifying vendor.js Complete***'",
-    "replace_vendor_min": "echo '***Replacing vendor.js with vendor.min.js Start***' && sed -i s/vendor.js/vendor.min.js/g dist/build_min/index.html  && rm -v dist/build_min/vendor.js && echo '***Replacing vendor.js with vendor.min.js Complete***'",
+
+    "build_prod": "ng build --prod --aot=false --build-optimizer=false --baseHref=/ --output-path=./dist/build_prod/",
     "build_aot": "ng build --baseHref=/ --build-optimizer --aot --output-path=./dist/build_aot/",
     "build_aot_stats": "ng build --baseHref=/ --build-optimizer --aot --output-path=./dist/build_aot/ --stats-json",
     "build_aot_gzip": "ng build --baseHref=/ --build-optimizer --aot --output-path=./dist/build_aot_gzip/ && gzipper --verbose --gzip-level 9 ./dist/build_aot_gzip",
-    "build_prod": "ng build --prod --aot=false --build-optimizer=false --baseHref=/ --output-path=./dist/build_prod/",
+
+    "prepare_nginx": "sudo cp -rfv ./nginx/default /etc/nginx/sites-enabled && sudo systemctl restart nginx",
+    "prepare_ng_app": "npm run build_aot_gzip && sudo cp -rfv ./dist/build_aot_gzip/* /var/www/html",
+    "deploy_aot_gzip": "npm run prepare_nginx && npm run prepare_ng_app",
+
     "analyze_es5": "webpack-bundle-analyzer ./dist/build_aot/stats-es5.json",
     "analyze_es2015": "webpack-bundle-analyzer ./dist/build_aot/stats-es2015.json",
-    "deploy_aot_gzip": "sudo cp -rfv ./dist/build_aot_gzip/* /var/www/html",
+
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
