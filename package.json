@@ -11,10 +11,11 @@
     "replace_vendor_min": "echo '***Replacing vendor.js with vendor.min.js Start***' && sed -i s/vendor.js/vendor.min.js/g dist/build_min/index.html  && rm -v dist/build_min/vendor.js && echo '***Replacing vendor.js with vendor.min.js Complete***'",
     "build_aot": "ng build --baseHref=/ --build-optimizer --aot --output-path=./dist/build_aot/",
     "build_aot_stats": "ng build --baseHref=/ --build-optimizer --aot --output-path=./dist/build_aot/ --stats-json",
-    "build_aot_gzip": "ng build --baseHref=/ --build-optimizer --aot --output-path=./dist/build_aot/ && gzipper --verbose --gzip-level 9 ./dist/build_aot",
+    "build_aot_gzip": "ng build --baseHref=/ --build-optimizer --aot --output-path=./dist/build_aot_gzip/ && gzipper --verbose --gzip-level 9 ./dist/build_aot_gzip",
     "build_prod": "ng build --prod --aot=false --build-optimizer=false --baseHref=/ --output-path=./dist/build_prod/",
     "analyze_es5": "webpack-bundle-analyzer ./dist/build_aot/stats-es5.json",
     "analyze_es2015": "webpack-bundle-analyzer ./dist/build_aot/stats-es2015.json",
+    "deploy_aot_gzip": "sudo cp -rfv ./dist/build_aot_gzip/* /var/www/html",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
