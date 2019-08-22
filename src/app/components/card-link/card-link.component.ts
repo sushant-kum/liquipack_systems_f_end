@@ -11,6 +11,7 @@ export class CardLinkComponent implements OnInit {
     path: string;
     identifier: string;
     name: string;
+    short_name: string;
     img_icon_theme: string;
     img_icon_white: string;
     fas_icon: string;
