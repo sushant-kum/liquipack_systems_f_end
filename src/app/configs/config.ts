@@ -5,6 +5,9 @@ export class Config {
   private _pages = [
     'login',
     'home',
+    'apps',
+    'apps-quotation',
+    'apps-quotation-config',
     'settings',
     'settings-profile',
     'system',
@@ -76,6 +79,39 @@ export class Config {
       fas_icon: 'users',
       is_subpage: true,
       parent_page: 'system'
+    },
+    apps: {
+      path: this._app_base_path + '/apps',
+      identifier: 'apps',
+      name: 'Apps',
+      short_name: 'Apps',
+      img_icon_theme: 'assets/images/icons/apps/icon_apps_theme.svg',
+      img_icon_white: 'assets/images/icons/apps/icon_apps_white.svg',
+      fas_icon: 'th-list',
+      is_subpage: false,
+      parent_page: null
+    },
+    'apps-quotation': {
+      path: this._app_base_path + '/apps/quotation',
+      identifier: 'apps-quotation',
+      name: 'Apps/Quotation',
+      short_name: 'Quotation',
+      img_icon_theme: 'assets/images/icons/apps/icon_apps-quotation_theme.svg',
+      img_icon_white: 'assets/images/icons/apps/icon_apps-quotation_white.svg',
+      fas_icon: 'file-invoice',
+      is_subpage: true,
+      parent_page: 'apps'
+    },
+    'apps-quotation-config': {
+      path: this._app_base_path + '/apps/quotation/config',
+      identifier: 'apps-quotation-config',
+      name: 'Apps/Quotation/Config',
+      short_name: 'Quotation-Config',
+      img_icon_theme: 'assets/images/icons/apps/icons_apps-quotation-config_theme.svg',
+      img_icon_white: 'assets/images/icons/apps/icons_apps-quotation-config_white.svg',
+      fas_icon: 'tools',
+      is_subpage: true,
+      parent_page: 'apps'
     }
   };
   private _global_apps = [

@@ -28,6 +28,7 @@ interface PageMapWithHover {
   path: string;
   identifier: string;
   name: string;
+  short_name: string;
   img_icon_theme: string;
   img_icon_white: string;
   fas_icon: string;
@@ -72,24 +73,23 @@ export class HomeComponent implements OnInit {
 
     const app_permissions = JSON.parse(this._localstorage_service.get(this._localstorage_service.lsname.app_permissions));
 
-    for (const app of app_permissions) {
-      const temp_app = this.config.page_map[app.app];
-      temp_app.hovered = false;
-      this.my_apps.push(temp_app);
+    for (const page of this.config.pages) {
+      for (const app of app_permissions) {
+        if (app.app === page) {
+          const temp_app = this.config.page_map[app.app];
+          temp_app.hovered = false;
+          this.my_apps.push(temp_app);
+          break;
+        }
+      }
     }
 
-    this.my_apps.sort((a, b) => {
-      if (a.name < b.name) {
-        return -1;
-      }
-      if (a.name > b.name) {
-        return 1;
-      }
-      return 0;
-    });
-
     try {
-      const bookmarked_apps_identifier_arr = JSON.parse(this._cookie_service.get(this._cookie_service.cname.bookmarked_apps));
+      const bookmarked_apps_identifier_arr = (
+        JSON.parse(this._cookie_service.get(this._cookie_service.cname.bookmarked_apps)) ?
+        JSON.parse(this._cookie_service.get(this._cookie_service.cname.bookmarked_apps)) :
+        []
+      );
       for (const bookmarked_apps_identifier of bookmarked_apps_identifier_arr) {
         for (const my_app of this.my_apps) {
           if (bookmarked_apps_identifier === my_app.identifier) {
@@ -129,7 +129,6 @@ export class HomeComponent implements OnInit {
     } else {
       this._cookie_service.delete(this._cookie_service.cname.bookmarked_apps);
     }
-    console.log('this.bookmarked_apps', this.bookmarked_apps);
   }
 
   showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {

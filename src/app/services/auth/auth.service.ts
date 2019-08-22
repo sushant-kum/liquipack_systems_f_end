@@ -35,14 +35,12 @@ export class AuthService {
     this._http_client.get_profile_user_id.sendRequest(user_id).subscribe(
       (data) => {
         for (const global_app of this._config.global_apps) {
-          data.data.app_permissions.push({
+          data.data.app_permissions.unshift({
             app: global_app.app.identifier,
             permissions: global_app.permissions,
             _id: 'client_grown'
           });
         }
-
-        console.log(data);
 
         return callback(null, {
           access: data.data.app_permissions,
