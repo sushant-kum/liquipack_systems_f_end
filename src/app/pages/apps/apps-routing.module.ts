@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: AppsComponent
+  },
+  {
+    path: 'quotation',
+    loadChildren: () => import('src/app/pages/apps/quotation/quotation.module').then(module => module.QuotationModule)
   }
 ];
 

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { Md5 } from 'ts-md5/dist/md5';
 
@@ -17,7 +18,6 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 /* Config Imports */
 import { Config } from 'src/app/configs/config';
 import { RegexService } from 'src/app/services/regex/regex.service';
-import { Subscription } from 'rxjs';
 
 interface Mode {
   saving_profile: boolean;
