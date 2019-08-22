@@ -81,7 +81,6 @@ export class Error404Component implements OnInit {
   }
 
   goToPage(): void {
-    console.log(this.page_ctrl.value, this.pages);
     for (const page of this.pages) {
       if (this.page_ctrl.value === page.name) {
         this._router.navigate([page.path]);

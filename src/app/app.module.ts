@@ -27,7 +27,10 @@ import {
   faCircleNotch as fasCircleNotch,
   faSignOutAlt as fasSignOutAlt,
   faCopyright as fasCopyright,
-  faTimes as fasTimes
+  faTimes as fasTimes,
+  faThList as fasThList,
+  faFileInvoice as fasFileInvoice,
+  faTools as fasTools
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   fasUnlockAlt,
@@ -40,7 +43,10 @@ library.add(
   fasCircleNotch,
   fasSignOutAlt,
   fasCopyright,
-  fasTimes
+  fasTimes,
+  fasThList,
+  fasFileInvoice,
+  fasTools
 );
 /* Regular Icons */
 import { } from '@fortawesome/free-regular-svg-icons';

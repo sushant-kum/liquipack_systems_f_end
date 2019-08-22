@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: () => import('src/app/pages/system/system.module').then(module => module.SystemModule)
   },
   {
+    path: 'apps',
+    loadChildren: () => import('src/app/pages/apps/apps.module').then(module => module.AppsModule)
+  },
+  {
     path: 'developer',
     loadChildren: () => import('src/app/pages/developer/developer.module').then(module => module.DeveloperModule)
   },

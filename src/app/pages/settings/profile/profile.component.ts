@@ -110,7 +110,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this._localstorage_service.get(this._localstorage_service.lsname.user_id)
     ).subscribe(
       (response) => {
-        console.log(response.data);
         this.form_profile.get('username').setValue(response.data.username);
         this.form_profile.get('created_date').setValue(moment(response.data.created_date).format('DD MMM, YYYY hh:mm A'));
         this.form_profile.get('name').setValue(response.data.name);

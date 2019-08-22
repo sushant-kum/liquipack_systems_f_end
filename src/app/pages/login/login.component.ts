@@ -142,7 +142,6 @@ export class LoginComponent implements OnInit {
                 _id: 'client_grown'
               });
             }
-            console.log(data.data.app_permissions);
             this._localstorage_service.set(this._localstorage_service.lsname.app_permissions, JSON.stringify(data.data.app_permissions));
             window.location.href = redirect_path;
           } else {
