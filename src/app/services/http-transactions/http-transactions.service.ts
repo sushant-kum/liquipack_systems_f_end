@@ -343,6 +343,31 @@ export class HttpTransactionsService {
     }
   };
 
+  get_quotations: API = {
+    hostname: null,
+    basepath: null,
+    path: '/quotations',
+    sendRequest: (): Observable<ApiResponse> => {
+      const hostname: string = this.get_quotations.hostname == null ? this._default_hostname : this.get_quotations.hostname;
+      const basepath: string = this.get_quotations.basepath == null ? this._default_basepath : this.get_quotations.basepath;
+      const url: string = hostname + basepath + this.get_quotations.path;
+
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = { headers };
+      return this._http_client.get<ApiResponse>(url, http_options).pipe(
+        map(
+          (response) => {
+            if (response.token) {
+              this._set_token(response.token);
+            }
+            return response;
+          }
+        ), catchError(this._errorHandler<ApiResponse>())
+      );
+    }
+  }
+
   private _set_token(token: string): void {
     this._localstorage_service.set(this._localstorage_service.lsname.token, token);
   }
