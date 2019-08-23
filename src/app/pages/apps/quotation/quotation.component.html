@@ -6,15 +6,51 @@
         <mat-card-title class="app-text-theme-primary">
           Quotations
         </mat-card-title>
-        <button mat-icon-button color="accent" matTooltip="Quotation-Config" matTooltipPosition="before" class="w3-large btn-config" (click)="routeToConfig()">
+        <button mat-icon-button color="accent" matTooltip="Quotation-Config" matTooltipPosition="before"
+          class="w3-large btn-config" (click)="routeToConfig()">
           <fa-icon [icon]="['fas', 'tools']"></fa-icon>
         </button>
       </mat-card-header>
 
       <mat-card-content>
-          <div class="w3-row">
-            
+        <div class="w3-row">
+          <div *ngFor="let quotation of quotations; let i=index" class="w3-col m6 l4 w3-padding-small">
+            <mat-card
+              [ngClass]="{'w3-card': quotation.is_active, 'app-theme-accent-light app-text-theme-accent mat-elevation-z': !quotation.is_active}">
+              <mat-card-header class="w3-line-height-1">
+                <div mat-card-avatar *ngIf="quotation.is_active" class="app-theme-primary-light w3-padding-small">
+                  <img src="assets/images/icons/icon_quotation.svg" />
+                </div>
+                <div mat-card-avatar *ngIf="!quotation.is_active" class="app-theme-accent-l4 w3-padding-small">
+                    <img src="assets/images/icons/icon_quotation_disabled.svg" />
+                  </div>
+
+                <mat-card-title class="w3-margin-0" [ngClass]="{'app-text-theme-primary': quotation.is_active}">
+                  {{quotation.quotation_num}}
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <!-- <a *ngIf="user.phone" mat-icon-button color="primary" [href]="'tel:' + user.phone"
+                      [matTooltip]="user.is_active ? user.phone : null" [disabled]="!user.is_active"
+                      aria-label="Call user">
+                      <fa-icon [icon]="['fas', 'phone']"></fa-icon>
+                    </a>
+                    <a *ngIf="user.email" mat-icon-button color="primary" [href]="'mailto:' + user.email"
+                      [matTooltip]="user.is_active ? user.email : null" [disabled]="!user.is_active"
+                      aria-label="Mail user">
+                      <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+                    </a>
+                    <button mat-icon-button color="primary" matTooltip="View user details" (click)="viewUserDetails(user)"
+                      [disabled]="!user.is_active" aria-label="View user details">
+                      <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                    </button> -->
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+
+              </mat-card-content>
+            </mat-card>
           </div>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
