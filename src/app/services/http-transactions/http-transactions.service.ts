@@ -366,7 +366,121 @@ export class HttpTransactionsService {
         ), catchError(this._errorHandler<ApiResponse>())
       );
     }
-  }
+  };
+
+  delete_quotations_quotation_id: API = {
+    hostname: null,
+    basepath: null,
+    path: '/quotations/:quotation_id',
+    sendRequest: (quotation_id: string): Observable<ApiResponse> => {
+      const hostname: string = (
+        this.delete_quotations_quotation_id.hostname == null ?
+          this._default_hostname :
+          this.delete_quotations_quotation_id.hostname
+      );
+      const basepath: string = (
+        this.delete_quotations_quotation_id.basepath == null ?
+          this._default_basepath :
+          this.delete_quotations_quotation_id.basepath
+      );
+      let url: string = hostname + basepath + this.delete_quotations_quotation_id.path;
+
+      url = url.replace(/:quotation_id/, quotation_id);
+
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = {
+        headers
+      };
+
+      return this._http_client.delete<ApiResponse>(url, http_options).pipe(
+        map(
+          (response) => {
+            if (response.token) {
+              this._set_token(response.token);
+            }
+            return response;
+          }
+        ), catchError(this._errorHandler<ApiResponse>())
+      );
+    }
+  };
+
+  patch_quotations_quotation_id_disable: API = {
+    hostname: null,
+    basepath: null,
+    path: '/quotations/:quotation_id/disable',
+    sendRequest: (quotation_id: string): Observable<ApiResponse> => {
+      const hostname: string = (
+        this.patch_quotations_quotation_id_disable.hostname == null ?
+          this._default_hostname :
+          this.patch_quotations_quotation_id_disable.hostname
+      );
+      const basepath: string = (
+        this.patch_quotations_quotation_id_disable.basepath == null ?
+          this._default_basepath :
+          this.patch_quotations_quotation_id_disable.basepath
+      );
+      let url: string = hostname + basepath + this.patch_quotations_quotation_id_disable.path;
+
+      url = url.replace(/:quotation_id/, quotation_id);
+
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = {
+        headers
+      };
+
+      return this._http_client.patch<ApiResponse>(url, null, http_options).pipe(
+        map(
+          (response) => {
+            if (response.token) {
+              this._set_token(response.token);
+            }
+            return response;
+          }
+        ), catchError(this._errorHandler<ApiResponse>())
+      );
+    }
+  };
+
+  patch_quotations_quotation_id_enable: API = {
+    hostname: null,
+    basepath: null,
+    path: '/quotations/:quotation_id/enable',
+    sendRequest: (quotation_id: string): Observable<ApiResponse> => {
+      const hostname: string = (
+        this.patch_quotations_quotation_id_enable.hostname == null ?
+          this._default_hostname :
+          this.patch_quotations_quotation_id_enable.hostname
+      );
+      const basepath: string = (
+        this.patch_quotations_quotation_id_enable.basepath == null ?
+          this._default_basepath :
+          this.patch_quotations_quotation_id_enable.basepath
+      );
+      let url: string = hostname + basepath + this.patch_quotations_quotation_id_enable.path;
+
+      url = url.replace(/:quotation_id/, quotation_id);
+
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = {
+        headers
+      };
+
+      return this._http_client.patch<ApiResponse>(url, null, http_options).pipe(
+        map(
+          (response) => {
+            if (response.token) {
+              this._set_token(response.token);
+            }
+            return response;
+          }
+        ), catchError(this._errorHandler<ApiResponse>())
+      );
+    }
+  };
 
   private _set_token(token: string): void {
     this._localstorage_service.set(this._localstorage_service.lsname.token, token);

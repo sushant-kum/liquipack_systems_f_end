@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 /* Component Imports */
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
@@ -25,7 +26,6 @@ import { ApiResponse } from 'src/app/interfaces/api-response';
 /* Modals Imports */
 import { ViewUserModalComponent } from 'src/app/components/view-user-modal/view-user-modal.component';
 import { FormUserModalComponent } from 'src/app/components/form-user-modal/form-user-modal.component';
-import { Subscription } from 'rxjs';
 
 const PAGE_ID = 'system-users';
 
