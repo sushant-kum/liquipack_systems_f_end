@@ -1,0 +1,151 @@
+<div mat-dialog-title class="dialog-title">
+  <button class="close-icon-button w3-large" mat-icon-button color="accent" (click)="onCloseClick()">
+    <fa-icon [icon]="['fas', 'times']"></fa-icon>
+  </button>
+
+  <mat-card-header class="w3-line-height-1 w3-padding-small">
+    <div mat-card-avatar class="app-theme-primary-light w3-padding-small">
+      <img src="assets/images/icons/icon_quotation.svg" />
+    </div>
+    <mat-card-title class="app-text-theme-primary">
+      {{quotation.quotation_num}}
+    </mat-card-title>
+    <mat-card-subtitle class="w3-small">
+      <span class="app-text-theme-primary">ID</span> {{quotation._id}}
+    </mat-card-subtitle>
+  </mat-card-header>
+</div>
+
+<mat-dialog-content>
+  <div class="w3-row">
+    <div class="w3-col l6 w3-padding-small">
+      <comp-sub-head>
+        <fa-icon [icon]="['fas', 'building']"></fa-icon>
+        &nbsp;Customer Details
+      </comp-sub-head>
+
+      <table class="w3-table">
+        <tr>
+          <td class="app-text-theme-accent w3-padding-bottom-16 w3-padding-0">
+            Name
+          </td>
+          <td class="w3-padding-bottom-16 w3-padding-0">
+            {{quotation.customer_details.name}}
+          </td>
+        </tr>
+        <tr>
+          <td class="app-text-theme-accent w3-padding-bottom-16 w3-padding-0">
+            Address
+          </td>
+          <td class="w3-padding-bottom-16 w3-padding-0">
+            {{quotation.customer_details.address}}
+          </td>
+        </tr>
+        <tr>
+          <td class="app-text-theme-accent w3-padding-bottom-16 w3-padding-0">
+            POC
+          </td>
+          <td class="w3-padding-bottom-16 w3-padding-0">
+            {{quotation.customer_details.person_of_contact.title}}.
+            {{quotation.customer_details.person_of_contact.name}}
+          </td>
+        </tr>
+        <tr>
+          <td class="app-text-theme-accent w3-padding-bottom-16 w3-padding-0">
+            Contact No
+          </td>
+          <td class="w3-padding-bottom-16 w3-padding-0">
+            {{quotation.customer_details.contact_no}}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class=" w3-col l6 w3-padding-small">
+      <comp-sub-head>
+        <fa-icon [icon]="['fas', 'user']"></fa-icon>
+        &nbsp;Quotation Details
+      </comp-sub-head>
+
+      <table class="w3-table">
+        <tr>
+          <td class="app-text-theme-accent w3-padding-bottom-16 w3-padding-0">
+            Date
+          </td>
+          <td class="w3-padding-bottom-16 w3-padding-0">
+            {{helper.time.format(quotation.created_date, 'DD MMM, YYYY')}}
+          </td>
+        </tr>
+        <tr>
+          <td class="app-text-theme-accent w3-padding-bottom-16 w3-padding-0">
+            Created By
+          </td>
+          <td class="w3-padding-bottom-16 w3-padding-0">
+            {{quotation.extra_data.creator_name}}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="w3-padding-small">
+    <comp-sub-head>
+      <fa-icon [icon]="['fas', 'list-ul']"></fa-icon>
+      &nbsp;Quotation
+    </comp-sub-head>
+
+    <table class="w3-table">
+      <tr>
+        <td class="w3-padding-bottom-16 w3-padding-0"></td>
+        <td class="w3-padding-bottom-16 w3-padding-0 w3-center">Quantity</td>
+        <td class="w3-padding-bottom-16 w3-padding-0 w3-center">Price</td>
+      </tr>
+      <tr *ngFor="let item_key of helper.object.Keys(quotation_items_key_name_mapping)">
+        <td class="w3-padding-0 w3-padding-bottom-16">
+          {{quotation_items_key_name_mapping[item_key]}}
+        </td>
+        <td class="w3-padding-0 w3-padding-bottom-16 w3-left-align">
+          <ng-container *ngIf="quotation[item_key].qty !== undefined || quotation[item_key].qty !== null">
+            <ng-container *ngIf="quotation[item_key].qty === true; then thenTemplate; else elseTemplate">
+            </ng-container>
+            <ng-template #thenTemplate>
+              Yes
+            </ng-template>
+            <ng-template #elseTemplate>
+              <ng-container *ngIf="quotation[item_key].qty === false; then thenTemplate; else elseTemplate">
+              </ng-container>
+              <ng-template #thenTemplate>
+                No
+              </ng-template>
+              <ng-template #elseTemplate>
+                {{quotation[item_key].qty}}
+              </ng-template>
+            </ng-template>
+          </ng-container>
+        </td>
+        <td class="w3-padding-0 w3-padding-bottom-16 w3-right-align">
+          <ng-container *ngIf="quotation[item_key].price; else elseTemplate">
+            {{quotation[item_key].price.toLocaleString('en-IN')}}
+          </ng-container>
+          <ng-template #elseTemplate>
+            0
+          </ng-template>
+        </td>
+      </tr>
+    </table>
+    <hr />
+    <div>
+      <span class="w3-text-semi-bold">Total</span>
+      <span class="w3-right">
+        <fa-icon [icon]="['fas', 'rupee-sign']"></fa-icon>
+        {{quotation.extra_data.total_price.toLocaleString('en-IN')}}
+      </span>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="w3-flex-right-align">
+  <button mat-button color="warn" (click)="onCloseClick()">
+    Close
+  </button>
+</mat-dialog-actions>

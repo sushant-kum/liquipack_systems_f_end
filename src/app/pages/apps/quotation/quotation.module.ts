@@ -9,40 +9,37 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 /* Solid Icons */
 import {
-  faUser as fasUser,
-  faUserShield as fasUserShield,
-  faCalendar as fasCalendar,
-  faVenusMars as fasVenusMars,
-  faEnvelope as fasEnvelope,
-  faMobile as fasMobile,
-  faSave as fasSave,
-  faUndoAlt as fasUndoAlt,
-  faMars as fasMars,
-  faVenus as fasVenus,
-  faTransgender as fasTransgender,
-  faKey as fasKey,
-  faCircleNotch as fasCircleNotch
+  faEye as fasEye,
+  faBuilding as fasBuilding,
+  faRupeeSign as fasRupeeSign,
+  faCalendarDay as fasCalendarDay,
+  faTimesCircle as fasTimesCircle,
+  faPenSquare as fasPenSquare,
+  faChevronDown as fasChevronDown,
+  faTrash as fasTrash,
+  faCheckCircle as fasCheckCircle,
+  faPlusSquare as fasPlusSquare
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
-  fasUser,
-  fasUserShield,
-  fasCalendar,
-  fasVenusMars,
-  fasEnvelope,
-  fasMobile,
-  fasSave,
-  fasUndoAlt,
-  fasMars,
-  fasVenus,
-  fasTransgender,
-  fasKey,
-  fasCircleNotch
+  fasEye,
+  fasBuilding,
+  fasRupeeSign,
+  fasCalendarDay,
+  fasTimesCircle,
+  fasPenSquare,
+  fasChevronDown,
+  fasTrash,
+  fasCheckCircle,
+  fasPlusSquare
 );
 /* Regular Icons */
 import { } from '@fortawesome/free-regular-svg-icons';
@@ -53,7 +50,8 @@ library.add();
 
 import { QuotationRoutingModule } from './quotation-routing.module';
 import { QuotationComponent } from './quotation.component';
-
+import { ViewQuotationModalComponent } from 'src/app/components/view-quotation-modal/view-quotation-modal.component';
+import { ViewQuotationModalModule } from 'src/app/components/view-quotation-modal/view-quotation-modal.module';
 
 @NgModule({
   declarations: [QuotationComponent],
@@ -65,6 +63,9 @@ import { QuotationComponent } from './quotation.component';
     MatSelectModule,
     MatButtonModule,
     MatTooltipModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    MatMenuModule,
 
     /* Font-awesome Impors */
     FontAwesomeModule,
@@ -72,7 +73,11 @@ import { QuotationComponent } from './quotation.component';
     /* Other Imports */
     CommonModule,
     QuotationRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ViewQuotationModalModule
+  ],
+  entryComponents: [
+    ViewQuotationModalComponent
   ]
 })
 export class QuotationModule { }

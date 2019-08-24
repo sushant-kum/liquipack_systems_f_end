@@ -18,4 +18,10 @@ export class HelperService {
       return JSON.stringify(obj);
     }
   };
+
+  object = {
+    Keys(obj: object): string[] {
+      return Object.keys(obj);
+    }
+  };
 }
