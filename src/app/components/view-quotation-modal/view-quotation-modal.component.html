@@ -97,8 +97,10 @@
     <table class="w3-table">
       <tr>
         <td class="w3-padding-bottom-16 w3-padding-0"></td>
-        <td class="w3-padding-bottom-16 w3-padding-0 w3-center">Quantity</td>
-        <td class="w3-padding-bottom-16 w3-padding-0 w3-center">Price</td>
+        <td class="w3-padding-bottom-16 w3-padding-0 w3-left-align">Quantity</td>
+        <td class="w3-padding-bottom-16 w3-padding-0 w3-right-align">
+          Price (Rs)
+        </td>
       </tr>
       <tr *ngFor="let item_key of helper.object.Keys(quotation_items_key_name_mapping)">
         <td class="w3-padding-0 w3-padding-bottom-16">
@@ -130,6 +132,14 @@
           <ng-template #elseTemplate>
             0
           </ng-template>
+        </td>
+      </tr>
+      <tr>
+        <td class="w3-padding-0 w3-padding-bottom-16">
+          Other Details
+        </td>
+        <td colspan="2" class="w3-padding-0 w3-padding-bottom-16">
+          {{quotation.other_details ? quotation.other_details : ''}}
         </td>
       </tr>
     </table>
