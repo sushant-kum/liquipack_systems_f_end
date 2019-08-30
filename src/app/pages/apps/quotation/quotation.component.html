@@ -65,7 +65,7 @@
                       </div>
                       <fa-icon [icon]="['fas', 'calendar-day']"
                         [ngClass]="{'app-text-theme-primary': quotation.is_active}"></fa-icon>
-                      &nbsp;{{helper_service.time.format(quotation.created_date, 'DD MMM, YY')}}
+                      &nbsp;{{helper.time.format(quotation.created_date, 'DD MMM, YY')}}
                     </div>
                   </div>
                 </ng-template>
