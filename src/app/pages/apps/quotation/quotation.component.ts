@@ -44,7 +44,7 @@ const QUOTAION_ITEM_NAMES = {
   illumination_required: 'Illumination Required',
   auto_level_tank: 'Auto Level Control in Tank',
   extra_cups_sets: 'Extra Set of Cups Required'
-}
+};
 
 @Component({
   selector: 'app-quotation',
