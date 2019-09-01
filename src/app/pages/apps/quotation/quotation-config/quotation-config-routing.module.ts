@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ConfigComponent } from './config.component';
+import { QuotationConfigComponent } from './quotation-config.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: ConfigComponent
+    component: QuotationConfigComponent
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ConfigRoutingModule { }
+export class QuotationConfigRoutingModule { }
