@@ -38,6 +38,8 @@ library.add();
 
 import { QuotationConfigRoutingModule } from './quotation-config-routing.module';
 import { QuotationConfigComponent } from './quotation-config.component';
+import { FormQuotationConfigComponent } from './components/form-quotation-config/form-quotation-config.component';
+import { FormQuotationConfigModule } from './components/form-quotation-config/form-quotation-config.module';
 
 
 @NgModule({
@@ -60,7 +62,11 @@ import { QuotationConfigComponent } from './quotation-config.component';
     /* Other Imports */
     CommonModule,
     QuotationConfigRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormQuotationConfigModule
+  ],
+  entryComponents: [
+    FormQuotationConfigComponent
   ]
 })
 export class QuotationConfigModule { }

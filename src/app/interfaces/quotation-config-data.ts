@@ -15,6 +15,13 @@ export interface QuotationConfigData {
     }[],
     default_option_index: number
   };
+  industry: {
+    options: {
+      qty: string;
+      price: number;
+    }[],
+    default_option_index: number;
+  };
   gmp_requirement: {
     options: {
       qty: boolean;

@@ -101,7 +101,7 @@
 
 
 
-            <mat-action-row>
+            <mat-action-row *ngIf="app_permission.includes('write')">
               <button mat-button color="warn" class="w3-margin-right" [disabled]="config.is_active"
                 (click)="deleteQuotationConfig(config)">
                 <fa-icon [icon]="['fas', 'trash']"></fa-icon>
@@ -121,7 +121,7 @@
         </mat-accordion>
       </mat-card-content>
 
-      <mat-card-actions class="w3-right-align">
+      <mat-card-actions *ngIf="app_permission.includes('write')" class="w3-right-align">
         <button mat-flat-button color="primary" [disabled]="mode.fetching_configs" (click)="addQuotationConfig()">
           <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>
           &nbsp;Add Config

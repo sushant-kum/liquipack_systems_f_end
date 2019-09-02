@@ -1,0 +1,166 @@
+<div mat-dialog-title class="dialog-title">
+  <button class="close-icon-button w3-large" mat-icon-button color="accent" (click)="onCloseClick()">
+    <fa-icon [icon]="['fas', 'times']"></fa-icon>
+  </button>
+
+  <mat-card-header *ngIf="!mode.new_config; else templateNewConfigHeader" class="w3-line-height-1 w3-padding-small">
+    <div mat-card-avatar class="app-theme-primary-light w3-padding-small">
+      <img src="assets/images/icons/icon_quotation.svg" />
+    </div>
+    <mat-card-title class="app-text-theme-primary">
+      {{quotation_config.config_name}}
+    </mat-card-title>
+    <mat-card-subtitle class="w3-small">
+      <span class="app-text-theme-primary">ID</span> {{quotation_config._id}}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <ng-template #templateNewConfigHeader>
+    <mat-card-header class="w3-line-height-1 w3-padding-small">
+      <div mat-card-avatar class="app-theme-primary-light w3-padding-small">
+        <img src="assets/images/icons/icon_quotation.svg" />
+      </div>
+      <mat-card-title class="app-text-theme-primary">
+        New Quotation Config
+      </mat-card-title>
+    </mat-card-header>
+  </ng-template>
+</div>
+
+<mat-dialog-content>
+  <comp-sub-head *ngIf="mode.new_config">
+    <fa-icon [icon]="['fas', 'info']"></fa-icon>
+    &nbsp;Basic Details
+  </comp-sub-head>
+
+  <div class="w3-row">
+    <div class="w3-col m6 w3-padding-small" [ngClass]="{'w3-hide': !mode.new_config}">
+      <mat-form-field appearance="standard">
+        <mat-label>Config Name</mat-label>
+        <input id="input-config_name" matInput [formControl]="quotation_config_config_name_ctrl"
+          placeholder="Config Name">
+        <span matPrefix>
+          <fa-icon [icon]="['fas', 'cog']" [ngClass]="{
+                    'app-text-theme-warn': quotation_config_config_name_ctrl.invalid && quotation_config_config_name_ctrl.touched,
+                    'app-text-theme-primary': !(quotation_config_config_name_ctrl.invalid && quotation_config_config_name_ctrl.touched)
+                  }"></fa-icon>&nbsp;
+        </span>
+        <span class="w3-text-gray" matSuffix>
+          <fa-icon [ngClass]="{'app-text-theme-warn': quotation_config_config_name_ctrl.hasError('pattern')}"
+            [icon]="['fas', 'question-circle']"
+            matTooltip="Config Name must be 2-50 characters long and must contain only alphabets, digits or (., _) as special character, and must not begin or end with special characters or contain consecutive special characters.">
+          </fa-icon>
+        </span>
+        <mat-error *ngIf="quotation_config_config_name_ctrl.hasError('required')">
+          Config Name is required field
+        </mat-error>
+        <mat-error *ngIf="quotation_config_config_name_ctrl.hasError('pattern')">
+          Config Name format is incorrect
+        </mat-error>
+        <mat-error *ngIf="quotation_config_config_name_ctrl.hasError('notUnique')">
+          Config Name already exists
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="w3-col m6 w3-padding-small">
+      <mat-slide-toggle [formControl]="quotation_config_is_active_ctrl" color="primary">
+        Make Default after creation
+      </mat-slide-toggle>
+    </div>
+  </div>
+
+
+  <comp-sub-head>
+    <fa-icon [icon]="['fas', 'info']"></fa-icon>
+    &nbsp;Field Options
+  </comp-sub-head>
+
+  <div class="w3-responsive">
+    <table class="w3-table w3-centered">
+      <thead>
+        <tr>
+          <th rowspan="2" class="app-theme-primary">Sl. No.</th>
+          <th rowspan="2" class="app-theme-primary">Field</th>
+          <th colspan="3" class="app-theme-primary">Options</th>
+        </tr>
+        <tr>
+          <th class="app-theme-primary-l1">Quantity</th>
+          <th class="app-theme-primary-l1">Price (Rs)</th>
+          <th class="app-theme-primary-l1">Default</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let field of helper.object.Keys(quotation_config_field_names); let i=index"
+        [ngClass]="{'app-theme-accent-light': i % 2 === 1}">
+
+        <ng-container *ngIf="quotation_config_field_types[field] !== 'boolean'; else booleanFieldTemplate">
+          <tr *ngFor="let j of helper.array.num_list(quotation_config[field].options.length + 1)">
+            <td *ngIf="j === 0">
+              {{i + 1}}
+            </td>
+            <td *ngIf="j !== 0"></td>
+            <td *ngIf="j === 0" [attr.rowspan]="quotation_config[field].options.length + 1">
+              {{quotation_config_field_names[field]}}
+            </td>
+            <td *ngIf="quotation_config[field].options.length > j">
+              {{quotation_config[field].options[j].qty}}
+            </td>
+            <td *ngIf="quotation_config[field].options.length > j">
+              {{quotation_config[field].options[j].price}}
+            </td>
+            <td *ngIf="quotation_config[field].options.length > j">
+              {{quotation_config[field].default_option_index === j}}
+            </td>
+            <td *ngIf="quotation_config[field].options.length === j" colspan="3">
+              <button class="add-option-btn" mat-stroked-button color="primary">
+                Add Option&nbsp;
+                <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-template #booleanFieldTemplate>
+          <tr *ngFor="let j of helper.array.num_list(quotation_config[field].options.length)">
+            <td *ngIf="j === 0">
+              {{i + 1}}
+            </td>
+            <td *ngIf="j !== 0"></td>
+            <td *ngIf="j === 0" [attr.rowspan]="quotation_config[field].options.length">
+              {{quotation_config_field_names[field]}}
+            </td>
+            <td>
+              {{quotation_config[field].options[j].qty}}
+            </td>
+            <td>
+              {{quotation_config[field].options[j].price}}
+            </td>
+            <td>
+              {{quotation_config[field].default_option_index === j}}
+            </td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="w3-flex-right-align">
+  <button mat-button color="primary" class="w3-margin-right" [disabled]="false" (click)="onResetClick()">
+    <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>&nbsp;
+    Reset
+  </button>
+
+  <button *ngIf="mode.new_config;else templateSaveButton" mat-flat-button color="primary" [disabled]="false"
+    (click)="onAddClick()">
+    <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>&nbsp;
+    Add
+  </button>
+
+  <ng-template #templateSaveButton>
+    <button mat-flat-button color="primary" [disabled]="false" (click)="onSaveClick()">
+      <fa-icon [icon]="['fas', 'save']"></fa-icon>&nbsp;
+      Save
+    </button>
+  </ng-template>
+</mat-dialog-actions>

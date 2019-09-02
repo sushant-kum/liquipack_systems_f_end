@@ -22,6 +22,7 @@ import { Config } from 'src/app/configs/config';
 import { QuotationConfigData } from 'src/app/interfaces/quotation-config-data';
 import { DialogResponse } from 'src/app/interfaces/dialog-response';
 import { ApiResponse } from 'src/app/interfaces/api-response';
+import { FormQuotationConfigComponent } from './components/form-quotation-config/form-quotation-config.component';
 
 interface Mode {
   fetching_configs: boolean;
@@ -219,6 +220,66 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
           );
         }
         confirm_sub.unsubscribe();
+      }
+    );
+  }
+
+  editQuotationConfig(config: QuotationConfigData): void {
+    const dialog_ref = this._dialog.open(FormQuotationConfigComponent, {
+      autoFocus: false,
+      data: config
+    });
+
+    dialog_ref.afterClosed().subscribe(
+      (dialog_response: DialogResponse) => {
+        console.log(dialog_response);
+        // if (dialog_response && dialog_response.operation === 'user.add') {
+        //   this.mode.adding_user = true;
+        //   const user_data = dialog_response.data;
+
+        //   this._http_service.post_users.sendRequest(user_data).subscribe(
+        //     (res: ApiResponse) => {
+        //       this.users_data.push(res.data);
+        //       this.showToast('Successfully added user.', 'OK', 3000, false);
+        //       this.mode.adding_user = false;
+        //     },
+        //     (err: Error) => {
+        //       console.error(err);
+        //       this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+        //       this.mode.adding_user = false;
+        //     }
+        //   );
+        // }
+      }
+    );
+  }
+
+  addQuotationConfig(): void {
+    const dialog_ref = this._dialog.open(FormQuotationConfigComponent, {
+      autoFocus: false,
+      data: null
+    });
+
+    dialog_ref.afterClosed().subscribe(
+      (dialog_response: DialogResponse) => {
+        console.log(dialog_response);
+        // if (dialog_response && dialog_response.operation === 'user.add') {
+        //   this.mode.adding_user = true;
+        //   const user_data = dialog_response.data;
+
+        //   this._http_service.post_users.sendRequest(user_data).subscribe(
+        //     (res: ApiResponse) => {
+        //       this.users_data.push(res.data);
+        //       this.showToast('Successfully added user.', 'OK', 3000, false);
+        //       this.mode.adding_user = false;
+        //     },
+        //     (err: Error) => {
+        //       console.error(err);
+        //       this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+        //       this.mode.adding_user = false;
+        //     }
+        //   );
+        // }
       }
     );
   }
