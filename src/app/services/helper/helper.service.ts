@@ -24,4 +24,21 @@ export class HelperService {
       return Object.keys(obj);
     }
   };
+
+  console = {
+    log(...args: any[]): string {
+      console.log(args);
+      return `console.logged ${args}`;
+    }
+  };
+
+  array = {
+    num_list(end: number, start: number = 0, jump: number = 1): number[] {
+      const list: number[] = [];
+      for (let i = start; i < end; i += jump) {
+        list.push(i);
+      }
+      return list;
+    }
+  };
 }

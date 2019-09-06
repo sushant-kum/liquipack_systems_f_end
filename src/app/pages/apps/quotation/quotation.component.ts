@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
-
 /* Component Imports */
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 
@@ -119,7 +118,7 @@ export class QuotationComponent implements OnInit, OnDestroy {
   getQuotations(): void {
     this._http_service.get_quotations.sendRequest().subscribe(
       (res: ApiResponse) => {
-        this._http_service.get_users.sendRequest().subscribe(
+        this._http_service.get_users_min.sendRequest().subscribe(
           (get_users_res: ApiResponse) => {
             const users_data = get_users_res.data;
 

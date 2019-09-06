@@ -10,7 +10,6 @@ import { Config } from 'src/app/configs/config';
 import { HelperService } from 'src/app/services/helper/helper.service';
 import { RegexService } from 'src/app/services/regex/regex.service';
 import { HttpTransactionsService } from 'src/app/services/http-transactions/http-transactions.service';
-import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 
 /* Interface Imports */
 import { UserData } from 'src/app/interfaces/user-data';
