@@ -33,8 +33,8 @@
     &nbsp;Basic Details
   </comp-sub-head>
 
-  <div class="w3-row">
-    <div class="w3-col m6 w3-padding-small" [ngClass]="{'w3-hide': !mode.new_config}">
+  <div class="w3-row" [ngClass]="{'w3-hide': !mode.new_config}">
+    <div class="w3-col m6 w3-padding-small">
       <mat-form-field appearance="standard">
         <mat-label>Config Name</mat-label>
         <input id="input-config_name" matInput [formControl]="quotation_config_config_name_ctrl"
@@ -63,6 +63,8 @@
       </mat-form-field>
     </div>
 
+    <div class="w3-col m6">&nbsp;</div>
+
     <div class="w3-col m6 w3-padding-small">
       <mat-slide-toggle [formControl]="quotation_config_is_active_ctrl" color="primary">
         Make Default after creation
@@ -82,12 +84,13 @@
         <tr>
           <th rowspan="2" class="app-theme-primary">Sl. No.</th>
           <th rowspan="2" class="app-theme-primary">Field</th>
-          <th colspan="3" class="app-theme-primary">Options</th>
+          <th colspan="4" class="app-theme-primary">Options</th>
         </tr>
         <tr>
           <th class="app-theme-primary-l1">Quantity</th>
           <th class="app-theme-primary-l1">Price (Rs)</th>
           <th class="app-theme-primary-l1">Default</th>
+          <th class="app-theme-primary-l1">Actions</th>
         </tr>
       </thead>
       <tbody *ngFor="let field of helper.object.Keys(quotation_config_field_names); let i=index"
@@ -103,15 +106,32 @@
               {{quotation_config_field_names[field]}}
             </td>
             <td *ngIf="quotation_config[field].options.length > j">
-              {{quotation_config[field].options[j].qty}}
+              <!-- {{quotation_config[field].options[j].qty}} -->
+              <mat-form-field appearance="standard">
+                <mat-label>Quantity</mat-label>
+                <input matInput [type]="quotation_config_field_types[field] === 'number' ? 'number' : 'text'"
+                  [(ngModel)]="quotation_config[field].options[j].qty"
+                  [placeholder]="quotation_config_field_types[field] === 'number' ? 'Number' : 'String'" required>
+              </mat-form-field>
             </td>
             <td *ngIf="quotation_config[field].options.length > j">
-              {{quotation_config[field].options[j].price}}
+              <!-- {{quotation_config[field].options[j].price}} -->
+              <mat-form-field appearance="standard">
+                <mat-label>Quantity</mat-label>
+                <fa-icon matPrefix [icon]="['fas', 'rupee-sign']" class="w3-margin-right"></fa-icon>
+                <input matInput type="number" [(ngModel)]="quotation_config[field].options[j].price"
+                  placeholder="Price" [pattern]="regex_svc.price">
+              </mat-form-field>
             </td>
             <td *ngIf="quotation_config[field].options.length > j">
               {{quotation_config[field].default_option_index === j}}
             </td>
-            <td *ngIf="quotation_config[field].options.length === j" colspan="3">
+            <td *ngIf="quotation_config[field].options.length > j" class="w3-vertical-align-middle">
+              <button mat-icon-button color="warn" matTooltip="Remove">
+                <fa-icon [icon]="['fas', 'times']"></fa-icon>
+              </button>
+            </td>
+            <td *ngIf="quotation_config[field].options.length === j" colspan="4">
               <button class="add-option-btn" mat-stroked-button color="primary">
                 Add Option&nbsp;
                 <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>
@@ -129,13 +149,28 @@
               {{quotation_config_field_names[field]}}
             </td>
             <td>
-              {{quotation_config[field].options[j].qty}}
+              <!-- {{quotation_config[field].options[j].qty}} -->
+              <mat-form-field appearance="standard">
+                <mat-label>Quantity</mat-label>
+                <input matInput readonly [value]="quotation_config[field].options[j].qty === true ? 'Yes' : 'No'">
+              </mat-form-field>
             </td>
             <td>
-              {{quotation_config[field].options[j].price}}
+              <!-- {{quotation_config[field].options[j].price}} -->
+              <mat-form-field appearance="standard">
+                <mat-label>Quantity</mat-label>
+                <fa-icon matPrefix [icon]="['fas', 'rupee-sign']" class="w3-margin-right"></fa-icon>
+                <input matInput type="number" [(ngModel)]="quotation_config[field].options[j].price"
+                  placeholder="Price" [pattern]="regex_svc.price">
+              </mat-form-field>
             </td>
             <td>
               {{quotation_config[field].default_option_index === j}}
+            </td>
+            <td class="w3-vertical-align-middle">
+              <button mat-icon-button color="warn" matTooltip="Remove" [disabled]="true">
+                <fa-icon [icon]="['fas', 'times']"></fa-icon>
+              </button>
             </td>
           </tr>
         </ng-template>
