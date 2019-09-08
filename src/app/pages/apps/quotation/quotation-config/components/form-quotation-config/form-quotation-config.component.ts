@@ -43,6 +43,7 @@ export class FormQuotationConfigComponent implements OnInit {
     public config: Config,
     public helper: HelperService,
     public dialogRef: MatDialogRef<FormQuotationConfigComponent>,
+    public regex_svc: RegexService,
     @Inject(MAT_DIALOG_DATA) public quotation_config: QuotationConfigData
   ) { }
 
