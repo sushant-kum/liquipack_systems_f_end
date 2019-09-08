@@ -73,7 +73,7 @@ export class QuotationComponent implements OnInit, OnDestroy {
     private _auth_service: AuthService,
     private _dialog: MatDialog,
     private _confirm_service: ConfirmService,
-    public helper_service: HelperService
+    public helper: HelperService
   ) { }
 
   ngOnInit() {
