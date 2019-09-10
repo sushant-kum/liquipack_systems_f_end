@@ -102,71 +102,87 @@
               {{i + 1}}
             </td>
             <td *ngIf="j !== 0"></td>
+
             <td *ngIf="j === 0" [attr.rowspan]="quotation_config[field].options.length + 1">
               {{quotation_config_field_names[field]}}
+              <mat-error *ngIf="form_error[field]">
+                {{form_error[field]}}
+              </mat-error>
             </td>
+
             <td *ngIf="quotation_config[field].options.length > j">
-              <!-- {{quotation_config[field].options[j].qty}} -->
               <mat-form-field appearance="standard">
                 <mat-label>Quantity</mat-label>
                 <input matInput [type]="quotation_config_field_types[field] === 'number' ? 'number' : 'text'"
                   [(ngModel)]="quotation_config[field].options[j].qty"
                   [placeholder]="quotation_config_field_types[field] === 'number' ? 'Number' : 'String'" required>
+                <mat-error *ngIf="!quotation_config[field].options[j].qty">
+                  Quantity is required.
+                </mat-error>
               </mat-form-field>
             </td>
+
             <td *ngIf="quotation_config[field].options.length > j">
-              <!-- {{quotation_config[field].options[j].price}} -->
               <mat-form-field appearance="standard">
-                <mat-label>Quantity</mat-label>
+                <mat-label>Price</mat-label>
                 <fa-icon matPrefix [icon]="['fas', 'rupee-sign']" class="w3-margin-right"></fa-icon>
-                <input matInput type="number" [(ngModel)]="quotation_config[field].options[j].price"
-                  placeholder="Price" [pattern]="regex_svc.price">
+                <input matInput type="number" class="input-price" [(ngModel)]="quotation_config[field].options[j].price"
+                  placeholder="Price">
               </mat-form-field>
             </td>
-            <td *ngIf="quotation_config[field].options.length > j">
-              {{quotation_config[field].default_option_index === j}}
-            </td>
+
             <td *ngIf="quotation_config[field].options.length > j" class="w3-vertical-align-middle">
-              <button mat-icon-button color="warn" matTooltip="Remove">
+              <mat-slide-toggle color="primary" [checked]="quotation_config[field].default_option_index === j" (change)="onDefaultOptionSlidToggleChange(field, j, $event)">
+              </mat-slide-toggle>
+            </td>
+
+            <td *ngIf="quotation_config[field].options.length > j" class="w3-vertical-align-middle">
+              <button mat-icon-button color="warn" matTooltip="Remove" (click)="onRemoveOptionClick(field, j)">
                 <fa-icon [icon]="['fas', 'times']"></fa-icon>
               </button>
             </td>
+
             <td *ngIf="quotation_config[field].options.length === j" colspan="4">
-              <button class="add-option-btn" mat-stroked-button color="primary">
+              <button class="add-option-btn" mat-stroked-button color="primary" (click)="onAddOptionClick(field)">
                 Add Option&nbsp;
                 <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>
               </button>
             </td>
           </tr>
         </ng-container>
+
         <ng-template #booleanFieldTemplate>
           <tr *ngFor="let j of helper.array.num_list(quotation_config[field].options.length)">
             <td *ngIf="j === 0">
               {{i + 1}}
             </td>
             <td *ngIf="j !== 0"></td>
+
             <td *ngIf="j === 0" [attr.rowspan]="quotation_config[field].options.length">
               {{quotation_config_field_names[field]}}
             </td>
+
             <td>
-              <!-- {{quotation_config[field].options[j].qty}} -->
               <mat-form-field appearance="standard">
                 <mat-label>Quantity</mat-label>
                 <input matInput readonly [value]="quotation_config[field].options[j].qty === true ? 'Yes' : 'No'">
               </mat-form-field>
             </td>
+
             <td>
-              <!-- {{quotation_config[field].options[j].price}} -->
               <mat-form-field appearance="standard">
-                <mat-label>Quantity</mat-label>
+                <mat-label>Price</mat-label>
                 <fa-icon matPrefix [icon]="['fas', 'rupee-sign']" class="w3-margin-right"></fa-icon>
-                <input matInput type="number" [(ngModel)]="quotation_config[field].options[j].price"
-                  placeholder="Price" [pattern]="regex_svc.price">
+                <input matInput type="number" class="input-price" [(ngModel)]="quotation_config[field].options[j].price"
+                  placeholder="Price">
               </mat-form-field>
             </td>
-            <td>
-              {{quotation_config[field].default_option_index === j}}
+
+            <td class="w3-vertical-align-middle">
+              <mat-slide-toggle color="primary" [checked]="quotation_config[field].default_option_index === j" (change)="onDefaultOptionSlidToggleChange(field, j, $event)">
+              </mat-slide-toggle>
             </td>
+
             <td class="w3-vertical-align-middle">
               <button mat-icon-button color="warn" matTooltip="Remove" [disabled]="true">
                 <fa-icon [icon]="['fas', 'times']"></fa-icon>
@@ -186,14 +202,14 @@
     Reset
   </button>
 
-  <button *ngIf="mode.new_config;else templateSaveButton" mat-flat-button color="primary" [disabled]="false"
+  <button *ngIf="mode.new_config;else templateSaveButton" mat-flat-button color="primary" [disabled]="!isFormValid()"
     (click)="onAddClick()">
     <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>&nbsp;
     Add
   </button>
 
   <ng-template #templateSaveButton>
-    <button mat-flat-button color="primary" [disabled]="false" (click)="onSaveClick()">
+    <button mat-flat-button color="primary" [disabled]="!isFormValid()" (click)="onSaveClick()">
       <fa-icon [icon]="['fas', 'save']"></fa-icon>&nbsp;
       Save
     </button>

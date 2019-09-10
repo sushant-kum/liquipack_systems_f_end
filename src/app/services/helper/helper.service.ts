@@ -22,6 +22,18 @@ export class HelperService {
   object = {
     Keys(obj: object): string[] {
       return Object.keys(obj);
+    },
+    copy: {
+      deep(obj: object): object {
+        try {
+          return JSON.parse(JSON.stringify(obj));
+        } catch (err) {
+          return err;
+        }
+      },
+      shallow(obj: object): object {
+        return Object.assign(obj, {});
+      }
     }
   };
 
