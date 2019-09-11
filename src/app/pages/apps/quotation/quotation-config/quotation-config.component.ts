@@ -262,24 +262,24 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
 
     dialog_ref.afterClosed().subscribe(
       (dialog_response: DialogResponse) => {
-        console.log(dialog_response);
-        // if (dialog_response && dialog_response.operation === 'user.add') {
-        //   this.mode.adding_user = true;
-        //   const user_data = dialog_response.data;
+        if (dialog_response && dialog_response.operation === 'quotation-config.add') {
+          console.log(dialog_response.data);
+          // this.mode.adding_user = true;
+          // const user_data = dialog_response.data;
 
-        //   this._http_service.post_users.sendRequest(user_data).subscribe(
-        //     (res: ApiResponse) => {
-        //       this.users_data.push(res.data);
-        //       this.showToast('Successfully added user.', 'OK', 3000, false);
-        //       this.mode.adding_user = false;
-        //     },
-        //     (err: Error) => {
-        //       console.error(err);
-        //       this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
-        //       this.mode.adding_user = false;
-        //     }
-        //   );
-        // }
+          // this._http_service.post_users.sendRequest(user_data).subscribe(
+          //   (res: ApiResponse) => {
+          //     this.users_data.push(res.data);
+          //     this.showToast('Successfully added user.', 'OK', 3000, false);
+          //     this.mode.adding_user = false;
+          //   },
+          //   (err: Error) => {
+          //     console.error(err);
+          //     this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+          //     this.mode.adding_user = false;
+          //   }
+          // );
+        }
       }
     );
   }

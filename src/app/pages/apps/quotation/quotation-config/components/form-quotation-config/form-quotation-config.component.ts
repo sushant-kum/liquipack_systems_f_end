@@ -16,6 +16,8 @@ import { InputFilterService } from 'src/app/services/input-filter/input-filter.s
 
 /* Interface Imports */
 import { QuotationConfigData } from 'src/app/interfaces/quotation-config-data';
+import { ApiResponse } from 'src/app/interfaces/api-response';
+import { QuotationConfigComponent } from '../../quotation-config.component';
 
 interface Mode {
   new_config: boolean;
@@ -166,5 +168,41 @@ export class FormQuotationConfigComponent implements OnInit, AfterViewInit {
       this.quotation_config = this.helper.object.copy.deep(this._orig_quotation_config) as QuotationConfigData;
     }
     this.isFormValid();
+  }
+
+  onAddClick(): void {
+    this._http_service.get_quotations_configs.sendRequest().subscribe(
+      (res: ApiResponse) => {
+        let flag_non_unique_config_name = false;
+        for (const config of res.data) {
+          if (config.config_name === this.quotation_config_config_name_ctrl.value) {
+            this.quotation_config_config_name_ctrl.setErrors({ notUnique: true });
+            document.getElementById('input-config_name').focus();
+            setTimeout(() => {
+              this.quotation_config_config_name_ctrl.setErrors({ notUnique: false });
+            }, 5000);
+            flag_non_unique_config_name = true;
+            break;
+          }
+        }
+
+        if (!flag_non_unique_config_name) {
+          this.quotation_config.config_name = this.quotation_config_config_name_ctrl.value;
+          this.quotation_config.is_active = this.quotation_config_is_active_ctrl.value;
+
+          this.dialogRef.close({
+            data: this.quotation_config,
+            operation: 'quotation-config.add'
+          });
+        }
+      },
+      (err: Error) => {
+        console.error(err);
+      }
+    );
+  }
+
+  onSaveClick(): void {
+
   }
 }

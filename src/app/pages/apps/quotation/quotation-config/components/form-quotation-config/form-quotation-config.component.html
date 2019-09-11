@@ -132,7 +132,8 @@
             </td>
 
             <td *ngIf="quotation_config[field].options.length > j" class="w3-vertical-align-middle">
-              <mat-slide-toggle color="primary" [checked]="quotation_config[field].default_option_index === j" (change)="onDefaultOptionSlidToggleChange(field, j, $event)">
+              <mat-slide-toggle color="primary" [checked]="quotation_config[field].default_option_index === j"
+                (change)="onDefaultOptionSlidToggleChange(field, j, $event)">
               </mat-slide-toggle>
             </td>
 
@@ -179,7 +180,8 @@
             </td>
 
             <td class="w3-vertical-align-middle">
-              <mat-slide-toggle color="primary" [checked]="quotation_config[field].default_option_index === j" (change)="onDefaultOptionSlidToggleChange(field, j, $event)">
+              <mat-slide-toggle color="primary" [checked]="quotation_config[field].default_option_index === j"
+                (change)="onDefaultOptionSlidToggleChange(field, j, $event)">
               </mat-slide-toggle>
             </td>
 
