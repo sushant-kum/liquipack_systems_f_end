@@ -1,4 +1,4 @@
-@import "src/styles/palette.style.scss";
+@import 'src/styles/palette.style.scss';
 
 ::ng-deep.mat-card-header-text {
   width: calc(100% - 72px);
@@ -24,9 +24,9 @@
     &-avatar {
       background: linear-gradient(
         to right,
-        map-get($mat-palette-primary, "A100") 8%,
-        map-get($mat-palette-primary, "A200") 50%,
-        map-get($mat-palette-primary, "A100") 92%
+        map-get($mat-palette-primary, 'A100') 8%,
+        map-get($mat-palette-primary, 'A200') 50%,
+        map-get($mat-palette-primary, 'A100') 92%
       );
       background-size: 1000px 640px;
       animation-duration: 1.8s;

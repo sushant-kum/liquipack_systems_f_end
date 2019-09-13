@@ -15,9 +15,9 @@
     "analyze_es2015": "webpack-bundle-analyzer ./dist/build_aot/stats-es2015.json",
     "test": "ng test",
     "test:CI": "ng test --browsers ChromeHeadless --no-watch --code-coverage",
-    "lint": "ng lint",
-    "lint:fix": "ng lint liquipack-systems-f-end --fix",
     "e2e": "ng e2e",
+    "lint:fix": "ng lint liquipack-systems-f-end --fix",
+    "lint:check": "ng lint",
     "format": "prettier \"src/**/*.{css,html,js,json,md,scss,ts}\"",
     "format:fix": "prettier --write \"src/**/*.{css,html,js,json,md,scss,ts}\"",
     "format:check": "prettier -c \"src/**/*.{css,html,js,json,md,scss,ts}\""
@@ -74,6 +74,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "~3.4.5",
     "webpack-bundle-analyzer": "^3.4.1"
   },

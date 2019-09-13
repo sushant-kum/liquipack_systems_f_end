@@ -1,4 +1,4 @@
-@import "src/styles/palette.style.scss";
+@import 'src/styles/palette.style.scss';
 
 .sub-head {
   display: table;
@@ -6,7 +6,7 @@
   white-space: nowrap;
 
   &:after {
-    content: "";
+    content: '';
     display: table-cell;
     width: 100%;
     background: linear-gradient(
