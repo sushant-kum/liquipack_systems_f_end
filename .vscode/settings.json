@@ -16,7 +16,6 @@
   "files.trimTrailingWhitespace": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnType": true,
-  "prettier.singleQuote": true,
   "docthis.includeMemberOfOnClassMembers": false,
   "docthis.includeTypes": false
 }
