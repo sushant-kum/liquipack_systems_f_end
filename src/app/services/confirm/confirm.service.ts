@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
-import { ConfirmData } from "src/app/interfaces/confirm-data";
-import { DialogResponse } from "src/app/interfaces/dialog-response";
+import { ConfirmData } from 'src/app/interfaces/confirm-data';
+import { DialogResponse } from 'src/app/interfaces/dialog-response';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ConfirmService {
   private _show_confirm = new Subject<boolean>();

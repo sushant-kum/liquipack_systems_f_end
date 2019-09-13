@@ -36,10 +36,10 @@
 </div>
 
 <mat-dialog-content>
-  <comp-sub-head *ngIf="mode.new_config">
+  <app-sub-head *ngIf="mode.new_config">
     <fa-icon [icon]="['fas', 'info']"></fa-icon>
     &nbsp;Basic Details
-  </comp-sub-head>
+  </app-sub-head>
 
   <div class="w3-row" [ngClass]="{ 'w3-hide': !mode.new_config }">
     <div class="w3-col m6 w3-padding-small">
@@ -108,10 +108,10 @@
     </div>
   </div>
 
-  <comp-sub-head>
+  <app-sub-head>
     <fa-icon [icon]="['fas', 'info']"></fa-icon>
     &nbsp;Field Options
-  </comp-sub-head>
+  </app-sub-head>
 
   <div class="w3-responsive">
     <table class="w3-table w3-centered">

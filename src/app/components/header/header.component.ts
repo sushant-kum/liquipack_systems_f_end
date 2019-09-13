@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
-import { PageInfo } from "src/app/interfaces/page-info";
-import { HeaderService } from "src/app/services/header/header.service";
+import { PageInfo } from 'src/app/interfaces/page-info';
+import { HeaderService } from 'src/app/services/header/header.service';
 
 @Component({
-  selector: "app-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.scss"]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   page_info: PageInfo;

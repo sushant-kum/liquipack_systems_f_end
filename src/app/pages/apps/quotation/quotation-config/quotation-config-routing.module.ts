@@ -1,10 +1,10 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { QuotationConfigComponent } from "./quotation-config.component";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { QuotationConfigComponent } from './quotation-config.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: QuotationConfigComponent
   }
 ];

@@ -1,22 +1,22 @@
-import { Component, OnInit } from "@angular/core";
-import { Title } from "@angular/platform-browser";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /* Component Imports */
-import { SidebarComponent } from "src/app/components/sidebar/sidebar.component";
+import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 
 /* Services Imports */
-import { CookieService } from "src/app/services/cookie/cookie.service";
-import { LocalStorageService } from "src/app/services/local-storage/local-storage.service";
-import { HeaderService } from "src/app/services/header/header.service";
+import { CookieService } from 'src/app/services/cookie/cookie.service';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { HeaderService } from 'src/app/services/header/header.service';
 
 /* Config Imports */
-import { Config } from "src/app/configs/config";
+import { Config } from 'src/app/configs/config';
 
 /* Interfaces Imports */
 // import { PageMap } from 'src/app/interfaces/page-map';
 
-const PAGE_ID = "home";
+const PAGE_ID = 'home';
 
 interface Mode {
   password_visible: boolean;
@@ -35,9 +35,9 @@ interface PageMapWithHover {
 }
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"]
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
   private _page_id = PAGE_ID;
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this._title.setTitle(
-      this.config.page_map[this._page_id].name + " - " + this.config.app_title
+      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
     );
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
@@ -152,13 +152,13 @@ export class HomeComponent implements OnInit {
     is_error: boolean = true
   ) {
     const toast_config: any = {
-      horizontalPosition: "end"
+      horizontalPosition: 'end'
     };
     if (duration !== null) {
       toast_config.duration = duration;
     }
     if (is_error) {
-      toast_config.panelClass = "toast-error";
+      toast_config.panelClass = 'toast-error';
     }
 
     this._toast.open(message, action, toast_config);

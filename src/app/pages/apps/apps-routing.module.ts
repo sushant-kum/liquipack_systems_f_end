@@ -1,16 +1,16 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { AppsComponent } from "./apps.component";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AppsComponent } from './apps.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: AppsComponent
   },
   {
-    path: "quotation",
+    path: 'quotation',
     loadChildren: () =>
-      import("src/app/pages/apps/quotation/quotation.module").then(
+      import('src/app/pages/apps/quotation/quotation.module').then(
         module => module.QuotationModule
       )
   }

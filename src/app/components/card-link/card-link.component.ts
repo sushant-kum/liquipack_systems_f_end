@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: "comp-card-link",
-  templateUrl: "./card-link.component.html",
-  styleUrls: ["./card-link.component.scss"]
+  selector: 'app-card-link',
+  templateUrl: './card-link.component.html',
+  styleUrls: ['./card-link.component.scss']
 })
 export class CardLinkComponent implements OnInit {
   @Input() app: {

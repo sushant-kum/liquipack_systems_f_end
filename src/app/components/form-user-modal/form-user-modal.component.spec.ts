@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormUserModalComponent } from "./form-user-modal.component";
+import { FormUserModalComponent } from './form-user-modal.component';
 
-describe("FormUserModalComponent", () => {
+describe('FormUserModalComponent', () => {
   let component: FormUserModalComponent;
   let fixture: ComponentFixture<FormUserModalComponent>;
 
@@ -18,7 +18,7 @@ describe("FormUserModalComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

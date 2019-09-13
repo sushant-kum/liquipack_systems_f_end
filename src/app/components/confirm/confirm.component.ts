@@ -1,21 +1,21 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA
-} from "@angular/material/dialog";
+} from '@angular/material/dialog';
 
 /* Service Imports */
-import { ConfirmService } from "src/app/services/confirm/confirm.service";
+import { ConfirmService } from 'src/app/services/confirm/confirm.service';
 
 /* Interface Imports */
-import { ConfirmData } from "src/app/interfaces/confirm-data";
-import { DialogResponse } from "src/app/interfaces/dialog-response";
+import { ConfirmData } from 'src/app/interfaces/confirm-data';
+import { DialogResponse } from 'src/app/interfaces/dialog-response';
 
 @Component({
-  selector: "app-modal-confirm",
-  templateUrl: "./confirm.template.html",
-  styleUrls: ["./confirm.template.scss"]
+  selector: 'app-modal-confirm',
+  templateUrl: './confirm.template.html',
+  styleUrls: ['./confirm.template.scss']
 })
 export class ConfirmModalComponent {
   constructor(
@@ -25,29 +25,29 @@ export class ConfirmModalComponent {
 
   onCloseClick(): void {
     const response: DialogResponse = {
-      operation: "close"
+      operation: 'close'
     };
     this._dialogRef.close(response);
   }
 
   onCancelClick(): void {
     const response: DialogResponse = {
-      operation: "confirm.cancel"
+      operation: 'confirm.cancel'
     };
     this._dialogRef.close(response);
   }
 
   onOkClick(): void {
     const response: DialogResponse = {
-      operation: "confirm.ok"
+      operation: 'confirm.ok'
     };
     this._dialogRef.close(response);
   }
 }
 
 @Component({
-  selector: "app-confirm",
-  template: ""
+  selector: 'app-confirm',
+  template: ''
 })
 export class ConfirmComponent implements OnInit {
   constructor(
@@ -61,7 +61,7 @@ export class ConfirmComponent implements OnInit {
         this.showConfirm({
           title: this._confirm_service.confirm_data.title
             ? this._confirm_service.confirm_data.title
-            : "Alert",
+            : 'Alert',
           message: this._confirm_service.confirm_data.message,
           info: this._confirm_service.confirm_data.info
             ? this._confirm_service.confirm_data.info
@@ -69,11 +69,11 @@ export class ConfirmComponent implements OnInit {
           negative_btn_text: this._confirm_service.confirm_data
             .negative_btn_text
             ? this._confirm_service.confirm_data.negative_btn_text
-            : "Cancel",
+            : 'Cancel',
           positive_btn_text: this._confirm_service.confirm_data
             .positive_btn_text
             ? this._confirm_service.confirm_data.positive_btn_text
-            : "OK"
+            : 'OK'
         });
       }
     });
@@ -86,7 +86,7 @@ export class ConfirmComponent implements OnInit {
       disableClose: true,
       minWidth: 250,
       position: {
-        top: "50px"
+        top: '50px'
       }
     });
 

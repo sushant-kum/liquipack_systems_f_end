@@ -1,52 +1,52 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Title } from "@angular/platform-browser";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatDialog } from "@angular/material/dialog";
-import { Subscription } from "rxjs";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 /* Component Imports */
-import { SidebarComponent } from "src/app/components/sidebar/sidebar.component";
+import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 
 /* Services Imports */
-import { HeaderService } from "src/app/services/header/header.service";
-import { HttpTransactionsService } from "src/app/services/http-transactions/http-transactions.service";
-import { LocalStorageService } from "src/app/services/local-storage/local-storage.service";
-import { AuthService } from "src/app/services/auth/auth.service";
-import { HelperService } from "src/app/services/helper/helper.service";
-import { ConfirmService } from "src/app/services/confirm/confirm.service";
+import { HeaderService } from 'src/app/services/header/header.service';
+import { HttpTransactionsService } from 'src/app/services/http-transactions/http-transactions.service';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { HelperService } from 'src/app/services/helper/helper.service';
+import { ConfirmService } from 'src/app/services/confirm/confirm.service';
 
 /* Config Imports */
-import { Config } from "src/app/configs/config";
+import { Config } from 'src/app/configs/config';
 
 /* Interface Imports */
-import { QuotationConfigData } from "src/app/interfaces/quotation-config-data";
-import { DialogResponse } from "src/app/interfaces/dialog-response";
-import { ApiResponse } from "src/app/interfaces/api-response";
-import { FormQuotationConfigComponent } from "./components/form-quotation-config/form-quotation-config.component";
+import { QuotationConfigData } from 'src/app/interfaces/quotation-config-data';
+import { DialogResponse } from 'src/app/interfaces/dialog-response';
+import { ApiResponse } from 'src/app/interfaces/api-response';
+import { FormQuotationConfigComponent } from './components/form-quotation-config/form-quotation-config.component';
 
 interface Mode {
   fetching_configs: boolean;
   editing_config_ids: string[];
 }
 
-const PAGE_ID = "apps-quotation-config";
+const PAGE_ID = 'apps-quotation-config';
 const QUOTAION_ITEM_NAMES = {
-  speed: "Speed in BPM",
-  no_of_washes: "Number of Washes",
-  industry: "Industry",
-  gmp_requirement: "GMP Requirment (contact part-S.S.316)",
-  bottle_moc: "Bottle MOC",
-  water_saving: "Water Saving",
-  filters_required: "Filters Required",
-  illumination_required: "Illumination Required",
-  auto_level_tank: "Auto Level Control in Tank",
-  extra_cups_sets: "Extra Set of Cups Required"
+  speed: 'Speed in BPM',
+  no_of_washes: 'Number of Washes',
+  industry: 'Industry',
+  gmp_requirement: 'GMP Requirment (contact part-S.S.316)',
+  bottle_moc: 'Bottle MOC',
+  water_saving: 'Water Saving',
+  filters_required: 'Filters Required',
+  illumination_required: 'Illumination Required',
+  auto_level_tank: 'Auto Level Control in Tank',
+  extra_cups_sets: 'Extra Set of Cups Required'
 };
 
 @Component({
-  selector: "app-config",
-  templateUrl: "./quotation-config.component.html",
-  styleUrls: ["./quotation-config.component.scss"]
+  selector: 'app-config',
+  templateUrl: './quotation-config.component.html',
+  styleUrls: ['./quotation-config.component.scss']
 })
 export class QuotationConfigComponent implements OnInit, OnDestroy {
   private _page_id = PAGE_ID;
@@ -58,7 +58,7 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
     fetching_configs: false,
     editing_config_ids: []
   };
-  app_permission: ("read" | "write")[] = [];
+  app_permission: ('read' | 'write')[] = [];
 
   quotation_item_names: { [key: string]: string } = QUOTAION_ITEM_NAMES;
   quotation_configs: QuotationConfigData[];
@@ -78,7 +78,7 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._title.setTitle(
-      this.config.page_map[this._page_id].name + " - " + this.config.app_title
+      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
     );
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
@@ -104,8 +104,8 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
               break;
             }
           }
-          if (!this.app_permission.includes("read")) {
-            alert("You are not allowed here");
+          if (!this.app_permission.includes('read')) {
+            alert('You are not allowed here');
             this._sidebar.logout();
           }
         }
@@ -148,8 +148,8 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
           (users_err: Error) => {
             console.error(users_err);
             this.showToast(
-              "Something went wrong. Please try again later.",
-              "Close",
+              'Something went wrong. Please try again later.',
+              'Close',
               null,
               true
             );
@@ -159,8 +159,8 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
       (quotation_config_err: Error) => {
         console.error(quotation_config_err);
         this.showToast(
-          "Something went wrong. Please try again later.",
-          "Close",
+          'Something went wrong. Please try again later.',
+          'Close',
           null,
           true
         );
@@ -172,15 +172,15 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
   deleteQuotationConfig(quotation_config: QuotationConfigData): void {
     const confirm_sub = this._confirm_service
       .confirm({
-        title: "Confirm Delete Quotation Config",
+        title: 'Confirm Delete Quotation Config',
         message: `Are you sure you want to delete Quotation Config <b>${quotation_config.config_name}</b> permanently?`,
         info:
-          "All data related to the config will be deleted. This operation cannot be undone.",
-        positive_btn_text: "Yes",
-        negative_btn_text: "No"
+          'All data related to the config will be deleted. This operation cannot be undone.',
+        positive_btn_text: 'Yes',
+        negative_btn_text: 'No'
       })
       .subscribe((confirm_resp: DialogResponse) => {
-        if (confirm_resp && confirm_resp.operation === "confirm.ok") {
+        if (confirm_resp && confirm_resp.operation === 'confirm.ok') {
           this.mode.editing_config_ids.push(quotation_config._id);
           this._http_service.delete_quotations_configs_config_id
             .sendRequest(quotation_config._id)
@@ -196,8 +196,8 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
                   }
                 }
                 this.showToast(
-                  "Quotation config deleted permanently successfully",
-                  "OK",
+                  'Quotation config deleted permanently successfully',
+                  'OK',
                   3000,
                   false
                 );
@@ -213,8 +213,8 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
               (err: Error) => {
                 console.error(err);
                 this.showToast(
-                  "Something went wrong. Please try again later.",
-                  "Close",
+                  'Something went wrong. Please try again later.',
+                  'Close',
                   null,
                   true
                 );
@@ -236,13 +236,13 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
   makeDefaultQuotationConfig(quotation_config: QuotationConfigData): void {
     const confirm_sub = this._confirm_service
       .confirm({
-        title: "Confirm Defaukt Quotation Config",
+        title: 'Confirm Defaukt Quotation Config',
         message: `Are you sure you want to make Quotation Config <b>${quotation_config.config_name}</b> default config?`,
-        positive_btn_text: "Yes",
-        negative_btn_text: "No"
+        positive_btn_text: 'Yes',
+        negative_btn_text: 'No'
       })
       .subscribe((confirm_resp: DialogResponse) => {
-        if (confirm_resp && confirm_resp.operation === "confirm.ok") {
+        if (confirm_resp && confirm_resp.operation === 'confirm.ok') {
           this.mode.fetching_configs = true;
           this._http_service.patch_quotations_configs_config_id_enable
             .sendRequest(quotation_config._id)
@@ -260,8 +260,8 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
               (err: Error) => {
                 console.error(err);
                 this.showToast(
-                  "Something went wrong. Please try again later.",
-                  "Close",
+                  'Something went wrong. Please try again later.',
+                  'Close',
                   null,
                   true
                 );
@@ -310,7 +310,7 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
     dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
       if (
         dialog_response &&
-        dialog_response.operation === "quotation-config.add"
+        dialog_response.operation === 'quotation-config.add'
       ) {
         console.log(dialog_response.data);
         // this.mode.adding_user = true;
@@ -339,13 +339,13 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
     is_error: boolean = true
   ) {
     const toast_config: any = {
-      horizontalPosition: "end"
+      horizontalPosition: 'end'
     };
     if (duration !== null) {
       toast_config.duration = duration;
     }
     if (is_error) {
-      toast_config.panelClass = "toast-error";
+      toast_config.panelClass = 'toast-error';
     }
 
     this._toast.open(message, action, toast_config);

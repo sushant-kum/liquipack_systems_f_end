@@ -17,10 +17,10 @@
             class="w3-col m3 w3-padding-small"
             *ngFor="let app of apps; let i = index"
           >
-            <comp-card-link
+            <app-card-link
               [app]="app"
               (click)="sidebar.redirectTo(app.path, 400, true)"
-            ></comp-card-link>
+            ></app-card-link>
           </div>
         </div>
       </mat-card-content>

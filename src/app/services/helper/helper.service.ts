@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import * as moment from "moment";
+import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class HelperService {
   constructor() {}

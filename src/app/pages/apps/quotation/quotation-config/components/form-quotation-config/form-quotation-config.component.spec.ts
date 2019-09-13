@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormQuotationConfigComponent } from "./form-quotation-config.component";
+import { FormQuotationConfigComponent } from './form-quotation-config.component';
 
-describe("FormQuotationConfigComponent", () => {
+describe('FormQuotationConfigComponent', () => {
   let component: FormQuotationConfigComponent;
   let fixture: ComponentFixture<FormQuotationConfigComponent>;
 
@@ -18,7 +18,7 @@ describe("FormQuotationConfigComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

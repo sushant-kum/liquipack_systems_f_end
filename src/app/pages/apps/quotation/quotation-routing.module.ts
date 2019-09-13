@@ -1,17 +1,17 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { QuotationComponent } from "./quotation.component";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { QuotationComponent } from './quotation.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: QuotationComponent
   },
   {
-    path: "config",
+    path: 'config',
     loadChildren: () =>
       import(
-        "src/app/pages/apps/quotation/quotation-config/quotation-config.module"
+        'src/app/pages/apps/quotation/quotation-config/quotation-config.module'
       ).then(module => module.QuotationConfigModule)
   }
 ];
