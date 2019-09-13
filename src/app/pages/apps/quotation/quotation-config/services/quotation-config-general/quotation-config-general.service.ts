@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { QuotationConfigData } from "src/app/interfaces/quotation-config-data";
+import { Injectable } from '@angular/core';
+import { QuotationConfigData } from 'src/app/interfaces/quotation-config-data';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class QuotationConfigGeneralService {
   private _empty_quotation_config: QuotationConfigData = {

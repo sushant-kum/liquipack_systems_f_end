@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { Title } from "@angular/platform-browser";
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 /* Component Imports */
-import { SidebarComponent } from "src/app/components/sidebar/sidebar.component";
+import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 
 /* Services Imports */
-import { HeaderService } from "src/app/services/header/header.service";
+import { HeaderService } from 'src/app/services/header/header.service';
 
 /* Config Imports */
-import { Config } from "src/app/configs/config";
+import { Config } from 'src/app/configs/config';
 
 interface PageMapWithHover {
   path: string;
@@ -20,12 +20,12 @@ interface PageMapWithHover {
   hovered: boolean;
 }
 
-const PAGE_ID = "apps";
+const PAGE_ID = 'apps';
 
 @Component({
-  selector: "app-apps",
-  templateUrl: "./apps.component.html",
-  styleUrls: ["./apps.component.scss"]
+  selector: 'app-apps',
+  templateUrl: './apps.component.html',
+  styleUrls: ['./apps.component.scss']
 })
 export class AppsComponent implements OnInit {
   private _page_id = PAGE_ID;
@@ -40,7 +40,7 @@ export class AppsComponent implements OnInit {
 
   ngOnInit() {
     this._title.setTitle(
-      this.config.page_map[this._page_id].name + " - " + this.config.app_title
+      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
     );
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
@@ -52,7 +52,7 @@ export class AppsComponent implements OnInit {
     this.sidebar.colorize(this.config.page_map[this._page_id].identifier);
 
     for (const app_name of this.config.pages) {
-      if (app_name.indexOf("apps-") === 0) {
+      if (app_name.indexOf('apps-') === 0) {
         const temp_app = JSON.parse(
           JSON.stringify(this.config.page_map[app_name])
         );

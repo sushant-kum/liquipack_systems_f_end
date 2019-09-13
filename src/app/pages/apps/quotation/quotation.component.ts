@@ -1,54 +1,54 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Title } from "@angular/platform-browser";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatDialog } from "@angular/material/dialog";
-import { Subscription } from "rxjs";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 /* Component Imports */
-import { SidebarComponent } from "src/app/components/sidebar/sidebar.component";
+import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 
 /* Services Imports */
-import { HeaderService } from "src/app/services/header/header.service";
-import { HttpTransactionsService } from "src/app/services/http-transactions/http-transactions.service";
-import { LocalStorageService } from "src/app/services/local-storage/local-storage.service";
-import { AuthService } from "src/app/services/auth/auth.service";
-import { HelperService } from "src/app/services/helper/helper.service";
-import { ConfirmService } from "src/app/services/confirm/confirm.service";
+import { HeaderService } from 'src/app/services/header/header.service';
+import { HttpTransactionsService } from 'src/app/services/http-transactions/http-transactions.service';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { HelperService } from 'src/app/services/helper/helper.service';
+import { ConfirmService } from 'src/app/services/confirm/confirm.service';
 
 /* Config Imports */
-import { Config } from "src/app/configs/config";
+import { Config } from 'src/app/configs/config';
 
 /* Interface Imports */
-import { QuotationData } from "src/app/interfaces/quotation-data";
-import { DialogResponse } from "src/app/interfaces/dialog-response";
-import { ApiResponse } from "src/app/interfaces/api-response";
+import { QuotationData } from 'src/app/interfaces/quotation-data';
+import { DialogResponse } from 'src/app/interfaces/dialog-response';
+import { ApiResponse } from 'src/app/interfaces/api-response';
 
 /* Modals Imports */
-import { ViewQuotationModalComponent } from "src/app/components/view-quotation-modal/view-quotation-modal.component";
+import { ViewQuotationModalComponent } from 'src/app/components/view-quotation-modal/view-quotation-modal.component';
 
 interface Mode {
   editing_quotation_ids: string[];
 }
 
-const PAGE_ID = "apps-quotation";
+const PAGE_ID = 'apps-quotation';
 
 const QUOTAION_ITEM_NAMES = {
-  speed: "Speed in BPM",
-  no_of_washes: "Number of Washes",
-  industry: "Industry",
-  gmp_requirement: "GMP Requirment (contact part-S.S.316)",
-  bottle_moc: "Bottle MOC",
-  water_saving: "Water Saving",
-  filters_required: "Filters Required",
-  illumination_required: "Illumination Required",
-  auto_level_tank: "Auto Level Control in Tank",
-  extra_cups_sets: "Extra Set of Cups Required"
+  speed: 'Speed in BPM',
+  no_of_washes: 'Number of Washes',
+  industry: 'Industry',
+  gmp_requirement: 'GMP Requirment (contact part-S.S.316)',
+  bottle_moc: 'Bottle MOC',
+  water_saving: 'Water Saving',
+  filters_required: 'Filters Required',
+  illumination_required: 'Illumination Required',
+  auto_level_tank: 'Auto Level Control in Tank',
+  extra_cups_sets: 'Extra Set of Cups Required'
 };
 
 @Component({
-  selector: "app-quotation",
-  templateUrl: "./quotation.component.html",
-  styleUrls: ["./quotation.component.scss"]
+  selector: 'app-quotation',
+  templateUrl: './quotation.component.html',
+  styleUrls: ['./quotation.component.scss']
 })
 export class QuotationComponent implements OnInit, OnDestroy {
   private _page_id = PAGE_ID;
@@ -59,7 +59,7 @@ export class QuotationComponent implements OnInit, OnDestroy {
     editing_quotation_ids: []
   };
 
-  app_permission: ("read" | "write")[] = [];
+  app_permission: ('read' | 'write')[] = [];
 
   quotations: QuotationData[] = [];
 
@@ -78,7 +78,7 @@ export class QuotationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._title.setTitle(
-      this.config.page_map[this._page_id].name + " - " + this.config.app_title
+      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
     );
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
@@ -104,8 +104,8 @@ export class QuotationComponent implements OnInit, OnDestroy {
               break;
             }
           }
-          if (!this.app_permission.includes("read")) {
-            alert("You are not allowed here");
+          if (!this.app_permission.includes('read')) {
+            alert('You are not allowed here');
             this._sidebar.logout();
           }
         }
@@ -118,7 +118,7 @@ export class QuotationComponent implements OnInit, OnDestroy {
   }
 
   routeToConfig(): void {
-    this._sidebar.redirectTo("/apps/quotation/config", null, true);
+    this._sidebar.redirectTo('/apps/quotation/config', null, true);
   }
 
   getQuotations(): void {
@@ -175,8 +175,8 @@ export class QuotationComponent implements OnInit, OnDestroy {
           (get_users_err: Error) => {
             console.log(get_users_err);
             this.showToast(
-              "Something went wrong. Please try again later.",
-              "Close",
+              'Something went wrong. Please try again later.',
+              'Close',
               null,
               true
             );
@@ -186,8 +186,8 @@ export class QuotationComponent implements OnInit, OnDestroy {
       (err: Error) => {
         console.log(err);
         this.showToast(
-          "Something went wrong. Please try again later.",
-          "Close",
+          'Something went wrong. Please try again later.',
+          'Close',
           null,
           true
         );
@@ -210,13 +210,13 @@ export class QuotationComponent implements OnInit, OnDestroy {
   disableQuotation(quotation: QuotationData): void {
     const confirm_sub = this._confirm_service
       .confirm({
-        title: "Confirm Disable Quotation",
+        title: 'Confirm Disable Quotation',
         message: `Are you sure you want to disable quotation <b>${quotation.quotation_num}</b>?`,
-        positive_btn_text: "Yes",
-        negative_btn_text: "No"
+        positive_btn_text: 'Yes',
+        negative_btn_text: 'No'
       })
       .subscribe((dialog_resp: DialogResponse) => {
-        if (dialog_resp && dialog_resp.operation === "confirm.ok") {
+        if (dialog_resp && dialog_resp.operation === 'confirm.ok') {
           this.mode.editing_quotation_ids.push(quotation._id);
           this._http_service.patch_quotations_quotation_id_disable
             .sendRequest(quotation._id)
@@ -224,8 +224,8 @@ export class QuotationComponent implements OnInit, OnDestroy {
               (res: ApiResponse) => {
                 quotation.is_active = res.data.is_active;
                 this.showToast(
-                  "Quotation disabled successfully",
-                  "OK",
+                  'Quotation disabled successfully',
+                  'OK',
                   3000,
                   false
                 );
@@ -239,8 +239,8 @@ export class QuotationComponent implements OnInit, OnDestroy {
               (err: Error) => {
                 console.log(err);
                 this.showToast(
-                  "Something went wrong. Please try again later.",
-                  "Close",
+                  'Something went wrong. Please try again later.',
+                  'Close',
                   null,
                   true
                 );
@@ -260,13 +260,13 @@ export class QuotationComponent implements OnInit, OnDestroy {
   enableQuotation(quotation: QuotationData): void {
     const confirm_sub = this._confirm_service
       .confirm({
-        title: "Confirm Enable Quotation",
+        title: 'Confirm Enable Quotation',
         message: `Are you sure you want to enable quotation <b>${quotation.quotation_num}</b>?`,
-        positive_btn_text: "Yes",
-        negative_btn_text: "No"
+        positive_btn_text: 'Yes',
+        negative_btn_text: 'No'
       })
       .subscribe((dialog_resp: DialogResponse) => {
-        if (dialog_resp && dialog_resp.operation === "confirm.ok") {
+        if (dialog_resp && dialog_resp.operation === 'confirm.ok') {
           this.mode.editing_quotation_ids.push(quotation._id);
           this._http_service.patch_quotations_quotation_id_enable
             .sendRequest(quotation._id)
@@ -274,8 +274,8 @@ export class QuotationComponent implements OnInit, OnDestroy {
               (res: ApiResponse) => {
                 quotation.is_active = res.data.is_active;
                 this.showToast(
-                  "Quotation enable successfully",
-                  "OK",
+                  'Quotation enable successfully',
+                  'OK',
                   3000,
                   false
                 );
@@ -289,8 +289,8 @@ export class QuotationComponent implements OnInit, OnDestroy {
               (err: Error) => {
                 console.log(err);
                 this.showToast(
-                  "Something went wrong. Please try again later.",
-                  "Close",
+                  'Something went wrong. Please try again later.',
+                  'Close',
                   null,
                   true
                 );
@@ -310,15 +310,15 @@ export class QuotationComponent implements OnInit, OnDestroy {
   deleteQuotationPermanently(quotation: QuotationData): void {
     const confirm_sub = this._confirm_service
       .confirm({
-        title: "Confirm Delete Quotation Permanently",
+        title: 'Confirm Delete Quotation Permanently',
         message: `Are you sure you want to delete quotation <b>${quotation.quotation_num}</b> permanently?`,
         info:
-          "All data related to the quotation will be deleted. This operation cannot be undone.",
-        positive_btn_text: "Yes",
-        negative_btn_text: "No"
+          'All data related to the quotation will be deleted. This operation cannot be undone.',
+        positive_btn_text: 'Yes',
+        negative_btn_text: 'No'
       })
       .subscribe((resp: DialogResponse) => {
-        if (resp && resp.operation === "confirm.ok") {
+        if (resp && resp.operation === 'confirm.ok') {
           this.mode.editing_quotation_ids.push(quotation._id);
           this._http_service.delete_quotations_quotation_id
             .sendRequest(quotation._id)
@@ -331,8 +331,8 @@ export class QuotationComponent implements OnInit, OnDestroy {
                   }
                 }
                 this.showToast(
-                  "Quotation deleted permanently successfully",
-                  "OK",
+                  'Quotation deleted permanently successfully',
+                  'OK',
                   3000,
                   false
                 );
@@ -346,8 +346,8 @@ export class QuotationComponent implements OnInit, OnDestroy {
               (err: Error) => {
                 console.error(err);
                 this.showToast(
-                  "Something went wrong. Please try again later.",
-                  "Close",
+                  'Something went wrong. Please try again later.',
+                  'Close',
                   null,
                   true
                 );
@@ -371,13 +371,13 @@ export class QuotationComponent implements OnInit, OnDestroy {
     is_error: boolean = true
   ) {
     const toast_config: any = {
-      horizontalPosition: "end"
+      horizontalPosition: 'end'
     };
     if (duration !== null) {
       toast_config.duration = duration;
     }
     if (is_error) {
-      toast_config.panelClass = "toast-error";
+      toast_config.panelClass = 'toast-error';
     }
 
     this._toast.open(message, action, toast_config);

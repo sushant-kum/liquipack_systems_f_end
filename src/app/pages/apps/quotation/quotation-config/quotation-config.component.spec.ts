@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuotationConfigComponent } from "./quotation-config.component";
+import { QuotationConfigComponent } from './quotation-config.component';
 
-describe("QuotationConfigComponent", () => {
+describe('QuotationConfigComponent', () => {
   let component: QuotationConfigComponent;
   let fixture: ComponentFixture<QuotationConfigComponent>;
 
@@ -18,7 +18,7 @@ describe("QuotationConfigComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

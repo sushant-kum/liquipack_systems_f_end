@@ -1,16 +1,16 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { SettingsComponent } from "./settings.component";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { SettingsComponent } from './settings.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: SettingsComponent
   },
   {
-    path: "profile",
+    path: 'profile',
     loadChildren: () =>
-      import("src/app/pages/settings/profile/profile.module").then(
+      import('src/app/pages/settings/profile/profile.module').then(
         module => module.ProfileModule
       )
   }

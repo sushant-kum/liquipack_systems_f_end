@@ -1,23 +1,23 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Title } from "@angular/platform-browser";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { Subscription } from "rxjs";
-import * as moment from "moment";
-import { Md5 } from "ts-md5/dist/md5";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
+import * as moment from 'moment';
+import { Md5 } from 'ts-md5/dist/md5';
 
 /* Component Imports */
-import { SidebarComponent } from "src/app/components/sidebar/sidebar.component";
+import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 
 /* Services Imports */
-import { HeaderService } from "src/app/services/header/header.service";
-import { HttpTransactionsService } from "src/app/services/http-transactions/http-transactions.service";
-import { LocalStorageService } from "src/app/services/local-storage/local-storage.service";
-import { AuthService } from "src/app/services/auth/auth.service";
+import { HeaderService } from 'src/app/services/header/header.service';
+import { HttpTransactionsService } from 'src/app/services/http-transactions/http-transactions.service';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 /* Config Imports */
-import { Config } from "src/app/configs/config";
-import { RegexService } from "src/app/services/regex/regex.service";
+import { Config } from 'src/app/configs/config';
+import { RegexService } from 'src/app/services/regex/regex.service';
 
 interface Mode {
   saving_profile: boolean;
@@ -26,18 +26,18 @@ interface Mode {
 
 interface ProfileData {
   name: string;
-  gender: "male" | "female" | "others";
+  gender: 'male' | 'female' | 'others';
   email: string;
   phone: string;
   password_hash: string;
 }
 
-const PAGE_ID = "settings-profile";
+const PAGE_ID = 'settings-profile';
 
 @Component({
-  selector: "app-profile",
-  templateUrl: "./profile.component.html",
-  styleUrls: ["./profile.component.scss"]
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   private _page_id = PAGE_ID;
@@ -85,7 +85,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._title.setTitle(
-      this.config.page_map[this._page_id].name + " - " + this.config.app_title
+      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
     );
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
@@ -121,16 +121,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         response => {
-          this.form_profile.get("username").setValue(response.data.username);
+          this.form_profile.get('username').setValue(response.data.username);
           this.form_profile
-            .get("created_date")
+            .get('created_date')
             .setValue(
-              moment(response.data.created_date).format("DD MMM, YYYY hh:mm A")
+              moment(response.data.created_date).format('DD MMM, YYYY hh:mm A')
             );
-          this.form_profile.get("name").setValue(response.data.name);
-          this.form_profile.get("gender").setValue(response.data.gender);
-          this.form_profile.get("email").setValue(response.data.email);
-          this.form_profile.get("phone").setValue(response.data.phone);
+          this.form_profile.get('name').setValue(response.data.name);
+          this.form_profile.get('gender').setValue(response.data.gender);
+          this.form_profile.get('email').setValue(response.data.email);
+          this.form_profile.get('phone').setValue(response.data.phone);
 
           this.original_profile_data = {
             name: response.data.name,
@@ -143,8 +143,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         error => {
           console.error(error);
           this.showToast(
-            "Something went wrong. Please try again later.",
-            "Close",
+            'Something went wrong. Please try again later.',
+            'Close',
             null,
             true
           );
@@ -153,27 +153,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   isProfileFormEdited(): boolean {
-    if (this.form_profile.get("username").value == null) {
+    if (this.form_profile.get('username').value == null) {
       return false;
     } else {
       return (
-        this.form_profile.get("name").value !==
+        this.form_profile.get('name').value !==
           this.original_profile_data.name ||
-        this.form_profile.get("gender").value !==
+        this.form_profile.get('gender').value !==
           this.original_profile_data.gender ||
-        this.form_profile.get("email").value !==
+        this.form_profile.get('email').value !==
           this.original_profile_data.email ||
-        this.form_profile.get("phone").value !==
+        this.form_profile.get('phone').value !==
           this.original_profile_data.phone
       );
     }
   }
 
   resetProfileForm(): void {
-    this.form_profile.get("name").setValue(this.original_profile_data.name);
-    this.form_profile.get("gender").setValue(this.original_profile_data.gender);
-    this.form_profile.get("email").setValue(this.original_profile_data.email);
-    this.form_profile.get("phone").setValue(this.original_profile_data.phone);
+    this.form_profile.get('name').setValue(this.original_profile_data.name);
+    this.form_profile.get('gender').setValue(this.original_profile_data.gender);
+    this.form_profile.get('email').setValue(this.original_profile_data.email);
+    this.form_profile.get('phone').setValue(this.original_profile_data.phone);
   }
 
   saveProfile(): void {
@@ -181,13 +181,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     const profile_data: ProfileData = {
       password_hash: this.original_profile_data.password_hash,
-      name: this.form_profile.get("name").value,
-      email: this.form_profile.get("email").value,
-      phone: this.form_profile.get("phone").value
-        ? this.form_profile.get("phone").value
+      name: this.form_profile.get('name').value,
+      email: this.form_profile.get('email').value,
+      phone: this.form_profile.get('phone').value
+        ? this.form_profile.get('phone').value
         : null,
-      gender: this.form_profile.get("gender").value
-        ? this.form_profile.get("gender").value
+      gender: this.form_profile.get('gender').value
+        ? this.form_profile.get('gender').value
         : null
     };
 
@@ -205,15 +205,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.original_profile_data.phone = profile_data.phone;
           this.original_profile_data.gender = profile_data.gender;
 
-          this.showToast("Profile Saved Successfully", "Close", 3000, false);
+          this.showToast('Profile Saved Successfully', 'Close', 3000, false);
 
           this.mode.saving_profile = false;
         },
         error => {
           console.error(error);
           this.showToast(
-            "Something went wrong. Please try again later.",
-            "Close",
+            'Something went wrong. Please try again later.',
+            'Close',
             null,
             true
           );
@@ -225,23 +225,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private _passwordMatchValidator(
     form: FormGroup
   ): { [key: string]: boolean } | null {
-    return form.get("new_password").value === form.get("repeat_password").value
+    return form.get('new_password').value === form.get('repeat_password').value
       ? null
       : { passwordMismatch: true };
   }
 
   isPasswordFormEdited(): boolean {
     return (
-      this.form_possword.get("current_password").value !== null ||
-      this.form_possword.get("new_password").value !== null ||
-      this.form_possword.get("repeat_password").value !== null
+      this.form_possword.get('current_password').value !== null ||
+      this.form_possword.get('new_password').value !== null ||
+      this.form_possword.get('repeat_password').value !== null
     );
   }
 
   clearPasswordForm(): void {
-    this.form_possword.get("current_password").setValue(null);
-    this.form_possword.get("new_password").setValue(null);
-    this.form_possword.get("repeat_password").setValue(null);
+    this.form_possword.get('current_password').setValue(null);
+    this.form_possword.get('new_password').setValue(null);
+    this.form_possword.get('repeat_password').setValue(null);
     this.form_possword.markAsUntouched();
   }
 
@@ -249,14 +249,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.mode.changing_password = true;
     if (
       new Md5()
-        .appendStr(this.form_possword.get("current_password").value)
+        .appendStr(this.form_possword.get('current_password').value)
         .end() === this.original_profile_data.password_hash
     ) {
       const profile_data: ProfileData = JSON.parse(
         JSON.stringify(this.original_profile_data)
       );
       profile_data.password_hash = new Md5()
-        .appendStr(this.form_possword.get("new_password").value)
+        .appendStr(this.form_possword.get('new_password').value)
         .end()
         .toString();
 
@@ -274,8 +274,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
             this.clearPasswordForm();
 
             this.showToast(
-              "Password changed successfully.",
-              "Close",
+              'Password changed successfully.',
+              'Close',
               3000,
               false
             );
@@ -285,8 +285,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
           error => {
             console.error(error);
             this.showToast(
-              "Something went wrong. Please try again later.",
-              "Close",
+              'Something went wrong. Please try again later.',
+              'Close',
               null,
               true
             );
@@ -294,7 +294,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           }
         );
     } else {
-      this.showToast("Current Password entered is incorrect", "Close");
+      this.showToast('Current Password entered is incorrect', 'Close');
       this.mode.changing_password = false;
     }
   }
@@ -306,13 +306,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     is_error: boolean = true
   ) {
     const toast_config: any = {
-      horizontalPosition: "end"
+      horizontalPosition: 'end'
     };
     if (duration !== null) {
       toast_config.duration = duration;
     }
     if (is_error) {
-      toast_config.panelClass = "toast-error";
+      toast_config.panelClass = 'toast-error';
     }
 
     this._toast.open(message, action, toast_config);

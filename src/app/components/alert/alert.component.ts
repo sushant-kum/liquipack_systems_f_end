@@ -1,21 +1,21 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA
-} from "@angular/material/dialog";
+} from '@angular/material/dialog';
 
 /* Service Imports */
-import { AlertService } from "src/app/services/alert/alert.service";
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 /* Interface Imports */
-import { AlertData } from "src/app/interfaces/alert-data";
-import { DialogResponse } from "src/app/interfaces/dialog-response";
+import { AlertData } from 'src/app/interfaces/alert-data';
+import { DialogResponse } from 'src/app/interfaces/dialog-response';
 
 @Component({
-  selector: "app-modal-alert",
-  templateUrl: "./alert.template.html",
-  styleUrls: ["./alert.template.scss"]
+  selector: 'app-modal-alert',
+  templateUrl: './alert.template.html',
+  styleUrls: ['./alert.template.scss']
 })
 export class AlertModalComponent {
   constructor(
@@ -25,22 +25,22 @@ export class AlertModalComponent {
 
   onCloseClick(): void {
     const response: DialogResponse = {
-      operation: "close"
+      operation: 'close'
     };
     this._dialogRef.close(response);
   }
 
   onOkClick(): void {
     const response: DialogResponse = {
-      operation: "alert.ok"
+      operation: 'alert.ok'
     };
     this._dialogRef.close(response);
   }
 }
 
 @Component({
-  selector: "app-alert",
-  template: ""
+  selector: 'app-alert',
+  template: ''
 })
 export class AlertComponent implements OnInit {
   constructor(
@@ -54,14 +54,14 @@ export class AlertComponent implements OnInit {
         this.showAlert({
           title: this._alert_service.alert_data.title
             ? this._alert_service.alert_data.title
-            : "Alert",
+            : 'Alert',
           message: this._alert_service.alert_data.message,
           info: this._alert_service.alert_data.info
             ? this._alert_service.alert_data.info
             : null,
           positive_btn_text: this._alert_service.alert_data.positive_btn_text
             ? this._alert_service.alert_data.positive_btn_text
-            : "OK"
+            : 'OK'
         });
       }
     });
@@ -73,7 +73,7 @@ export class AlertComponent implements OnInit {
       closeOnNavigation: true,
       minWidth: 250,
       position: {
-        top: "50px"
+        top: '50px'
       }
     });
 

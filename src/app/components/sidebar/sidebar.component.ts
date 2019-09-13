@@ -105,13 +105,15 @@ export class SidebarComponent implements OnInit {
         window.location.href = this.config.page_map.login.path;
         this._auth_service.changeAuthState(false);
       } else {
-        const menuitems = document.getElementsByClassName('menuitem');
-        for (let i = 0; i < menuitems.length; i++) {
-          menuitems[i].classList.add('w3-hide');
-          if (menuitems[i].getAttribute('data-menuitem') !== 'login') {
+        const menuitems = Array.from(
+          document.getElementsByClassName('menuitem')
+        );
+        for (const menuitem of menuitems) {
+          menuitem.classList.add('w3-hide');
+          if (menuitem.getAttribute('data-menuitem') !== 'login') {
             for (const access of data.access) {
-              if (menuitems[i].getAttribute('data-menuitem') === access.app) {
-                menuitems[i].classList.remove('w3-hide');
+              if (menuitem.getAttribute('data-menuitem') === access.app) {
+                menuitem.classList.remove('w3-hide');
               }
             }
           }
@@ -126,15 +128,15 @@ export class SidebarComponent implements OnInit {
   }
 
   colorize(menu_name: string = null) {
-    const menuitems = document.getElementsByClassName('menuitem');
-    for (let i = 0; i < menuitems.length; i++) {
-      menuitems[i].classList.remove('app-text-theme-primary');
-      menuitems[i].classList.remove('bg-white');
-      menuitems[i].classList.add('hover-text-white');
-      if (menuitems[i].getAttribute('data-menuitem') === menu_name) {
-        menuitems[i].classList.add('app-text-theme-primary');
-        menuitems[i].classList.add('bg-white');
-        menuitems[i].classList.remove('hover-text-white');
+    const menuitems = Array.from(document.getElementsByClassName('menuitem'));
+    for (const menuitem of menuitems) {
+      menuitem.classList.remove('app-text-theme-primary');
+      menuitem.classList.remove('bg-white');
+      menuitem.classList.add('hover-text-white');
+      if (menuitem.getAttribute('data-menuitem') === menu_name) {
+        menuitem.classList.add('app-text-theme-primary');
+        menuitem.classList.add('bg-white');
+        menuitem.classList.remove('hover-text-white');
       }
     }
   }

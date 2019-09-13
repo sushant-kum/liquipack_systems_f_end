@@ -38,10 +38,10 @@
   <div class="w3-row">
     <form [formGroup]="form_user_details">
       <div class="w3-col l4 w3-padding-small">
-        <comp-sub-head>
+        <app-sub-head>
           <fa-icon [icon]="['fas', 'address-card']"></fa-icon>
           &nbsp;Details
-        </comp-sub-head>
+        </app-sub-head>
 
         <mat-form-field
           appearance="standard"
@@ -219,10 +219,10 @@
         </mat-form-field>
       </div>
       <div class="w3-col l4 w3-padding-small">
-        <comp-sub-head>
+        <app-sub-head>
           <fa-icon [icon]="['fas', 'user-lock']"></fa-icon>
           &nbsp;Password
-        </comp-sub-head>
+        </app-sub-head>
 
         <mat-form-field appearance="standard">
           <mat-label *ngIf="new_user; else templateLabelChangePassword"
@@ -305,10 +305,10 @@
     </form>
 
     <div class="w3-col l4 w3-padding-small">
-      <comp-sub-head>
+      <app-sub-head>
         <fa-icon [icon]="['fas', 'tasks']"></fa-icon>
         &nbsp;Permissions
-      </comp-sub-head>
+      </app-sub-head>
 
       <table class="w3-table">
         <thead>

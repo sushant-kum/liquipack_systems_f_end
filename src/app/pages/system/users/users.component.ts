@@ -1,33 +1,33 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Title } from "@angular/platform-browser";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatDialog } from "@angular/material/dialog";
-import { Subscription } from "rxjs";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 /* Component Imports */
-import { SidebarComponent } from "src/app/components/sidebar/sidebar.component";
+import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
 
 /* Services Imports */
-import { HeaderService } from "src/app/services/header/header.service";
-import { HttpTransactionsService } from "src/app/services/http-transactions/http-transactions.service";
-import { LocalStorageService } from "src/app/services/local-storage/local-storage.service";
-import { AuthService } from "src/app/services/auth/auth.service";
-import { HelperService } from "src/app/services/helper/helper.service";
-import { ConfirmService } from "src/app/services/confirm/confirm.service";
+import { HeaderService } from 'src/app/services/header/header.service';
+import { HttpTransactionsService } from 'src/app/services/http-transactions/http-transactions.service';
+import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { HelperService } from 'src/app/services/helper/helper.service';
+import { ConfirmService } from 'src/app/services/confirm/confirm.service';
 
 /* Config Imports */
-import { Config } from "src/app/configs/config";
+import { Config } from 'src/app/configs/config';
 
 /* Interface Imports */
-import { UserData } from "src/app/interfaces/user-data";
-import { DialogResponse } from "src/app/interfaces/dialog-response";
-import { ApiResponse } from "src/app/interfaces/api-response";
+import { UserData } from 'src/app/interfaces/user-data';
+import { DialogResponse } from 'src/app/interfaces/dialog-response';
+import { ApiResponse } from 'src/app/interfaces/api-response';
 
 /* Modals Imports */
-import { ViewUserModalComponent } from "src/app/components/view-user-modal/view-user-modal.component";
-import { FormUserModalComponent } from "src/app/components/form-user-modal/form-user-modal.component";
+import { ViewUserModalComponent } from 'src/app/components/view-user-modal/view-user-modal.component';
+import { FormUserModalComponent } from 'src/app/components/form-user-modal/form-user-modal.component';
 
-const PAGE_ID = "system-users";
+const PAGE_ID = 'system-users';
 
 interface Mode {
   editing_user_ids: string[];
@@ -35,9 +35,9 @@ interface Mode {
 }
 
 @Component({
-  selector: "app-users",
-  templateUrl: "./users.component.html",
-  styleUrls: ["./users.component.scss"]
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit, OnDestroy {
   private _page_id = PAGE_ID;
@@ -50,7 +50,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private _auth_state_change_subscription: Subscription;
 
-  app_permission: ("read" | "write")[] = [];
+  app_permission: ('read' | 'write')[] = [];
 
   users_data: UserData[] = [];
   constructor(
@@ -68,7 +68,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._title.setTitle(
-      this.config.page_map[this._page_id].name + " - " + this.config.app_title
+      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
     );
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
@@ -94,8 +94,8 @@ export class UsersComponent implements OnInit, OnDestroy {
               break;
             }
           }
-          if (!this.app_permission.includes("read")) {
-            alert("You are not allowed here");
+          if (!this.app_permission.includes('read')) {
+            alert('You are not allowed here');
             this._sidebar.logout();
           }
         }
@@ -128,8 +128,8 @@ export class UsersComponent implements OnInit, OnDestroy {
       error => {
         console.error(error);
         this.showToast(
-          "Something went wrong. Please try again later.",
-          "Close",
+          'Something went wrong. Please try again later.',
+          'Close',
           null,
           true
         );
@@ -147,20 +147,20 @@ export class UsersComponent implements OnInit, OnDestroy {
   disableUser(user: UserData): void {
     const confirm_sub = this._confirm_service
       .confirm({
-        title: "Confirm Disable User",
+        title: 'Confirm Disable User',
         message: `Are you sure you want to disable user <b>${user.username}</b>?`,
-        positive_btn_text: "Yes",
-        negative_btn_text: "No"
+        positive_btn_text: 'Yes',
+        negative_btn_text: 'No'
       })
       .subscribe((resp: DialogResponse) => {
-        if (resp && resp.operation === "confirm.ok") {
+        if (resp && resp.operation === 'confirm.ok') {
           this.mode.editing_user_ids.push(user._id);
           this._http_service.patch_users_user_id_disable
             .sendRequest(user._id)
             .subscribe(
               (res: ApiResponse) => {
                 user.is_active = res.data.is_active;
-                this.showToast("User disabled successfully", "OK", 3000, false);
+                this.showToast('User disabled successfully', 'OK', 3000, false);
                 if (this.mode.editing_user_ids.includes(user._id)) {
                   this.mode.editing_user_ids.splice(
                     this.mode.editing_user_ids.indexOf(user._id),
@@ -171,8 +171,8 @@ export class UsersComponent implements OnInit, OnDestroy {
               (err: Error) => {
                 console.error(err);
                 this.showToast(
-                  "Something went wrong. Please try again later.",
-                  "Close",
+                  'Something went wrong. Please try again later.',
+                  'Close',
                   null,
                   true
                 );
@@ -196,7 +196,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     });
 
     dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
-      if (dialog_response && dialog_response.operation === "user.edit") {
+      if (dialog_response && dialog_response.operation === 'user.edit') {
         const user_data = dialog_response.data;
         this.mode.editing_user_ids.push(user_data._id);
 
@@ -211,8 +211,8 @@ export class UsersComponent implements OnInit, OnDestroy {
               }
 
               this.showToast(
-                "Successfully saved user details.",
-                "OK",
+                'Successfully saved user details.',
+                'OK',
                 3000,
                 false
               );
@@ -229,8 +229,8 @@ export class UsersComponent implements OnInit, OnDestroy {
             (error: Error) => {
               console.error(error);
               this.showToast(
-                "Something went wrong. Please try again later.",
-                "Close",
+                'Something went wrong. Please try again later.',
+                'Close',
                 null,
                 true
               );
@@ -255,21 +255,21 @@ export class UsersComponent implements OnInit, OnDestroy {
     });
 
     dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
-      if (dialog_response && dialog_response.operation === "user.add") {
+      if (dialog_response && dialog_response.operation === 'user.add') {
         this.mode.adding_user = true;
         const user_data = dialog_response.data;
 
         this._http_service.post_users.sendRequest(user_data).subscribe(
           (res: ApiResponse) => {
             this.users_data.push(res.data);
-            this.showToast("Successfully added user.", "OK", 3000, false);
+            this.showToast('Successfully added user.', 'OK', 3000, false);
             this.mode.adding_user = false;
           },
           (err: Error) => {
             console.error(err);
             this.showToast(
-              "Something went wrong. Please try again later.",
-              "Close",
+              'Something went wrong. Please try again later.',
+              'Close',
               null,
               true
             );
@@ -283,15 +283,15 @@ export class UsersComponent implements OnInit, OnDestroy {
   deleteUserPermanently(user: UserData): void {
     const confirm_sub = this._confirm_service
       .confirm({
-        title: "Confirm Delete User Permanently",
+        title: 'Confirm Delete User Permanently',
         message: `Are you sure you want to delete user <b>${user.username}</b> permanently?`,
         info:
-          "All data related to the user will be deleted. This operation cannot be undone.",
-        positive_btn_text: "Yes",
-        negative_btn_text: "No"
+          'All data related to the user will be deleted. This operation cannot be undone.',
+        positive_btn_text: 'Yes',
+        negative_btn_text: 'No'
       })
       .subscribe((resp: DialogResponse) => {
-        if (resp && resp.operation === "confirm.ok") {
+        if (resp && resp.operation === 'confirm.ok') {
           this.mode.editing_user_ids.push(user._id);
           this._http_service.delete_users_user_id
             .sendRequest(user._id)
@@ -307,8 +307,8 @@ export class UsersComponent implements OnInit, OnDestroy {
                   }
                 }
                 this.showToast(
-                  "User deleted permanently successfully",
-                  "OK",
+                  'User deleted permanently successfully',
+                  'OK',
                   3000,
                   false
                 );
@@ -322,8 +322,8 @@ export class UsersComponent implements OnInit, OnDestroy {
               (err: Error) => {
                 console.error(err);
                 this.showToast(
-                  "Something went wrong. Please try again later.",
-                  "Close",
+                  'Something went wrong. Please try again later.',
+                  'Close',
                   null,
                   true
                 );
@@ -343,20 +343,20 @@ export class UsersComponent implements OnInit, OnDestroy {
   enableUser(user: UserData): void {
     const confirm_sub = this._confirm_service
       .confirm({
-        title: "Confirm Enable User",
+        title: 'Confirm Enable User',
         message: `Are you sure you want to enable user <b>${user.username}</b>?`,
-        positive_btn_text: "Yes",
-        negative_btn_text: "No"
+        positive_btn_text: 'Yes',
+        negative_btn_text: 'No'
       })
       .subscribe((resp: DialogResponse) => {
-        if (resp && resp.operation === "confirm.ok") {
+        if (resp && resp.operation === 'confirm.ok') {
           this.mode.editing_user_ids.push(user._id);
           this._http_service.patch_users_user_id_enable
             .sendRequest(user._id)
             .subscribe(
               (res: ApiResponse) => {
                 user.is_active = res.data.is_active;
-                this.showToast("User enabled successfully", "OK", 3000, false);
+                this.showToast('User enabled successfully', 'OK', 3000, false);
                 if (this.mode.editing_user_ids.includes(user._id)) {
                   this.mode.editing_user_ids.splice(
                     this.mode.editing_user_ids.indexOf(user._id),
@@ -367,8 +367,8 @@ export class UsersComponent implements OnInit, OnDestroy {
               (err: Error) => {
                 console.error(err);
                 this.showToast(
-                  "Something went wrong. Please try again later.",
-                  "Close",
+                  'Something went wrong. Please try again later.',
+                  'Close',
                   null,
                   true
                 );
@@ -392,13 +392,13 @@ export class UsersComponent implements OnInit, OnDestroy {
     is_error: boolean = true
   ) {
     const toast_config: any = {
-      horizontalPosition: "end"
+      horizontalPosition: 'end'
     };
     if (duration !== null) {
       toast_config.duration = duration;
     }
     if (is_error) {
-      toast_config.panelClass = "toast-error";
+      toast_config.panelClass = 'toast-error';
     }
 
     this._toast.open(message, action, toast_config);

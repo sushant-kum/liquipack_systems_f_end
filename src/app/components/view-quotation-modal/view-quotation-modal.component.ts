@@ -1,14 +1,14 @@
-import { Component, OnInit, Inject } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /* Config Imports */
-import { Config } from "src/app/configs/config";
+import { Config } from 'src/app/configs/config';
 
 /* Service Imports */
-import { HelperService } from "src/app/services/helper/helper.service";
+import { HelperService } from 'src/app/services/helper/helper.service';
 
 /* Interface Imports */
-import { QuotationData } from "src/app/interfaces/quotation-data";
+import { QuotationData } from 'src/app/interfaces/quotation-data';
 
 interface IncomingData {
   quotation: QuotationData;
@@ -18,9 +18,9 @@ interface IncomingData {
 }
 
 @Component({
-  selector: "app-view-quotation-modal",
-  templateUrl: "./view-quotation-modal.component.html",
-  styleUrls: ["./view-quotation-modal.component.scss"]
+  selector: 'app-view-quotation-modal',
+  templateUrl: './view-quotation-modal.component.html',
+  styleUrls: ['./view-quotation-modal.component.scss']
 })
 export class ViewQuotationModalComponent implements OnInit {
   quotation: QuotationData;

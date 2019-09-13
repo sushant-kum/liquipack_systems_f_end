@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewQuotationModalComponent } from "./view-quotation-modal.component";
+import { ViewQuotationModalComponent } from './view-quotation-modal.component';
 
-describe("ViewQuotationModalComponent", () => {
+describe('ViewQuotationModalComponent', () => {
   let component: ViewQuotationModalComponent;
   let fixture: ComponentFixture<ViewQuotationModalComponent>;
 
@@ -18,7 +18,7 @@ describe("ViewQuotationModalComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

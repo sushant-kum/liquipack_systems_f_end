@@ -1,16 +1,16 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { SystemComponent } from "./system.component";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { SystemComponent } from './system.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: SystemComponent
   },
   {
-    path: "users",
+    path: 'users',
     loadChildren: () =>
-      import("src/app/pages/system/users/users.module").then(
+      import('src/app/pages/system/users/users.module').then(
         module => module.UsersModule
       )
   }

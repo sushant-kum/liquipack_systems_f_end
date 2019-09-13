@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubHeadComponent } from "./sub-head.component";
+import { SubHeadComponent } from './sub-head.component';
 
-describe("SubHeadComponent", () => {
+describe('SubHeadComponent', () => {
   let component: SubHeadComponent;
   let fixture: ComponentFixture<SubHeadComponent>;
 
@@ -18,7 +18,7 @@ describe("SubHeadComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
