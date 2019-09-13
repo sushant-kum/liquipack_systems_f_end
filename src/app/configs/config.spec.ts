@@ -1,7 +1,7 @@
-import { Config } from './config';
+import { Config } from "./config";
 
-describe('Config', () => {
-  it('should create an instance', () => {
+describe("Config", () => {
+  it("should create an instance", () => {
     expect(new Config()).toBeTruthy();
   });
 });

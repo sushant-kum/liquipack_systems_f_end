@@ -7,7 +7,7 @@
           My Profile
         </mat-card-title>
         <mat-card-subtitle class="w3-small app-text-theme-accent">
-          User ID: {{user_id}}
+          User ID: {{ user_id }}
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
@@ -16,9 +16,18 @@
             <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Username</mat-label>
-                <input matInput formControlName="username" placeholder="Username" readonly>
+                <input
+                  matInput
+                  formControlName="username"
+                  placeholder="Username"
+                  readonly
+                />
                 <span matPrefix>
-                  <fa-icon [icon]="['fas', 'user-shield']" class="app-text-theme-primary"></fa-icon>&nbsp;
+                  <fa-icon
+                    [icon]="['fas', 'user-shield']"
+                    class="app-text-theme-primary"
+                  ></fa-icon
+                  >&nbsp;
                 </span>
               </mat-form-field>
             </div>
@@ -26,9 +35,18 @@
             <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Created At</mat-label>
-                <input matInput formControlName="created_date" placeholder="Created At" readonly>
+                <input
+                  matInput
+                  formControlName="created_date"
+                  placeholder="Created At"
+                  readonly
+                />
                 <span matPrefix>
-                  <fa-icon [icon]="['fas', 'calendar']" class="app-text-theme-primary"></fa-icon>&nbsp;
+                  <fa-icon
+                    [icon]="['fas', 'calendar']"
+                    class="app-text-theme-primary"
+                  ></fa-icon
+                  >&nbsp;
                 </span>
               </mat-form-field>
             </div>
@@ -36,14 +54,25 @@
             <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Name</mat-label>
-                <input matInput formControlName="name" placeholder="John Doe">
+                <input matInput formControlName="name" placeholder="John Doe" />
                 <span matPrefix>
-                  <fa-icon [icon]="['fas', 'user']" [ngClass]="{
-                    'app-text-theme-warn': form_profile.get('name').invalid && form_profile.get('name').touched,
-                    'app-text-theme-primary': !(form_profile.get('name').invalid && form_profile.get('name').touched)
-                  }"></fa-icon>&nbsp;
+                  <fa-icon
+                    [icon]="['fas', 'user']"
+                    [ngClass]="{
+                      'app-text-theme-warn':
+                        form_profile.get('name').invalid &&
+                        form_profile.get('name').touched,
+                      'app-text-theme-primary': !(
+                        form_profile.get('name').invalid &&
+                        form_profile.get('name').touched
+                      )
+                    }"
+                  ></fa-icon
+                  >&nbsp;
                 </span>
-                <mat-error *ngIf="form_profile.get('name').hasError('required')">
+                <mat-error
+                  *ngIf="form_profile.get('name').hasError('required')"
+                >
                   Name is required field.
                 </mat-error>
               </mat-form-field>
@@ -67,10 +96,19 @@
                   </mat-option>
                 </mat-select>
                 <span matPrefix>
-                  <fa-icon [icon]="['fas', 'venus-mars']" [ngClass]="{
-                    'app-text-theme-warn': form_profile.get('gender').invalid && form_profile.get('gender').touched,
-                    'app-text-theme-primary': !(form_profile.get('gender').invalid && form_profile.get('gender').touched)
-                  }"></fa-icon>&nbsp;
+                  <fa-icon
+                    [icon]="['fas', 'venus-mars']"
+                    [ngClass]="{
+                      'app-text-theme-warn':
+                        form_profile.get('gender').invalid &&
+                        form_profile.get('gender').touched,
+                      'app-text-theme-primary': !(
+                        form_profile.get('gender').invalid &&
+                        form_profile.get('gender').touched
+                      )
+                    }"
+                  ></fa-icon
+                  >&nbsp;
                 </span>
               </mat-form-field>
             </div>
@@ -78,14 +116,29 @@
             <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Email</mat-label>
-                <input matInput formControlName="email" placeholder="email@domain.ext">
+                <input
+                  matInput
+                  formControlName="email"
+                  placeholder="email@domain.ext"
+                />
                 <span matPrefix>
-                  <fa-icon [icon]="['fas', 'envelope']" [ngClass]="{
-                    'app-text-theme-warn': form_profile.get('email').invalid && form_profile.get('email').touched,
-                    'app-text-theme-primary': !(form_profile.get('email').invalid && form_profile.get('email').touched)
-                  }"></fa-icon>&nbsp;
+                  <fa-icon
+                    [icon]="['fas', 'envelope']"
+                    [ngClass]="{
+                      'app-text-theme-warn':
+                        form_profile.get('email').invalid &&
+                        form_profile.get('email').touched,
+                      'app-text-theme-primary': !(
+                        form_profile.get('email').invalid &&
+                        form_profile.get('email').touched
+                      )
+                    }"
+                  ></fa-icon
+                  >&nbsp;
                 </span>
-                <mat-error *ngIf="form_profile.get('email').hasError('required')">
+                <mat-error
+                  *ngIf="form_profile.get('email').hasError('required')"
+                >
                   Email is required field.
                 </mat-error>
                 <mat-error *ngIf="form_profile.get('email').hasError('email')">
@@ -97,17 +150,32 @@
             <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Phone</mat-label>
-                <input matInput formControlName="phone" placeholder="9876543210">
+                <input
+                  matInput
+                  formControlName="phone"
+                  placeholder="9876543210"
+                />
                 <span matPrefix>
-                  <fa-icon [icon]="['fas', 'mobile']" [ngClass]="{
-                    'app-text-theme-warn': form_profile.get('phone').invalid && form_profile.get('phone').touched,
-                    'app-text-theme-primary': !(form_profile.get('phone').invalid && form_profile.get('phone').touched)
-                  }"></fa-icon>&nbsp;
+                  <fa-icon
+                    [icon]="['fas', 'mobile']"
+                    [ngClass]="{
+                      'app-text-theme-warn':
+                        form_profile.get('phone').invalid &&
+                        form_profile.get('phone').touched,
+                      'app-text-theme-primary': !(
+                        form_profile.get('phone').invalid &&
+                        form_profile.get('phone').touched
+                      )
+                    }"
+                  ></fa-icon
+                  >&nbsp;
                 </span>
                 <span matPrefix>
                   +91&nbsp;
                 </span>
-                <mat-error *ngIf="form_profile.get('phone').hasError('pattern')">
+                <mat-error
+                  *ngIf="form_profile.get('phone').hasError('pattern')"
+                >
                   Phone format is incorrect.
                 </mat-error>
               </mat-form-field>
@@ -116,17 +184,38 @@
         </form>
       </mat-card-content>
       <mat-card-actions class="w3-right-align">
-        <button mat-button color="primary" class="btn-form-profile-reset" [disabled]="!isProfileFormEdited()"
-          (click)="resetProfileForm()">
+        <button
+          mat-button
+          color="primary"
+          class="btn-form-profile-reset"
+          [disabled]="!isProfileFormEdited()"
+          (click)="resetProfileForm()"
+        >
           Reset&nbsp;
           <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>
         </button>
 
-        <button mat-flat-button color="primary" class="btn-form-profile-save"
-          [disabled]="form_profile.invalid || !isProfileFormEdited() || mode.saving_profile" (click)="saveProfile()">
+        <button
+          mat-flat-button
+          color="primary"
+          class="btn-form-profile-save"
+          [disabled]="
+            form_profile.invalid ||
+            !isProfileFormEdited() ||
+            mode.saving_profile
+          "
+          (click)="saveProfile()"
+        >
           Save Profile&nbsp;
-          <fa-icon *ngIf="!mode.saving_profile" [icon]="['fas', 'save']"></fa-icon>
-          <fa-icon *ngIf="mode.saving_profile" [icon]="['fas', 'circle-notch']" [spin]="true"></fa-icon>
+          <fa-icon
+            *ngIf="!mode.saving_profile"
+            [icon]="['fas', 'save']"
+          ></fa-icon>
+          <fa-icon
+            *ngIf="mode.saving_profile"
+            [icon]="['fas', 'circle-notch']"
+            [spin]="true"
+          ></fa-icon>
         </button>
       </mat-card-actions>
     </mat-card>
@@ -144,14 +233,32 @@
             <div class="w3-col m6 l4 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Current Password</mat-label>
-                <input matInput type="password" formControlName="current_password" placeholder="********">
+                <input
+                  matInput
+                  type="password"
+                  formControlName="current_password"
+                  placeholder="********"
+                />
                 <span matPrefix>
-                  <fa-icon [icon]="['fas', 'key']" [ngClass]="{
-                    'app-text-theme-warn': form_possword.get('current_password').invalid && form_possword.get('current_password').touched,
-                    'app-text-theme-primary': !(form_possword.get('current_password').invalid && form_possword.get('current_password').touched)
-                  }"></fa-icon>&nbsp;
+                  <fa-icon
+                    [icon]="['fas', 'key']"
+                    [ngClass]="{
+                      'app-text-theme-warn':
+                        form_possword.get('current_password').invalid &&
+                        form_possword.get('current_password').touched,
+                      'app-text-theme-primary': !(
+                        form_possword.get('current_password').invalid &&
+                        form_possword.get('current_password').touched
+                      )
+                    }"
+                  ></fa-icon
+                  >&nbsp;
                 </span>
-                <mat-error *ngIf="form_possword.get('current_password').hasError('required')">
+                <mat-error
+                  *ngIf="
+                    form_possword.get('current_password').hasError('required')
+                  "
+                >
                   Password needs to be filled.
                 </mat-error>
               </mat-form-field>
@@ -160,14 +267,30 @@
             <div class="w3-col m6 l4 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>New Password</mat-label>
-                <input matInput type="password" formControlName="new_password" placeholder="********">
+                <input
+                  matInput
+                  type="password"
+                  formControlName="new_password"
+                  placeholder="********"
+                />
                 <span matPrefix>
-                  <fa-icon [icon]="['fas', 'key']" [ngClass]="{
-                    'app-text-theme-warn': form_possword.get('new_password').invalid && form_possword.get('new_password').touched,
-                    'app-text-theme-primary': !(form_possword.get('new_password').invalid && form_possword.get('new_password').touched)
-                  }"></fa-icon>&nbsp;
+                  <fa-icon
+                    [icon]="['fas', 'key']"
+                    [ngClass]="{
+                      'app-text-theme-warn':
+                        form_possword.get('new_password').invalid &&
+                        form_possword.get('new_password').touched,
+                      'app-text-theme-primary': !(
+                        form_possword.get('new_password').invalid &&
+                        form_possword.get('new_password').touched
+                      )
+                    }"
+                  ></fa-icon
+                  >&nbsp;
                 </span>
-                <mat-error *ngIf="form_possword.get('new_password').hasError('required')">
+                <mat-error
+                  *ngIf="form_possword.get('new_password').hasError('required')"
+                >
                   Password needs to be filled.
                 </mat-error>
               </mat-form-field>
@@ -176,38 +299,78 @@
             <div class="w3-col m6 l4 w3-padding-small">
               <mat-form-field appearance="standard">
                 <mat-label>Repeat Password</mat-label>
-                <input matInput type="password" formControlName="repeat_password" placeholder="********">
+                <input
+                  matInput
+                  type="password"
+                  formControlName="repeat_password"
+                  placeholder="********"
+                />
                 <span matPrefix>
-                  <fa-icon [icon]="['fas', 'key']" [ngClass]="{
-                    'app-text-theme-warn': form_possword.get('repeat_password').invalid && form_possword.get('repeat_password').touched,
-                    'app-text-theme-primary': !(form_possword.get('repeat_password').invalid && form_possword.get('repeat_password').touched)
-                  }"></fa-icon>&nbsp;
+                  <fa-icon
+                    [icon]="['fas', 'key']"
+                    [ngClass]="{
+                      'app-text-theme-warn':
+                        form_possword.get('repeat_password').invalid &&
+                        form_possword.get('repeat_password').touched,
+                      'app-text-theme-primary': !(
+                        form_possword.get('repeat_password').invalid &&
+                        form_possword.get('repeat_password').touched
+                      )
+                    }"
+                  ></fa-icon
+                  >&nbsp;
                 </span>
-                <mat-error *ngIf="form_possword.get('repeat_password').hasError('required')">
+                <mat-error
+                  *ngIf="
+                    form_possword.get('repeat_password').hasError('required')
+                  "
+                >
                   Password needs to be filled.
                 </mat-error>
               </mat-form-field>
             </div>
           </div>
 
-          <div class="app-theme-warn w3-padding w3-round w3-animate-zoom"
-            *ngIf="!form_possword.get('repeat_password').hasError('required') && form_possword.hasError('passwordMismatch')">
+          <div
+            class="app-theme-warn w3-padding w3-round w3-animate-zoom"
+            *ngIf="
+              !form_possword.get('repeat_password').hasError('required') &&
+              form_possword.hasError('passwordMismatch')
+            "
+          >
             Passwords do not match.
           </div>
         </form>
       </mat-card-content>
       <mat-card-actions class="w3-right-align">
-        <button mat-button color="primary" class="btn-form-password-clear"
-          [disabled]="form_possword.untouched && !isPasswordFormEdited()" (click)="clearPasswordForm()">
+        <button
+          mat-button
+          color="primary"
+          class="btn-form-password-clear"
+          [disabled]="form_possword.untouched && !isPasswordFormEdited()"
+          (click)="clearPasswordForm()"
+        >
           Clear&nbsp;
           <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>
         </button>
 
-        <button mat-flat-button color="primary" class="btn-form-password-save"
-          [disabled]="form_possword.invalid || !isPasswordFormEdited()" (click)="changePassword()">
+        <button
+          mat-flat-button
+          color="primary"
+          class="btn-form-password-save"
+          [disabled]="form_possword.invalid || !isPasswordFormEdited()"
+          (click)="changePassword()"
+        >
           Save Password&nbsp;
-          <fa-icon *ngIf="!mode.changing_password" [icon]="['fas', 'save']"></fa-icon>
-          <fa-icon *ngIf="mode.changing_password" [icon]="['fas', 'circle-notch']" [spin]="true"></fa-icon>
+          <fa-icon
+            *ngIf="!mode.changing_password"
+            [icon]="['fas', 'save']"
+          ></fa-icon>
+          <fa-icon
+            *ngIf="mode.changing_password"
+            [icon]="['fas', 'circle-notch']"
+            [spin]="true"
+          ></fa-icon>
         </button>
       </mat-card-actions>
     </mat-card>

@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
 
 /* Angular Material Imports */
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { MatButtonModule } from "@angular/material/button";
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
 /* Solid Icons */
 import {
   faUser as fasUser,
@@ -27,7 +27,7 @@ import {
   faTransgender as fasTransgender,
   faKey as fasKey,
   faCircleNotch as fasCircleNotch
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 library.add(
   fasUser,
   fasUserShield,
@@ -44,14 +44,14 @@ library.add(
   fasCircleNotch
 );
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from "@fortawesome/free-regular-svg-icons";
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from "@fortawesome/free-brands-svg-icons";
 library.add();
 
-import { ProfileRoutingModule } from './profile-routing.module';
-import { ProfileComponent } from './profile.component';
+import { ProfileRoutingModule } from "./profile-routing.module";
+import { ProfileComponent } from "./profile.component";
 
 @NgModule({
   declarations: [ProfileComponent],
@@ -72,4 +72,4 @@ import { ProfileComponent } from './profile.component';
     ReactiveFormsModule
   ]
 })
-export class ProfileModule { }
+export class ProfileModule {}
