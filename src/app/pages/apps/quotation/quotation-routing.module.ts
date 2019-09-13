@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { QuotationComponent } from './quotation.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -10,8 +9,10 @@ const routes: Routes = [
   },
   {
     path: 'config',
-    loadChildren: () => import('src/app/pages/apps/quotation/quotation-config/quotation-config.module')
-      .then(module => module.QuotationConfigModule)
+    loadChildren: () =>
+      import(
+        'src/app/pages/apps/quotation/quotation-config/quotation-config.module'
+      ).then(module => module.QuotationConfigModule)
   }
 ];
 
@@ -19,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class QuotationRoutingModule { }
+export class QuotationRoutingModule {}

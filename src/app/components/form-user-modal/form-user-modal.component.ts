@@ -35,15 +35,23 @@ interface PageInfo {
 export class FormUserModalComponent implements OnInit {
   new_user: boolean;
 
-  form_user_details: FormGroup = new FormGroup({
-    username: new FormControl(null, [Validators.required, Validators.pattern(this._regex_service.username)]),
-    name: new FormControl(null, [Validators.required]),
-    gender: new FormControl(null, [Validators.required]),
-    email: new FormControl(null, [Validators.required, Validators.email]),
-    phone: new FormControl(null, [Validators.pattern(this._regex_service.phone)]),
-    password: new FormControl(null),
-    confirm_password: new FormControl(null),
-  }, this._passwordMatchValidator);
+  form_user_details: FormGroup = new FormGroup(
+    {
+      username: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(this._regex_service.username)
+      ]),
+      name: new FormControl(null, [Validators.required]),
+      gender: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      phone: new FormControl(null, [
+        Validators.pattern(this._regex_service.phone)
+      ]),
+      password: new FormControl(null),
+      confirm_password: new FormControl(null)
+    },
+    this._passwordMatchValidator
+  );
 
   pages: string[] = [];
   pages_info: { [key: string]: PageInfo } = {};
@@ -56,7 +64,7 @@ export class FormUserModalComponent implements OnInit {
     public helper: HelperService,
     public dialogRef: MatDialogRef<FormUserModalComponent>,
     @Inject(MAT_DIALOG_DATA) public user: UserData
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.pages = this.config.pages;
@@ -91,7 +99,9 @@ export class FormUserModalComponent implements OnInit {
     } else {
       this.new_user = true;
       this.form_user_details.get('password').setValidators(Validators.required);
-      this.form_user_details.get('confirm_password').setValidators(Validators.required);
+      this.form_user_details
+        .get('confirm_password')
+        .setValidators(Validators.required);
     }
   }
 
@@ -112,9 +122,15 @@ export class FormUserModalComponent implements OnInit {
     }
   }
 
-  permissionChanged(event: MatCheckboxChange, page: string, permission: 'read' | 'write') {
+  permissionChanged(
+    event: MatCheckboxChange,
+    page: string,
+    permission: 'read' | 'write'
+  ) {
     if (this.pages_info[page].is_subpage && event.checked === true) {
-      this.pages_info[this.pages_info[page].parent_page].permissions[permission] = true;
+      this.pages_info[this.pages_info[page].parent_page].permissions[
+        permission
+      ] = true;
     } else if (event.checked === false) {
       for (const pg of this.pages) {
         if (this.pages_info[pg].parent_page === page) {
@@ -124,8 +140,12 @@ export class FormUserModalComponent implements OnInit {
     }
   }
 
-  private _passwordMatchValidator(form: FormGroup): { [key: string]: boolean } | null {
-    return form.get('password').value === form.get('confirm_password').value ? null : { passwordMismatch: true };
+  private _passwordMatchValidator(
+    form: FormGroup
+  ): { [key: string]: boolean } | null {
+    return form.get('password').value === form.get('confirm_password').value
+      ? null
+      : { passwordMismatch: true };
   }
 
   resetForm() {
@@ -160,10 +180,9 @@ export class FormUserModalComponent implements OnInit {
     if (this.new_user) {
       for (const page of this.pages) {
         if (
-          !this.global_pages.includes(page) && (
-            this.pages_info[page].permissions.read ||
-            this.pages_info[page].permissions.write
-          )
+          !this.global_pages.includes(page) &&
+          (this.pages_info[page].permissions.read ||
+            this.pages_info[page].permissions.write)
         ) {
           return true;
         }
@@ -205,56 +224,61 @@ export class FormUserModalComponent implements OnInit {
   }
 
   onAddUserClick(): void {
-    this._http_service.get_users.sendRequest().subscribe(
-      (res: any) => {
-        let flag_non_unique_username = false;
-        for (const user_data of res.data) {
-          if (user_data.username === this.form_user_details.get('username').value) {
-            this.form_user_details.get('username').setErrors({ notUnique: true });
-            document.getElementById('input-username').focus();
-            setTimeout(() => {
-              this.form_user_details.get('username').setErrors({ notUnique: false });
-            }, 5000);
-            flag_non_unique_username = true;
-            break;
-          }
-        }
-
-        if (!flag_non_unique_username) {
-          const return_data = this.form_user_details.getRawValue();
-          return_data._id = null;
-
-          return_data.password_hash = new Md5().appendStr(return_data.password).end().toString();
-          delete return_data.password;
-          delete return_data.confirm_password;
-
-          return_data.app_permissions = [];
-          for (const page of this.pages) {
-            if (!this.global_pages.includes(page)) {
-              const permissions: string[] = [];
-              if (this.pages_info[page].permissions.read) {
-                permissions.push('read');
-              }
-              if (this.pages_info[page].permissions.write) {
-                permissions.push('write');
-              }
-
-              if (permissions.length > 0) {
-                return_data.app_permissions.push({
-                  app: this.pages_info[page].identifier,
-                  permissions
-                });
-              }
-            }
-          }
-
-          this.dialogRef.close({
-            data: return_data,
-            operation: 'user.add'
-          });
+    this._http_service.get_users.sendRequest().subscribe((res: any) => {
+      let flag_non_unique_username = false;
+      for (const user_data of res.data) {
+        if (
+          user_data.username === this.form_user_details.get('username').value
+        ) {
+          this.form_user_details.get('username').setErrors({ notUnique: true });
+          document.getElementById('input-username').focus();
+          setTimeout(() => {
+            this.form_user_details
+              .get('username')
+              .setErrors({ notUnique: false });
+          }, 5000);
+          flag_non_unique_username = true;
+          break;
         }
       }
-    );
+
+      if (!flag_non_unique_username) {
+        const return_data = this.form_user_details.getRawValue();
+        return_data._id = null;
+
+        return_data.password_hash = new Md5()
+          .appendStr(return_data.password)
+          .end()
+          .toString();
+        delete return_data.password;
+        delete return_data.confirm_password;
+
+        return_data.app_permissions = [];
+        for (const page of this.pages) {
+          if (!this.global_pages.includes(page)) {
+            const permissions: string[] = [];
+            if (this.pages_info[page].permissions.read) {
+              permissions.push('read');
+            }
+            if (this.pages_info[page].permissions.write) {
+              permissions.push('write');
+            }
+
+            if (permissions.length > 0) {
+              return_data.app_permissions.push({
+                app: this.pages_info[page].identifier,
+                permissions
+              });
+            }
+          }
+        }
+
+        this.dialogRef.close({
+          data: return_data,
+          operation: 'user.add'
+        });
+      }
+    });
   }
 
   onEditUserClick(): void {
@@ -263,7 +287,10 @@ export class FormUserModalComponent implements OnInit {
     if (return_data.password == null) {
       return_data.password_hash = this.user.password_hash;
     } else {
-      return_data.password_hash = new Md5().appendStr(return_data.password).end().toString();
+      return_data.password_hash = new Md5()
+        .appendStr(return_data.password)
+        .end()
+        .toString();
     }
     delete return_data.password;
     delete return_data.confirm_password;

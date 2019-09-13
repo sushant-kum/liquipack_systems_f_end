@@ -60,15 +60,14 @@ library.add(
   fasQuestionCircle
 );
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 import { FormUserModalComponent } from './form-user-modal.component';
 import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
-
 
 @NgModule({
   declarations: [FormUserModalComponent],
@@ -94,8 +93,6 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
     CommonModule,
     SubHeadModule
   ],
-  exports: [
-    FormUserModalComponent
-  ]
+  exports: [FormUserModalComponent]
 })
-export class FormUserModalModule { }
+export class FormUserModalModule {}

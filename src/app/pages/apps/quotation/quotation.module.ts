@@ -42,10 +42,10 @@ library.add(
   fasPlusSquare
 );
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 import { QuotationRoutingModule } from './quotation-routing.module';
@@ -76,8 +76,6 @@ import { ViewQuotationModalModule } from 'src/app/components/view-quotation-moda
     ReactiveFormsModule,
     ViewQuotationModalModule
   ],
-  entryComponents: [
-    ViewQuotationModalComponent
-  ]
+  entryComponents: [ViewQuotationModalComponent]
 })
-export class QuotationModule { }
+export class QuotationModule {}

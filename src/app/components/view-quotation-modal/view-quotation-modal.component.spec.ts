@@ -8,9 +8,8 @@ describe('ViewQuotationModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewQuotationModalComponent ]
-    })
-    .compileComponents();
+      declarations: [ViewQuotationModalComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

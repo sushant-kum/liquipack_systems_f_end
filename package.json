@@ -14,8 +14,13 @@
     "analyze_es5": "webpack-bundle-analyzer ./dist/build_aot/stats-es5.json",
     "analyze_es2015": "webpack-bundle-analyzer ./dist/build_aot/stats-es2015.json",
     "test": "ng test",
+    "test:CI": "ng test --browsers ChromeHeadless --no-watch --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint:fix": "ng lint liquipack-systems-f-end --fix",
+    "e2e": "ng e2e",
+    "format": "prettier \"src/**/*.{css,html,js,json,md,scss,ts}\"",
+    "format:fix": "prettier --write \"src/**/*.{css,html,js,json,md,scss,ts}\"",
+    "format:check": "prettier -c \"src/**/*.{css,html,js,json,md,scss,ts}\""
   },
   "private": true,
   "dependencies": {
@@ -55,6 +60,7 @@
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.1",
     "gzipper": "^2.10.0",
+    "husky": "^3.0.5",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.0.0",
@@ -62,10 +68,18 @@
     "karma-coverage-istanbul-reporter": "^2.1.0",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "prettier": "1.18.2",
+    "prettier-tslint": "^0.4.2",
+    "pretty-quick": "^1.11.1",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.4.5",
     "webpack-bundle-analyzer": "^3.4.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }

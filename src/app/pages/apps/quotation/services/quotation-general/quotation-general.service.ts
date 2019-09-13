@@ -30,7 +30,7 @@ export class QuotationGeneralService {
     extra_cups_sets: 'number'
   };
 
-  constructor() { }
+  constructor() {}
 
   get quotation_item_names(): { [key: string]: string } {
     return Object.assign(this._quotation_item_names, {});

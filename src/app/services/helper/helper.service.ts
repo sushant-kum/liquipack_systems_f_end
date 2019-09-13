@@ -5,8 +5,7 @@ import * as moment from 'moment';
   providedIn: 'root'
 })
 export class HelperService {
-
-  constructor() { }
+  constructor() {}
   time = {
     format(date: moment.Moment, format: string): string {
       return moment(date).format(format);

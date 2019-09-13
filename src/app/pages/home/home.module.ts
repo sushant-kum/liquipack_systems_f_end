@@ -9,15 +9,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 /* Solid Icons */
-import {
-  faHeart as fasHeart
-} from '@fortawesome/free-solid-svg-icons';
+import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
 library.add(fasHeart);
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 import { HomeRoutingModule } from './home-routing.module';
@@ -25,9 +23,7 @@ import { HomeComponent } from './home.component';
 import { CardLinkModule } from 'src/app/components/card-link/card-link.module';
 
 @NgModule({
-  declarations: [
-    HomeComponent
-  ],
+  declarations: [HomeComponent],
   imports: [
     /* Angular Material Imports */
     MatCardModule,
@@ -42,4 +38,4 @@ import { CardLinkModule } from 'src/app/components/card-link/card-link.module';
     CardLinkModule
   ]
 })
-export class HomeModule { }
+export class HomeModule {}

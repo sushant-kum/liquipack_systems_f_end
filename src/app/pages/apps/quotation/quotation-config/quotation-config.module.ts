@@ -23,24 +23,18 @@ import {
   faPenSquare as fasPenSquare,
   faPlusSquare as fasPlusSquare
 } from '@fortawesome/free-solid-svg-icons';
-library.add(
-  fasCheckCircle,
-  fasTrash,
-  fasPenSquare,
-  fasPlusSquare
-);
+library.add(fasCheckCircle, fasTrash, fasPenSquare, fasPlusSquare);
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 import { QuotationConfigRoutingModule } from './quotation-config-routing.module';
 import { QuotationConfigComponent } from './quotation-config.component';
 import { FormQuotationConfigComponent } from './components/form-quotation-config/form-quotation-config.component';
 import { FormQuotationConfigModule } from './components/form-quotation-config/form-quotation-config.module';
-
 
 @NgModule({
   declarations: [QuotationConfigComponent],
@@ -65,8 +59,6 @@ import { FormQuotationConfigModule } from './components/form-quotation-config/fo
     ReactiveFormsModule,
     FormQuotationConfigModule
   ],
-  entryComponents: [
-    FormQuotationConfigComponent
-  ]
+  entryComponents: [FormQuotationConfigComponent]
 })
-export class QuotationConfigModule { }
+export class QuotationConfigModule {}

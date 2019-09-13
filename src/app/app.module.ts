@@ -49,10 +49,10 @@ library.add(
   fasTools
 );
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 /* Config Imports */
@@ -64,8 +64,14 @@ import { AppComponent } from 'src/app/app.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
-import { AlertComponent, AlertModalComponent } from 'src/app/components/alert/alert.component';
-import { ConfirmComponent, ConfirmModalComponent } from './components/confirm/confirm.component';
+import {
+  AlertComponent,
+  AlertModalComponent
+} from 'src/app/components/alert/alert.component';
+import {
+  ConfirmComponent,
+  ConfirmModalComponent
+} from './components/confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -96,20 +102,14 @@ import { ConfirmComponent, ConfirmModalComponent } from './components/confirm/co
     /* Angular Material Imports End */
     /**/
     /* Fontawesome Imports Begin */
-    FontAwesomeModule,
+    FontAwesomeModule
     /* Fontaweseom Imports End */
     /**/
     /* Other Imports Begin */
     /* Other Imports End */
   ],
-  providers: [
-    SidebarComponent,
-    Config
-  ],
+  providers: [SidebarComponent, Config],
   bootstrap: [AppComponent],
-  entryComponents: [
-    AlertModalComponent,
-    ConfirmModalComponent
-  ]
+  entryComponents: [AlertModalComponent, ConfirmModalComponent]
 })
-export class AppModule { }
+export class AppModule {}

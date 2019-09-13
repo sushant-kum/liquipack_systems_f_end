@@ -4,11 +4,7 @@ import { SubHeadComponent } from './sub-head.component';
 
 @NgModule({
   declarations: [SubHeadComponent],
-  imports: [
-    CommonModule
-  ],
-  exports: [
-    SubHeadComponent
-  ]
+  imports: [CommonModule],
+  exports: [SubHeadComponent]
 })
-export class SubHeadModule { }
+export class SubHeadModule {}

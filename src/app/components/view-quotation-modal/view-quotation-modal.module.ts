@@ -18,17 +18,12 @@ import {
   faListUl as fasListUl,
   faRupeeSign as fasRupeeSign
 } from '@fortawesome/free-solid-svg-icons';
-library.add(
-  fasTimes,
-  fasBuilding,
-  fasListUl,
-  fasRupeeSign
-);
+library.add(fasTimes, fasBuilding, fasListUl, fasRupeeSign);
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
@@ -49,8 +44,6 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
     CommonModule,
     SubHeadModule
   ],
-  exports: [
-    ViewQuotationModalComponent
-  ]
+  exports: [ViewQuotationModalComponent]
 })
-export class ViewQuotationModalModule { }
+export class ViewQuotationModalModule {}

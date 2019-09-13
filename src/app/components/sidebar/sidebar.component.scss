@@ -174,8 +174,8 @@ Ripple
 }
 
 .c-ripple.is-active .c-ripple__circle {
-  -webkit-animation: a-ripple .4s ease-in;
-  animation: a-ripple .4s ease-in;
+  -webkit-animation: a-ripple 0.4s ease-in;
+  animation: a-ripple 0.4s ease-in;
 }
 
 /**

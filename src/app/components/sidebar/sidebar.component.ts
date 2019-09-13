@@ -23,17 +23,22 @@ export class SidebarComponent implements OnInit {
     private _cookie_service: CookieService,
     private _localstorage_service: LocalStorageService,
     private _router: Router
-  ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   activate() {
     if (window.innerWidth <= 700) {
-      this._cookie_service.set(this._cookie_service.cname.sidebar_collapsed, 'true');
+      this._cookie_service.set(
+        this._cookie_service.cname.sidebar_collapsed,
+        'true'
+      );
     }
 
-    if (this._cookie_service.get(this._cookie_service.cname.sidebar_collapsed) === 'true') {
+    if (
+      this._cookie_service.get(this._cookie_service.cname.sidebar_collapsed) ===
+      'true'
+    ) {
       this.collapseSidebar();
     } else {
       this.uncollapseSidebar();
@@ -65,12 +70,20 @@ export class SidebarComponent implements OnInit {
 
       $this.addClass('is-active');
     });
-    $ripple.on('animationend webkitAnimationEnd oanimationend MSAnimationEnd', function(e) {
-      $(this).removeClass('is-active');
-    });
+    $ripple.on(
+      'animationend webkitAnimationEnd oanimationend MSAnimationEnd',
+      function(e) {
+        $(this).removeClass('is-active');
+      }
+    );
   }
 
-  redirectTo(path, timeout = 0, router_path: boolean = false, absolute_path: boolean = false) {
+  redirectTo(
+    path,
+    timeout = 0,
+    router_path: boolean = false,
+    absolute_path: boolean = false
+  ) {
     const url = absolute_path ? path : this.config.app_base_path + path;
     if (router_path) {
       this._router.navigate([path]);
@@ -82,7 +95,9 @@ export class SidebarComponent implements OnInit {
   }
 
   showMenuItems() {
-    const user_id = this._localstorage_service.get(this._localstorage_service.lsname.user_id);
+    const user_id = this._localstorage_service.get(
+      this._localstorage_service.lsname.user_id
+    );
     this._auth_service.getAccess(user_id, (error, data) => {
       if (error) {
         console.error(error);
@@ -90,31 +105,36 @@ export class SidebarComponent implements OnInit {
         window.location.href = this.config.page_map.login.path;
         this._auth_service.changeAuthState(false);
       } else {
-        const menuitems = document.getElementsByClassName('menuitem');
-        for (let i = 0; i < menuitems.length; i++) {
-          menuitems[i].classList.add('w3-hide');
-          if (menuitems[i].getAttribute('data-menuitem') !== 'login') {
+        const menuitems = Array.from(
+          document.getElementsByClassName('menuitem')
+        );
+        for (const menuitem of menuitems) {
+          menuitem.classList.add('w3-hide');
+          if (menuitem.getAttribute('data-menuitem') !== 'login') {
             for (const access of data.access) {
-              if (menuitems[i].getAttribute('data-menuitem') === access.app) {
-                menuitems[i].classList.remove('w3-hide');
+              if (menuitem.getAttribute('data-menuitem') === access.app) {
+                menuitem.classList.remove('w3-hide');
               }
             }
           }
         }
-        this._localstorage_service.set(this._localstorage_service.lsname.app_permissions, JSON.stringify(data.access));
+        this._localstorage_service.set(
+          this._localstorage_service.lsname.app_permissions,
+          JSON.stringify(data.access)
+        );
         this._auth_service.changeAuthState(true);
       }
     });
   }
 
   colorize(menu_name: string = null) {
-    const menuitems = document.getElementsByClassName('menuitem');
-    for (let i = 0; i < menuitems.length; i++) {
-      menuitems[i].classList.remove('app-text-theme-primary');
-      menuitems[i].classList.remove('bg-white');
-      if (menuitems[i].getAttribute('data-menuitem') === menu_name) {
-        menuitems[i].classList.add('app-text-theme-primary');
-        menuitems[i].classList.add('bg-white');
+    const menuitems = Array.from(document.getElementsByClassName('menuitem'));
+    for (const menuitem of menuitems) {
+      menuitem.classList.remove('app-text-theme-primary');
+      menuitem.classList.remove('bg-white');
+      if (menuitem.getAttribute('data-menuitem') === menu_name) {
+        menuitem.classList.add('app-text-theme-primary');
+        menuitem.classList.add('bg-white');
       }
     }
   }
@@ -154,7 +174,10 @@ export class SidebarComponent implements OnInit {
     }
     const logout = document.getElementById('logout');
     logout.classList.remove('sidebar-collapsed');
-    this._cookie_service.set(this._cookie_service.cname.sidebar_collapsed, false.toString());
+    this._cookie_service.set(
+      this._cookie_service.cname.sidebar_collapsed,
+      false.toString()
+    );
   }
 
   collapseSidebar() {
@@ -179,7 +202,10 @@ export class SidebarComponent implements OnInit {
     }
     const logout = document.getElementById('logout');
     logout.classList.add('sidebar-collapsed');
-    this._cookie_service.set(this._cookie_service.cname.sidebar_collapsed, true.toString());
+    this._cookie_service.set(
+      this._cookie_service.cname.sidebar_collapsed,
+      true.toString()
+    );
   }
 
   getToggleButtonTooltipContent() {

@@ -13,7 +13,7 @@ import { QuotationData } from 'src/app/interfaces/quotation-data';
 interface IncomingData {
   quotation: QuotationData;
   meta: {
-    quotaion_items_key_name_mapping: {[key: string]: string}
+    quotaion_items_key_name_mapping: { [key: string]: string };
   };
 }
 
@@ -24,13 +24,13 @@ interface IncomingData {
 })
 export class ViewQuotationModalComponent implements OnInit {
   quotation: QuotationData;
-  quotation_items_key_name_mapping: {[key: string]: string};
+  quotation_items_key_name_mapping: { [key: string]: string };
 
   constructor(
     private _dialogRef: MatDialogRef<ViewQuotationModalComponent>,
     public helper: HelperService,
     @Inject(MAT_DIALOG_DATA) public data: IncomingData
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.quotation = this.data.quotation;
@@ -40,5 +40,4 @@ export class ViewQuotationModalComponent implements OnInit {
   onCloseClick(): void {
     this._dialogRef.close();
   }
-
 }

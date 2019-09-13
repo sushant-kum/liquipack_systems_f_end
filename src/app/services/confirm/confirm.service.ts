@@ -15,7 +15,7 @@ export class ConfirmService {
   private _confirm_response = new Subject<DialogResponse>();
   private _confirm_resp_asobservable = this._confirm_response.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   get confirm_data(): ConfirmData {
     return this._confirm_data;

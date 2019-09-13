@@ -40,10 +40,10 @@ library.add(
   fasTrash
 );
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 import { UsersRoutingModule } from './users-routing.module';
@@ -53,11 +53,8 @@ import { ViewUserModalModule } from 'src/app/components/view-user-modal/view-use
 import { FormUserModalComponent } from 'src/app/components/form-user-modal/form-user-modal.component';
 import { FormUserModalModule } from 'src/app/components/form-user-modal/form-user-modal.module';
 
-
 @NgModule({
-  declarations: [
-    UsersComponent
-  ],
+  declarations: [UsersComponent],
   imports: [
     /* Angular Material Imports */
     MatCardModule,
@@ -80,9 +77,6 @@ import { FormUserModalModule } from 'src/app/components/form-user-modal/form-use
     ViewUserModalModule,
     FormUserModalModule
   ],
-  entryComponents: [
-    ViewUserModalComponent,
-    FormUserModalComponent
-  ]
+  entryComponents: [ViewUserModalComponent, FormUserModalComponent]
 })
-export class UsersModule { }
+export class UsersModule {}

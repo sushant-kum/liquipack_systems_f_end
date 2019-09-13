@@ -18,17 +18,12 @@ import {
   faAddressCard as fasAddressCard,
   faTasks as fasTasks
 } from '@fortawesome/free-solid-svg-icons';
-library.add(
-  fasTimes,
-  fasCheck,
-  fasAddressCard,
-  fasTasks
-);
+library.add(fasTimes, fasCheck, fasAddressCard, fasTasks);
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
@@ -49,8 +44,6 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
     CommonModule,
     SubHeadModule
   ],
-  exports: [
-    ViewUserModalComponent
-  ]
+  exports: [ViewUserModalComponent]
 })
-export class ViewUserModalModule { }
+export class ViewUserModalModule {}

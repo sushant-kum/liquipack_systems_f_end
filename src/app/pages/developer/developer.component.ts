@@ -21,8 +21,8 @@ export class DeveloperComponent implements OnInit {
   constructor(
     private _title: Title,
     private _header_service: HeaderService,
-    private _sidebar: SidebarComponent,
-  ) { }
+    private _sidebar: SidebarComponent
+  ) {}
 
   ngOnInit() {
     this._title.setTitle('About the Developer' + ' - ' + this.config.app_title);
@@ -35,5 +35,4 @@ export class DeveloperComponent implements OnInit {
     this._sidebar.activate();
     this._sidebar.colorize();
   }
-
 }

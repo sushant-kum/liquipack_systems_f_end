@@ -63,11 +63,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   original_profile_data: ProfileData;
 
-  form_possword: FormGroup = new FormGroup({
-    current_password: new FormControl(null, Validators.required),
-    new_password: new FormControl(null, Validators.required),
-    repeat_password: new FormControl(null, Validators.required)
-  }, this._passwordMatchValidator);
+  form_possword: FormGroup = new FormGroup(
+    {
+      current_password: new FormControl(null, Validators.required),
+      new_password: new FormControl(null, Validators.required),
+      repeat_password: new FormControl(null, Validators.required)
+    },
+    this._passwordMatchValidator
+  );
 
   constructor(
     private _title: Title,
@@ -78,10 +81,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private _localstorage_service: LocalStorageService,
     private _auth_service: AuthService,
     private _regexp_sevice: RegexService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this._title.setTitle(this.config.page_map[this._page_id].name + ' - ' + this.config.app_title);
+    this._title.setTitle(
+      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
+    );
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
       this.config.page_map[this._page_id].name,
@@ -91,7 +96,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this._sidebar.activate();
     this._sidebar.colorize(this.config.page_map[this._page_id].identifier);
 
-    this.user_id = this._localstorage_service.get(this._localstorage_service.lsname.user_id);
+    this.user_id = this._localstorage_service.get(
+      this._localstorage_service.lsname.user_id
+    );
     this._auth_state_change_subscription = this._auth_service.auth_state_change.subscribe(
       (auth_state: boolean) => {
         if (auth_state) {
@@ -106,30 +113,43 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   getProfile(): void {
-    this._http_service.get_profile_user_id.sendRequest(
-      this._localstorage_service.get(this._localstorage_service.lsname.user_id)
-    ).subscribe(
-      (response) => {
-        this.form_profile.get('username').setValue(response.data.username);
-        this.form_profile.get('created_date').setValue(moment(response.data.created_date).format('DD MMM, YYYY hh:mm A'));
-        this.form_profile.get('name').setValue(response.data.name);
-        this.form_profile.get('gender').setValue(response.data.gender);
-        this.form_profile.get('email').setValue(response.data.email);
-        this.form_profile.get('phone').setValue(response.data.phone);
+    this._http_service.get_profile_user_id
+      .sendRequest(
+        this._localstorage_service.get(
+          this._localstorage_service.lsname.user_id
+        )
+      )
+      .subscribe(
+        response => {
+          this.form_profile.get('username').setValue(response.data.username);
+          this.form_profile
+            .get('created_date')
+            .setValue(
+              moment(response.data.created_date).format('DD MMM, YYYY hh:mm A')
+            );
+          this.form_profile.get('name').setValue(response.data.name);
+          this.form_profile.get('gender').setValue(response.data.gender);
+          this.form_profile.get('email').setValue(response.data.email);
+          this.form_profile.get('phone').setValue(response.data.phone);
 
-        this.original_profile_data = {
-          name: response.data.name,
-          gender: response.data.gender,
-          email: response.data.email,
-          phone: response.data.phone,
-          password_hash: response.data.password_hash
-        };
-      },
-      (error) => {
-        console.error(error);
-        this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
-      }
-    );
+          this.original_profile_data = {
+            name: response.data.name,
+            gender: response.data.gender,
+            email: response.data.email,
+            phone: response.data.phone,
+            password_hash: response.data.password_hash
+          };
+        },
+        error => {
+          console.error(error);
+          this.showToast(
+            'Something went wrong. Please try again later.',
+            'Close',
+            null,
+            true
+          );
+        }
+      );
   }
 
   isProfileFormEdited(): boolean {
@@ -137,10 +157,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       return false;
     } else {
       return (
-        this.form_profile.get('name').value !== this.original_profile_data.name ||
-        this.form_profile.get('gender').value !== this.original_profile_data.gender ||
-        this.form_profile.get('email').value !== this.original_profile_data.email ||
-        this.form_profile.get('phone').value !== this.original_profile_data.phone
+        this.form_profile.get('name').value !==
+          this.original_profile_data.name ||
+        this.form_profile.get('gender').value !==
+          this.original_profile_data.gender ||
+        this.form_profile.get('email').value !==
+          this.original_profile_data.email ||
+        this.form_profile.get('phone').value !==
+          this.original_profile_data.phone
       );
     }
   }
@@ -159,34 +183,51 @@ export class ProfileComponent implements OnInit, OnDestroy {
       password_hash: this.original_profile_data.password_hash,
       name: this.form_profile.get('name').value,
       email: this.form_profile.get('email').value,
-      phone: this.form_profile.get('phone').value ? this.form_profile.get('phone').value : null,
-      gender: this.form_profile.get('gender').value ? this.form_profile.get('gender').value : null
+      phone: this.form_profile.get('phone').value
+        ? this.form_profile.get('phone').value
+        : null,
+      gender: this.form_profile.get('gender').value
+        ? this.form_profile.get('gender').value
+        : null
     };
 
-    this._http_service.put_profile_user_id.sendRequest(
-      this._localstorage_service.get(this._localstorage_service.lsname.user_id),
-      profile_data
-    ).subscribe(
-      (res: any) => {
-        this.original_profile_data.name = profile_data.name;
-        this.original_profile_data.email = profile_data.email;
-        this.original_profile_data.phone = profile_data.phone;
-        this.original_profile_data.gender = profile_data.gender;
+    this._http_service.put_profile_user_id
+      .sendRequest(
+        this._localstorage_service.get(
+          this._localstorage_service.lsname.user_id
+        ),
+        profile_data
+      )
+      .subscribe(
+        (res: any) => {
+          this.original_profile_data.name = profile_data.name;
+          this.original_profile_data.email = profile_data.email;
+          this.original_profile_data.phone = profile_data.phone;
+          this.original_profile_data.gender = profile_data.gender;
 
-        this.showToast('Profile Saved Successfully', 'Close', 3000, false);
+          this.showToast('Profile Saved Successfully', 'Close', 3000, false);
 
-        this.mode.saving_profile = false;
-      },
-      (error) => {
-        console.error(error);
-        this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
-        this.mode.saving_profile = false;
-      }
-    );
+          this.mode.saving_profile = false;
+        },
+        error => {
+          console.error(error);
+          this.showToast(
+            'Something went wrong. Please try again later.',
+            'Close',
+            null,
+            true
+          );
+          this.mode.saving_profile = false;
+        }
+      );
   }
 
-  private _passwordMatchValidator(form: FormGroup): { [key: string]: boolean } | null {
-    return form.get('new_password').value === form.get('repeat_password').value ? null : { passwordMismatch: true };
+  private _passwordMatchValidator(
+    form: FormGroup
+  ): { [key: string]: boolean } | null {
+    return form.get('new_password').value === form.get('repeat_password').value
+      ? null
+      : { passwordMismatch: true };
   }
 
   isPasswordFormEdited(): boolean {
@@ -207,37 +248,63 @@ export class ProfileComponent implements OnInit, OnDestroy {
   changePassword() {
     this.mode.changing_password = true;
     if (
-      new Md5().appendStr(this.form_possword.get('current_password').value).end() ===
-      this.original_profile_data.password_hash
+      new Md5()
+        .appendStr(this.form_possword.get('current_password').value)
+        .end() === this.original_profile_data.password_hash
     ) {
-      const profile_data: ProfileData = JSON.parse(JSON.stringify(this.original_profile_data));
-      profile_data.password_hash = new Md5().appendStr(this.form_possword.get('new_password').value).end().toString();
-
-      this._http_service.put_profile_user_id.sendRequest(
-        this._localstorage_service.get(this._localstorage_service.lsname.user_id),
-        profile_data
-      ).subscribe(
-        (res) => {
-          this.original_profile_data.password_hash = profile_data.password_hash;
-          this.clearPasswordForm();
-
-          this.showToast('Password changed successfully.', 'Close', 3000, false);
-
-          this.mode.changing_password = false;
-        },
-        (error) => {
-          console.error(error);
-          this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
-          this.mode.changing_password = false;
-        }
+      const profile_data: ProfileData = JSON.parse(
+        JSON.stringify(this.original_profile_data)
       );
+      profile_data.password_hash = new Md5()
+        .appendStr(this.form_possword.get('new_password').value)
+        .end()
+        .toString();
+
+      this._http_service.put_profile_user_id
+        .sendRequest(
+          this._localstorage_service.get(
+            this._localstorage_service.lsname.user_id
+          ),
+          profile_data
+        )
+        .subscribe(
+          res => {
+            this.original_profile_data.password_hash =
+              profile_data.password_hash;
+            this.clearPasswordForm();
+
+            this.showToast(
+              'Password changed successfully.',
+              'Close',
+              3000,
+              false
+            );
+
+            this.mode.changing_password = false;
+          },
+          error => {
+            console.error(error);
+            this.showToast(
+              'Something went wrong. Please try again later.',
+              'Close',
+              null,
+              true
+            );
+            this.mode.changing_password = false;
+          }
+        );
     } else {
       this.showToast('Current Password entered is incorrect', 'Close');
       this.mode.changing_password = false;
     }
   }
 
-  showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {
+  showToast(
+    message: string,
+    action: string,
+    duration: number = null,
+    is_error: boolean = true
+  ) {
     const toast_config: any = {
       horizontalPosition: 'end'
     };
