@@ -2,7 +2,7 @@ export interface UserData {
   _id: string;
   app_permissions: {
     app: string;
-    permissions: ('read' | 'write')[]
+    permissions: ('read' | 'write')[];
   }[];
   created_date: Date;
   email: string;

@@ -6,12 +6,21 @@
         <mat-card-title class="app-text-theme-primary">System</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <div class="w3-light-grey w3-padding-large w3-round" *ngIf="apps.length == 0">
+        <div
+          class="w3-light-grey w3-padding-large w3-round"
+          *ngIf="apps.length == 0"
+        >
           No apps are available to you in this section.
         </div>
         <div class="w3-row" *ngIf="apps.length != 0">
-          <div class="w3-col m3 w3-padding-small" *ngFor="let app of apps; let i=index">
-            <comp-card-link [app]="app" (click)="sidebar.redirectTo(app.path, 400, true)"></comp-card-link>
+          <div
+            class="w3-col m3 w3-padding-small"
+            *ngFor="let app of apps; let i = index"
+          >
+            <comp-card-link
+              [app]="app"
+              (click)="sidebar.redirectTo(app.path, 400, true)"
+            ></comp-card-link>
           </div>
         </div>
       </mat-card-content>

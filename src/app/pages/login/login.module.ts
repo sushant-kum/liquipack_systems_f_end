@@ -21,10 +21,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 library.add(fasUser, fasKey, fasEye, fasEyeSlash, fasSignInAlt, fasCircleNotch);
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 /* Components Imports */
@@ -32,9 +32,7 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
+  declarations: [LoginComponent],
   imports: [
     /* Angular Imports */
     FormsModule,
@@ -50,7 +48,7 @@ import { LoginComponent } from './login.component';
 
     /* Other Imports */
     CommonModule,
-    LoginRoutingModule,
+    LoginRoutingModule
   ]
 })
-export class LoginModule { }
+export class LoginModule {}

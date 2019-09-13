@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
-import * as moment from 'moment';
+import { Injectable } from "@angular/core";
+import * as moment from "moment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class HelperService {
-
-  constructor() { }
+  constructor() {}
   time = {
     format(date: moment.Moment, format: string): string {
       return moment(date).format(format);

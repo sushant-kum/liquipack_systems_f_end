@@ -18,260 +18,260 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 /* Primary */
 .app-theme-primary-l5 {
   color: map-deep-get($mat-palette-primary, "contrast", 50) !important;
-  background-color: map-get($mat-palette-primary, 50) !important
+  background-color: map-get($mat-palette-primary, 50) !important;
 }
 
 .app-theme-primary-l4 {
   color: map-deep-get($mat-palette-primary, "contrast", 100) !important;
-  background-color: map-get($mat-palette-primary, 100) !important
+  background-color: map-get($mat-palette-primary, 100) !important;
 }
 
 .app-theme-primary-l3 {
   color: map-deep-get($mat-palette-primary, "contrast", 200) !important;
-  background-color: map-get($mat-palette-primary, 200) !important
+  background-color: map-get($mat-palette-primary, 200) !important;
 }
 
 .app-theme-primary-l2 {
   color: map-deep-get($mat-palette-primary, "contrast", 300) !important;
-  background-color: map-get($mat-palette-primary, 300) !important
+  background-color: map-get($mat-palette-primary, 300) !important;
 }
 
 .app-theme-primary-l1 {
   color: map-deep-get($mat-palette-primary, "contrast", 400) !important;
-  background-color: map-get($mat-palette-primary, 400) !important
+  background-color: map-get($mat-palette-primary, 400) !important;
 }
 
 .app-theme-primary-d1 {
   color: map-deep-get($mat-palette-primary, "contrast", 600) !important;
-  background-color: map-get($mat-palette-primary, 600) !important
+  background-color: map-get($mat-palette-primary, 600) !important;
 }
 
 .app-theme-primary-d2 {
   color: map-deep-get($mat-palette-primary, "contrast", 700) !important;
-  background-color: map-get($mat-palette-primary, 700) !important
+  background-color: map-get($mat-palette-primary, 700) !important;
 }
 
 .app-theme-primary-d3 {
   color: map-deep-get($mat-palette-primary, "contrast", 800) !important;
-  background-color: map-get($mat-palette-primary, 800) !important
+  background-color: map-get($mat-palette-primary, 800) !important;
 }
 
 .app-theme-primary-d4 {
   color: map-deep-get($mat-palette-primary, "contrast", 900) !important;
-  background-color: map-get($mat-palette-primary, 900) !important
+  background-color: map-get($mat-palette-primary, 900) !important;
 }
 
 .app-theme-primary-light {
   color: map-deep-get($mat-palette-primary, "contrast", 50) !important;
-  background-color: map-get($mat-palette-primary, 50) !important
+  background-color: map-get($mat-palette-primary, 50) !important;
 }
 
 .app-theme-primary-dark {
   color: map-deep-get($mat-palette-primary, "contrast", 900) !important;
-  background-color: map-get($mat-palette-primary, 900) !important
+  background-color: map-get($mat-palette-primary, 900) !important;
 }
 
 .app-theme-primary-action {
   color: map-deep-get($mat-palette-primary, "contrast", 900) !important;
-  background-color: map-get($mat-palette-primary, 900) !important
+  background-color: map-get($mat-palette-primary, 900) !important;
 }
 
 .app-theme-primary {
   color: map-deep-get($mat-palette-primary, "contrast", 500) !important;
-  background-color: map-get($mat-palette-primary, 500) !important
+  background-color: map-get($mat-palette-primary, 500) !important;
 }
 
 .app-text-theme-primary {
-  color: map-get($mat-palette-primary, 500) !important
+  color: map-get($mat-palette-primary, 500) !important;
 }
 
 .app-border-theme-primary {
-  border-color: map-get($mat-palette-primary, 500) !important
+  border-color: map-get($mat-palette-primary, 500) !important;
 }
 
 .app-hover-theme-primary:hover {
   color: map-deep-get($mat-palette-primary, "contrast", 500) !important;
-  background-color: map-get($mat-palette-primary, 500) !important
+  background-color: map-get($mat-palette-primary, 500) !important;
 }
 
 .app-hover-text-theme-primary:hover {
-  color: map-get($mat-palette-primary, 500) !important
+  color: map-get($mat-palette-primary, 500) !important;
 }
 
 .app-hover-border-theme-primary:hover {
-  border-color: map-get($mat-palette-primary, 500) !important
+  border-color: map-get($mat-palette-primary, 500) !important;
 }
 
 /* accent */
 .app-theme-accent-l5 {
   color: map-deep-get($mat-palette-accent, "contrast", 50) !important;
-  background-color: map-get($mat-palette-accent, 50) !important
+  background-color: map-get($mat-palette-accent, 50) !important;
 }
 
 .app-theme-accent-l4 {
   color: map-deep-get($mat-palette-accent, "contrast", 100) !important;
-  background-color: map-get($mat-palette-accent, 100) !important
+  background-color: map-get($mat-palette-accent, 100) !important;
 }
 
 .app-theme-accent-l3 {
   color: map-deep-get($mat-palette-accent, "contrast", 200) !important;
-  background-color: map-get($mat-palette-accent, 200) !important
+  background-color: map-get($mat-palette-accent, 200) !important;
 }
 
 .app-theme-accent-l2 {
   color: map-deep-get($mat-palette-accent, "contrast", 300) !important;
-  background-color: map-get($mat-palette-accent, 300) !important
+  background-color: map-get($mat-palette-accent, 300) !important;
 }
 
 .app-theme-accent-l1 {
   color: map-deep-get($mat-palette-accent, "contrast", 400) !important;
-  background-color: map-get($mat-palette-accent, 400) !important
+  background-color: map-get($mat-palette-accent, 400) !important;
 }
 
 .app-theme-accent-d1 {
   color: map-deep-get($mat-palette-accent, "contrast", 600) !important;
-  background-color: map-get($mat-palette-accent, 600) !important
+  background-color: map-get($mat-palette-accent, 600) !important;
 }
 
 .app-theme-accent-d2 {
   color: map-deep-get($mat-palette-accent, "contrast", 700) !important;
-  background-color: map-get($mat-palette-accent, 700) !important
+  background-color: map-get($mat-palette-accent, 700) !important;
 }
 
 .app-theme-accent-d3 {
   color: map-deep-get($mat-palette-accent, "contrast", 800) !important;
-  background-color: map-get($mat-palette-accent, 800) !important
+  background-color: map-get($mat-palette-accent, 800) !important;
 }
 
 .app-theme-accent-d4 {
   color: map-deep-get($mat-palette-accent, "contrast", 900) !important;
-  background-color: map-get($mat-palette-accent, 900) !important
+  background-color: map-get($mat-palette-accent, 900) !important;
 }
 
 .app-theme-accent-light {
   color: map-deep-get($mat-palette-accent, "contrast", 50) !important;
-  background-color: map-get($mat-palette-accent, 50) !important
+  background-color: map-get($mat-palette-accent, 50) !important;
 }
 
 .app-theme-accent-dark {
   color: map-deep-get($mat-palette-accent, "contrast", 900) !important;
-  background-color: map-get($mat-palette-accent, 900) !important
+  background-color: map-get($mat-palette-accent, 900) !important;
 }
 
 .app-theme-accent-action {
   color: map-deep-get($mat-palette-accent, "contrast", 900) !important;
-  background-color: map-get($mat-palette-accent, 900) !important
+  background-color: map-get($mat-palette-accent, 900) !important;
 }
 
 .app-theme-accent {
   color: map-deep-get($mat-palette-accent, "contrast", 500) !important;
-  background-color: map-get($mat-palette-accent, 500) !important
+  background-color: map-get($mat-palette-accent, 500) !important;
 }
 
 .app-text-theme-accent {
-  color: map-get($mat-palette-accent, 500) !important
+  color: map-get($mat-palette-accent, 500) !important;
 }
 
 .app-border-theme-accent {
-  border-color: map-get($mat-palette-accent, 500) !important
+  border-color: map-get($mat-palette-accent, 500) !important;
 }
 
 .app-hover-theme-accent:hover {
   color: map-deep-get($mat-palette-accent, "contrast", 500) !important;
-  background-color: map-get($mat-palette-accent, 500) !important
+  background-color: map-get($mat-palette-accent, 500) !important;
 }
 
 .app-hover-text-theme-accent:hover {
-  color: map-get($mat-palette-accent, 500) !important
+  color: map-get($mat-palette-accent, 500) !important;
 }
 
 .app-hover-border-theme-accent:hover {
-  border-color: map-get($mat-palette-accent, 500) !important
+  border-color: map-get($mat-palette-accent, 500) !important;
 }
 
 /* warn */
 .app-theme-warn-l5 {
   color: map-deep-get($mat-palette-warn, "contrast", 50) !important;
-  background-color: map-get($mat-palette-warn, 50) !important
+  background-color: map-get($mat-palette-warn, 50) !important;
 }
 
 .app-theme-warn-l4 {
   color: map-deep-get($mat-palette-warn, "contrast", 100) !important;
-  background-color: map-get($mat-palette-warn, 100) !important
+  background-color: map-get($mat-palette-warn, 100) !important;
 }
 
 .app-theme-warn-l3 {
   color: map-deep-get($mat-palette-warn, "contrast", 200) !important;
-  background-color: map-get($mat-palette-warn, 200) !important
+  background-color: map-get($mat-palette-warn, 200) !important;
 }
 
 .app-theme-warn-l2 {
   color: map-deep-get($mat-palette-warn, "contrast", 300) !important;
-  background-color: map-get($mat-palette-warn, 300) !important
+  background-color: map-get($mat-palette-warn, 300) !important;
 }
 
 .app-theme-warn-l1 {
   color: map-deep-get($mat-palette-warn, "contrast", 400) !important;
-  background-color: map-get($mat-palette-warn, 400) !important
+  background-color: map-get($mat-palette-warn, 400) !important;
 }
 
 .app-theme-warn-d1 {
   color: map-deep-get($mat-palette-warn, "contrast", 600) !important;
-  background-color: map-get($mat-palette-warn, 600) !important
+  background-color: map-get($mat-palette-warn, 600) !important;
 }
 
 .app-theme-warn-d2 {
   color: map-deep-get($mat-palette-warn, "contrast", 700) !important;
-  background-color: map-get($mat-palette-warn, 700) !important
+  background-color: map-get($mat-palette-warn, 700) !important;
 }
 
 .app-theme-warn-d3 {
   color: map-deep-get($mat-palette-warn, "contrast", 800) !important;
-  background-color: map-get($mat-palette-warn, 800) !important
+  background-color: map-get($mat-palette-warn, 800) !important;
 }
 
 .app-theme-warn-d4 {
   color: map-deep-get($mat-palette-warn, "contrast", 900) !important;
-  background-color: map-get($mat-palette-warn, 900) !important
+  background-color: map-get($mat-palette-warn, 900) !important;
 }
 
 .app-theme-warn-light {
   color: map-deep-get($mat-palette-warn, "contrast", 50) !important;
-  background-color: map-get($mat-palette-warn, 50) !important
+  background-color: map-get($mat-palette-warn, 50) !important;
 }
 
 .app-theme-warn-dark {
   color: map-deep-get($mat-palette-warn, "contrast", 900) !important;
-  background-color: map-get($mat-palette-warn, 900) !important
+  background-color: map-get($mat-palette-warn, 900) !important;
 }
 
 .app-theme-warn-action {
   color: map-deep-get($mat-palette-warn, "contrast", 900) !important;
-  background-color: map-get($mat-palette-warn, 900) !important
+  background-color: map-get($mat-palette-warn, 900) !important;
 }
 
 .app-theme-warn {
   color: map-deep-get($mat-palette-warn, "contrast", 500) !important;
-  background-color: map-get($mat-palette-warn, 500) !important
+  background-color: map-get($mat-palette-warn, 500) !important;
 }
 
 .app-text-theme-warn {
-  color: map-get($mat-palette-warn, 500) !important
+  color: map-get($mat-palette-warn, 500) !important;
 }
 
 .app-border-theme-warn {
-  border-color: map-get($mat-palette-warn, 500) !important
+  border-color: map-get($mat-palette-warn, 500) !important;
 }
 
 .app-hover-theme-warn:hover {
   color: map-deep-get($mat-palette-warn, "contrast", 500) !important;
-  background-color: map-get($mat-palette-warn, 500) !important
+  background-color: map-get($mat-palette-warn, 500) !important;
 }
 
 .app-hover-text-theme-warn:hover {
-  color: map-get($mat-palette-warn, 500) !important
+  color: map-get($mat-palette-warn, 500) !important;
 }
 
 .app-hover-border-theme-warn:hover {
-  border-color: map-get($mat-palette-warn, 500) !important
+  border-color: map-get($mat-palette-warn, 500) !important;
 }
