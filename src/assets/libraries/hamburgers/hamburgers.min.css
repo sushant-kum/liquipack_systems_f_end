@@ -55,7 +55,7 @@
 .hamburger-inner:after,
 .hamburger-inner:before {
   display: block;
-  content: "";
+  content: '';
 }
 .hamburger-inner:before {
   top: -10px;

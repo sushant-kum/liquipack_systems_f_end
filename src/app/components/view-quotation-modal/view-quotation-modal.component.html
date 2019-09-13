@@ -78,7 +78,7 @@
             Date
           </td>
           <td class="w3-padding-bottom-16 w3-padding-0">
-            {{ helper.time.format(quotation.created_date, "DD MMM, YYYY") }}
+            {{ helper.time.format(quotation.created_date, 'DD MMM, YYYY') }}
           </td>
         </tr>
         <tr>
@@ -155,7 +155,7 @@
         </td>
         <td class="w3-padding-0 w3-padding-bottom-16 w3-right-align">
           <ng-container *ngIf="quotation[item_key].price; else elseTemplate">
-            {{ quotation[item_key].price.toLocaleString("en-IN") }}
+            {{ quotation[item_key].price.toLocaleString('en-IN') }}
           </ng-container>
           <ng-template #elseTemplate>
             0
@@ -167,7 +167,7 @@
           Other Details
         </td>
         <td colspan="2" class="w3-padding-0 w3-padding-bottom-16">
-          {{ quotation.other_details ? quotation.other_details : "" }}
+          {{ quotation.other_details ? quotation.other_details : '' }}
         </td>
       </tr>
     </table>
@@ -177,7 +177,7 @@
       <span class="w3-text-semi-bold">Total</span>
       <span class="w3-right">
         <fa-icon [icon]="['fas', 'rupee-sign']"></fa-icon>
-        {{ quotation.extra_data.total_price.toLocaleString("en-IN") }}
+        {{ quotation.extra_data.total_price.toLocaleString('en-IN') }}
       </span>
     </div>
   </div>
