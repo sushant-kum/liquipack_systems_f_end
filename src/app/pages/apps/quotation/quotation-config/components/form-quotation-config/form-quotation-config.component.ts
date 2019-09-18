@@ -17,7 +17,7 @@ import { InputFilterService } from 'src/app/services/input-filter/input-filter.s
 /* Interface Imports */
 import { QuotationConfigData } from 'src/app/interfaces/quotation-config-data';
 import { ApiResponse } from 'src/app/interfaces/api-response';
-import { QuotationConfigComponent } from '../../quotation-config.component';
+import { DialogResponse } from 'src/app/interfaces/dialog-response';
 
 interface Mode {
   new_config: boolean;
@@ -227,10 +227,11 @@ export class FormQuotationConfigComponent implements OnInit, AfterViewInit {
           this.quotation_config.config_name = this.quotation_config_config_name_ctrl.value;
           this.quotation_config.is_active = this.quotation_config_is_active_ctrl.value;
 
-          this.dialogRef.close({
+          const dialog_response: DialogResponse = {
             data: this.quotation_config,
             operation: 'quotation-config.add'
-          });
+          };
+          this.dialogRef.close(dialog_response);
         }
       },
       (err: Error) => {
@@ -239,5 +240,11 @@ export class FormQuotationConfigComponent implements OnInit, AfterViewInit {
     );
   }
 
-  onSaveClick(): void {}
+  onSaveClick(): void {
+    const dialog_response: DialogResponse = {
+      data: this.quotation_config,
+      operation: 'quotation-config.edit'
+    };
+    this.dialogRef.close(dialog_response);
+  }
 }

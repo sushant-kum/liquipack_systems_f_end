@@ -8,6 +8,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 import { UserData } from 'src/app/interfaces/user-data';
 import { AuthService } from '../auth/auth.service';
 import { of, Observable, throwError } from 'rxjs';
+import { QuotationConfigData } from 'src/app/interfaces/quotation-config-data';
 
 interface API {
   hostname: string;
@@ -629,6 +630,45 @@ export class HttpTransactionsService {
       );
     }
   };
+
+  put_quotations_configs_config_id: API = {
+    hostname: null,
+    basepath: null,
+    path: '/quotations/configs/:config_id',
+    sendRequest: (config_id: string, config: QuotationConfigData): Observable<ApiResponse> => {
+      const hostname: string =
+        this.put_quotations_configs_config_id.hostname == null
+          ? this._default_hostname
+          : this.put_quotations_configs_config_id.hostname;
+      const basepath: string =
+        this.put_quotations_configs_config_id.basepath == null
+          ? this._default_basepath
+          : this.put_quotations_configs_config_id.basepath;
+      const url: string =
+        hostname +
+        basepath +
+        this.put_quotations_configs_config_id.path.replace(
+          ':config_id',
+          config_id
+        );
+
+      const token = this._localstorage_service.get(
+        this._localstorage_service.lsname.token
+      );
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = { headers };
+
+      return this._http_client.put<ApiResponse>(url, config, http_options).pipe(
+        map(response => {
+          if (response.token) {
+            this._set_token(response.token);
+          }
+          return response;
+        }),
+        catchError(this._errorHandler<ApiResponse>())
+      );
+    }
+  }
 
   delete_quotations_configs_config_id: API = {
     hostname: null,
