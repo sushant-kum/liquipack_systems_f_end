@@ -35,7 +35,12 @@
                   'app-text-theme-primary': !config.is_active
                 }"
               >
-                {{ config.config_name }}
+                {{ config.config_name }}&nbsp;
+                <span
+                  class="w3-small app-text-theme-accent w3-vertical-align-middle"
+                >
+                  {{ config._id }}
+                </span>
               </mat-panel-title>
               <mat-panel-description>
                 <span *ngIf="config.is_active" class="w3-text-green">
@@ -169,7 +174,10 @@
                 mat-button
                 color="warn"
                 class="w3-margin-right"
-                [disabled]="config.is_active"
+                [disabled]="
+                  config.is_active ||
+                  mode.editing_config_ids.includes(config._id)
+                "
                 (click)="deleteQuotationConfig(config)"
               >
                 <fa-icon [icon]="['fas', 'trash']"></fa-icon>
@@ -179,6 +187,7 @@
                 mat-button
                 color="primary"
                 class="w3-margin-right"
+                [disabled]="mode.editing_config_ids.includes(config._id)"
                 (click)="editQuotationConfig(config)"
               >
                 <fa-icon [icon]="['fas', 'pen-square']"></fa-icon>
@@ -187,12 +196,42 @@
               <button
                 mat-flat-button
                 color="primary"
-                [disabled]="config.is_active"
+                [disabled]="
+                  config.is_active ||
+                  mode.editing_config_ids.includes(config._id)
+                "
                 (click)="makeDefaultQuotationConfig(config)"
               >
                 <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
                 &nbsp;Make Default
               </button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel *ngIf="mode.adding_config" class="quotation-config-adding-panel" [disabled]="true" [hideToggle]="true" [expanded]="true">
+            <mat-expansion-panel-header class="w3-rightbar app-border-theme-accent">
+              <mat-panel-title>
+                <span class="config-title">&nbsp;</span>
+                <span class="config-subtitle">&nbsp;</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="config-meta-info w3-margin-bottom">&nbsp;</div>
+
+            <div class="config-items-table">
+              <div class="config-items-table-header">&nbsp;</div>
+              <div class="config-items-table-body">
+                <div class="config-items-table-row light-stripe"></div>
+                <div class="config-items-table-row dark-stripe"></div>
+                <div class="config-items-table-row light-stripe"></div>
+                <div class="config-items-table-row dark-stripe"></div>
+              </div>
+            </div>
+
+            <mat-action-row>
+              <div class="config-action-btn delete w3-margin-right"></div>
+              <div class="config-action-btn edit w3-margin-right"></div>
+              <div class="config-action-btn make-default"></div>
             </mat-action-row>
           </mat-expansion-panel>
         </mat-accordion>

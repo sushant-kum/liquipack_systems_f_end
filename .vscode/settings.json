@@ -15,7 +15,6 @@
   },
   "files.trimTrailingWhitespace": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnType": true,
   "docthis.includeMemberOfOnClassMembers": false,
   "docthis.includeTypes": false
 }

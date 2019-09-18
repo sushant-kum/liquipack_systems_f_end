@@ -27,6 +27,7 @@ import { FormQuotationConfigComponent } from './components/form-quotation-config
 interface Mode {
   fetching_configs: boolean;
   editing_config_ids: string[];
+  adding_config: boolean;
 }
 
 const PAGE_ID = 'apps-quotation-config';
@@ -56,7 +57,8 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
 
   mode: Mode = {
     fetching_configs: false,
-    editing_config_ids: []
+    editing_config_ids: [],
+    adding_config: false
   };
   app_permission: ('read' | 'write')[] = [];
 
@@ -280,24 +282,69 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
     });
 
     dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
-      console.log(dialog_response);
-      // if (dialog_response && dialog_response.operation === 'user.add') {
-      //   this.mode.adding_user = true;
-      //   const user_data = dialog_response.data;
-
-      //   this._http_service.post_users.sendRequest(user_data).subscribe(
-      //     (res: ApiResponse) => {
-      //       this.users_data.push(res.data);
-      //       this.showToast('Successfully added user.', 'OK', 3000, false);
-      //       this.mode.adding_user = false;
-      //     },
-      //     (err: Error) => {
-      //       console.error(err);
-      //       this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
-      //       this.mode.adding_user = false;
-      //     }
-      //   );
-      // }
+      if (
+        dialog_response &&
+        dialog_response.operation === 'quotation-config.edit'
+      ) {
+        this.mode.editing_config_ids.push(dialog_response.data._id);
+        this._http_service.put_quotations_configs_config_id
+          .sendRequest(dialog_response.data._id, dialog_response.data)
+          .subscribe(
+            (res: ApiResponse) => {
+              for (const quotation_config of this.quotation_configs) {
+                if (quotation_config._id === res.data._id) {
+                  const extra_data = quotation_config.extra_data;
+                  const quotation_config_index = this.quotation_configs.indexOf(
+                    quotation_config
+                  );
+                  this.quotation_configs[
+                    quotation_config_index
+                  ] = this.helper_service.object.copy.deep(
+                    res.data
+                  ) as QuotationConfigData;
+                  this.quotation_configs[
+                    quotation_config_index
+                  ].extra_data = extra_data;
+                }
+              }
+              this.showToast(
+                `Quotation Config ${res.data.config_name} edited successfully.`,
+                'OK',
+                3000,
+                false
+              );
+              if (
+                this.mode.editing_config_ids.includes(dialog_response.data._id)
+              ) {
+                this.mode.editing_config_ids.splice(
+                  this.mode.editing_config_ids.indexOf(
+                    dialog_response.data._id
+                  ),
+                  1
+                );
+              }
+            },
+            (err: Error) => {
+              console.error(err);
+              this.showToast(
+                'Something went wrong. Please try again later.',
+                'Close',
+                null,
+                true
+              );
+              if (
+                this.mode.editing_config_ids.includes(dialog_response.data._id)
+              ) {
+                this.mode.editing_config_ids.splice(
+                  this.mode.editing_config_ids.indexOf(
+                    dialog_response.data._id
+                  ),
+                  1
+                );
+              }
+            }
+          );
+      }
     });
   }
 
@@ -312,22 +359,9 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
         dialog_response &&
         dialog_response.operation === 'quotation-config.add'
       ) {
-        console.log(dialog_response.data);
-        // this.mode.adding_user = true;
-        // const user_data = dialog_response.data;
+        const flag_make_default: boolean = dialog_response.data.is_active;
 
-        // this._http_service.post_users.sendRequest(user_data).subscribe(
-        //   (res: ApiResponse) => {
-        //     this.users_data.push(res.data);
-        //     this.showToast('Successfully added user.', 'OK', 3000, false);
-        //     this.mode.adding_user = false;
-        //   },
-        //   (err: Error) => {
-        //     console.error(err);
-        //     this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
-        //     this.mode.adding_user = false;
-        //   }
-        // );
+        this.mode.adding_config = true;
       }
     });
   }

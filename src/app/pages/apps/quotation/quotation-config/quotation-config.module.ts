@@ -12,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -49,6 +50,7 @@ import { FormQuotationConfigModule } from './components/form-quotation-config/fo
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatChipsModule,
+    MatSnackBarModule,
 
     /* Font-awesome Impors */
     FontAwesomeModule,
