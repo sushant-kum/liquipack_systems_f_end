@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 /* Component Imports */
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
@@ -355,13 +356,95 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
     });
 
     dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
+      console.log('dialog_response', dialog_response);
       if (
         dialog_response &&
         dialog_response.operation === 'quotation-config.add'
       ) {
-        const flag_make_default: boolean = dialog_response.data.is_active;
-
         this.mode.adding_config = true;
+
+        const flag_make_default: boolean = dialog_response.data.is_active;
+        this._http_service.post_quotations_configs
+          .sendRequest(dialog_response.data)
+          .subscribe(
+            (res_add_config: ApiResponse) => {
+              if (flag_make_default) {
+                this._http_service.patch_quotations_configs_config_id_enable
+                  .sendRequest(res_add_config.data._id)
+                  .subscribe(
+                    (res_make_defualt: ApiResponse) => {
+                      this._http_service.get_users_min.sendRequest().subscribe(
+                        (res_users_min: ApiResponse) => {
+                          delete res_add_config.data.__v;
+                          res_add_config.data.created_date = new Date(
+                            res_add_config.data.created_date
+                          );
+                          res_add_config.data.is_active = true;
+
+                          for (const user of res_users_min.data) {
+                            if (res_add_config.data.created_by === user._id) {
+                              res_add_config.data.extra_data = {
+                                creator: {
+                                  username: user.username,
+                                  name: user.name
+                                }
+                              };
+                              break;
+                            }
+                          }
+
+                          this.quotation_configs.push(res_add_config.data);
+
+                          this.mode.adding_config = false;
+                        },
+                        (err_users_min: HttpErrorResponse) => {
+                          console.error(err_users_min);
+                          this.mode.adding_config = false;
+                        }
+                      );
+                    },
+                    (err_make_defualt: HttpErrorResponse) => {
+                      console.error(err_make_defualt);
+                      this.mode.adding_config = false;
+                    }
+                  );
+              } else {
+                this._http_service.get_users_min.sendRequest().subscribe(
+                  (res_users_min: ApiResponse) => {
+                    delete res_add_config.data.__v;
+                    res_add_config.data.created_date = new Date(
+                      res_add_config.data.created_date
+                    );
+                    res_add_config.data.is_active = false;
+
+                    for (const user of res_users_min.data) {
+                      if (res_add_config.data.created_by === user._id) {
+                        res_add_config.data.extra_data = {
+                          creator: {
+                            username: user.username,
+                            name: user.name
+                          }
+                        };
+                        break;
+                      }
+                    }
+
+                    this.quotation_configs.push(res_add_config.data);
+
+                    this.mode.adding_config = false;
+                  },
+                  (err_users_min: HttpErrorResponse) => {
+                    console.error(err_users_min);
+                    this.mode.adding_config = false;
+                  }
+                );
+              }
+            },
+            (err: HttpErrorResponse) => {
+              console.error(err);
+              this.mode.adding_config = false;
+            }
+          );
       }
     });
   }

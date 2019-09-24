@@ -631,11 +631,50 @@ export class HttpTransactionsService {
     }
   };
 
+  post_quotations_configs: API = {
+    hostname: null,
+    basepath: null,
+    path: '/quotations/configs',
+    sendRequest: (config: QuotationConfigData): Observable<ApiResponse> => {
+      const hostname: string =
+        this.post_quotations_configs.hostname == null
+          ? this._default_hostname
+          : this.post_quotations_configs.hostname;
+      const basepath: string =
+        this.post_quotations_configs.basepath == null
+          ? this._default_basepath
+          : this.post_quotations_configs.basepath;
+      const url: string =
+        hostname + basepath + this.post_quotations_configs.path;
+
+      const token = this._localstorage_service.get(
+        this._localstorage_service.lsname.token
+      );
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = { headers };
+
+      return this._http_client
+        .post<ApiResponse>(url, config, http_options)
+        .pipe(
+          map(response => {
+            if (response.token) {
+              this._set_token(response.token);
+            }
+            return response;
+          }),
+          catchError(this._errorHandler<ApiResponse>())
+        );
+    }
+  };
+
   put_quotations_configs_config_id: API = {
     hostname: null,
     basepath: null,
     path: '/quotations/configs/:config_id',
-    sendRequest: (config_id: string, config: QuotationConfigData): Observable<ApiResponse> => {
+    sendRequest: (
+      config_id: string,
+      config: QuotationConfigData
+    ): Observable<ApiResponse> => {
       const hostname: string =
         this.put_quotations_configs_config_id.hostname == null
           ? this._default_hostname
@@ -668,7 +707,7 @@ export class HttpTransactionsService {
         catchError(this._errorHandler<ApiResponse>())
       );
     }
-  }
+  };
 
   delete_quotations_configs_config_id: API = {
     hostname: null,
