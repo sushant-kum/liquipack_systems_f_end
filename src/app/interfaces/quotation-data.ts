@@ -51,7 +51,7 @@ export interface QuotationData {
     };
     contact_no: string;
   };
-  crated_by: string;
+  created_by: string;
   created_date: Date;
   is_active: boolean;
   extra_data?: any;

@@ -139,7 +139,7 @@ export class QuotationComponent implements OnInit, OnDestroy {
               }
 
               for (const user_data of users_data) {
-                if (quotation.crated_by === user_data._id) {
+                if (quotation.created_by === user_data._id) {
                   user_name = user_data.name;
                   break;
                 }
@@ -162,7 +162,7 @@ export class QuotationComponent implements OnInit, OnDestroy {
                   ? quotation.other_details
                   : null,
                 customer_details: quotation.customer_details,
-                crated_by: quotation.crated_by,
+                created_by: quotation.created_by,
                 created_date: quotation.created_date,
                 is_active: quotation.is_active,
                 extra_data: {
