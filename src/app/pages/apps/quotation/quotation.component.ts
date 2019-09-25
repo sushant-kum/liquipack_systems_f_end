@@ -25,6 +25,7 @@ import { ApiResponse } from 'src/app/interfaces/api-response';
 
 /* Modals Imports */
 import { ViewQuotationModalComponent } from 'src/app/components/view-quotation-modal/view-quotation-modal.component';
+import { FormQuotationComponent } from './components/form-quotation/form-quotation.component';
 
 interface Mode {
   editing_quotation_ids: string[];
@@ -362,6 +363,32 @@ export class QuotationComponent implements OnInit, OnDestroy {
         }
         confirm_sub.unsubscribe();
       });
+  }
+
+  editQuotation(quotation: QuotationData): void {
+    const dialog_ref = this._dialog.open(FormQuotationComponent, {
+      autoFocus: false,
+      data: quotation
+    });
+
+    dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
+      if (dialog_response && dialog_response.operation === 'quotation.edit') {
+        console.log(dialog_response);
+      }
+    });
+  }
+
+  addQuotation(): void {
+    const dialog_ref = this._dialog.open(FormQuotationComponent, {
+      autoFocus: false,
+      data: null
+    });
+
+    dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
+      if (dialog_response && dialog_response.operation === 'quotation.add') {
+        console.log(dialog_response);
+      }
+    });
   }
 
   showToast(

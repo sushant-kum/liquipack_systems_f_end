@@ -1,0 +1,73 @@
+<div mat-dialog-title class="dialog-title">
+  <button
+    class="close-icon-button w3-large"
+    mat-icon-button
+    color="accent"
+    (click)="onCloseClick()"
+  >
+    <fa-icon [icon]="['fas', 'times']"></fa-icon>
+  </button>
+
+  <mat-card-header
+    *ngIf="!mode.new_quotation; else templateNewQuotationHeader"
+    class="w3-line-height-1 w3-padding-small"
+  >
+    <div mat-card-avatar class="app-theme-primary-light w3-padding-small">
+      <img src="assets/images/icons/icon_quotation.svg" />
+    </div>
+    <mat-card-title class="app-text-theme-primary">
+      {{ quotation.quotation_num }}
+    </mat-card-title>
+    <mat-card-subtitle class="w3-small">
+      <span class="app-text-theme-primary">ID</span> {{ quotation._id }}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <ng-template #templateNewQuotationHeader>
+    <mat-card-header class="w3-line-height-1 w3-padding-small">
+      <div mat-card-avatar class="app-theme-primary-light w3-padding-small">
+        <img src="assets/images/icons/icon_quotation.svg" />
+      </div>
+      <mat-card-title class="app-text-theme-primary">
+        New Quotation
+      </mat-card-title>
+    </mat-card-header>
+  </ng-template>
+</div>
+
+<mat-dialog-content>
+  asd
+</mat-dialog-content>
+
+<mat-dialog-actions class="w3-flex-right-align">
+  <button
+    mat-button
+    color="primary"
+    class="w3-margin-right"
+    [disabled]="false"
+    (click)="onResetClick()"
+  >
+    <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>&nbsp; Reset
+  </button>
+
+  <button
+    *ngIf="mode.new_quotation; else templateSaveButton"
+    mat-flat-button
+    color="primary"
+    [disabled]="!isFormValid()"
+    (click)="onAddClick()"
+  >
+    <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>&nbsp; Add
+  </button>
+
+  <ng-template #templateSaveButton>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="!isFormValid()"
+      (click)="onSaveClick()"
+    >
+      <fa-icon [icon]="['fas', 'save']"></fa-icon>&nbsp; Save
+    </button>
+  </ng-template>
+</mat-dialog-actions>

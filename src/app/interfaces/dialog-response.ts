@@ -7,6 +7,8 @@ export interface DialogResponse {
     | 'confirm.ok'
     | 'user.add'
     | 'user.edit'
+    | 'quotation.edit'
+    | 'quotation.add'
     | 'quotation-config.add'
     | 'quotation-config.edit';
 }
