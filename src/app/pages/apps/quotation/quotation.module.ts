@@ -52,6 +52,8 @@ import { QuotationRoutingModule } from './quotation-routing.module';
 import { QuotationComponent } from './quotation.component';
 import { ViewQuotationModalComponent } from 'src/app/components/view-quotation-modal/view-quotation-modal.component';
 import { ViewQuotationModalModule } from 'src/app/components/view-quotation-modal/view-quotation-modal.module';
+import { FormQuotationModule } from './components/form-quotation/form-quotation.module';
+import { FormQuotationComponent } from './components/form-quotation/form-quotation.component';
 
 @NgModule({
   declarations: [QuotationComponent],
@@ -74,8 +76,9 @@ import { ViewQuotationModalModule } from 'src/app/components/view-quotation-moda
     CommonModule,
     QuotationRoutingModule,
     ReactiveFormsModule,
-    ViewQuotationModalModule
+    ViewQuotationModalModule,
+    FormQuotationModule
   ],
-  entryComponents: [ViewQuotationModalComponent]
+  entryComponents: [ViewQuotationModalComponent, FormQuotationComponent]
 })
 export class QuotationModule {}
