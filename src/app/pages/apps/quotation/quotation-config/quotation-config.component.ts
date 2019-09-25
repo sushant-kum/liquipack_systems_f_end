@@ -356,7 +356,6 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
     });
 
     dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
-      console.log('dialog_response', dialog_response);
       if (
         dialog_response &&
         dialog_response.operation === 'quotation-config.add'
@@ -391,6 +390,10 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
                               };
                               break;
                             }
+                          }
+
+                          for (const config of this.quotation_configs) {
+                            config.is_active = false;
                           }
 
                           this.quotation_configs.push(res_add_config.data);
