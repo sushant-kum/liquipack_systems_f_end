@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 /* Config Imports */
 import { Config } from 'src/app/configs/config';
@@ -16,6 +16,8 @@ import { InputFilterService } from 'src/app/services/input-filter/input-filter.s
 import { QuotationData } from 'src/app/interfaces/quotation-data';
 import { ApiResponse } from 'src/app/interfaces/api-response';
 import { DialogResponse } from 'src/app/interfaces/dialog-response';
+import { HttpErrorResponse } from '@angular/common/http';
+import { QuotationConfigData } from 'src/app/interfaces/quotation-config-data';
 
 interface Mode {
   new_quotation: boolean;
@@ -31,6 +33,27 @@ export class FormQuotationComponent implements OnInit {
     new_quotation: null
   };
 
+  quotation: QuotationData;
+  quotation_config: QuotationConfigData;
+
+  form_quotation_details: FormGroup = new FormGroup({
+    quotation_num: new FormControl(null, [
+      Validators.required,
+      Validators.pattern(this._regex_service.quotation_num)
+    ])
+  });
+
+  form_customer_details: FormGroup = new FormGroup({
+    customer_name: new FormControl(null, [Validators.required]),
+    person_of_contact_title: new FormControl(null, [Validators.required]),
+    person_of_contact_name: new FormControl(null, [Validators.required]),
+    contact_no: new FormControl(null, [
+      Validators.required,
+      Validators.pattern(this._regex_service.phone)
+    ]),
+    address: new FormControl(null, [Validators.required])
+  });
+
   constructor(
     private _regex_service: RegexService,
     private _http_service: HttpTransactionsService,
@@ -39,34 +62,56 @@ export class FormQuotationComponent implements OnInit {
     public config: Config,
     public helper: HelperService,
     public dialogRef: MatDialogRef<FormQuotationComponent>,
-    public regex_svc: RegexService,
-    @Inject(MAT_DIALOG_DATA) public quotation: QuotationData
+    @Inject(MAT_DIALOG_DATA) private _orig_quotation: QuotationData
   ) {}
 
   ngOnInit() {
-    if (this.quotation) {
+    if (this._orig_quotation) {
       this.mode.new_quotation = false;
+      this.quotation = this.helper.object.copy.deep(
+        this._orig_quotation
+      ) as QuotationData;
     } else {
       this.mode.new_quotation = true;
+      this.quotation = this.helper.object.copy.deep(
+        this.quotation_gen_svc.empty_quotation
+      ) as QuotationData;
     }
+    this._getActiveQuotationConfig();
+    this._populateFormFields();
+  }
+
+  private _getActiveQuotationConfig(): void {
+    this._http_service.get_quotations_configs_active.sendRequest().subscribe(
+      (res: ApiResponse) => {
+        this.quotation_config = res.data;
+      },
+      (err: HttpErrorResponse) => {
+        console.error(err);
+      }
+    );
   }
 
   private _populateFormFields(): void {
-    // this.quotation_config_config_name_ctrl = new FormControl(
-    //   this.quotation_config.config_name,
-    //   [
-    //     Validators.required,
-    //     Validators.pattern(this._regex_service.quotation_config_name)
-    //   ]
-    // );
-    // this.quotation_config_is_active_ctrl = new FormControl(
-    //   this.quotation_config.is_active
-    // );
-    // for (const field of Object.keys(
-    //   this.quotation_gen_svc.quotation_item_names
-    // )) {
-    //   this.form_error[field] = null;
-    // }
+    this.form_quotation_details
+      .get('quotation_num')
+      .setValue(this.quotation.quotation_num);
+
+    this.form_customer_details
+      .get('customer_name')
+      .setValue(this.quotation.customer_details.name);
+    this.form_customer_details
+      .get('person_of_contact_title')
+      .setValue(this.quotation.customer_details.person_of_contact.title);
+    this.form_customer_details
+      .get('person_of_contact_name')
+      .setValue(this.quotation.customer_details.person_of_contact.name);
+    this.form_customer_details
+      .get('contact_no')
+      .setValue(this.quotation.customer_details.contact_no);
+    this.form_customer_details
+      .get('address')
+      .setValue(this.quotation.customer_details.address);
   }
 
   isFormValid(): boolean {

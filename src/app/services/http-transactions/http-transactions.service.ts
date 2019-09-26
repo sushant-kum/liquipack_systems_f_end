@@ -667,6 +667,39 @@ export class HttpTransactionsService {
     }
   };
 
+  get_quotations_configs_active: API = {
+    hostname: null,
+    basepath: null,
+    path: '/quotations/configs/active',
+    sendRequest: (): Observable<ApiResponse> => {
+      const hostname: string =
+        this.get_quotations_configs_active.hostname == null
+          ? this._default_hostname
+          : this.get_quotations_configs_active.hostname;
+      const basepath: string =
+        this.get_quotations_configs_active.basepath == null
+          ? this._default_basepath
+          : this.get_quotations_configs_active.basepath;
+      const url: string =
+        hostname + basepath + this.get_quotations_configs_active.path;
+
+      const token = this._localstorage_service.get(
+        this._localstorage_service.lsname.token
+      );
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = { headers };
+      return this._http_client.get<ApiResponse>(url, http_options).pipe(
+        map(response => {
+          if (response.token) {
+            this._set_token(response.token);
+          }
+          return response;
+        }),
+        catchError(this._errorHandler<ApiResponse>())
+      );
+    }
+  };
+
   put_quotations_configs_config_id: API = {
     hostname: null,
     basepath: null,
