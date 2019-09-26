@@ -36,7 +36,299 @@
 </div>
 
 <mat-dialog-content>
-  asd
+  <div class="w3-card w3-round w3-padding w3-margin-bottom">
+    Quotation Config in Use:&nbsp;
+    <span
+      *ngIf="quotation_config; else templateLoadingQuotationConfig"
+      class="app-text-theme-primary"
+      >{{ quotation_config.config_name }}</span
+    >
+    <ng-template #templateLoadingQuotationConfig>
+      <fa-icon
+        [icon]="['fas', 'circle-notch']"
+        [spin]="true"
+        class="app-text-theme-primary"
+      ></fa-icon>
+    </ng-template>
+
+    <button mat-button color="primary">
+      Reset to Config Prices
+    </button>
+  </div>
+
+  <form [formGroup]="form_quotation_details">
+    <app-sub-head>
+      <fa-icon [icon]="['fas', 'file-invoice']"></fa-icon>
+      &nbsp;Quotation Details
+    </app-sub-head>
+    <div class="w3-row">
+      <div class="w3-col m6 w3-padding-small">
+        <mat-form-field appearance="standard">
+          <mat-label>Quotation Number</mat-label>
+          <input
+            id="input-quotation_num"
+            matInput
+            formControlName="quotation_num"
+            placeholder="Quotation Number"
+            [readonly]="!mode.new_quotation"
+          />
+          <span matPrefix>
+            <fa-icon
+              [icon]="['fas', 'file-invoice']"
+              [ngClass]="{
+                'app-text-theme-warn':
+                  form_quotation_details.get('quotation_num').invalid &&
+                  form_quotation_details.get('quotation_num').touched,
+                'app-text-theme-primary': !(
+                  form_quotation_details.get('quotation_num').invalid &&
+                  form_quotation_details.get('quotation_num').touched
+                )
+              }"
+            ></fa-icon
+            >&nbsp;
+          </span>
+          <span class="w3-text-gray" matSuffix>
+            <fa-icon
+              [ngClass]="{
+                'app-text-theme-warn': form_quotation_details
+                  .get('quotation_num')
+                  .hasError('pattern')
+              }"
+              [icon]="['fas', 'question-circle']"
+              matTooltip="Quotation Number must be 2-50 characters long and must contain only alphabets, digits or (., _) as special character, and must not begin or end with special characters or contain consecutive special characters."
+            >
+            </fa-icon>
+          </span>
+          <mat-error
+            *ngIf="
+              form_quotation_details.get('quotation_num').hasError('required')
+            "
+          >
+            Quotation Number is required field
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form_quotation_details.get('quotation_num').hasError('pattern')
+            "
+          >
+            Quotation Number format is incorrect
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form_quotation_details.get('quotation_num').hasError('notUnique')
+            "
+          >
+            Quotation Number already exists
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+  <form [formGroup]="form_customer_details">
+    <app-sub-head>
+      <fa-icon [icon]="['fas', 'industry']"></fa-icon>
+      &nbsp;Customer Details
+    </app-sub-head>
+
+    <div class="w3-row">
+      <div class="w3-col m6 w3-padding-small">
+        <mat-form-field appearance="standard">
+          <mat-label>Customer Name</mat-label>
+          <input
+            id="input-customer_name"
+            matInput
+            formControlName="customer_name"
+            placeholder="Customer Name"
+          />
+          <span matPrefix>
+            <fa-icon
+              [icon]="['fas', 'industry']"
+              [ngClass]="{
+                'app-text-theme-warn':
+                  form_customer_details.get('customer_name').invalid &&
+                  form_customer_details.get('customer_name').touched,
+                'app-text-theme-primary': !(
+                  form_customer_details.get('customer_name').invalid &&
+                  form_customer_details.get('customer_name').touched
+                )
+              }"
+            ></fa-icon
+            >&nbsp;
+          </span>
+          <mat-error
+            *ngIf="
+              form_customer_details.get('customer_name').hasError('required')
+            "
+          >
+            Customer Name is required field
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="w3-col m6">
+        <div class="w3-row">
+          <div class="w3-col s4 w3-padding-small">
+            <mat-form-field appearance="standard">
+              <mat-label>Title</mat-label>
+              <mat-select
+                id="input-person_of_contact_title"
+                formControlName="person_of_contact_title"
+                placeholder="Title"
+              >
+                <mat-option value="Mr.">
+                  Mr.
+                </mat-option>
+                <mat-option value="Mrs.">
+                  Mrs.
+                </mat-option>
+                <mat-option value="Miss">
+                  Miss
+                </mat-option>
+              </mat-select>
+              <span matPrefix>
+                <fa-icon
+                  [icon]="['fas', 'venus-mars']"
+                  [ngClass]="{
+                    'app-text-theme-warn':
+                      form_customer_details.get('person_of_contact_title')
+                        .invalid &&
+                      form_customer_details.get('person_of_contact_title')
+                        .touched,
+                    'app-text-theme-primary': !(
+                      form_customer_details.get('person_of_contact_title')
+                        .invalid &&
+                      form_customer_details.get('person_of_contact_title')
+                        .touched
+                    )
+                  }"
+                ></fa-icon
+                >&nbsp;
+              </span>
+              <mat-error
+                *ngIf="
+                  form_customer_details
+                    .get('person_of_contact_title')
+                    .hasError('required')
+                "
+              >
+                Title is required field
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="w3-col s8 w3-padding-small">
+            <mat-form-field appearance="standard">
+              <mat-label>Person Of Contact</mat-label>
+              <input
+                id="input-person_of_contact_name"
+                matInput
+                formControlName="person_of_contact_name"
+                placeholder="Person Of Contact"
+              />
+              <span matPrefix>
+                <fa-icon
+                  [icon]="['fas', 'user']"
+                  [ngClass]="{
+                    'app-text-theme-warn':
+                      form_customer_details.get('person_of_contact_name')
+                        .invalid &&
+                      form_customer_details.get('person_of_contact_name')
+                        .touched,
+                    'app-text-theme-primary': !(
+                      form_customer_details.get('person_of_contact_name')
+                        .invalid &&
+                      form_customer_details.get('person_of_contact_name')
+                        .touched
+                    )
+                  }"
+                ></fa-icon
+                >&nbsp;
+              </span>
+              <mat-error
+                *ngIf="
+                  form_customer_details
+                    .get('person_of_contact_name')
+                    .hasError('required')
+                "
+              >
+                Person Of Contact is required field
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-col m6 w3-padding-small">
+        <mat-form-field appearance="standard">
+          <mat-label>Contact Number</mat-label>
+          <input
+            id="input-contact_no"
+            matInput
+            formControlName="contact_no"
+            placeholder="Contact Number"
+          />
+          <span matPrefix>
+            <fa-icon
+              [icon]="['fas', 'phone-alt']"
+              [ngClass]="{
+                'app-text-theme-warn':
+                  form_customer_details.get('contact_no').invalid &&
+                  form_customer_details.get('contact_no').touched,
+                'app-text-theme-primary': !(
+                  form_customer_details.get('contact_no').invalid &&
+                  form_customer_details.get('contact_no').touched
+                )
+              }"
+            ></fa-icon
+            >&nbsp;
+          </span>
+          <mat-error
+            *ngIf="form_customer_details.get('contact_no').hasError('required')"
+          >
+            Contact Number is required field
+          </mat-error>
+          <mat-error
+            *ngIf="form_customer_details.get('contact_no').hasError('pattern')"
+          >
+            Contact Number format is incorrect
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="w3-col m6 w3-padding-small">
+        <mat-form-field appearance="standard">
+          <mat-label>Address</mat-label>
+          <textarea
+            id="input-address"
+            matInput
+            formControlName="address"
+            placeholder="Address"
+          ></textarea>
+          <span matPrefix>
+            <fa-icon
+              [icon]="['fas', 'map-marker-alt']"
+              [ngClass]="{
+                'app-text-theme-warn':
+                  form_customer_details.get('address').invalid &&
+                  form_customer_details.get('address').touched,
+                'app-text-theme-primary': !(
+                  form_customer_details.get('address').invalid &&
+                  form_customer_details.get('address').touched
+                )
+              }"
+            ></fa-icon
+            >&nbsp;
+          </span>
+          <mat-error
+            *ngIf="form_customer_details.get('address').hasError('required')"
+          >
+            Address is required field
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
 </mat-dialog-content>
 
 <mat-dialog-actions class="w3-flex-right-align">

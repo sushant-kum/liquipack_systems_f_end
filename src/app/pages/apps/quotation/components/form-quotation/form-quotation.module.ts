@@ -6,6 +6,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -16,9 +20,29 @@ import {
   faPlusSquare as fasPlusSquare,
   faSave as fasSave,
   faUndoAlt as fasUndoAlt,
-  faQuestionCircle as fasQuestionCircle
+  faQuestionCircle as fasQuestionCircle,
+  faCircleNotch as fasCircleNotch,
+  faIndustry as fasIndustry,
+  faFileInvoice as fasFileInvoice,
+  faVenusMars as fasVenusMars,
+  faUser as fasUser,
+  faPhoneAlt as fasPhoneAlt,
+  faMapMarkerAlt as fasMapMarkerAlt
 } from '@fortawesome/free-solid-svg-icons';
-library.add(fasTimes, fasPlusSquare, fasSave, fasUndoAlt, fasQuestionCircle);
+library.add(
+  fasTimes,
+  fasPlusSquare,
+  fasSave,
+  fasUndoAlt,
+  fasQuestionCircle,
+  fasCircleNotch,
+  fasIndustry,
+  fasFileInvoice,
+  fasVenusMars,
+  fasUser,
+  fasPhoneAlt,
+  fasMapMarkerAlt
+);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
@@ -39,6 +63,10 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTooltipModule,
+    MatSelectModule,
 
     /* Font-awesome Impors */
     FontAwesomeModule,

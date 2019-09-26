@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { QuotationData } from 'src/app/interfaces/quotation-data';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,65 @@ export class QuotationGeneralService {
     extra_cups_sets: 'number'
   };
 
+  private _empty_quotation: QuotationData = {
+    _id: null,
+    quotation_num: null,
+    speed: {
+      qty: null,
+      price: null
+    },
+    no_of_washes: {
+      qty: null,
+      price: null
+    },
+    industry: {
+      qty: null,
+      price: null
+    },
+    gmp_requirement: {
+      qty: null,
+      price: null
+    },
+    bottle_moc: {
+      qty: null,
+      price: null
+    },
+    water_saving: {
+      qty: null,
+      price: null
+    },
+    filters_required: {
+      qty: null,
+      price: null
+    },
+    illumination_required: {
+      qty: null,
+      price: null
+    },
+    auto_level_tank: {
+      qty: null,
+      price: null
+    },
+    extra_cups_sets: {
+      qty: null,
+      price: null
+    },
+    other_details: null,
+    customer_details: {
+      name: null,
+      address: null,
+      person_of_contact: {
+        title: null,
+        name: null
+      },
+      contact_no: null
+    },
+    created_by: null,
+    created_date: null,
+    is_active: null,
+    extra_data: {}
+  };
+
   constructor() {}
 
   get quotation_item_names(): { [key: string]: string } {
@@ -38,5 +98,9 @@ export class QuotationGeneralService {
 
   get quotation_item_types(): { [key: string]: string } {
     return Object.assign(this._quotation_item_types, {});
+  }
+
+  get empty_quotation(): QuotationData {
+    return this._empty_quotation;
   }
 }
