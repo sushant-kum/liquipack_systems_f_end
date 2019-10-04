@@ -29,7 +29,8 @@ import {
   faUser as fasUser,
   faPhoneAlt as fasPhoneAlt,
   faMapMarkerAlt as fasMapMarkerAlt,
-  faList as fasList
+  faList as fasList,
+  faPlusCircle as fasPlusCircle
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   fasTimes,
@@ -44,7 +45,8 @@ library.add(
   fasUser,
   fasPhoneAlt,
   fasMapMarkerAlt,
-  fasList
+  fasList,
+  fasPlusCircle
 );
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';

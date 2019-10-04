@@ -335,6 +335,7 @@
         mat-stroked-button
         color="primary"
         class="w3-margin-left"
+        (click)="onResetConfigPricesClick()"
       >
         Reset to Config Prices
       </button>
@@ -385,7 +386,8 @@
                         else templateIsOption
                       "
                     >
-                      <span [innerHTML]="option"></span>
+                      <fa-icon [icon]="['fas', 'plus-circle']" class="app-text-theme-primary w3-opacity"></fa-icon>
+                      &nbsp;<span [innerHTML]="option"></span>
                     </ng-container>
                     <ng-template #templateIsOption>
                       <span>{{ option }}</span>
@@ -446,7 +448,7 @@
 
                 <mat-error
                   *ngIf="
-                    form_quotation_items.get(item + '_qty').hasError('pattern')
+                    form_quotation_items.get(item + '_price').hasError('pattern')
                   "
                 >
                   Invalid Format
