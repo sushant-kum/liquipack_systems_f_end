@@ -242,6 +242,37 @@ export class FormQuotationComponent implements OnInit {
     return true;
   }
 
+  onResetConfigPricesClick(): void {
+    for (const item of this.helper.object.Keys(
+      this._quotation_gen_svc.quotation_item_names
+    )) {
+      console.log('item', item);
+      for (const option of this.quotation_config[item].options) {
+        console.log('option', option);
+        if (
+          option.qty.toString() ===
+          this.form_quotation_items.get(`${item}_qty`).value.toString()
+        ) {
+          console.log('this.quotation[item].price = option.price');
+          this.form_quotation_items.get(`${item}_price`).setValue(option.price);
+          break;
+        }
+      }
+    }
+  }
+
+  onResetClick(): void {
+    if (this.mode.new_quotation) {
+      this.quotation = this.helper.object.copy.deep(
+        this._quotation_gen_svc.empty_quotation
+      ) as QuotationData;
+    } else {
+      this.quotation = this.helper.object.copy.deep(
+        this._orig_quotation
+      ) as QuotationData;
+    }
+  }
+
   onCloseClick(): void {
     this.dialogRef.close({
       data: null,
