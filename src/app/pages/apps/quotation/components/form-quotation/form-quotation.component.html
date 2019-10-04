@@ -36,26 +36,6 @@
 </div>
 
 <mat-dialog-content>
-  <div class="w3-card w3-round w3-padding w3-margin-bottom">
-    Quotation Config in Use:&nbsp;
-    <span
-      *ngIf="quotation_config; else templateLoadingQuotationConfig"
-      class="app-text-theme-primary"
-      >{{ quotation_config.config_name }}</span
-    >
-    <ng-template #templateLoadingQuotationConfig>
-      <fa-icon
-        [icon]="['fas', 'circle-notch']"
-        [spin]="true"
-        class="app-text-theme-primary"
-      ></fa-icon>
-    </ng-template>
-
-    <button mat-button color="primary">
-      Reset to Config Prices
-    </button>
-  </div>
-
   <form [formGroup]="form_quotation_details">
     <app-sub-head>
       <fa-icon [icon]="['fas', 'file-invoice']"></fa-icon>
@@ -326,6 +306,155 @@
             Address is required field
           </mat-error>
         </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+  <form [formGroup]="form_quotation_items">
+    <app-sub-head>
+      <fa-icon [icon]="['fas', 'list']"></fa-icon>
+      &nbsp;Quotation Items
+    </app-sub-head>
+    <div class="w3-card w3-round w3-padding w3-margin-bottom">
+      Quotation Config in Use:&nbsp;
+      <span
+        *ngIf="quotation_config; else templateLoadingQuotationConfig"
+        class="app-text-theme-primary"
+        >{{ quotation_config.config_name }}</span
+      >
+      <ng-template #templateLoadingQuotationConfig>
+        <fa-icon
+          [icon]="['fas', 'circle-notch']"
+          [spin]="true"
+          class="app-text-theme-primary"
+        ></fa-icon>
+      </ng-template>
+
+      <button
+        type="button"
+        mat-stroked-button
+        color="primary"
+        class="w3-margin-left"
+      >
+        Reset to Config Prices
+      </button>
+    </div>
+
+    <div class="w3-row">
+      <div
+        *ngFor="let item of helper.object.Keys(mapping.quotation_item_names)"
+        class="w3-col l6"
+      >
+        <fieldset class="w3-round">
+          <legend class="w3-padding-small">
+            {{ mapping.quotation_item_names[item] }}
+          </legend>
+          <div class="w3-row">
+            <div class="w3-col m6 w3-padding-small">
+              <mat-form-field
+                *ngIf="
+                  mapping.quotation_item_types[item] !== 'boolean';
+                  else templateBooleanQtyField
+                "
+              >
+                <mat-label>Quantity</mat-label>
+                <input
+                  matInput
+                  [placeholder]="
+                    mapping.quotation_item_names[item] + ' Quantity'
+                  "
+                  [attr.aria-label]="
+                    mapping.quotation_item_names[item] + ' Quantity'
+                  "
+                  [matAutocomplete]="auto"
+                  [formControlName]="item + '_qty'"
+                />
+                <mat-autocomplete
+                  autoActiveFirstOption
+                  #auto="matAutocomplete"
+                  (optionSelected)="qtyOptionSelected(item, $event)"
+                >
+                  <mat-option
+                    *ngFor="let option of filteredQtyOptions(item)"
+                    [value]="option"
+                  >
+                    <ng-container
+                      *ngIf="
+                        option.toString().indexOf(non_option_question.start) ===
+                          0;
+                        else templateIsOption
+                      "
+                    >
+                      <span [innerHTML]="option"></span>
+                    </ng-container>
+                    <ng-template #templateIsOption>
+                      <span>{{ option }}</span>
+                    </ng-template>
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error
+                  *ngIf="
+                    form_quotation_items.get(item + '_qty').hasError('required')
+                  "
+                >
+                  This Field is required.
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    form_quotation_items.get(item + '_qty').hasError('pattern')
+                  "
+                >
+                  Invalid Format
+                </mat-error>
+              </mat-form-field>
+
+              <ng-template #templateBooleanQtyField>
+                <mat-form-field>
+                  <mat-label>Quantity</mat-label>
+                  <mat-select
+                    [placeholder]="
+                      mapping.quotation_item_names[item] + ' Quantity'
+                    "
+                    [attr.aria-label]="
+                      mapping.quotation_item_names[item] + ' Quantity'
+                    "
+                    [formControlName]="item + '_qty'"
+                    (selectionChange)="qtyChanged(item)"
+                  >
+                    <mat-option [value]="true">
+                      Yes
+                    </mat-option>
+                    <mat-option [value]="false">
+                      No
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-template>
+            </div>
+
+            <div class="w3-col m6 w3-padding-small">
+              <mat-form-field>
+                <mat-label>Price</mat-label>
+                <input
+                  matInput
+                  [placeholder]="mapping.quotation_item_names[item] + ' Price'"
+                  [attr.aria-label]="
+                    mapping.quotation_item_names[item] + ' Price'
+                  "
+                  [formControlName]="item + '_price'"
+                />
+
+                <mat-error
+                  *ngIf="
+                    form_quotation_items.get(item + '_qty').hasError('pattern')
+                  "
+                >
+                  Invalid Format
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </fieldset>
       </div>
     </div>
   </form>

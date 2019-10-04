@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -27,7 +28,8 @@ import {
   faVenusMars as fasVenusMars,
   faUser as fasUser,
   faPhoneAlt as fasPhoneAlt,
-  faMapMarkerAlt as fasMapMarkerAlt
+  faMapMarkerAlt as fasMapMarkerAlt,
+  faList as fasList
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   fasTimes,
@@ -41,7 +43,8 @@ library.add(
   fasVenusMars,
   fasUser,
   fasPhoneAlt,
-  fasMapMarkerAlt
+  fasMapMarkerAlt,
+  fasList
 );
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
@@ -67,6 +70,7 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
     MatInputModule,
     MatTooltipModule,
     MatSelectModule,
+    MatAutocompleteModule,
 
     /* Font-awesome Impors */
     FontAwesomeModule,
