@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import * as equal from 'fast-deep-equal';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,9 @@ export class HelperService {
       shallow(obj: object): object {
         return Object.assign(obj, {});
       }
+    },
+    isEqual: (obj1: any, obj2: any): boolean => {
+      return equal(obj1, obj2);
     }
   };
 

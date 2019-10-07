@@ -386,7 +386,10 @@
                         else templateIsOption
                       "
                     >
-                      <fa-icon [icon]="['fas', 'plus-circle']" class="app-text-theme-primary w3-opacity"></fa-icon>
+                      <fa-icon
+                        [icon]="['fas', 'plus-circle']"
+                        class="app-text-theme-primary w3-opacity"
+                      ></fa-icon>
                       &nbsp;<span [innerHTML]="option"></span>
                     </ng-container>
                     <ng-template #templateIsOption>
@@ -430,6 +433,15 @@
                       No
                     </mat-option>
                   </mat-select>
+                  <mat-error
+                    *ngIf="
+                      form_quotation_items
+                        .get(item + '_qty')
+                        .hasError('required')
+                    "
+                  >
+                    This Field is required.
+                  </mat-error>
                 </mat-form-field>
               </ng-template>
             </div>
@@ -448,7 +460,9 @@
 
                 <mat-error
                   *ngIf="
-                    form_quotation_items.get(item + '_price').hasError('pattern')
+                    form_quotation_items
+                      .get(item + '_price')
+                      .hasError('pattern')
                   "
                 >
                   Invalid Format
@@ -457,6 +471,32 @@
             </div>
           </div>
         </fieldset>
+      </div>
+      <div class="w3-col l12 w3-padding-small">
+        <mat-form-field appearance="standard">
+          <mat-label>Other Details</mat-label>
+          <textarea
+            id="input-other_details"
+            matInput
+            formControlName="other_details"
+            placeholder="Other Details"
+          ></textarea>
+          <span matPrefix>
+            <fa-icon
+              [icon]="['fas', 'info-circle']"
+              [ngClass]="{
+                'app-text-theme-warn':
+                form_quotation_items.get('other_details').invalid &&
+                form_quotation_items.get('other_details').touched,
+                'app-text-theme-primary': !(
+                  form_quotation_items.get('other_details').invalid &&
+                  form_quotation_items.get('other_details').touched
+                )
+              }"
+            ></fa-icon
+            >&nbsp;
+          </span>
+        </mat-form-field>
       </div>
     </div>
   </form>
@@ -467,7 +507,7 @@
     mat-button
     color="primary"
     class="w3-margin-right"
-    [disabled]="false"
+    [disabled]="!isFormTouched() && !isFormEdited()"
     (click)="onResetClick()"
   >
     <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>&nbsp; Reset
@@ -477,7 +517,7 @@
     *ngIf="mode.new_quotation; else templateSaveButton"
     mat-flat-button
     color="primary"
-    [disabled]="!isFormValid()"
+    [disabled]="!isFormValid() || !isFormEdited()"
     (click)="onAddClick()"
   >
     <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>&nbsp; Add
@@ -487,7 +527,7 @@
     <button
       mat-flat-button
       color="primary"
-      [disabled]="!isFormValid()"
+      [disabled]="!isFormValid() || !isFormEdited()"
       (click)="onSaveClick()"
     >
       <fa-icon [icon]="['fas', 'save']"></fa-icon>&nbsp; Save
