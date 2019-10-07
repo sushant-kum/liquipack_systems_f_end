@@ -83,7 +83,7 @@ export class FormQuotationComponent implements OnInit {
       quotation_item_types: this._quotation_gen_svc.quotation_item_types
     };
 
-    const form_grp_quotation_items_ctrls = {};
+    const form_grp_quotation_items_ctrls: any = {};
     for (const item of this.helper.object.Keys(
       this.mapping.quotation_item_names
     )) {
@@ -97,6 +97,7 @@ export class FormQuotationComponent implements OnInit {
         Validators.pattern(this._regex_service.price)
       ]);
     }
+    form_grp_quotation_items_ctrls.other_details = new FormControl(null);
     this.form_quotation_items = new FormGroup(form_grp_quotation_items_ctrls);
 
     if (this._orig_quotation) {
@@ -156,6 +157,9 @@ export class FormQuotationComponent implements OnInit {
         .get(`${item}_price`)
         .setValue(this.quotation[item].price);
     }
+    this.form_quotation_items
+      .get('other_details')
+      .setValue(this.quotation.other_details);
   }
 
   qtyOptionSelected(
@@ -227,7 +231,6 @@ export class FormQuotationComponent implements OnInit {
   qtyChanged(quotation_item: string) {
     const value = this.form_quotation_items.get(`${quotation_item}_qty`).value;
     for (const option of this.quotation_config[quotation_item].options) {
-      console.log(option, option.qty.toString(), value);
       // tslint:disable-next-line: triple-equals
       if (option.qty == value) {
         this.form_quotation_items
@@ -236,10 +239,6 @@ export class FormQuotationComponent implements OnInit {
         break;
       }
     }
-  }
-
-  isFormValid(): boolean {
-    return true;
   }
 
   onResetConfigPricesClick(): void {
@@ -261,16 +260,75 @@ export class FormQuotationComponent implements OnInit {
     }
   }
 
-  onResetClick(): void {
-    if (this.mode.new_quotation) {
-      this.quotation = this.helper.object.copy.deep(
-        this._quotation_gen_svc.empty_quotation
-      ) as QuotationData;
-    } else {
-      this.quotation = this.helper.object.copy.deep(
-        this._orig_quotation
-      ) as QuotationData;
+  isFormValid(): boolean {
+    return true;
+  }
+
+  isFormEdited(): boolean {
+    const forms_contents: QuotationData = this.helper.object.copy.deep(
+      this._quotation_gen_svc.empty_quotation
+    ) as QuotationData;
+
+    forms_contents._id = this.quotation._id;
+    forms_contents.created_by = this.quotation.created_by;
+    forms_contents.created_date = this.quotation.created_date;
+    forms_contents.is_active = this.quotation.is_active;
+    forms_contents.extra_data = this.quotation.extra_data;
+
+    forms_contents.quotation_num = this.form_quotation_details.get(
+      'quotation_num'
+    ).value;
+
+    forms_contents.customer_details = {
+      name: this.form_customer_details.get('customer_name').value,
+      address: this.form_customer_details.get('address').value,
+      person_of_contact: {
+        title: this.form_customer_details.get('person_of_contact_title').value,
+        name: this.form_customer_details.get('person_of_contact_name').value
+      },
+      contact_no: this.form_customer_details.get('contact_no').value
+    };
+
+    for (const item of this.helper.object.Keys(
+      this._quotation_gen_svc.quotation_item_names
+    )) {
+      forms_contents[item] = {
+        qty:
+          this._quotation_gen_svc.quotation_item_types[item] === 'number'
+            ? this.form_quotation_items.get(`${item}_qty`).value !== null
+              ? (this.form_quotation_items.get(`${item}_qty`).value as number)
+              : null
+            : this.form_quotation_items.get(`${item}_qty`).value,
+        price: this.form_quotation_items.get(`${item}_price`).value
+      };
     }
+    return this.mode.new_quotation
+      ? !this.helper.object.isEqual(
+          forms_contents,
+          this._quotation_gen_svc.empty_quotation
+        )
+      : !this.helper.object.isEqual(forms_contents, this._orig_quotation);
+  }
+
+  isFormTouched(): boolean {
+    console.log(
+      'isFormTouched',
+      this.form_quotation_details.touched ||
+        this.form_customer_details.touched ||
+        this.form_quotation_items.touched
+    );
+    return (
+      this.form_quotation_details.touched ||
+      this.form_customer_details.touched ||
+      this.form_quotation_items.touched
+    );
+  }
+
+  onResetClick(): void {
+    this._populateFormFields();
+    this.form_quotation_details.markAsUntouched();
+    this.form_customer_details.markAsUntouched();
+    this.form_quotation_items.markAsUntouched();
   }
 
   onCloseClick(): void {
