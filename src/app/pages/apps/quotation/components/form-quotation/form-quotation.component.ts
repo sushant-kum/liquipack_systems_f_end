@@ -261,7 +261,11 @@ export class FormQuotationComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-    return true;
+    return (
+      this.form_quotation_details.valid &&
+      this.form_customer_details.valid &&
+      this.form_quotation_items.valid
+    );
   }
 
   isFormEdited(): boolean {
@@ -311,12 +315,6 @@ export class FormQuotationComponent implements OnInit {
   }
 
   isFormTouched(): boolean {
-    console.log(
-      'isFormTouched',
-      this.form_quotation_details.touched ||
-        this.form_customer_details.touched ||
-        this.form_quotation_items.touched
-    );
     return (
       this.form_quotation_details.touched ||
       this.form_customer_details.touched ||
@@ -330,6 +328,35 @@ export class FormQuotationComponent implements OnInit {
     this.form_customer_details.markAsUntouched();
     this.form_quotation_items.markAsUntouched();
   }
+
+  onAddClick(): void {
+    this._http_service.get_quotations.sendRequest().subscribe(
+      (res: ApiResponse) => {
+        let flag_duplicate_quotation_num = false;
+        for (const quotation of res.data) {
+          if (
+            this.form_quotation_details.get('quotation_num').value ===
+            quotation.quotation_num
+          ) {
+            flag_duplicate_quotation_num = true;
+            break;
+          }
+        }
+
+        if (!flag_duplicate_quotation_num) {
+          const quotation = {
+            quotation_num: this.form_quotation_details.get('quotation_num'),
+
+          }
+        }
+      },
+      (err: HttpErrorResponse) => {
+        console.error(err);
+      }
+    );
+  }
+
+  onSaveClick(): void {}
 
   onCloseClick(): void {
     this.dialogRef.close({
