@@ -181,6 +181,36 @@
               </mat-card-actions>
             </mat-card>
           </div>
+
+          <div
+            *ngIf="mode.adding_quotation"
+            class="w3-col m6 l4 w3-padding-small"
+          >
+            <mat-card class="w3-card quotation-loading-card">
+              <mat-card-header class="w3-line-height-1">
+                <div mat-card-avatar class="card-avatar"></div>
+                <mat-card-title>
+                  <div class="card-title-content">
+                    &nbsp;
+                  </div>
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <div class="card-subtitle-content">
+                    &nbsp;
+                  </div>
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="card-content-content"></div>
+              </mat-card-content>
+              <mat-card-actions class="w3-right-align">
+                <div
+                  class="card-action-btn card-action-btn-warn w3-margin-right"
+                ></div>
+                <div class="card-action-btn card-action-btn-primary"></div>
+              </mat-card-actions>
+            </mat-card>
+          </div>
         </div>
       </mat-card-content>
 

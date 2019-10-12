@@ -26,9 +26,11 @@ import { ApiResponse } from 'src/app/interfaces/api-response';
 /* Modals Imports */
 import { ViewQuotationModalComponent } from 'src/app/components/view-quotation-modal/view-quotation-modal.component';
 import { FormQuotationComponent } from './components/form-quotation/form-quotation.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 interface Mode {
   editing_quotation_ids: string[];
+  adding_quotation: boolean;
 }
 
 const PAGE_ID = 'apps-quotation';
@@ -57,7 +59,8 @@ export class QuotationComponent implements OnInit, OnDestroy {
 
   config: Config = new Config();
   mode: Mode = {
-    editing_quotation_ids: []
+    editing_quotation_ids: [],
+    adding_quotation: false
   };
 
   app_permission: ('read' | 'write')[] = [];
@@ -373,7 +376,70 @@ export class QuotationComponent implements OnInit, OnDestroy {
 
     dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
       if (dialog_response && dialog_response.operation === 'quotation.edit') {
-        console.log(dialog_response);
+        this.mode.editing_quotation_ids.push(dialog_response.data._id);
+        this._http_service.put_quotations_quotation_id
+          .sendRequest(dialog_response.data._id, dialog_response.data)
+          .subscribe(
+            (res: ApiResponse) => {
+              for (const quote of this.quotations) {
+                if (quote._id === dialog_response.data._id) {
+                  quote.customer_details =
+                    dialog_response.data.customer_details;
+                  quote.other_details = dialog_response.data.other_details;
+                  quote.extra_data.total_price = 0;
+
+                  for (const item of Object.keys(QUOTAION_ITEM_NAMES)) {
+                    quote[item] = dialog_response.data[item];
+                    quote.extra_data.total_price +=
+                      dialog_response.data[item].price;
+                  }
+
+                  break;
+                }
+              }
+
+              this.showToast(
+                `Quotation ${dialog_response.data.quotation_num} updated successfully`,
+                'OK',
+                3000,
+                false
+              );
+
+              if (
+                this.mode.editing_quotation_ids.includes(
+                  dialog_response.data._id
+                )
+              ) {
+                this.mode.editing_quotation_ids.splice(
+                  this.mode.editing_quotation_ids.indexOf(
+                    dialog_response.data._id
+                  ),
+                  1
+                );
+              }
+            },
+            (err: HttpErrorResponse) => {
+              console.error(err);
+              this.showToast(
+                'Something went wrong. Please try again later.',
+                'Close',
+                null,
+                true
+              );
+              if (
+                this.mode.editing_quotation_ids.includes(
+                  dialog_response.data._id
+                )
+              ) {
+                this.mode.editing_quotation_ids.splice(
+                  this.mode.editing_quotation_ids.indexOf(
+                    dialog_response.data._id
+                  ),
+                  1
+                );
+              }
+            }
+          );
       }
     });
   }
@@ -386,7 +452,62 @@ export class QuotationComponent implements OnInit, OnDestroy {
 
     dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
       if (dialog_response && dialog_response.operation === 'quotation.add') {
-        console.log(dialog_response);
+        this.mode.adding_quotation = true;
+        this._http_service.post_quotations
+          .sendRequest(dialog_response.data)
+          .subscribe(
+            (add_quotation_res: ApiResponse) => {
+              this._http_service.get_users_min.sendRequest().subscribe(
+                (users_res: ApiResponse) => {
+                  const quotation: QuotationData = add_quotation_res.data;
+                  quotation.extra_data = {
+                    total_price: 0
+                  };
+
+                  for (const item of this.helper.object.Keys(
+                    QUOTAION_ITEM_NAMES
+                  )) {
+                    quotation.extra_data.total_price += quotation[item].price;
+                  }
+
+                  for (const user of users_res.data) {
+                    if (user._id === quotation.created_by) {
+                      quotation.extra_data.creator_name = user.name;
+                    }
+                  }
+
+                  this.quotations.push(quotation);
+                  this.showToast(
+                    'Quotation added successfully.',
+                    'OK',
+                    3000,
+                    false
+                  );
+                  this.mode.adding_quotation = false;
+                },
+                (users_err: HttpErrorResponse) => {
+                  console.error(users_err);
+                  this.showToast(
+                    'Something went wrong. Please try again later.',
+                    'Close',
+                    null,
+                    true
+                  );
+                  this.mode.adding_quotation = false;
+                }
+              );
+            },
+            (add_quotation_err: HttpErrorResponse) => {
+              console.error(add_quotation_err);
+              this.showToast(
+                'Something went wrong. Please try again later.',
+                'Close',
+                null,
+                true
+              );
+              this.mode.adding_quotation = false;
+            }
+          );
       }
     });
   }

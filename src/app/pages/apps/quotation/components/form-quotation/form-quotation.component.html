@@ -337,7 +337,7 @@
         class="w3-margin-left"
         (click)="onResetConfigPricesClick()"
       >
-        Reset to Config Prices
+        Set Item Prices to Config Prices
       </button>
     </div>
 
@@ -486,8 +486,8 @@
               [icon]="['fas', 'info-circle']"
               [ngClass]="{
                 'app-text-theme-warn':
-                form_quotation_items.get('other_details').invalid &&
-                form_quotation_items.get('other_details').touched,
+                  form_quotation_items.get('other_details').invalid &&
+                  form_quotation_items.get('other_details').touched,
                 'app-text-theme-primary': !(
                   form_quotation_items.get('other_details').invalid &&
                   form_quotation_items.get('other_details').touched
@@ -502,7 +502,17 @@
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions class="w3-flex-right-align">
+<mat-dialog-actions class="dialog-actions w3-flex-right-align">
+  <span class="total-cost">
+    <span class="app-text-theme-primary w3-text-medium">Total Cost</span>&nbsp;
+    <fa-icon [icon]="['fas', 'rupee-sign']"></fa-icon>
+    {{
+      helper.variable.typeof(total_cost) === 'number' &&
+      !helper.variable.isNaN(total_cost)
+        ? total_cost.toLocaleString('en-IN')
+        : 'Invalid Cost'
+    }}
+  </span>
   <button
     mat-button
     color="primary"
