@@ -41,7 +41,7 @@ export class Error404Component implements OnInit {
     private _header_service: HeaderService,
     private _sidebar: SidebarComponent,
     private _router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this._title.setTitle('Error 404 - ' + this.config.app_title);
@@ -73,15 +73,12 @@ export class Error404Component implements OnInit {
 
   private _filter(value: string): Page[] {
     const filter_value = value.toLowerCase();
-    return this.pages.filter(
-      (option: Page) => {
-        return option.value.toLowerCase().indexOf(filter_value) >= 0;
-      }
-    );
+    return this.pages.filter((option: Page) => {
+      return option.value.toLowerCase().indexOf(filter_value) >= 0;
+    });
   }
 
   goToPage(): void {
-    console.log(this.page_ctrl.value, this.pages);
     for (const page of this.pages) {
       if (this.page_ctrl.value === page.name) {
         this._router.navigate([page.path]);
@@ -92,5 +89,4 @@ export class Error404Component implements OnInit {
   goBack(): void {
     window.history.back();
   }
-
 }

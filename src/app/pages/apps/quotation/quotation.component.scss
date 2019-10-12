@@ -1,0 +1,147 @@
+@import 'src/styles/palette.style.scss';
+
+.btn-config {
+  position: absolute;
+  right: 20px;
+}
+
+::ng-deep.mat-card-header-text {
+  width: calc(100% - 72px);
+
+  mat-card-title {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.quotation-loading-card {
+  .mat-card-header {
+    height: 68px;
+  }
+
+  .mat-card-actions {
+    height: 45.5px;
+  }
+
+  .card {
+    &-avatar {
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-primary, 'A100') 8%,
+        map-get($mat-palette-primary, 'A200') 50%,
+        map-get($mat-palette-primary, 'A100') 92%
+      );
+      background-size: 1000px 640px;
+      animation-duration: 1.8s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeHolderShimmer;
+      animation-timing-function: linear;
+    }
+
+    &-title-content {
+      width: 100%;
+      max-width: 175px;
+      border-radius: 4px;
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-primary, 300) 8%,
+        map-get($mat-palette-primary, 400) 50%,
+        map-get($mat-palette-primary, 300) 92%
+      );
+      background-size: 1000px 640px;
+      animation-duration: 1.8s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeHolderShimmer;
+      animation-timing-function: linear;
+    }
+
+    &-subtitle-content {
+      width: 100%;
+      max-width: 125px;
+      border-radius: 4px;
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-primary, 300) 8%,
+        map-get($mat-palette-primary, 400) 50%,
+        map-get($mat-palette-primary, 300) 92%
+      );
+      background-size: 1000px 640px;
+      animation-duration: 1.8s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeHolderShimmer;
+      animation-timing-function: linear;
+    }
+
+    &-content-content {
+      height: 50px;
+      border-radius: 4px;
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-accent, 50) 8%,
+        map-get($mat-palette-accent, 100) 50%,
+        map-get($mat-palette-accent, 50) 92%
+      );
+      background-size: 1000px 640px;
+      animation-duration: 1.8s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeHolderShimmer;
+      animation-timing-function: linear;
+    }
+
+    &-action-btn {
+      height: 37.5px;
+
+      &-warn {
+        width: 103px;
+        background: linear-gradient(
+          to right,
+          map-get($mat-palette-warn, 50) 8%,
+          map-get($mat-palette-warn, 100) 50%,
+          map-get($mat-palette-warn, 50) 92%
+        );
+        border-radius: 4px;
+        background-size: 1000px 640px;
+        animation-duration: 1.8s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-name: placeHolderShimmer;
+        animation-timing-function: linear;
+        display: inline-block;
+      }
+
+      &-primary {
+        width: 80.5px;
+        background: linear-gradient(
+          to right,
+          map-get($mat-palette-primary, 300) 8%,
+          map-get($mat-palette-primary, 400) 50%,
+          map-get($mat-palette-primary, 300) 92%
+        );
+        border-radius: 4px;
+        background-size: 1000px 640px;
+        animation-duration: 1.8s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-name: placeHolderShimmer;
+        animation-timing-function: linear;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+
+  100% {
+    background-position: 468px 0;
+  }
+}

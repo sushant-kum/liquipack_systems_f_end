@@ -2,7 +2,6 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpTransactionsService } from 'src/app/services/http-transactions/http-transactions.service';
 import { Config } from 'src/app/configs/config';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +12,7 @@ export class AuthService {
   constructor(
     private _http_client: HttpTransactionsService,
     private _config: Config
-  ) { }
+  ) {}
 
   changeAuthState(auth_state: boolean) {
     this._is_authed = auth_state;
@@ -22,10 +21,10 @@ export class AuthService {
 
   authUserToken(callback): void {
     this._http_client.get_login_token.sendRequest().subscribe(
-      (data) => {
+      data => {
         return callback(null, data.token);
       },
-      (error) => {
+      error => {
         return callback(error);
       }
     );
@@ -33,23 +32,21 @@ export class AuthService {
 
   getAccess(user_id: string, callback): void {
     this._http_client.get_profile_user_id.sendRequest(user_id).subscribe(
-      (data) => {
+      data => {
         for (const global_app of this._config.global_apps) {
-          data.data.app_permissions.push({
+          data.data.app_permissions.unshift({
             app: global_app.app.identifier,
             permissions: global_app.permissions,
             _id: 'client_grown'
           });
         }
 
-        console.log(data);
-
         return callback(null, {
           access: data.data.app_permissions,
           token: data.token
         });
       },
-      (error) => {
+      error => {
         return callback(error);
       }
     );

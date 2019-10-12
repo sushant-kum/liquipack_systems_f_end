@@ -1,0 +1,256 @@
+<div class="content w3-padding-large">
+  <div class="w3-content">
+    <mat-card class="mat-elevation-z">
+      <mat-card-header class="w3-padding-small">
+        <img mat-card-avatar src="assets/images/icons/icon_config.svg" />
+        <mat-card-title class="app-text-theme-primary">
+          Quotations-Config
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content *ngIf="mode.fetching_configs">
+        <mat-spinner
+          class="loading-indicator-spinner"
+          diameter="50"
+          strokeWidth="3"
+        ></mat-spinner>
+      </mat-card-content>
+
+      <mat-card-content *ngIf="!mode.fetching_configs">
+        <mat-accordion>
+          <mat-expansion-panel
+            *ngFor="let config of quotation_configs; let i = index"
+            [expanded]="config.is_active"
+          >
+            <mat-expansion-panel-header
+              class="w3-rightbar"
+              [ngClass]="{
+                'w3-border-green': config.is_active,
+                'w3-border-white': !config.is_active
+              }"
+            >
+              <mat-panel-title
+                [ngClass]="{
+                  'w3-text-green': config.is_active,
+                  'app-text-theme-primary': !config.is_active
+                }"
+              >
+                {{ config.config_name }}&nbsp;
+                <span
+                  class="w3-small app-text-theme-accent w3-vertical-align-middle"
+                >
+                  {{ config._id }}
+                </span>
+              </mat-panel-title>
+              <mat-panel-description>
+                <span *ngIf="config.is_active" class="w3-text-green">
+                  <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
+                  &nbsp;Default
+                </span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <ng-container
+              *ngIf="
+                mode.editing_config_ids.includes(config._id);
+                else showConfigDetailsTemplate
+              "
+            >
+              <mat-spinner
+                class="loading-indicator-spinner"
+                diameter="50"
+                strokeWidth="3"
+              ></mat-spinner>
+            </ng-container>
+
+            <ng-template #showConfigDetailsTemplate>
+              <div class="w3-margin-bottom">
+                <span class="app-text-theme-accent">Created By</span>&nbsp;
+                {{ config.extra_data.creator.name }} ({{
+                  config.extra_data.creator.username
+                }})&nbsp; <span class="app-text-theme-accent">On</span>&nbsp;
+                {{
+                  helper_service.time.format(
+                    config.created_date,
+                    'DD MMM, YYYY'
+                  )
+                }}
+              </div>
+
+              <div class="w3-responsive">
+                <table class="w3-table w3-centered">
+                  <thead>
+                    <tr>
+                      <th rowspan="2" class="app-theme-primary">Sl. No.</th>
+                      <th rowspan="2" class="app-theme-primary">Field</th>
+                      <th colspan="3" class="app-theme-primary">Options</th>
+                    </tr>
+                    <tr>
+                      <th class="app-theme-primary-l1">Quantity</th>
+                      <th class="app-theme-primary-l1">Price (Rs)</th>
+                      <th class="app-theme-primary-l1">Default</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    *ngFor="
+                      let field of helper_service.object.Keys(
+                        quotation_item_names
+                      );
+                      let i = index
+                    "
+                    [ngClass]="{ 'app-theme-accent-light': i % 2 === 1 }"
+                  >
+                    <tr
+                      *ngFor="
+                        let option of config[field].options;
+                        let j = index
+                      "
+                    >
+                      <td *ngIf="j === 0">
+                        {{ i + 1 }}
+                      </td>
+                      <td *ngIf="j !== 0"></td>
+                      <td
+                        *ngIf="j === 0"
+                        [attr.rowspan]="config[field].options.length"
+                      >
+                        {{ quotation_item_names[field] }}
+                      </td>
+                      <td>
+                        <ng-container
+                          *ngIf="
+                            option.qty !== undefined || option.qty !== null
+                          "
+                        >
+                          <ng-container
+                            *ngIf="
+                              option.qty === true;
+                              then thenTemplate;
+                              else elseTemplate
+                            "
+                          >
+                          </ng-container>
+                          <ng-template #thenTemplate>
+                            Yes
+                          </ng-template>
+                          <ng-template #elseTemplate>
+                            <ng-container
+                              *ngIf="
+                                option.qty === false;
+                                then thenTemplate;
+                                else elseTemplate
+                              "
+                            >
+                            </ng-container>
+                            <ng-template #thenTemplate>
+                              No
+                            </ng-template>
+                            <ng-template #elseTemplate>
+                              {{ option.qty }}
+                            </ng-template>
+                          </ng-template>
+                        </ng-container>
+                      </td>
+                      <td>
+                        <span *ngIf="option.price !== null">
+                          {{ option.price.toLocaleString('en-IN') }}
+                        </span>
+                      </td>
+                      <td>
+                        <fa-icon
+                          *ngIf="j === config[field].default_option_index"
+                          [icon]="['fas', 'check-circle']"
+                        >
+                        </fa-icon>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ng-template>
+
+            <mat-action-row *ngIf="app_permission.includes('write')">
+              <button
+                mat-button
+                color="warn"
+                class="w3-margin-right"
+                [disabled]="
+                  config.is_active ||
+                  mode.editing_config_ids.includes(config._id)
+                "
+                (click)="deleteQuotationConfig(config)"
+              >
+                <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                &nbsp;Delete
+              </button>
+              <button
+                mat-button
+                color="primary"
+                class="w3-margin-right"
+                [disabled]="mode.editing_config_ids.includes(config._id)"
+                (click)="editQuotationConfig(config)"
+              >
+                <fa-icon [icon]="['fas', 'pen-square']"></fa-icon>
+                &nbsp;Edit
+              </button>
+              <button
+                mat-flat-button
+                color="primary"
+                [disabled]="
+                  config.is_active ||
+                  mode.editing_config_ids.includes(config._id)
+                "
+                (click)="makeDefaultQuotationConfig(config)"
+              >
+                <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
+                &nbsp;Make Default
+              </button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel *ngIf="mode.adding_config" class="quotation-config-adding-panel" [disabled]="true" [hideToggle]="true" [expanded]="true">
+            <mat-expansion-panel-header class="w3-rightbar app-border-theme-accent">
+              <mat-panel-title>
+                <span class="config-title">&nbsp;</span>
+                <span class="config-subtitle">&nbsp;</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="config-meta-info w3-margin-bottom">&nbsp;</div>
+
+            <div class="config-items-table">
+              <div class="config-items-table-header">&nbsp;</div>
+              <div class="config-items-table-body">
+                <div class="config-items-table-row light-stripe"></div>
+                <div class="config-items-table-row dark-stripe"></div>
+                <div class="config-items-table-row light-stripe"></div>
+                <div class="config-items-table-row dark-stripe"></div>
+              </div>
+            </div>
+
+            <mat-action-row>
+              <div class="config-action-btn delete w3-margin-right"></div>
+              <div class="config-action-btn edit w3-margin-right"></div>
+              <div class="config-action-btn make-default"></div>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+
+      <mat-card-actions
+        *ngIf="app_permission.includes('write')"
+        class="w3-right-align"
+      >
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="mode.fetching_configs"
+          (click)="addQuotationConfig()"
+        >
+          <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>
+          &nbsp;Add Config
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -10,9 +10,7 @@ import { Config } from './configs/config';
 export class AppComponent {
   config: Config = new Config();
 
-  constructor(
-    private _title: Title
-  ) {
+  constructor(private _title: Title) {
     this._title.setTitle(this.config.app_title);
   }
 }

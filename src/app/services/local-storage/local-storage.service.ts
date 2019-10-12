@@ -11,7 +11,7 @@ export class LocalStorageService {
     app_permissions: '__liquipack_workflow.localstorage.app_permissions'
   };
 
-  constructor() { }
+  constructor() {}
 
   get lsname() {
     return this._lsname;

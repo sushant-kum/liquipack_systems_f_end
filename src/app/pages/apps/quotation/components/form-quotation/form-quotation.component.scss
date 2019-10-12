@@ -1,0 +1,20 @@
+.dialog-title {
+  position: relative;
+
+  .close-icon-button {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+  }
+}
+
+.dialog-actions {
+  position: relative;
+
+  .total-cost {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+}

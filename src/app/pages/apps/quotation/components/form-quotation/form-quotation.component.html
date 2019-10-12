@@ -1,0 +1,546 @@
+<div mat-dialog-title class="dialog-title">
+  <button
+    class="close-icon-button w3-large"
+    mat-icon-button
+    color="accent"
+    (click)="onCloseClick()"
+  >
+    <fa-icon [icon]="['fas', 'times']"></fa-icon>
+  </button>
+
+  <mat-card-header
+    *ngIf="!mode.new_quotation; else templateNewQuotationHeader"
+    class="w3-line-height-1 w3-padding-small"
+  >
+    <div mat-card-avatar class="app-theme-primary-light w3-padding-small">
+      <img src="assets/images/icons/icon_quotation.svg" />
+    </div>
+    <mat-card-title class="app-text-theme-primary">
+      {{ quotation.quotation_num }}
+    </mat-card-title>
+    <mat-card-subtitle class="w3-small">
+      <span class="app-text-theme-primary">ID</span> {{ quotation._id }}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <ng-template #templateNewQuotationHeader>
+    <mat-card-header class="w3-line-height-1 w3-padding-small">
+      <div mat-card-avatar class="app-theme-primary-light w3-padding-small">
+        <img src="assets/images/icons/icon_quotation.svg" />
+      </div>
+      <mat-card-title class="app-text-theme-primary">
+        New Quotation
+      </mat-card-title>
+    </mat-card-header>
+  </ng-template>
+</div>
+
+<mat-dialog-content>
+  <form [formGroup]="form_quotation_details">
+    <app-sub-head>
+      <fa-icon [icon]="['fas', 'file-invoice']"></fa-icon>
+      &nbsp;Quotation Details
+    </app-sub-head>
+    <div class="w3-row">
+      <div class="w3-col m6 w3-padding-small">
+        <mat-form-field appearance="standard">
+          <mat-label>Quotation Number</mat-label>
+          <input
+            id="input-quotation_num"
+            matInput
+            formControlName="quotation_num"
+            placeholder="Quotation Number"
+            [readonly]="!mode.new_quotation"
+          />
+          <span matPrefix>
+            <fa-icon
+              [icon]="['fas', 'file-invoice']"
+              [ngClass]="{
+                'app-text-theme-warn':
+                  form_quotation_details.get('quotation_num').invalid &&
+                  form_quotation_details.get('quotation_num').touched,
+                'app-text-theme-primary': !(
+                  form_quotation_details.get('quotation_num').invalid &&
+                  form_quotation_details.get('quotation_num').touched
+                )
+              }"
+            ></fa-icon
+            >&nbsp;
+          </span>
+          <span class="w3-text-gray" matSuffix>
+            <fa-icon
+              [ngClass]="{
+                'app-text-theme-warn': form_quotation_details
+                  .get('quotation_num')
+                  .hasError('pattern')
+              }"
+              [icon]="['fas', 'question-circle']"
+              matTooltip="Quotation Number must be 2-50 characters long and must contain only alphabets, digits or (., _) as special character, and must not begin or end with special characters or contain consecutive special characters."
+            >
+            </fa-icon>
+          </span>
+          <mat-error
+            *ngIf="
+              form_quotation_details.get('quotation_num').hasError('required')
+            "
+          >
+            Quotation Number is required field
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form_quotation_details.get('quotation_num').hasError('pattern')
+            "
+          >
+            Quotation Number format is incorrect
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form_quotation_details.get('quotation_num').hasError('notUnique')
+            "
+          >
+            Quotation Number already exists
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+  <form [formGroup]="form_customer_details">
+    <app-sub-head>
+      <fa-icon [icon]="['fas', 'industry']"></fa-icon>
+      &nbsp;Customer Details
+    </app-sub-head>
+
+    <div class="w3-row">
+      <div class="w3-col m6 w3-padding-small">
+        <mat-form-field appearance="standard">
+          <mat-label>Customer Name</mat-label>
+          <input
+            id="input-customer_name"
+            matInput
+            formControlName="customer_name"
+            placeholder="Customer Name"
+          />
+          <span matPrefix>
+            <fa-icon
+              [icon]="['fas', 'industry']"
+              [ngClass]="{
+                'app-text-theme-warn':
+                  form_customer_details.get('customer_name').invalid &&
+                  form_customer_details.get('customer_name').touched,
+                'app-text-theme-primary': !(
+                  form_customer_details.get('customer_name').invalid &&
+                  form_customer_details.get('customer_name').touched
+                )
+              }"
+            ></fa-icon
+            >&nbsp;
+          </span>
+          <mat-error
+            *ngIf="
+              form_customer_details.get('customer_name').hasError('required')
+            "
+          >
+            Customer Name is required field
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="w3-col m6">
+        <div class="w3-row">
+          <div class="w3-col s4 w3-padding-small">
+            <mat-form-field appearance="standard">
+              <mat-label>Title</mat-label>
+              <mat-select
+                id="input-person_of_contact_title"
+                formControlName="person_of_contact_title"
+                placeholder="Title"
+              >
+                <mat-option value="Mr.">
+                  Mr.
+                </mat-option>
+                <mat-option value="Mrs.">
+                  Mrs.
+                </mat-option>
+                <mat-option value="Miss">
+                  Miss
+                </mat-option>
+              </mat-select>
+              <span matPrefix>
+                <fa-icon
+                  [icon]="['fas', 'venus-mars']"
+                  [ngClass]="{
+                    'app-text-theme-warn':
+                      form_customer_details.get('person_of_contact_title')
+                        .invalid &&
+                      form_customer_details.get('person_of_contact_title')
+                        .touched,
+                    'app-text-theme-primary': !(
+                      form_customer_details.get('person_of_contact_title')
+                        .invalid &&
+                      form_customer_details.get('person_of_contact_title')
+                        .touched
+                    )
+                  }"
+                ></fa-icon
+                >&nbsp;
+              </span>
+              <mat-error
+                *ngIf="
+                  form_customer_details
+                    .get('person_of_contact_title')
+                    .hasError('required')
+                "
+              >
+                Title is required field
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="w3-col s8 w3-padding-small">
+            <mat-form-field appearance="standard">
+              <mat-label>Person Of Contact</mat-label>
+              <input
+                id="input-person_of_contact_name"
+                matInput
+                formControlName="person_of_contact_name"
+                placeholder="Person Of Contact"
+              />
+              <span matPrefix>
+                <fa-icon
+                  [icon]="['fas', 'user']"
+                  [ngClass]="{
+                    'app-text-theme-warn':
+                      form_customer_details.get('person_of_contact_name')
+                        .invalid &&
+                      form_customer_details.get('person_of_contact_name')
+                        .touched,
+                    'app-text-theme-primary': !(
+                      form_customer_details.get('person_of_contact_name')
+                        .invalid &&
+                      form_customer_details.get('person_of_contact_name')
+                        .touched
+                    )
+                  }"
+                ></fa-icon
+                >&nbsp;
+              </span>
+              <mat-error
+                *ngIf="
+                  form_customer_details
+                    .get('person_of_contact_name')
+                    .hasError('required')
+                "
+              >
+                Person Of Contact is required field
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-col m6 w3-padding-small">
+        <mat-form-field appearance="standard">
+          <mat-label>Contact Number</mat-label>
+          <input
+            id="input-contact_no"
+            matInput
+            formControlName="contact_no"
+            placeholder="Contact Number"
+          />
+          <span matPrefix>
+            <fa-icon
+              [icon]="['fas', 'phone-alt']"
+              [ngClass]="{
+                'app-text-theme-warn':
+                  form_customer_details.get('contact_no').invalid &&
+                  form_customer_details.get('contact_no').touched,
+                'app-text-theme-primary': !(
+                  form_customer_details.get('contact_no').invalid &&
+                  form_customer_details.get('contact_no').touched
+                )
+              }"
+            ></fa-icon
+            >&nbsp;
+          </span>
+          <mat-error
+            *ngIf="form_customer_details.get('contact_no').hasError('required')"
+          >
+            Contact Number is required field
+          </mat-error>
+          <mat-error
+            *ngIf="form_customer_details.get('contact_no').hasError('pattern')"
+          >
+            Contact Number format is incorrect
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="w3-col m6 w3-padding-small">
+        <mat-form-field appearance="standard">
+          <mat-label>Address</mat-label>
+          <textarea
+            id="input-address"
+            matInput
+            formControlName="address"
+            placeholder="Address"
+          ></textarea>
+          <span matPrefix>
+            <fa-icon
+              [icon]="['fas', 'map-marker-alt']"
+              [ngClass]="{
+                'app-text-theme-warn':
+                  form_customer_details.get('address').invalid &&
+                  form_customer_details.get('address').touched,
+                'app-text-theme-primary': !(
+                  form_customer_details.get('address').invalid &&
+                  form_customer_details.get('address').touched
+                )
+              }"
+            ></fa-icon
+            >&nbsp;
+          </span>
+          <mat-error
+            *ngIf="form_customer_details.get('address').hasError('required')"
+          >
+            Address is required field
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+  <form [formGroup]="form_quotation_items">
+    <app-sub-head>
+      <fa-icon [icon]="['fas', 'list']"></fa-icon>
+      &nbsp;Quotation Items
+    </app-sub-head>
+    <div class="w3-card w3-round w3-padding w3-margin-bottom">
+      Quotation Config in Use:&nbsp;
+      <span
+        *ngIf="quotation_config; else templateLoadingQuotationConfig"
+        class="app-text-theme-primary"
+        >{{ quotation_config.config_name }}</span
+      >
+      <ng-template #templateLoadingQuotationConfig>
+        <fa-icon
+          [icon]="['fas', 'circle-notch']"
+          [spin]="true"
+          class="app-text-theme-primary"
+        ></fa-icon>
+      </ng-template>
+
+      <button
+        type="button"
+        mat-stroked-button
+        color="primary"
+        class="w3-margin-left"
+        (click)="onResetConfigPricesClick()"
+      >
+        Set Item Prices to Config Prices
+      </button>
+    </div>
+
+    <div class="w3-row">
+      <div
+        *ngFor="let item of helper.object.Keys(mapping.quotation_item_names)"
+        class="w3-col l6"
+      >
+        <fieldset class="w3-round">
+          <legend class="w3-padding-small">
+            {{ mapping.quotation_item_names[item] }}
+          </legend>
+          <div class="w3-row">
+            <div class="w3-col m6 w3-padding-small">
+              <mat-form-field
+                *ngIf="
+                  mapping.quotation_item_types[item] !== 'boolean';
+                  else templateBooleanQtyField
+                "
+              >
+                <mat-label>Quantity</mat-label>
+                <input
+                  matInput
+                  [placeholder]="
+                    mapping.quotation_item_names[item] + ' Quantity'
+                  "
+                  [attr.aria-label]="
+                    mapping.quotation_item_names[item] + ' Quantity'
+                  "
+                  [matAutocomplete]="auto"
+                  [formControlName]="item + '_qty'"
+                />
+                <mat-autocomplete
+                  autoActiveFirstOption
+                  #auto="matAutocomplete"
+                  (optionSelected)="qtyOptionSelected(item, $event)"
+                >
+                  <mat-option
+                    *ngFor="let option of filteredQtyOptions(item)"
+                    [value]="option"
+                  >
+                    <ng-container
+                      *ngIf="
+                        option.toString().indexOf(non_option_question.start) ===
+                          0;
+                        else templateIsOption
+                      "
+                    >
+                      <fa-icon
+                        [icon]="['fas', 'plus-circle']"
+                        class="app-text-theme-primary w3-opacity"
+                      ></fa-icon>
+                      &nbsp;<span [innerHTML]="option"></span>
+                    </ng-container>
+                    <ng-template #templateIsOption>
+                      <span>{{ option }}</span>
+                    </ng-template>
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error
+                  *ngIf="
+                    form_quotation_items.get(item + '_qty').hasError('required')
+                  "
+                >
+                  This Field is required.
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    form_quotation_items.get(item + '_qty').hasError('pattern')
+                  "
+                >
+                  Invalid Format
+                </mat-error>
+              </mat-form-field>
+
+              <ng-template #templateBooleanQtyField>
+                <mat-form-field>
+                  <mat-label>Quantity</mat-label>
+                  <mat-select
+                    [placeholder]="
+                      mapping.quotation_item_names[item] + ' Quantity'
+                    "
+                    [attr.aria-label]="
+                      mapping.quotation_item_names[item] + ' Quantity'
+                    "
+                    [formControlName]="item + '_qty'"
+                    (selectionChange)="qtyChanged(item)"
+                  >
+                    <mat-option [value]="true">
+                      Yes
+                    </mat-option>
+                    <mat-option [value]="false">
+                      No
+                    </mat-option>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="
+                      form_quotation_items
+                        .get(item + '_qty')
+                        .hasError('required')
+                    "
+                  >
+                    This Field is required.
+                  </mat-error>
+                </mat-form-field>
+              </ng-template>
+            </div>
+
+            <div class="w3-col m6 w3-padding-small">
+              <mat-form-field>
+                <mat-label>Price</mat-label>
+                <input
+                  matInput
+                  [placeholder]="mapping.quotation_item_names[item] + ' Price'"
+                  [attr.aria-label]="
+                    mapping.quotation_item_names[item] + ' Price'
+                  "
+                  [formControlName]="item + '_price'"
+                />
+
+                <mat-error
+                  *ngIf="
+                    form_quotation_items
+                      .get(item + '_price')
+                      .hasError('pattern')
+                  "
+                >
+                  Invalid Format
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="w3-col l12 w3-padding-small">
+        <mat-form-field appearance="standard">
+          <mat-label>Other Details</mat-label>
+          <textarea
+            id="input-other_details"
+            matInput
+            formControlName="other_details"
+            placeholder="Other Details"
+          ></textarea>
+          <span matPrefix>
+            <fa-icon
+              [icon]="['fas', 'info-circle']"
+              [ngClass]="{
+                'app-text-theme-warn':
+                  form_quotation_items.get('other_details').invalid &&
+                  form_quotation_items.get('other_details').touched,
+                'app-text-theme-primary': !(
+                  form_quotation_items.get('other_details').invalid &&
+                  form_quotation_items.get('other_details').touched
+                )
+              }"
+            ></fa-icon
+            >&nbsp;
+          </span>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions w3-flex-right-align">
+  <span class="total-cost">
+    <span class="app-text-theme-primary w3-text-medium">Total Cost</span>&nbsp;
+    <fa-icon [icon]="['fas', 'rupee-sign']"></fa-icon>
+    {{
+      helper.variable.typeof(total_cost) === 'number' &&
+      !helper.variable.isNaN(total_cost)
+        ? total_cost.toLocaleString('en-IN')
+        : 'Invalid Cost'
+    }}
+  </span>
+  <button
+    mat-button
+    color="primary"
+    class="w3-margin-right"
+    [disabled]="!isFormTouched() && !isFormEdited()"
+    (click)="onResetClick()"
+  >
+    <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>&nbsp; Reset
+  </button>
+
+  <button
+    *ngIf="mode.new_quotation; else templateSaveButton"
+    mat-flat-button
+    color="primary"
+    [disabled]="!isFormValid() || !isFormEdited()"
+    (click)="onAddClick()"
+  >
+    <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>&nbsp; Add
+  </button>
+
+  <ng-template #templateSaveButton>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="!isFormValid() || !isFormEdited()"
+      (click)="onSaveClick()"
+    >
+      <fa-icon [icon]="['fas', 'save']"></fa-icon>&nbsp; Save
+    </button>
+  </ng-template>
+</mat-dialog-actions>

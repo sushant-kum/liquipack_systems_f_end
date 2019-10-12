@@ -1,0 +1,228 @@
+<div class="content w3-padding-large">
+  <div class="w3-content">
+    <mat-card class="mat-elevation-z">
+      <mat-card-header class="w3-padding-small">
+        <img mat-card-avatar src="assets/images/icons/icon_quotations.svg" />
+        <mat-card-title class="app-text-theme-primary">
+          Quotations
+        </mat-card-title>
+        <button
+          mat-icon-button
+          color="accent"
+          matTooltip="Quotation-Config"
+          matTooltipPosition="before"
+          class="w3-large btn-config"
+          (click)="routeToConfig()"
+        >
+          <fa-icon [icon]="['fas', 'tools']"></fa-icon>
+        </button>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="w3-row">
+          <div
+            *ngFor="let quotation of quotations; let i = index"
+            class="w3-col m6 l4 w3-padding-small"
+          >
+            <mat-card
+              [ngClass]="{
+                'w3-card': quotation.is_active,
+                'app-theme-accent-light app-text-theme-accent mat-elevation-z': !quotation.is_active
+              }"
+            >
+              <mat-card-header class="w3-line-height-1">
+                <div
+                  mat-card-avatar
+                  *ngIf="quotation.is_active"
+                  class="app-theme-primary-light w3-padding-small"
+                >
+                  <img src="assets/images/icons/icon_quotation.svg" />
+                </div>
+                <div
+                  mat-card-avatar
+                  *ngIf="!quotation.is_active"
+                  class="app-theme-accent-l4 w3-padding-small"
+                >
+                  <img src="assets/images/icons/icon_quotation_disabled.svg" />
+                </div>
+
+                <mat-card-title
+                  class="w3-margin-0"
+                  [ngClass]="{ 'app-text-theme-primary': quotation.is_active }"
+                >
+                  {{ quotation.quotation_num }}
+                </mat-card-title>
+
+                <mat-card-subtitle>
+                  <button
+                    mat-icon-button
+                    color="primary"
+                    matTooltip="View quotation details"
+                    (click)="viewQuotationDetails(quotation)"
+                    [disabled]="!quotation.is_active"
+                    aria-label="View user details"
+                  >
+                    <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                  </button>
+                </mat-card-subtitle>
+              </mat-card-header>
+
+              <mat-card-content>
+                <div
+                  *ngIf="
+                    mode.editing_quotation_ids.includes(quotation._id);
+                    else templateQuotationData
+                  "
+                  class="w3-row w3-center"
+                >
+                  <mat-spinner
+                    color="primary"
+                    diameter="50"
+                    strokeWidth="3"
+                    class="w3-center"
+                  >
+                  </mat-spinner>
+                </div>
+
+                <ng-template #templateQuotationData>
+                  <div class="w3-row w3-center" style="min-height: 50px;">
+                    <div
+                      class="w3-col s6 w3-padding-small app-border-theme-accent w3-border-right"
+                    >
+                      <div class="single-line-holder">
+                        <fa-icon
+                          [icon]="['fas', 'building']"
+                          [ngClass]="{
+                            'app-text-theme-primary': quotation.is_active
+                          }"
+                        ></fa-icon>
+                        &nbsp;{{ quotation.customer_details.name }}
+                      </div>
+                      <fa-icon
+                        [icon]="['fas', 'rupee-sign']"
+                        [ngClass]="{
+                          'app-text-theme-primary': quotation.is_active
+                        }"
+                      ></fa-icon>
+                      &nbsp;{{
+                        quotation.extra_data.total_price.toLocaleString('en-IN')
+                      }}
+                    </div>
+                    <div class="w3-col s6 w3-padding-small">
+                      <div class="single-line-holder">
+                        <fa-icon
+                          [icon]="['fas', 'user']"
+                          [ngClass]="{
+                            'app-text-theme-primary': quotation.is_active
+                          }"
+                        >
+                        </fa-icon>
+                        &nbsp;{{ quotation.extra_data.creator_name }}
+                      </div>
+                      <fa-icon
+                        [icon]="['fas', 'calendar-day']"
+                        [ngClass]="{
+                          'app-text-theme-primary': quotation.is_active
+                        }"
+                      ></fa-icon>
+                      &nbsp;{{
+                        helper.time.format(quotation.created_date, 'DD MMM, YY')
+                      }}
+                    </div>
+                  </div>
+                </ng-template>
+              </mat-card-content>
+
+              <mat-card-actions
+                *ngIf="app_permission.includes('write')"
+                class="w3-right-align"
+              >
+                <button
+                  mat-button
+                  color="warn"
+                  class="w3-margin-right"
+                  *ngIf="quotation.is_active"
+                  (click)="disableQuotation(quotation)"
+                >
+                  <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>&nbsp;
+                  Disable
+                </button>
+                <button
+                  mat-flat-button
+                  color="primary"
+                  *ngIf="quotation.is_active"
+                  (click)="editQuotation(quotation)"
+                >
+                  <fa-icon [icon]="['fas', 'pen-square']"></fa-icon>&nbsp; Edit
+                </button>
+                <button
+                  mat-button
+                  color="primary"
+                  *ngIf="!quotation.is_active"
+                  [matMenuTriggerFor]="menuDisabledQuotationOptions"
+                  aria-label="Disabled Quotation Options"
+                >
+                  Options&nbsp;
+                  <fa-icon [icon]="['fas', 'chevron-down']"></fa-icon>
+                </button>
+                <mat-menu #menuDisabledQuotationOptions="matMenu">
+                  <button
+                    mat-menu-item
+                    (click)="deleteQuotationPermanently(quotation)"
+                  >
+                    <fa-icon [icon]="['fas', 'trash']"></fa-icon>&nbsp; Delete
+                    Permanently
+                  </button>
+                  <button mat-menu-item (click)="enableQuotation(quotation)">
+                    <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>&nbsp;
+                    Enable Quotation
+                  </button>
+                </mat-menu>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+
+          <div
+            *ngIf="mode.adding_quotation"
+            class="w3-col m6 l4 w3-padding-small"
+          >
+            <mat-card class="w3-card quotation-loading-card">
+              <mat-card-header class="w3-line-height-1">
+                <div mat-card-avatar class="card-avatar"></div>
+                <mat-card-title>
+                  <div class="card-title-content">
+                    &nbsp;
+                  </div>
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <div class="card-subtitle-content">
+                    &nbsp;
+                  </div>
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="card-content-content"></div>
+              </mat-card-content>
+              <mat-card-actions class="w3-right-align">
+                <div
+                  class="card-action-btn card-action-btn-warn w3-margin-right"
+                ></div>
+                <div class="card-action-btn card-action-btn-primary"></div>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions
+        *ngIf="app_permission.includes('write')"
+        class="w3-right-align"
+      >
+        <button mat-flat-button color="primary" (click)="addQuotation()">
+          <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>&nbsp; Add
+          Quotation
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

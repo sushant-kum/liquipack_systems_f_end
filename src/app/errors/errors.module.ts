@@ -20,20 +20,19 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 library.add(fasExclamationCircle, fasChevronRight, fasArrowLeft, fasHome);
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 import { ErrorsRoutingModule } from './errors-routing.module';
 import { Error404Component } from './error404/error404.component';
 
 @NgModule({
-  declarations: [
-    Error404Component
-  ],
-  imports: [/* Angular Imports */
+  declarations: [Error404Component],
+  imports: [
+    /* Angular Imports */
     FormsModule,
     ReactiveFormsModule,
 
@@ -51,4 +50,4 @@ import { Error404Component } from './error404/error404.component';
     ErrorsRoutingModule
   ]
 })
-export class ErrorsModule { }
+export class ErrorsModule {}

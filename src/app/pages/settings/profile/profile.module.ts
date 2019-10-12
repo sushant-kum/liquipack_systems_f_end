@@ -44,10 +44,10 @@ library.add(
   fasCircleNotch
 );
 /* Regular Icons */
-import { } from '@fortawesome/free-regular-svg-icons';
+import {} from '@fortawesome/free-regular-svg-icons';
 library.add();
 /* Brand Icons */
-import { } from '@fortawesome/free-brands-svg-icons';
+import {} from '@fortawesome/free-brands-svg-icons';
 library.add();
 
 import { ProfileRoutingModule } from './profile-routing.module';
@@ -72,4 +72,4 @@ import { ProfileComponent } from './profile.component';
     ReactiveFormsModule
   ]
 })
-export class ProfileModule { }
+export class ProfileModule {}

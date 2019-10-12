@@ -9,7 +9,7 @@ export class CookieService {
     bookmarked_apps: '__liquipack_workflow.cookie.bookmarked_apps'
   };
 
-  constructor() { }
+  constructor() {}
 
   get cname() {
     return this._cname;
@@ -18,7 +18,8 @@ export class CookieService {
   set(cname: string, cvalue: string, expdays: number = 1) {
     const d = new Date();
     d.setTime(d.getTime() + expdays * 24 * 60 * 60 * 1000);
-    document.cookie = cname + '=' + cvalue + '; expires=' + d.toUTCString() + '; path=/;';
+    document.cookie =
+      cname + '=' + cvalue + '; expires=' + d.toUTCString() + '; path=/;';
   }
 
   get(cname: string) {
@@ -45,7 +46,8 @@ export class CookieService {
   }
 
   delete(cname: string) {
-    document.cookie = cname + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie =
+      cname + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
   }
 
   deleteMulti(cnames: string[]) {
@@ -63,7 +65,8 @@ export class CookieService {
       cookie = cookie;
       const eqPos = cookie.indexOf('=');
       const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie =
+        name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     }
   }
 }

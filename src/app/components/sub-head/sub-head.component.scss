@@ -9,7 +9,12 @@
     content: '';
     display: table-cell;
     width: 100%;
-    background: linear-gradient(transparent 50%, currentColor 50%, currentColor calc(50% + 2px), transparent calc(50% + 2px));
+    background: linear-gradient(
+      transparent 50%,
+      currentColor 50%,
+      currentColor calc(50% + 2px),
+      transparent calc(50% + 2px)
+    );
     background-clip: padding;
     border-left: 1em solid transparent;
   }

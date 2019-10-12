@@ -37,7 +37,7 @@ export class ViewUserModalComponent implements OnInit {
     public helper: HelperService,
     private _dialogRef: MatDialogRef<ViewUserModalComponent>,
     @Inject(MAT_DIALOG_DATA) public user: UserData
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.pages = this.config.pages;
@@ -76,5 +76,4 @@ export class ViewUserModalComponent implements OnInit {
   onCloseClick(): void {
     this._dialogRef.close();
   }
-
 }

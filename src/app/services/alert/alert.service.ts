@@ -15,7 +15,7 @@ export class AlertService {
   private _alert_response = new Subject<DialogResponse>();
   private _alert_resp_asobservable = this._alert_response.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   get alert_data(): AlertData {
     return this._alert_data;

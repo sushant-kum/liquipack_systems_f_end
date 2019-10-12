@@ -4,15 +4,8 @@ import { CardLinkComponent } from './card-link.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  declarations: [
-    CardLinkComponent
-  ],
-  imports: [
-    CommonModule,
-    FontAwesomeModule
-  ],
-  exports: [
-    CardLinkComponent
-  ]
+  declarations: [CardLinkComponent],
+  imports: [CommonModule, FontAwesomeModule],
+  exports: [CardLinkComponent]
 })
-export class CardLinkModule { }
+export class CardLinkModule {}

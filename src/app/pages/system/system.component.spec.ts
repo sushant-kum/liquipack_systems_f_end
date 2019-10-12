@@ -9,8 +9,7 @@ describe('SystemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SystemComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -14,7 +14,7 @@ export class HeaderService {
   });
   current_page_info = this._page_info.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   changePageInfo(id: string, name: string, fas_icon: any) {
     this._page_info.next({

@@ -9,8 +9,7 @@ describe('CardLinkComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CardLinkComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

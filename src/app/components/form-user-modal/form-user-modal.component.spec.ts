@@ -9,8 +9,7 @@ describe('FormUserModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FormUserModalComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

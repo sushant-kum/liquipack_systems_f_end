@@ -22,7 +22,12 @@
 
   .card {
     &-avatar {
-      background: linear-gradient(to right, map-get($mat-palette-primary, 'A100') 8%, map-get($mat-palette-primary, 'A200') 50%, map-get($mat-palette-primary, 'A100') 92%);
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-primary, 'A100') 8%,
+        map-get($mat-palette-primary, 'A200') 50%,
+        map-get($mat-palette-primary, 'A100') 92%
+      );
       background-size: 1000px 640px;
       animation-duration: 1.8s;
       animation-fill-mode: forwards;
@@ -34,7 +39,12 @@
     &-title-content {
       max-width: 175px;
       border-radius: 4px;
-      background: linear-gradient(to right, map-get($mat-palette-primary, 300) 8%, map-get($mat-palette-primary, 400) 50%, map-get($mat-palette-primary, 300) 92%);
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-primary, 300) 8%,
+        map-get($mat-palette-primary, 400) 50%,
+        map-get($mat-palette-primary, 300) 92%
+      );
       background-size: 1000px 640px;
       animation-duration: 1.8s;
       animation-fill-mode: forwards;
@@ -46,7 +56,12 @@
     &-subtitle-content {
       max-width: 125px;
       border-radius: 4px;
-      background: linear-gradient(to right, map-get($mat-palette-primary, 300) 8%, map-get($mat-palette-primary, 400) 50%, map-get($mat-palette-primary, 300) 92%);
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-primary, 300) 8%,
+        map-get($mat-palette-primary, 400) 50%,
+        map-get($mat-palette-primary, 300) 92%
+      );
       background-size: 1000px 640px;
       animation-duration: 1.8s;
       animation-fill-mode: forwards;
@@ -58,7 +73,12 @@
     &-content-content {
       height: 50px;
       border-radius: 4px;
-      background: linear-gradient(to right, map-get($mat-palette-accent, 50) 8%, map-get($mat-palette-accent, 100) 50%, map-get($mat-palette-accent, 50) 92%);
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-accent, 50) 8%,
+        map-get($mat-palette-accent, 100) 50%,
+        map-get($mat-palette-accent, 50) 92%
+      );
       background-size: 1000px 640px;
       animation-duration: 1.8s;
       animation-fill-mode: forwards;
@@ -70,10 +90,14 @@
     &-action-btn {
       height: 37.5px;
 
-
       &-warn {
         width: 103px;
-        background: linear-gradient(to right, map-get($mat-palette-warn, 50) 8%, map-get($mat-palette-warn, 100) 50%, map-get($mat-palette-warn, 50) 92%);
+        background: linear-gradient(
+          to right,
+          map-get($mat-palette-warn, 50) 8%,
+          map-get($mat-palette-warn, 100) 50%,
+          map-get($mat-palette-warn, 50) 92%
+        );
         border-radius: 4px;
         background-size: 1000px 640px;
         animation-duration: 1.8s;
@@ -86,7 +110,12 @@
 
       &-primary {
         width: 80.5px;
-        background: linear-gradient(to right, map-get($mat-palette-primary, 300) 8%, map-get($mat-palette-primary, 400) 50%, map-get($mat-palette-primary, 300) 92%);
+        background: linear-gradient(
+          to right,
+          map-get($mat-palette-primary, 300) 8%,
+          map-get($mat-palette-primary, 400) 50%,
+          map-get($mat-palette-primary, 300) 92%
+        );
         border-radius: 4px;
         background-size: 1000px 640px;
         animation-duration: 1.8s;
@@ -102,10 +131,10 @@
 
 @keyframes placeHolderShimmer {
   0% {
-    background-position: -468px 0
+    background-position: -468px 0;
   }
 
   100% {
-    background-position: 468px 0
+    background-position: 468px 0;
   }
 }

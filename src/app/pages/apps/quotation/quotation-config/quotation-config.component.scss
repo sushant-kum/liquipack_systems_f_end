@@ -1,0 +1,174 @@
+@import 'src/styles/palette.style.scss';
+
+.loading-indicator-spinner {
+  margin: 10px auto;
+}
+
+.quotation-config-adding-panel {
+  .config-title {
+    width: 100%;
+    max-width: 80px;
+    border-radius: 4px;
+    background: linear-gradient(
+      to right,
+      map-get($mat-palette-primary, 300) 8%,
+      map-get($mat-palette-primary, 400) 50%,
+      map-get($mat-palette-primary, 300) 92%
+    );
+    background-size: 1000px 640px;
+    animation-duration: 1.8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+  }
+
+  .config-subtitle {
+    margin-left: 5px;
+    width: 100%;
+    max-width: 200px;
+    border-radius: 4px;
+    background: linear-gradient(
+      to right,
+      map-get($mat-palette-accent, 50) 8%,
+      map-get($mat-palette-accent, 100) 50%,
+      map-get($mat-palette-accent, 50) 92%
+    );
+    background-size: 1000px 640px;
+    animation-duration: 1.8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+  }
+
+  .config-meta-info {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 4px;
+    background: linear-gradient(
+      to right,
+      map-get($mat-palette-accent, 50) 8%,
+      map-get($mat-palette-accent, 100) 50%,
+      map-get($mat-palette-accent, 50) 92%
+    );
+    background-size: 1000px 640px;
+    animation-duration: 1.8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+  }
+
+  .config-items-table {
+    &-header {
+      width: 100%;
+      height: 72px;
+      border-radius: 4px 4px 0 0;
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-primary, 300) 8%,
+        map-get($mat-palette-primary, 400) 50%,
+        map-get($mat-palette-primary, 300) 92%
+      );
+      background-size: 1000px 640px;
+      animation-duration: 1.8s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeHolderShimmer;
+      animation-timing-function: linear;
+    }
+
+    &-row {
+      height: 48px;
+
+      &.dark-stripe {
+        width: 100%;
+        background: linear-gradient(
+          to right,
+          map-get($mat-palette-accent, 50) 8%,
+          map-get($mat-palette-accent, 100) 50%,
+          map-get($mat-palette-accent, 50) 92%
+        );
+        background-size: 1000px 640px;
+        animation-duration: 1.8s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-name: placeHolderShimmer;
+        animation-timing-function: linear;
+
+        &:last-child {
+          border-radius: 0 0 4px 4px;
+        }
+      }
+    }
+  }
+
+  .config-action-btn {
+    height: 37.5px;
+
+    &.delete {
+      width: 91px;
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-warn, 50) 8%,
+        map-get($mat-palette-warn, 100) 50%,
+        map-get($mat-palette-warn, 50) 92%
+      );
+      border-radius: 4px;
+      background-size: 1000px 640px;
+      animation-duration: 1.8s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeHolderShimmer;
+      animation-timing-function: linear;
+      display: inline-block;
+    }
+
+    &.edit {
+      width: 75px;
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-primary, 50) 8%,
+        map-get($mat-palette-primary, 100) 50%,
+        map-get($mat-palette-primary, 50) 92%
+      );
+      border-radius: 4px;
+      background-size: 1000px 640px;
+      animation-duration: 1.8s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeHolderShimmer;
+      animation-timing-function: linear;
+      display: inline-block;
+    }
+
+    &.make-default {
+      width: 136px;
+      background: linear-gradient(
+        to right,
+        map-get($mat-palette-primary, 300) 8%,
+        map-get($mat-palette-primary, 400) 50%,
+        map-get($mat-palette-primary, 300) 92%
+      );
+      border-radius: 4px;
+      background-size: 1000px 640px;
+      animation-duration: 1.8s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeHolderShimmer;
+      animation-timing-function: linear;
+      display: inline-block;
+    }
+  }
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+
+  100% {
+    background-position: 468px 0;
+  }
+}
