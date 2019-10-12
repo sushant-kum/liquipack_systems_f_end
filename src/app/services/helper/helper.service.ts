@@ -56,4 +56,13 @@ export class HelperService {
       return list;
     }
   };
+
+  variable = {
+    typeof: (variable: any): string => {
+      return typeof variable;
+    },
+    isNaN: (variable: any): boolean => {
+      return isNaN(variable);
+    }
+  };
 }

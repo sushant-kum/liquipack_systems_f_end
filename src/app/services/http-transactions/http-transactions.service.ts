@@ -9,6 +9,7 @@ import { UserData } from 'src/app/interfaces/user-data';
 import { AuthService } from '../auth/auth.service';
 import { of, Observable, throwError } from 'rxjs';
 import { QuotationConfigData } from 'src/app/interfaces/quotation-config-data';
+import { QuotationData } from 'src/app/interfaces/quotation-data';
 
 interface API {
   hostname: string;
@@ -481,6 +482,85 @@ export class HttpTransactionsService {
         }),
         catchError(this._errorHandler<ApiResponse>())
       );
+    }
+  };
+
+  post_quotations: API = {
+    hostname: null,
+    basepath: null,
+    path: '/quotations',
+    sendRequest: (quotation: QuotationData): Observable<ApiResponse> => {
+      const hostname: string =
+        this.post_quotations.hostname == null
+          ? this._default_hostname
+          : this.post_quotations.hostname;
+      const basepath: string =
+        this.post_quotations.basepath == null
+          ? this._default_basepath
+          : this.post_quotations.basepath;
+      const url: string = hostname + basepath + this.post_quotations.path;
+
+      const token = this._localstorage_service.get(
+        this._localstorage_service.lsname.token
+      );
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = { headers };
+
+      return this._http_client
+        .post<ApiResponse>(url, quotation, http_options)
+        .pipe(
+          map(response => {
+            if (response.token) {
+              this._set_token(response.token);
+            }
+            return response;
+          }),
+          catchError(this._errorHandler<ApiResponse>())
+        );
+    }
+  };
+
+  put_quotations_quotation_id: API = {
+    hostname: null,
+    basepath: null,
+    path: '/quotations/:quotation_id',
+    sendRequest: (
+      quotation_id: string,
+      quotation: QuotationData
+    ): Observable<ApiResponse> => {
+      const hostname: string =
+        this.put_quotations_quotation_id.hostname == null
+          ? this._default_hostname
+          : this.put_quotations_quotation_id.hostname;
+      const basepath: string =
+        this.put_quotations_quotation_id.basepath == null
+          ? this._default_basepath
+          : this.put_quotations_quotation_id.basepath;
+      const url: string =
+        hostname +
+        basepath +
+        this.put_quotations_quotation_id.path.replace(
+          ':quotation_id',
+          quotation_id
+        );
+
+      const token = this._localstorage_service.get(
+        this._localstorage_service.lsname.token
+      );
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+      const http_options = { headers };
+
+      return this._http_client
+        .put<ApiResponse>(url, quotation, http_options)
+        .pipe(
+          map(response => {
+            if (response.token) {
+              this._set_token(response.token);
+            }
+            return response;
+          }),
+          catchError(this._errorHandler<ApiResponse>())
+        );
     }
   };
 
