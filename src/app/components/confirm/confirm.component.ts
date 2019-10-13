@@ -1,9 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /* Service Imports */
 import { ConfirmService } from 'src/app/services/confirm/confirm.service';
@@ -50,28 +46,19 @@ export class ConfirmModalComponent {
   template: ''
 })
 export class ConfirmComponent implements OnInit {
-  constructor(
-    private _confirm_service: ConfirmService,
-    private _dialog: MatDialog
-  ) {}
+  constructor(private _confirm_service: ConfirmService, private _dialog: MatDialog) {}
 
   ngOnInit() {
     this._confirm_service.show_confirm.subscribe((show_alert: boolean) => {
       if (show_alert) {
         this.showConfirm({
-          title: this._confirm_service.confirm_data.title
-            ? this._confirm_service.confirm_data.title
-            : 'Alert',
+          title: this._confirm_service.confirm_data.title ? this._confirm_service.confirm_data.title : 'Alert',
           message: this._confirm_service.confirm_data.message,
-          info: this._confirm_service.confirm_data.info
-            ? this._confirm_service.confirm_data.info
-            : null,
-          negative_btn_text: this._confirm_service.confirm_data
-            .negative_btn_text
+          info: this._confirm_service.confirm_data.info ? this._confirm_service.confirm_data.info : null,
+          negative_btn_text: this._confirm_service.confirm_data.negative_btn_text
             ? this._confirm_service.confirm_data.negative_btn_text
             : 'Cancel',
-          positive_btn_text: this._confirm_service.confirm_data
-            .positive_btn_text
+          positive_btn_text: this._confirm_service.confirm_data.positive_btn_text
             ? this._confirm_service.confirm_data.positive_btn_text
             : 'OK'
         });

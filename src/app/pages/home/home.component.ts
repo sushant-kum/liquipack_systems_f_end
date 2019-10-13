@@ -60,9 +60,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._title.setTitle(
-      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
-    );
+    this._title.setTitle(this.config.page_map[this._page_id].name + ' - ' + this.config.app_title);
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
       this.config.page_map[this._page_id].name,
@@ -73,9 +71,7 @@ export class HomeComponent implements OnInit {
     this.sidebar.colorize(this.config.page_map[this._page_id].identifier);
 
     const app_permissions = JSON.parse(
-      this._localstorage_service.get(
-        this._localstorage_service.lsname.app_permissions
-      )
+      this._localstorage_service.get(this._localstorage_service.lsname.app_permissions)
     );
 
     for (const page of this.config.pages) {
@@ -93,9 +89,7 @@ export class HomeComponent implements OnInit {
       const bookmarked_apps_identifier_arr = JSON.parse(
         this._cookie_service.get(this._cookie_service.cname.bookmarked_apps)
       )
-        ? JSON.parse(
-            this._cookie_service.get(this._cookie_service.cname.bookmarked_apps)
-          )
+        ? JSON.parse(this._cookie_service.get(this._cookie_service.cname.bookmarked_apps))
         : [];
       for (const bookmarked_apps_identifier of bookmarked_apps_identifier_arr) {
         for (const my_app of this.my_apps) {
@@ -124,10 +118,7 @@ export class HomeComponent implements OnInit {
     if (this.bookmarked_apps.indexOf(this.my_apps[index]) < 0) {
       this.bookmarked_apps.push(this.my_apps[index]);
     } else {
-      this.bookmarked_apps.splice(
-        this.bookmarked_apps.indexOf(this.my_apps[index]),
-        1
-      );
+      this.bookmarked_apps.splice(this.bookmarked_apps.indexOf(this.my_apps[index]), 1);
     }
 
     const bookmarked_apps_identifier_arr: string[] = [];
@@ -145,12 +136,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  showToast(
-    message: string,
-    action: string,
-    duration: number = null,
-    is_error: boolean = true
-  ) {
+  showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {
     const toast_config: any = {
       horizontalPosition: 'end'
     };

@@ -81,9 +81,7 @@ export class QuotationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this._title.setTitle(
-      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
-    );
+    this._title.setTitle(this.config.page_map[this._page_id].name + ' - ' + this.config.app_title);
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
       this.config.page_map[this._page_id].name,
@@ -93,28 +91,24 @@ export class QuotationComponent implements OnInit, OnDestroy {
     this._sidebar.activate();
     this._sidebar.colorize(this.config.page_map[this._page_id].identifier);
 
-    this._auth_state_change_subscription = this._auth_service.auth_state_change.subscribe(
-      (auth_state: boolean) => {
-        if (auth_state) {
-          this.getQuotations();
-          const app_permissions = JSON.parse(
-            this._localstorage_service.get(
-              this._localstorage_service.lsname.app_permissions
-            )
-          );
-          for (const app of app_permissions) {
-            if (app.app === this._page_id) {
-              this.app_permission = app.permissions;
-              break;
-            }
-          }
-          if (!this.app_permission.includes('read')) {
-            alert('You are not allowed here');
-            this._sidebar.logout();
+    this._auth_state_change_subscription = this._auth_service.auth_state_change.subscribe((auth_state: boolean) => {
+      if (auth_state) {
+        this.getQuotations();
+        const app_permissions = JSON.parse(
+          this._localstorage_service.get(this._localstorage_service.lsname.app_permissions)
+        );
+        for (const app of app_permissions) {
+          if (app.app === this._page_id) {
+            this.app_permission = app.permissions;
+            break;
           }
         }
+        if (!this.app_permission.includes('read')) {
+          alert('You are not allowed here');
+          this._sidebar.logout();
+        }
       }
-    );
+    });
   }
 
   ngOnDestroy(): void {
@@ -162,9 +156,7 @@ export class QuotationComponent implements OnInit, OnDestroy {
                 illumination_required: quotation.illumination_required,
                 auto_level_tank: quotation.auto_level_tank,
                 extra_cups_sets: quotation.extra_cups_sets,
-                other_details: quotation.other_details
-                  ? quotation.other_details
-                  : null,
+                other_details: quotation.other_details ? quotation.other_details : null,
                 customer_details: quotation.customer_details,
                 created_by: quotation.created_by,
                 created_date: quotation.created_date,
@@ -178,23 +170,13 @@ export class QuotationComponent implements OnInit, OnDestroy {
           },
           (get_users_err: Error) => {
             console.log(get_users_err);
-            this.showToast(
-              'Something went wrong. Please try again later.',
-              'Close',
-              null,
-              true
-            );
+            this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
           }
         );
       },
       (err: Error) => {
         console.log(err);
-        this.showToast(
-          'Something went wrong. Please try again later.',
-          'Close',
-          null,
-          true
-        );
+        this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
       }
     );
   }
@@ -222,40 +204,22 @@ export class QuotationComponent implements OnInit, OnDestroy {
       .subscribe((dialog_resp: DialogResponse) => {
         if (dialog_resp && dialog_resp.operation === 'confirm.ok') {
           this.mode.editing_quotation_ids.push(quotation._id);
-          this._http_service.patch_quotations_quotation_id_disable
-            .sendRequest(quotation._id)
-            .subscribe(
-              (res: ApiResponse) => {
-                quotation.is_active = res.data.is_active;
-                this.showToast(
-                  'Quotation disabled successfully',
-                  'OK',
-                  3000,
-                  false
-                );
-                if (this.mode.editing_quotation_ids.includes(quotation._id)) {
-                  this.mode.editing_quotation_ids.splice(
-                    this.mode.editing_quotation_ids.indexOf(quotation._id),
-                    1
-                  );
-                }
-              },
-              (err: Error) => {
-                console.log(err);
-                this.showToast(
-                  'Something went wrong. Please try again later.',
-                  'Close',
-                  null,
-                  true
-                );
-                if (this.mode.editing_quotation_ids.includes(quotation._id)) {
-                  this.mode.editing_quotation_ids.splice(
-                    this.mode.editing_quotation_ids.indexOf(quotation._id),
-                    1
-                  );
-                }
+          this._http_service.patch_quotations_quotation_id_disable.sendRequest(quotation._id).subscribe(
+            (res: ApiResponse) => {
+              quotation.is_active = res.data.is_active;
+              this.showToast('Quotation disabled successfully', 'OK', 3000, false);
+              if (this.mode.editing_quotation_ids.includes(quotation._id)) {
+                this.mode.editing_quotation_ids.splice(this.mode.editing_quotation_ids.indexOf(quotation._id), 1);
               }
-            );
+            },
+            (err: Error) => {
+              console.log(err);
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              if (this.mode.editing_quotation_ids.includes(quotation._id)) {
+                this.mode.editing_quotation_ids.splice(this.mode.editing_quotation_ids.indexOf(quotation._id), 1);
+              }
+            }
+          );
         }
         confirm_sub.unsubscribe();
       });
@@ -272,40 +236,22 @@ export class QuotationComponent implements OnInit, OnDestroy {
       .subscribe((dialog_resp: DialogResponse) => {
         if (dialog_resp && dialog_resp.operation === 'confirm.ok') {
           this.mode.editing_quotation_ids.push(quotation._id);
-          this._http_service.patch_quotations_quotation_id_enable
-            .sendRequest(quotation._id)
-            .subscribe(
-              (res: ApiResponse) => {
-                quotation.is_active = res.data.is_active;
-                this.showToast(
-                  'Quotation enable successfully',
-                  'OK',
-                  3000,
-                  false
-                );
-                if (this.mode.editing_quotation_ids.includes(quotation._id)) {
-                  this.mode.editing_quotation_ids.splice(
-                    this.mode.editing_quotation_ids.indexOf(quotation._id),
-                    1
-                  );
-                }
-              },
-              (err: Error) => {
-                console.log(err);
-                this.showToast(
-                  'Something went wrong. Please try again later.',
-                  'Close',
-                  null,
-                  true
-                );
-                if (this.mode.editing_quotation_ids.includes(quotation._id)) {
-                  this.mode.editing_quotation_ids.splice(
-                    this.mode.editing_quotation_ids.indexOf(quotation._id),
-                    1
-                  );
-                }
+          this._http_service.patch_quotations_quotation_id_enable.sendRequest(quotation._id).subscribe(
+            (res: ApiResponse) => {
+              quotation.is_active = res.data.is_active;
+              this.showToast('Quotation enable successfully', 'OK', 3000, false);
+              if (this.mode.editing_quotation_ids.includes(quotation._id)) {
+                this.mode.editing_quotation_ids.splice(this.mode.editing_quotation_ids.indexOf(quotation._id), 1);
               }
-            );
+            },
+            (err: Error) => {
+              console.log(err);
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              if (this.mode.editing_quotation_ids.includes(quotation._id)) {
+                this.mode.editing_quotation_ids.splice(this.mode.editing_quotation_ids.indexOf(quotation._id), 1);
+              }
+            }
+          );
         }
         confirm_sub.unsubscribe();
       });
@@ -316,53 +262,34 @@ export class QuotationComponent implements OnInit, OnDestroy {
       .confirm({
         title: 'Confirm Delete Quotation Permanently',
         message: `Are you sure you want to delete quotation <b>${quotation.quotation_num}</b> permanently?`,
-        info:
-          'All data related to the quotation will be deleted. This operation cannot be undone.',
+        info: 'All data related to the quotation will be deleted. This operation cannot be undone.',
         positive_btn_text: 'Yes',
         negative_btn_text: 'No'
       })
       .subscribe((resp: DialogResponse) => {
         if (resp && resp.operation === 'confirm.ok') {
           this.mode.editing_quotation_ids.push(quotation._id);
-          this._http_service.delete_quotations_quotation_id
-            .sendRequest(quotation._id)
-            .subscribe(
-              (res: ApiResponse) => {
-                for (const quote of this.quotations) {
-                  if (quote._id === quotation._id) {
-                    this.quotations.splice(this.quotations.indexOf(quote), 1);
-                    break;
-                  }
-                }
-                this.showToast(
-                  'Quotation deleted permanently successfully',
-                  'OK',
-                  3000,
-                  false
-                );
-                if (this.mode.editing_quotation_ids.includes(quotation._id)) {
-                  this.mode.editing_quotation_ids.splice(
-                    this.mode.editing_quotation_ids.indexOf(quotation._id),
-                    1
-                  );
-                }
-              },
-              (err: Error) => {
-                console.error(err);
-                this.showToast(
-                  'Something went wrong. Please try again later.',
-                  'Close',
-                  null,
-                  true
-                );
-                if (this.mode.editing_quotation_ids.includes(quotation._id)) {
-                  this.mode.editing_quotation_ids.splice(
-                    this.mode.editing_quotation_ids.indexOf(quotation._id),
-                    1
-                  );
+          this._http_service.delete_quotations_quotation_id.sendRequest(quotation._id).subscribe(
+            (res: ApiResponse) => {
+              for (const quote of this.quotations) {
+                if (quote._id === quotation._id) {
+                  this.quotations.splice(this.quotations.indexOf(quote), 1);
+                  break;
                 }
               }
-            );
+              this.showToast('Quotation deleted permanently successfully', 'OK', 3000, false);
+              if (this.mode.editing_quotation_ids.includes(quotation._id)) {
+                this.mode.editing_quotation_ids.splice(this.mode.editing_quotation_ids.indexOf(quotation._id), 1);
+              }
+            },
+            (err: Error) => {
+              console.error(err);
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              if (this.mode.editing_quotation_ids.includes(quotation._id)) {
+                this.mode.editing_quotation_ids.splice(this.mode.editing_quotation_ids.indexOf(quotation._id), 1);
+              }
+            }
+          );
         }
         confirm_sub.unsubscribe();
       });
@@ -383,58 +310,34 @@ export class QuotationComponent implements OnInit, OnDestroy {
             (res: ApiResponse) => {
               for (const quote of this.quotations) {
                 if (quote._id === dialog_response.data._id) {
-                  quote.customer_details =
-                    dialog_response.data.customer_details;
+                  quote.customer_details = dialog_response.data.customer_details;
                   quote.other_details = dialog_response.data.other_details;
                   quote.extra_data.total_price = 0;
 
                   for (const item of Object.keys(QUOTAION_ITEM_NAMES)) {
                     quote[item] = dialog_response.data[item];
-                    quote.extra_data.total_price +=
-                      dialog_response.data[item].price;
+                    quote.extra_data.total_price += dialog_response.data[item].price;
                   }
 
                   break;
                 }
               }
 
-              this.showToast(
-                `Quotation ${dialog_response.data.quotation_num} updated successfully`,
-                'OK',
-                3000,
-                false
-              );
+              this.showToast(`Quotation ${dialog_response.data.quotation_num} updated successfully`, 'OK', 3000, false);
 
-              if (
-                this.mode.editing_quotation_ids.includes(
-                  dialog_response.data._id
-                )
-              ) {
+              if (this.mode.editing_quotation_ids.includes(dialog_response.data._id)) {
                 this.mode.editing_quotation_ids.splice(
-                  this.mode.editing_quotation_ids.indexOf(
-                    dialog_response.data._id
-                  ),
+                  this.mode.editing_quotation_ids.indexOf(dialog_response.data._id),
                   1
                 );
               }
             },
             (err: HttpErrorResponse) => {
               console.error(err);
-              this.showToast(
-                'Something went wrong. Please try again later.',
-                'Close',
-                null,
-                true
-              );
-              if (
-                this.mode.editing_quotation_ids.includes(
-                  dialog_response.data._id
-                )
-              ) {
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              if (this.mode.editing_quotation_ids.includes(dialog_response.data._id)) {
                 this.mode.editing_quotation_ids.splice(
-                  this.mode.editing_quotation_ids.indexOf(
-                    dialog_response.data._id
-                  ),
+                  this.mode.editing_quotation_ids.indexOf(dialog_response.data._id),
                   1
                 );
               }
@@ -453,71 +356,47 @@ export class QuotationComponent implements OnInit, OnDestroy {
     dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
       if (dialog_response && dialog_response.operation === 'quotation.add') {
         this.mode.adding_quotation = true;
-        this._http_service.post_quotations
-          .sendRequest(dialog_response.data)
-          .subscribe(
-            (add_quotation_res: ApiResponse) => {
-              this._http_service.get_users_min.sendRequest().subscribe(
-                (users_res: ApiResponse) => {
-                  const quotation: QuotationData = add_quotation_res.data;
-                  quotation.extra_data = {
-                    total_price: 0
-                  };
+        this._http_service.post_quotations.sendRequest(dialog_response.data).subscribe(
+          (add_quotation_res: ApiResponse) => {
+            this._http_service.get_users_min.sendRequest().subscribe(
+              (users_res: ApiResponse) => {
+                const quotation: QuotationData = add_quotation_res.data;
+                quotation.extra_data = {
+                  total_price: 0
+                };
 
-                  for (const item of this.helper.object.Keys(
-                    QUOTAION_ITEM_NAMES
-                  )) {
-                    quotation.extra_data.total_price += quotation[item].price;
-                  }
-
-                  for (const user of users_res.data) {
-                    if (user._id === quotation.created_by) {
-                      quotation.extra_data.creator_name = user.name;
-                    }
-                  }
-
-                  this.quotations.push(quotation);
-                  this.showToast(
-                    'Quotation added successfully.',
-                    'OK',
-                    3000,
-                    false
-                  );
-                  this.mode.adding_quotation = false;
-                },
-                (users_err: HttpErrorResponse) => {
-                  console.error(users_err);
-                  this.showToast(
-                    'Something went wrong. Please try again later.',
-                    'Close',
-                    null,
-                    true
-                  );
-                  this.mode.adding_quotation = false;
+                for (const item of this.helper.object.Keys(QUOTAION_ITEM_NAMES)) {
+                  quotation.extra_data.total_price += quotation[item].price;
                 }
-              );
-            },
-            (add_quotation_err: HttpErrorResponse) => {
-              console.error(add_quotation_err);
-              this.showToast(
-                'Something went wrong. Please try again later.',
-                'Close',
-                null,
-                true
-              );
-              this.mode.adding_quotation = false;
-            }
-          );
+
+                for (const user of users_res.data) {
+                  if (user._id === quotation.created_by) {
+                    quotation.extra_data.creator_name = user.name;
+                  }
+                }
+
+                this.quotations.push(quotation);
+                this.showToast('Quotation added successfully.', 'OK', 3000, false);
+                this.mode.adding_quotation = false;
+              },
+              (users_err: HttpErrorResponse) => {
+                console.error(users_err);
+                this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+                this.mode.adding_quotation = false;
+              }
+            );
+          },
+          (add_quotation_err: HttpErrorResponse) => {
+            console.error(add_quotation_err);
+            this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+            this.mode.adding_quotation = false;
+          }
+        );
       }
     });
   }
 
-  showToast(
-    message: string,
-    action: string,
-    duration: number = null,
-    is_error: boolean = true
-  ) {
+  showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {
     const toast_config: any = {
       horizontalPosition: 'end'
     };

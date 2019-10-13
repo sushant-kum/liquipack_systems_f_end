@@ -1,10 +1,5 @@
 <div mat-dialog-title class="dialog-title">
-  <button
-    class="close-icon-button w3-large"
-    mat-icon-button
-    color="accent"
-    (click)="onCloseClick()"
-  >
+  <button class="close-icon-button w3-large" mat-icon-button color="accent" (click)="onCloseClick()">
     <fa-icon [icon]="['fas', 'times']"></fa-icon>
   </button>
 
@@ -109,40 +104,19 @@
           Price (Rs)
         </td>
       </tr>
-      <tr
-        *ngFor="
-          let item_key of helper.object.Keys(quotation_items_key_name_mapping)
-        "
-      >
+      <tr *ngFor="let item_key of helper.object.Keys(quotation_items_key_name_mapping)">
         <td class="w3-padding-0 w3-padding-bottom-16">
           {{ quotation_items_key_name_mapping[item_key] }}
         </td>
         <td class="w3-padding-0 w3-padding-bottom-16 w3-left-align">
-          <ng-container
-            *ngIf="
-              quotation[item_key].qty !== undefined ||
-              quotation[item_key].qty !== null
-            "
-          >
-            <ng-container
-              *ngIf="
-                quotation[item_key].qty === true;
-                then thenTemplate;
-                else elseTemplate
-              "
-            >
+          <ng-container *ngIf="quotation[item_key].qty !== undefined || quotation[item_key].qty !== null">
+            <ng-container *ngIf="quotation[item_key].qty === true; then thenTemplate; else elseTemplate">
             </ng-container>
             <ng-template #thenTemplate>
               Yes
             </ng-template>
             <ng-template #elseTemplate>
-              <ng-container
-                *ngIf="
-                  quotation[item_key].qty === false;
-                  then thenTemplate;
-                  else elseTemplate
-                "
-              >
+              <ng-container *ngIf="quotation[item_key].qty === false; then thenTemplate; else elseTemplate">
               </ng-container>
               <ng-template #thenTemplate>
                 No

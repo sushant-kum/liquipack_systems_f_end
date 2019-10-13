@@ -25,35 +25,20 @@ export class HttpTransactionsService {
   private _default_hostname = '';
   private _default_basepath = '/api';
 
-  constructor(
-    private _http_client: HttpClient,
-    private _localstorage_service: LocalStorageService
-  ) {}
+  constructor(private _http_client: HttpClient, private _localstorage_service: LocalStorageService) {}
 
   get_login: API = {
     hostname: null,
     basepath: null,
     path: '/login',
-    sendRequest: (
-      username: string,
-      password: string
-    ): Observable<ApiResponse> => {
-      const hostname: string =
-        this.get_login.hostname == null
-          ? this._default_hostname
-          : this.get_login.hostname;
-      const basepath: string =
-        this.get_login.basepath == null
-          ? this._default_basepath
-          : this.get_login.basepath;
+    sendRequest: (username: string, password: string): Observable<ApiResponse> => {
+      const hostname: string = this.get_login.hostname == null ? this._default_hostname : this.get_login.hostname;
+      const basepath: string = this.get_login.basepath == null ? this._default_basepath : this.get_login.basepath;
       const url: string = hostname + basepath + this.get_login.path;
 
       const password_hash = new Md5().appendStr(password).end();
 
-      const headers = new HttpHeaders().set(
-        'Authorization',
-        'Basic ' + btoa(username + ':' + password_hash)
-      );
+      const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa(username + ':' + password_hash));
       const http_options = { headers };
       return this._http_client.get<ApiResponse>(url, http_options).pipe(
         map(response => {
@@ -73,18 +58,12 @@ export class HttpTransactionsService {
     path: '/login/token',
     sendRequest: (): Observable<ApiResponse> => {
       const hostname: string =
-        this.get_login_token.hostname == null
-          ? this._default_hostname
-          : this.get_login_token.hostname;
+        this.get_login_token.hostname == null ? this._default_hostname : this.get_login_token.hostname;
       const basepath: string =
-        this.get_login_token.basepath == null
-          ? this._default_basepath
-          : this.get_login_token.basepath;
+        this.get_login_token.basepath == null ? this._default_basepath : this.get_login_token.basepath;
       const url: string = hostname + basepath + this.get_login_token.path;
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
       return this._http_client.get<ApiResponse>(url, http_options).pipe(
@@ -104,19 +83,11 @@ export class HttpTransactionsService {
     basepath: null,
     path: '/users',
     sendRequest: (): Observable<ApiResponse> => {
-      const hostname: string =
-        this.get_users.hostname == null
-          ? this._default_hostname
-          : this.get_users.hostname;
-      const basepath: string =
-        this.get_users.basepath == null
-          ? this._default_basepath
-          : this.get_users.basepath;
+      const hostname: string = this.get_users.hostname == null ? this._default_hostname : this.get_users.hostname;
+      const basepath: string = this.get_users.basepath == null ? this._default_basepath : this.get_users.basepath;
       const url: string = hostname + basepath + this.get_users.path;
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
       return this._http_client.get<ApiResponse>(url, http_options).pipe(
@@ -136,32 +107,22 @@ export class HttpTransactionsService {
     basepath: null,
     path: '/users',
     sendRequest: (user_data: UserData): Observable<ApiResponse> => {
-      const hostname: string =
-        this.post_users.hostname == null
-          ? this._default_hostname
-          : this.post_users.hostname;
-      const basepath: string =
-        this.post_users.basepath == null
-          ? this._default_basepath
-          : this.post_users.basepath;
+      const hostname: string = this.post_users.hostname == null ? this._default_hostname : this.post_users.hostname;
+      const basepath: string = this.post_users.basepath == null ? this._default_basepath : this.post_users.basepath;
       const url: string = hostname + basepath + this.post_users.path;
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
-      return this._http_client
-        .post<ApiResponse>(url, user_data, http_options)
-        .pipe(
-          map(response => {
-            if (response.token) {
-              this._set_token(response.token);
-            }
-            return response;
-          }),
-          catchError(this._errorHandler<ApiResponse>())
-        );
+      return this._http_client.post<ApiResponse>(url, user_data, http_options).pipe(
+        map(response => {
+          if (response.token) {
+            this._set_token(response.token);
+          }
+          return response;
+        }),
+        catchError(this._errorHandler<ApiResponse>())
+      );
     }
   };
 
@@ -171,18 +132,12 @@ export class HttpTransactionsService {
     path: '/users/min',
     sendRequest: (): Observable<ApiResponse> => {
       const hostname: string =
-        this.get_users_min.hostname == null
-          ? this._default_hostname
-          : this.get_users_min.hostname;
+        this.get_users_min.hostname == null ? this._default_hostname : this.get_users_min.hostname;
       const basepath: string =
-        this.get_users_min.basepath == null
-          ? this._default_basepath
-          : this.get_users_min.basepath;
+        this.get_users_min.basepath == null ? this._default_basepath : this.get_users_min.basepath;
       const url: string = hostname + basepath + this.get_users_min.path;
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
       return this._http_client.get<ApiResponse>(url, http_options).pipe(
@@ -203,20 +158,14 @@ export class HttpTransactionsService {
     path: '/users/:user_id',
     sendRequest: (user_id: string): Observable<ApiResponse> => {
       const hostname: string =
-        this.get_users_user_id.hostname == null
-          ? this._default_hostname
-          : this.get_users_user_id.hostname;
+        this.get_users_user_id.hostname == null ? this._default_hostname : this.get_users_user_id.hostname;
       const basepath: string =
-        this.get_users_user_id.basepath == null
-          ? this._default_basepath
-          : this.get_users_user_id.basepath;
+        this.get_users_user_id.basepath == null ? this._default_basepath : this.get_users_user_id.basepath;
       let url: string = hostname + basepath + this.get_users_user_id.path;
 
       url = url.replace(/:user_id/, user_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
       return this._http_client.get<ApiResponse>(url, http_options).pipe(
@@ -235,38 +184,27 @@ export class HttpTransactionsService {
     hostname: null,
     basepath: null,
     path: '/users/:user_id',
-    sendRequest: (
-      user_id: string,
-      user_data: UserData
-    ): Observable<ApiResponse> => {
+    sendRequest: (user_id: string, user_data: UserData): Observable<ApiResponse> => {
       const hostname: string =
-        this.put_users_user_id.hostname == null
-          ? this._default_hostname
-          : this.put_users_user_id.hostname;
+        this.put_users_user_id.hostname == null ? this._default_hostname : this.put_users_user_id.hostname;
       const basepath: string =
-        this.put_users_user_id.basepath == null
-          ? this._default_basepath
-          : this.put_users_user_id.basepath;
+        this.put_users_user_id.basepath == null ? this._default_basepath : this.put_users_user_id.basepath;
       let url: string = hostname + basepath + this.put_users_user_id.path;
 
       url = url.replace(/:user_id/, user_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
-      return this._http_client
-        .put<ApiResponse>(url, user_data, http_options)
-        .pipe(
-          map(response => {
-            if (response.token) {
-              this._set_token(response.token);
-            }
-            return response;
-          }),
-          catchError(this._errorHandler<ApiResponse>())
-        );
+      return this._http_client.put<ApiResponse>(url, user_data, http_options).pipe(
+        map(response => {
+          if (response.token) {
+            this._set_token(response.token);
+          }
+          return response;
+        }),
+        catchError(this._errorHandler<ApiResponse>())
+      );
     }
   };
 
@@ -276,20 +214,14 @@ export class HttpTransactionsService {
     path: '/users/:user_id',
     sendRequest: (user_id: string): Observable<ApiResponse> => {
       const hostname: string =
-        this.delete_users_user_id.hostname == null
-          ? this._default_hostname
-          : this.delete_users_user_id.hostname;
+        this.delete_users_user_id.hostname == null ? this._default_hostname : this.delete_users_user_id.hostname;
       const basepath: string =
-        this.delete_users_user_id.basepath == null
-          ? this._default_basepath
-          : this.delete_users_user_id.basepath;
+        this.delete_users_user_id.basepath == null ? this._default_basepath : this.delete_users_user_id.basepath;
       let url: string = hostname + basepath + this.delete_users_user_id.path;
 
       url = url.replace(/:user_id/, user_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = {
         headers
@@ -320,14 +252,11 @@ export class HttpTransactionsService {
         this.patch_users_user_id_disable.basepath == null
           ? this._default_basepath
           : this.patch_users_user_id_disable.basepath;
-      let url: string =
-        hostname + basepath + this.patch_users_user_id_disable.path;
+      let url: string = hostname + basepath + this.patch_users_user_id_disable.path;
 
       url = url.replace(/:user_id/, user_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = {
         headers
@@ -358,14 +287,11 @@ export class HttpTransactionsService {
         this.patch_users_user_id_enable.basepath == null
           ? this._default_basepath
           : this.patch_users_user_id_enable.basepath;
-      let url: string =
-        hostname + basepath + this.patch_users_user_id_enable.path;
+      let url: string = hostname + basepath + this.patch_users_user_id_enable.path;
 
       url = url.replace(/:user_id/, user_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = {
         headers
@@ -389,20 +315,14 @@ export class HttpTransactionsService {
     path: '/profile/:user_id',
     sendRequest: (user_id: string): Observable<ApiResponse> => {
       const hostname: string =
-        this.get_profile_user_id.hostname == null
-          ? this._default_hostname
-          : this.get_profile_user_id.hostname;
+        this.get_profile_user_id.hostname == null ? this._default_hostname : this.get_profile_user_id.hostname;
       const basepath: string =
-        this.get_profile_user_id.basepath == null
-          ? this._default_basepath
-          : this.get_profile_user_id.basepath;
+        this.get_profile_user_id.basepath == null ? this._default_basepath : this.get_profile_user_id.basepath;
       let url: string = hostname + basepath + this.get_profile_user_id.path;
 
       url = url.replace(/:user_id/, user_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
       return this._http_client.get<ApiResponse>(url, http_options).pipe(
@@ -423,33 +343,25 @@ export class HttpTransactionsService {
     path: '/profile/:user_id',
     sendRequest: (user_id: string, profile: any): Observable<ApiResponse> => {
       const hostname: string =
-        this.put_profile_user_id.hostname == null
-          ? this._default_hostname
-          : this.put_profile_user_id.hostname;
+        this.put_profile_user_id.hostname == null ? this._default_hostname : this.put_profile_user_id.hostname;
       const basepath: string =
-        this.put_profile_user_id.basepath == null
-          ? this._default_basepath
-          : this.put_profile_user_id.basepath;
+        this.put_profile_user_id.basepath == null ? this._default_basepath : this.put_profile_user_id.basepath;
       let url: string = hostname + basepath + this.put_profile_user_id.path;
 
       url = url.replace(/:user_id/, user_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
-      return this._http_client
-        .put<ApiResponse>(url, profile, http_options)
-        .pipe(
-          map(response => {
-            if (response.token) {
-              this._set_token(response.token);
-            }
-            return response;
-          }),
-          catchError(this._errorHandler<ApiResponse>())
-        );
+      return this._http_client.put<ApiResponse>(url, profile, http_options).pipe(
+        map(response => {
+          if (response.token) {
+            this._set_token(response.token);
+          }
+          return response;
+        }),
+        catchError(this._errorHandler<ApiResponse>())
+      );
     }
   };
 
@@ -459,18 +371,12 @@ export class HttpTransactionsService {
     path: '/quotations',
     sendRequest: (): Observable<ApiResponse> => {
       const hostname: string =
-        this.get_quotations.hostname == null
-          ? this._default_hostname
-          : this.get_quotations.hostname;
+        this.get_quotations.hostname == null ? this._default_hostname : this.get_quotations.hostname;
       const basepath: string =
-        this.get_quotations.basepath == null
-          ? this._default_basepath
-          : this.get_quotations.basepath;
+        this.get_quotations.basepath == null ? this._default_basepath : this.get_quotations.basepath;
       const url: string = hostname + basepath + this.get_quotations.path;
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
       return this._http_client.get<ApiResponse>(url, http_options).pipe(
@@ -491,32 +397,24 @@ export class HttpTransactionsService {
     path: '/quotations',
     sendRequest: (quotation: QuotationData): Observable<ApiResponse> => {
       const hostname: string =
-        this.post_quotations.hostname == null
-          ? this._default_hostname
-          : this.post_quotations.hostname;
+        this.post_quotations.hostname == null ? this._default_hostname : this.post_quotations.hostname;
       const basepath: string =
-        this.post_quotations.basepath == null
-          ? this._default_basepath
-          : this.post_quotations.basepath;
+        this.post_quotations.basepath == null ? this._default_basepath : this.post_quotations.basepath;
       const url: string = hostname + basepath + this.post_quotations.path;
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
 
-      return this._http_client
-        .post<ApiResponse>(url, quotation, http_options)
-        .pipe(
-          map(response => {
-            if (response.token) {
-              this._set_token(response.token);
-            }
-            return response;
-          }),
-          catchError(this._errorHandler<ApiResponse>())
-        );
+      return this._http_client.post<ApiResponse>(url, quotation, http_options).pipe(
+        map(response => {
+          if (response.token) {
+            this._set_token(response.token);
+          }
+          return response;
+        }),
+        catchError(this._errorHandler<ApiResponse>())
+      );
     }
   };
 
@@ -524,10 +422,7 @@ export class HttpTransactionsService {
     hostname: null,
     basepath: null,
     path: '/quotations/:quotation_id',
-    sendRequest: (
-      quotation_id: string,
-      quotation: QuotationData
-    ): Observable<ApiResponse> => {
+    sendRequest: (quotation_id: string, quotation: QuotationData): Observable<ApiResponse> => {
       const hostname: string =
         this.put_quotations_quotation_id.hostname == null
           ? this._default_hostname
@@ -537,30 +432,21 @@ export class HttpTransactionsService {
           ? this._default_basepath
           : this.put_quotations_quotation_id.basepath;
       const url: string =
-        hostname +
-        basepath +
-        this.put_quotations_quotation_id.path.replace(
-          ':quotation_id',
-          quotation_id
-        );
+        hostname + basepath + this.put_quotations_quotation_id.path.replace(':quotation_id', quotation_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
 
-      return this._http_client
-        .put<ApiResponse>(url, quotation, http_options)
-        .pipe(
-          map(response => {
-            if (response.token) {
-              this._set_token(response.token);
-            }
-            return response;
-          }),
-          catchError(this._errorHandler<ApiResponse>())
-        );
+      return this._http_client.put<ApiResponse>(url, quotation, http_options).pipe(
+        map(response => {
+          if (response.token) {
+            this._set_token(response.token);
+          }
+          return response;
+        }),
+        catchError(this._errorHandler<ApiResponse>())
+      );
     }
   };
 
@@ -577,14 +463,11 @@ export class HttpTransactionsService {
         this.delete_quotations_quotation_id.basepath == null
           ? this._default_basepath
           : this.delete_quotations_quotation_id.basepath;
-      let url: string =
-        hostname + basepath + this.delete_quotations_quotation_id.path;
+      let url: string = hostname + basepath + this.delete_quotations_quotation_id.path;
 
       url = url.replace(/:quotation_id/, quotation_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = {
         headers
@@ -615,14 +498,11 @@ export class HttpTransactionsService {
         this.patch_quotations_quotation_id_disable.basepath == null
           ? this._default_basepath
           : this.patch_quotations_quotation_id_disable.basepath;
-      let url: string =
-        hostname + basepath + this.patch_quotations_quotation_id_disable.path;
+      let url: string = hostname + basepath + this.patch_quotations_quotation_id_disable.path;
 
       url = url.replace(/:quotation_id/, quotation_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = {
         headers
@@ -653,14 +533,11 @@ export class HttpTransactionsService {
         this.patch_quotations_quotation_id_enable.basepath == null
           ? this._default_basepath
           : this.patch_quotations_quotation_id_enable.basepath;
-      let url: string =
-        hostname + basepath + this.patch_quotations_quotation_id_enable.path;
+      let url: string = hostname + basepath + this.patch_quotations_quotation_id_enable.path;
 
       url = url.replace(/:quotation_id/, quotation_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = {
         headers
@@ -684,19 +561,12 @@ export class HttpTransactionsService {
     path: '/quotations/configs',
     sendRequest: (): Observable<ApiResponse> => {
       const hostname: string =
-        this.get_quotations_configs.hostname == null
-          ? this._default_hostname
-          : this.get_quotations_configs.hostname;
+        this.get_quotations_configs.hostname == null ? this._default_hostname : this.get_quotations_configs.hostname;
       const basepath: string =
-        this.get_quotations_configs.basepath == null
-          ? this._default_basepath
-          : this.get_quotations_configs.basepath;
-      const url: string =
-        hostname + basepath + this.get_quotations_configs.path;
+        this.get_quotations_configs.basepath == null ? this._default_basepath : this.get_quotations_configs.basepath;
+      const url: string = hostname + basepath + this.get_quotations_configs.path;
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
       return this._http_client.get<ApiResponse>(url, http_options).pipe(
@@ -717,33 +587,24 @@ export class HttpTransactionsService {
     path: '/quotations/configs',
     sendRequest: (config: QuotationConfigData): Observable<ApiResponse> => {
       const hostname: string =
-        this.post_quotations_configs.hostname == null
-          ? this._default_hostname
-          : this.post_quotations_configs.hostname;
+        this.post_quotations_configs.hostname == null ? this._default_hostname : this.post_quotations_configs.hostname;
       const basepath: string =
-        this.post_quotations_configs.basepath == null
-          ? this._default_basepath
-          : this.post_quotations_configs.basepath;
-      const url: string =
-        hostname + basepath + this.post_quotations_configs.path;
+        this.post_quotations_configs.basepath == null ? this._default_basepath : this.post_quotations_configs.basepath;
+      const url: string = hostname + basepath + this.post_quotations_configs.path;
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
 
-      return this._http_client
-        .post<ApiResponse>(url, config, http_options)
-        .pipe(
-          map(response => {
-            if (response.token) {
-              this._set_token(response.token);
-            }
-            return response;
-          }),
-          catchError(this._errorHandler<ApiResponse>())
-        );
+      return this._http_client.post<ApiResponse>(url, config, http_options).pipe(
+        map(response => {
+          if (response.token) {
+            this._set_token(response.token);
+          }
+          return response;
+        }),
+        catchError(this._errorHandler<ApiResponse>())
+      );
     }
   };
 
@@ -760,12 +621,9 @@ export class HttpTransactionsService {
         this.get_quotations_configs_active.basepath == null
           ? this._default_basepath
           : this.get_quotations_configs_active.basepath;
-      const url: string =
-        hostname + basepath + this.get_quotations_configs_active.path;
+      const url: string = hostname + basepath + this.get_quotations_configs_active.path;
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
       return this._http_client.get<ApiResponse>(url, http_options).pipe(
@@ -784,10 +642,7 @@ export class HttpTransactionsService {
     hostname: null,
     basepath: null,
     path: '/quotations/configs/:config_id',
-    sendRequest: (
-      config_id: string,
-      config: QuotationConfigData
-    ): Observable<ApiResponse> => {
+    sendRequest: (config_id: string, config: QuotationConfigData): Observable<ApiResponse> => {
       const hostname: string =
         this.put_quotations_configs_config_id.hostname == null
           ? this._default_hostname
@@ -797,16 +652,9 @@ export class HttpTransactionsService {
           ? this._default_basepath
           : this.put_quotations_configs_config_id.basepath;
       const url: string =
-        hostname +
-        basepath +
-        this.put_quotations_configs_config_id.path.replace(
-          ':config_id',
-          config_id
-        );
+        hostname + basepath + this.put_quotations_configs_config_id.path.replace(':config_id', config_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
 
@@ -836,16 +684,9 @@ export class HttpTransactionsService {
           ? this._default_basepath
           : this.delete_quotations_configs_config_id.basepath;
       const url: string =
-        hostname +
-        basepath +
-        this.delete_quotations_configs_config_id.path.replace(
-          ':config_id',
-          config_id
-        );
+        hostname + basepath + this.delete_quotations_configs_config_id.path.replace(':config_id', config_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
 
@@ -875,16 +716,9 @@ export class HttpTransactionsService {
           ? this._default_basepath
           : this.patch_quotations_configs_config_id_enable.basepath;
       const url: string =
-        hostname +
-        basepath +
-        this.patch_quotations_configs_config_id_enable.path.replace(
-          ':config_id',
-          config_id
-        );
+        hostname + basepath + this.patch_quotations_configs_config_id_enable.path.replace(':config_id', config_id);
 
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
       const http_options = { headers };
 
@@ -901,10 +735,7 @@ export class HttpTransactionsService {
   };
 
   private _set_token(token: string): void {
-    this._localstorage_service.set(
-      this._localstorage_service.lsname.token,
-      token
-    );
+    this._localstorage_service.set(this._localstorage_service.lsname.token, token);
   }
 
   private _errorHandler<T>() {

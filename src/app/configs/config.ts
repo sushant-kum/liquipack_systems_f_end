@@ -52,10 +52,8 @@ export class Config {
       identifier: 'settings-profile',
       name: 'Settings/Profile',
       short_name: 'Profile',
-      img_icon_theme:
-        'assets/images/icons/apps/icon_settings-profile_theme.svg',
-      img_icon_white:
-        'assets/images/icons/apps/icon_settings-profile_white.svg',
+      img_icon_theme: 'assets/images/icons/apps/icon_settings-profile_theme.svg',
+      img_icon_white: 'assets/images/icons/apps/icon_settings-profile_white.svg',
       fas_icon: 'user',
       is_subpage: true,
       parent_page: 'settings'
@@ -109,10 +107,8 @@ export class Config {
       identifier: 'apps-quotation-config',
       name: 'Apps/Quotation/Config',
       short_name: 'Quotation-Config',
-      img_icon_theme:
-        'assets/images/icons/apps/icons_apps-quotation-config_theme.svg',
-      img_icon_white:
-        'assets/images/icons/apps/icons_apps-quotation-config_white.svg',
+      img_icon_theme: 'assets/images/icons/apps/icons_apps-quotation-config_theme.svg',
+      img_icon_white: 'assets/images/icons/apps/icons_apps-quotation-config_white.svg',
       fas_icon: 'tools',
       is_subpage: true,
       parent_page: 'apps'

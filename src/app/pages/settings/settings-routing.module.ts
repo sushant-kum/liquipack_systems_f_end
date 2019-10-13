@@ -9,10 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    loadChildren: () =>
-      import('src/app/pages/settings/profile/profile.module').then(
-        module => module.ProfileModule
-      )
+    loadChildren: () => import('src/app/pages/settings/profile/profile.module').then(module => module.ProfileModule)
   }
 ];
 

@@ -48,18 +48,14 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._title.setTitle(
-      this.config.page_map.login.name + ' - ' + this.config.app_title
-    );
+    this._title.setTitle(this.config.page_map.login.name + ' - ' + this.config.app_title);
     this._header_service.changePageInfo(
       this.config.page_map.login.identifier,
       this.config.page_map.login.name,
       this.config.page_map.login.fas_icon
     );
 
-    this.col_height_px = document.getElementById(
-      'login-form-holder'
-    ).offsetHeight;
+    this.col_height_px = document.getElementById('login-form-holder').offsetHeight;
 
     $('#input-username').on('keypress', e => {
       if (e.key === 'Enter') {
@@ -75,9 +71,7 @@ export class LoginComponent implements OnInit {
     });
 
     if (
-      this._localstorage_service.exists(
-        this._localstorage_service.lsname.username
-      ) &&
+      this._localstorage_service.exists(this._localstorage_service.lsname.username) &&
       this._localstorage_service.exists(this._localstorage_service.lsname.token)
     ) {
       this.login(true);
@@ -107,12 +101,8 @@ export class LoginComponent implements OnInit {
     }
 
     if (use_token) {
-      const username = this._localstorage_service.get(
-        this._localstorage_service.lsname.username
-      );
-      const token = this._localstorage_service.get(
-        this._localstorage_service.lsname.token
-      );
+      const username = this._localstorage_service.get(this._localstorage_service.lsname.username);
+      const token = this._localstorage_service.get(this._localstorage_service.lsname.token);
       if (username && token) {
         this._auth_service.authUserToken((error, new_token) => {
           if (error) {
@@ -135,70 +125,42 @@ export class LoginComponent implements OnInit {
       }
     } else {
       this.mode.logging_in = true;
-      this._http_service.get_login
-        .sendRequest(this.username_ctrl.value, this.password_ctrl.value)
-        .subscribe(
-          (data: ApiResponse) => {
-            if (data.status === 'success') {
-              this._localstorage_service.set(
-                this._localstorage_service.lsname.user_id,
-                data.user_id
-              );
-              this._localstorage_service.set(
-                this._localstorage_service.lsname.username,
-                this.username_ctrl.value
-              );
-              for (const global_app of this.config.global_apps) {
-                data.data.app_permissions.push({
-                  app: global_app.app.identifier,
-                  permissions: global_app.permissions,
-                  _id: 'client_grown'
-                });
-              }
-              this._localstorage_service.set(
-                this._localstorage_service.lsname.app_permissions,
-                JSON.stringify(data.data.app_permissions)
-              );
-              window.location.href = redirect_path;
-            } else {
-              this.showToast(
-                'Something went wrong. Please try again later.',
-                'Close',
-                null,
-                true
-              );
+      this._http_service.get_login.sendRequest(this.username_ctrl.value, this.password_ctrl.value).subscribe(
+        (data: ApiResponse) => {
+          if (data.status === 'success') {
+            this._localstorage_service.set(this._localstorage_service.lsname.user_id, data.user_id);
+            this._localstorage_service.set(this._localstorage_service.lsname.username, this.username_ctrl.value);
+            for (const global_app of this.config.global_apps) {
+              data.data.app_permissions.push({
+                app: global_app.app.identifier,
+                permissions: global_app.permissions,
+                _id: 'client_grown'
+              });
             }
-            this.mode.logging_in = false;
-          },
-          error => {
-            console.error(error);
-            if (error.status === 401) {
-              this.showToast(
-                'Username/password provided is incorrect.',
-                'Close',
-                null,
-                true
-              );
-            } else {
-              this.showToast(
-                'Something went wrong. Please try again later.',
-                'Close',
-                null,
-                true
-              );
-            }
-            this.mode.logging_in = false;
+            this._localstorage_service.set(
+              this._localstorage_service.lsname.app_permissions,
+              JSON.stringify(data.data.app_permissions)
+            );
+            window.location.href = redirect_path;
+          } else {
+            this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
           }
-        );
+          this.mode.logging_in = false;
+        },
+        error => {
+          console.error(error);
+          if (error.status === 401) {
+            this.showToast('Username/password provided is incorrect.', 'Close', null, true);
+          } else {
+            this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+          }
+          this.mode.logging_in = false;
+        }
+      );
     }
   }
 
-  showToast(
-    message: string,
-    action: string,
-    duration: number = null,
-    is_error: boolean = true
-  ) {
+  showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {
     const toast_config: any = {
       horizontalPosition: 'end'
     };

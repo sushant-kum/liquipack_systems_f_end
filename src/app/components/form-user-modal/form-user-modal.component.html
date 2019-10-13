@@ -1,17 +1,9 @@
 <div mat-dialog-title class="dialog-title">
-  <button
-    class="close-icon-button w3-large"
-    mat-icon-button
-    color="accent"
-    (click)="onCloseClick()"
-  >
+  <button class="close-icon-button w3-large" mat-icon-button color="accent" (click)="onCloseClick()">
     <fa-icon [icon]="['fas', 'times']"></fa-icon>
   </button>
 
-  <mat-card-header
-    *ngIf="new_user; else templateEditUserHeading"
-    class="w3-line-height-1 w3-padding-small"
-  >
+  <mat-card-header *ngIf="new_user; else templateEditUserHeading" class="w3-line-height-1 w3-padding-small">
     <div mat-card-avatar class="app-theme-primary-light w3-padding-small">
       <img src="assets/images/icons/icon_add_user.svg" />
     </div>
@@ -27,9 +19,7 @@
       <mat-card-title class="app-text-theme-primary">
         Edit User
       </mat-card-title>
-      <mat-card-subtitle>
-        Username: {{ form_user_details.get('username').value }}
-      </mat-card-subtitle>
+      <mat-card-subtitle> Username: {{ form_user_details.get('username').value }} </mat-card-subtitle>
     </mat-card-header>
   </ng-template>
 </div>
@@ -43,10 +33,7 @@
           &nbsp;Details
         </app-sub-head>
 
-        <mat-form-field
-          appearance="standard"
-          [ngClass]="{ 'w3-hide': !new_user }"
-        >
+        <mat-form-field appearance="standard" [ngClass]="{ 'w3-hide': !new_user }">
           <mat-label>Username</mat-label>
           <input
             id="input-username"
@@ -60,11 +47,9 @@
               [icon]="['fas', 'user-shield']"
               [ngClass]="{
                 'app-text-theme-warn':
-                  form_user_details.get('username').invalid &&
-                  form_user_details.get('username').touched,
+                  form_user_details.get('username').invalid && form_user_details.get('username').touched,
                 'app-text-theme-primary': !(
-                  form_user_details.get('username').invalid &&
-                  form_user_details.get('username').touched
+                  form_user_details.get('username').invalid && form_user_details.get('username').touched
                 )
               }"
             ></fa-icon
@@ -73,28 +58,20 @@
           <span class="w3-text-gray" matSuffix>
             <fa-icon
               [ngClass]="{
-                'app-text-theme-warn': form_user_details
-                  .get('username')
-                  .hasError('pattern')
+                'app-text-theme-warn': form_user_details.get('username').hasError('pattern')
               }"
               [icon]="['fas', 'question-circle']"
               matTooltip="Username must be 2-50 characters long and must contain only lowercase alphabets, digits or (., _) as special character, and must not begin or end with special characters or contain consecutive special characters."
             >
             </fa-icon>
           </span>
-          <mat-error
-            *ngIf="form_user_details.get('username').hasError('required')"
-          >
+          <mat-error *ngIf="form_user_details.get('username').hasError('required')">
             Username is required field
           </mat-error>
-          <mat-error
-            *ngIf="form_user_details.get('username').hasError('pattern')"
-          >
+          <mat-error *ngIf="form_user_details.get('username').hasError('pattern')">
             Username format is incorrect
           </mat-error>
-          <mat-error
-            *ngIf="form_user_details.get('username').hasError('notUnique')"
-          >
+          <mat-error *ngIf="form_user_details.get('username').hasError('notUnique')">
             Username already exists
           </mat-error>
         </mat-form-field>
@@ -106,12 +83,9 @@
             <fa-icon
               [icon]="['fas', 'user']"
               [ngClass]="{
-                'app-text-theme-warn':
-                  form_user_details.get('name').invalid &&
-                  form_user_details.get('name').touched,
+                'app-text-theme-warn': form_user_details.get('name').invalid && form_user_details.get('name').touched,
                 'app-text-theme-primary': !(
-                  form_user_details.get('name').invalid &&
-                  form_user_details.get('name').touched
+                  form_user_details.get('name').invalid && form_user_details.get('name').touched
                 )
               }"
             ></fa-icon
@@ -143,48 +117,35 @@
               [icon]="['fas', 'venus-mars']"
               [ngClass]="{
                 'app-text-theme-warn':
-                  form_user_details.get('gender').invalid &&
-                  form_user_details.get('gender').touched,
+                  form_user_details.get('gender').invalid && form_user_details.get('gender').touched,
                 'app-text-theme-primary': !(
-                  form_user_details.get('gender').invalid &&
-                  form_user_details.get('gender').touched
+                  form_user_details.get('gender').invalid && form_user_details.get('gender').touched
                 )
               }"
             ></fa-icon
             >&nbsp;
           </span>
-          <mat-error
-            *ngIf="form_user_details.get('gender').hasError('required')"
-          >
+          <mat-error *ngIf="form_user_details.get('gender').hasError('required')">
             Gender is required field
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="standard">
           <mat-label>Email</mat-label>
-          <input
-            matInput
-            formControlName="email"
-            placeholder="email@domain.ext"
-          />
+          <input matInput formControlName="email" placeholder="email@domain.ext" />
           <span matPrefix>
             <fa-icon
               [icon]="['fas', 'envelope']"
               [ngClass]="{
-                'app-text-theme-warn':
-                  form_user_details.get('email').invalid &&
-                  form_user_details.get('email').touched,
+                'app-text-theme-warn': form_user_details.get('email').invalid && form_user_details.get('email').touched,
                 'app-text-theme-primary': !(
-                  form_user_details.get('email').invalid &&
-                  form_user_details.get('email').touched
+                  form_user_details.get('email').invalid && form_user_details.get('email').touched
                 )
               }"
             ></fa-icon
             >&nbsp;
           </span>
-          <mat-error
-            *ngIf="form_user_details.get('email').hasError('required')"
-          >
+          <mat-error *ngIf="form_user_details.get('email').hasError('required')">
             Email is required field.
           </mat-error>
           <mat-error *ngIf="form_user_details.get('email').hasError('email')">
@@ -199,12 +160,9 @@
             <fa-icon
               [icon]="['fas', 'mobile']"
               [ngClass]="{
-                'app-text-theme-warn':
-                  form_user_details.get('phone').invalid &&
-                  form_user_details.get('phone').touched,
+                'app-text-theme-warn': form_user_details.get('phone').invalid && form_user_details.get('phone').touched,
                 'app-text-theme-primary': !(
-                  form_user_details.get('phone').invalid &&
-                  form_user_details.get('phone').touched
+                  form_user_details.get('phone').invalid && form_user_details.get('phone').touched
                 )
               }"
             ></fa-icon
@@ -225,49 +183,33 @@
         </app-sub-head>
 
         <mat-form-field appearance="standard">
-          <mat-label *ngIf="new_user; else templateLabelChangePassword"
-            >Set Password</mat-label
-          >
+          <mat-label *ngIf="new_user; else templateLabelChangePassword">Set Password</mat-label>
           <ng-template #templateLabelChangePassword>
             <mat-label>Change Password</mat-label>
           </ng-template>
 
-          <input
-            matInput
-            type="password"
-            formControlName="password"
-            placeholder="********"
-          />
+          <input matInput type="password" formControlName="password" placeholder="********" />
           <span matPrefix>
             <fa-icon
               [icon]="['fas', 'key']"
               [ngClass]="{
                 'app-text-theme-warn':
-                  form_user_details.get('password').invalid &&
-                  form_user_details.get('password').touched,
+                  form_user_details.get('password').invalid && form_user_details.get('password').touched,
                 'app-text-theme-primary': !(
-                  form_user_details.get('password').invalid &&
-                  form_user_details.get('password').touched
+                  form_user_details.get('password').invalid && form_user_details.get('password').touched
                 )
               }"
             ></fa-icon
             >&nbsp;
           </span>
-          <mat-error
-            *ngIf="form_user_details.get('password').hasError('required')"
-          >
+          <mat-error *ngIf="form_user_details.get('password').hasError('required')">
             Password is required field
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="standard">
           <mat-label>Confirm Password</mat-label>
-          <input
-            matInput
-            type="password"
-            formControlName="confirm_password"
-            placeholder="********"
-          />
+          <input matInput type="password" formControlName="confirm_password" placeholder="********" />
           <span matPrefix>
             <fa-icon
               [icon]="['fas', 'key']"
@@ -276,18 +218,13 @@
                   form_user_details.get('confirm_password').invalid &&
                   form_user_details.get('confirm_password').touched,
                 'app-text-theme-primary': !(
-                  form_user_details.get('confirm_password').invalid &&
-                  form_user_details.get('confirm_password').touched
+                  form_user_details.get('confirm_password').invalid && form_user_details.get('confirm_password').touched
                 )
               }"
             ></fa-icon
             >&nbsp;
           </span>
-          <mat-error
-            *ngIf="
-              form_user_details.get('confirm_password').hasError('required')
-            "
-          >
+          <mat-error *ngIf="form_user_details.get('confirm_password').hasError('required')">
             Password is required field
           </mat-error>
         </mat-form-field>
@@ -322,9 +259,7 @@
           <tr *ngFor="let page of pages; let i = index">
             <td>
               {{ pages_info[page].name }}<br />
-              <span class="w3-small app-text-theme-accent">{{
-                pages_info[page].path
-              }}</span>
+              <span class="w3-small app-text-theme-accent">{{ pages_info[page].path }}</span>
             </td>
             <td class="w3-center">
               <mat-checkbox
@@ -352,13 +287,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="w3-flex-right-align">
-  <button
-    mat-button
-    color="primary"
-    class="w3-margin-right"
-    [disabled]="!isProfileFormEdited()"
-    (click)="resetForm()"
-  >
+  <button mat-button color="primary" class="w3-margin-right" [disabled]="!isProfileFormEdited()" (click)="resetForm()">
     <fa-icon [icon]="['fas', 'undo-alt']"></fa-icon>&nbsp; Reset
   </button>
 
