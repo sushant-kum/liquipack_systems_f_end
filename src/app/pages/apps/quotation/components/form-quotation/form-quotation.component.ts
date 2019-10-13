@@ -49,20 +49,14 @@ export class FormQuotationComponent implements OnInit {
   quotation_config: QuotationConfigData;
 
   form_quotation_details: FormGroup = new FormGroup({
-    quotation_num: new FormControl(null, [
-      Validators.required,
-      Validators.pattern(this._regex_service.quotation_num)
-    ])
+    quotation_num: new FormControl(null, [Validators.required, Validators.pattern(this._regex_service.quotation_num)])
   });
 
   form_customer_details: FormGroup = new FormGroup({
     customer_name: new FormControl(null, [Validators.required]),
     person_of_contact_title: new FormControl(null, [Validators.required]),
     person_of_contact_name: new FormControl(null, [Validators.required]),
-    contact_no: new FormControl(null, [
-      Validators.required,
-      Validators.pattern(this._regex_service.phone)
-    ]),
+    contact_no: new FormControl(null, [Validators.required, Validators.pattern(this._regex_service.phone)]),
     address: new FormControl(null, [Validators.required])
   });
 
@@ -86,9 +80,7 @@ export class FormQuotationComponent implements OnInit {
     };
 
     const form_grp_quotation_items_ctrls: any = {};
-    for (const item of this.helper.object.Keys(
-      this.mapping.quotation_item_names
-    )) {
+    for (const item of this.helper.object.Keys(this.mapping.quotation_item_names)) {
       form_grp_quotation_items_ctrls[`${item}_qty`] = new FormControl(
         null,
         this.mapping.quotation_item_types[item] === 'number'
@@ -102,26 +94,18 @@ export class FormQuotationComponent implements OnInit {
     form_grp_quotation_items_ctrls.other_details = new FormControl(null);
     this.form_quotation_items = new FormGroup(form_grp_quotation_items_ctrls);
 
-    for (const item of this.helper.object.Keys(
-      this.mapping.quotation_item_names
-    )) {
-      this.form_quotation_items
-        .get(`${item}_price`)
-        .valueChanges.subscribe(() => {
-          this.calculateTotalQuotationCost();
-        });
+    for (const item of this.helper.object.Keys(this.mapping.quotation_item_names)) {
+      this.form_quotation_items.get(`${item}_price`).valueChanges.subscribe(() => {
+        this.calculateTotalQuotationCost();
+      });
     }
 
     if (this._orig_quotation) {
       this.mode.new_quotation = false;
-      this.quotation = this.helper.object.copy.deep(
-        this._orig_quotation
-      ) as QuotationData;
+      this.quotation = this.helper.object.copy.deep(this._orig_quotation) as QuotationData;
     } else {
       this.mode.new_quotation = true;
-      this.quotation = this.helper.object.copy.deep(
-        this._quotation_gen_svc.empty_quotation
-      ) as QuotationData;
+      this.quotation = this.helper.object.copy.deep(this._quotation_gen_svc.empty_quotation) as QuotationData;
     }
     this._getActiveQuotationConfig();
     this._populateFormFields();
@@ -132,30 +116,19 @@ export class FormQuotationComponent implements OnInit {
       (res: ApiResponse) => {
         this.quotation_config = res.data;
 
-        for (const item of Object.keys(
-          this._quotation_gen_svc.quotation_item_names
-        )) {
+        for (const item of Object.keys(this._quotation_gen_svc.quotation_item_names)) {
           if (
             this.mode.new_quotation &&
             this.quotation_config[item].default_option_index !== null &&
             this.quotation_config[item].default_option_index >= 0 &&
-            this.quotation_config[item].default_option_index <
-              this.quotation_config[item].options.length
+            this.quotation_config[item].default_option_index < this.quotation_config[item].options.length
           ) {
             this.form_quotation_items
               .get(`${item}_qty`)
-              .setValue(
-                this.quotation_config[item].options[
-                  this.quotation_config[item].default_option_index
-                ].qty
-              );
+              .setValue(this.quotation_config[item].options[this.quotation_config[item].default_option_index].qty);
             this.form_quotation_items
               .get(`${item}_price`)
-              .setValue(
-                this.quotation_config[item].options[
-                  this.quotation_config[item].default_option_index
-                ].price
-              );
+              .setValue(this.quotation_config[item].options[this.quotation_config[item].default_option_index].price);
           }
         }
       },
@@ -166,53 +139,32 @@ export class FormQuotationComponent implements OnInit {
   }
 
   private _populateFormFields(): void {
-    this.form_quotation_details
-      .get('quotation_num')
-      .setValue(this.quotation.quotation_num);
+    this.form_quotation_details.get('quotation_num').setValue(this.quotation.quotation_num);
 
-    this.form_customer_details
-      .get('customer_name')
-      .setValue(this.quotation.customer_details.name);
+    this.form_customer_details.get('customer_name').setValue(this.quotation.customer_details.name);
     this.form_customer_details
       .get('person_of_contact_title')
       .setValue(this.quotation.customer_details.person_of_contact.title);
     this.form_customer_details
       .get('person_of_contact_name')
       .setValue(this.quotation.customer_details.person_of_contact.name);
-    this.form_customer_details
-      .get('contact_no')
-      .setValue(this.quotation.customer_details.contact_no);
-    this.form_customer_details
-      .get('address')
-      .setValue(this.quotation.customer_details.address);
+    this.form_customer_details.get('contact_no').setValue(this.quotation.customer_details.contact_no);
+    this.form_customer_details.get('address').setValue(this.quotation.customer_details.address);
 
-    for (const item of this.helper.object.Keys(
-      this.mapping.quotation_item_names
-    )) {
-      this.form_quotation_items
-        .get(`${item}_qty`)
-        .setValue(this.quotation[item].qty);
-      this.form_quotation_items
-        .get(`${item}_price`)
-        .setValue(this.quotation[item].price);
+    for (const item of this.helper.object.Keys(this.mapping.quotation_item_names)) {
+      this.form_quotation_items.get(`${item}_qty`).setValue(this.quotation[item].qty);
+      this.form_quotation_items.get(`${item}_price`).setValue(this.quotation[item].price);
     }
-    this.form_quotation_items
-      .get('other_details')
-      .setValue(this.quotation.other_details);
+    this.form_quotation_items.get('other_details').setValue(this.quotation.other_details);
   }
 
-  qtyOptionSelected(
-    quotation_item: string,
-    event: MatAutocompleteSelectedEvent
-  ) {
+  qtyOptionSelected(quotation_item: string, event: MatAutocompleteSelectedEvent) {
     const option = event.option;
     if (option.value.toString().indexOf(this.non_option_question.start) === 0) {
       const new_option = option.value
         .substring(this.non_option_question.start.length)
         .split(this.non_option_question.end)[0];
-      this.form_quotation_items
-        .get(`${quotation_item}_qty`)
-        .setValue(new_option);
+      this.form_quotation_items.get(`${quotation_item}_qty`).setValue(new_option);
     }
     this.qtyChanged(quotation_item);
   }
@@ -231,9 +183,7 @@ export class FormQuotationComponent implements OnInit {
               .toLowerCase()
               .indexOf(
                 this.form_quotation_items.get(`${quotation_item}_qty`).value
-                  ? this.form_quotation_items
-                      .get(`${quotation_item}_qty`)
-                      .value.toLowerCase()
+                  ? this.form_quotation_items.get(`${quotation_item}_qty`).value.toLowerCase()
                   : ''
               ) >= 0
           );
@@ -272,23 +222,16 @@ export class FormQuotationComponent implements OnInit {
     for (const option of this.quotation_config[quotation_item].options) {
       // tslint:disable-next-line: triple-equals
       if (option.qty == value) {
-        this.form_quotation_items
-          .get(`${quotation_item}_price`)
-          .setValue(option.price);
+        this.form_quotation_items.get(`${quotation_item}_price`).setValue(option.price);
         break;
       }
     }
   }
 
   onResetConfigPricesClick(): void {
-    for (const item of this.helper.object.Keys(
-      this._quotation_gen_svc.quotation_item_names
-    )) {
+    for (const item of this.helper.object.Keys(this._quotation_gen_svc.quotation_item_names)) {
       for (const option of this.quotation_config[item].options) {
-        if (
-          option.qty.toString() ===
-          this.form_quotation_items.get(`${item}_qty`).value.toString()
-        ) {
+        if (option.qty.toString() === this.form_quotation_items.get(`${item}_qty`).value.toString()) {
           this.form_quotation_items.get(`${item}_price`).setValue(option.price);
           break;
         }
@@ -299,21 +242,13 @@ export class FormQuotationComponent implements OnInit {
   calculateTotalQuotationCost(): void {
     this.total_cost = 0;
 
-    for (const item of this.helper.object.Keys(
-      this._quotation_gen_svc.quotation_item_names
-    )) {
-      this.total_cost += Number(
-        this.form_quotation_items.get(`${item}_price`).value
-      );
+    for (const item of this.helper.object.Keys(this._quotation_gen_svc.quotation_item_names)) {
+      this.total_cost += Number(this.form_quotation_items.get(`${item}_price`).value);
     }
   }
 
   isFormValid(): boolean {
-    return (
-      this.form_quotation_details.valid &&
-      this.form_customer_details.valid &&
-      this.form_quotation_items.valid
-    );
+    return this.form_quotation_details.valid && this.form_customer_details.valid && this.form_quotation_items.valid;
   }
 
   isFormEdited(): boolean {
@@ -327,9 +262,7 @@ export class FormQuotationComponent implements OnInit {
     forms_contents.is_active = this.quotation.is_active;
     forms_contents.extra_data = this.quotation.extra_data;
 
-    forms_contents.quotation_num = this.form_quotation_details.get(
-      'quotation_num'
-    ).value;
+    forms_contents.quotation_num = this.form_quotation_details.get('quotation_num').value;
 
     forms_contents.customer_details = {
       name: this.form_customer_details.get('customer_name').value,
@@ -341,9 +274,7 @@ export class FormQuotationComponent implements OnInit {
       contact_no: this.form_customer_details.get('contact_no').value
     };
 
-    for (const item of this.helper.object.Keys(
-      this._quotation_gen_svc.quotation_item_names
-    )) {
+    for (const item of this.helper.object.Keys(this._quotation_gen_svc.quotation_item_names)) {
       forms_contents[item] = {
         qty:
           this._quotation_gen_svc.quotation_item_types[item] === 'number'
@@ -355,23 +286,16 @@ export class FormQuotationComponent implements OnInit {
       };
     }
 
-    forms_contents.other_details = this.form_quotation_items.get(
-      'other_details'
-    ).value;
+    forms_contents.other_details = this.form_quotation_items.get('other_details').value;
 
     return this.mode.new_quotation
-      ? !this.helper.object.isEqual(
-          forms_contents,
-          this._quotation_gen_svc.empty_quotation
-        )
+      ? !this.helper.object.isEqual(forms_contents, this._quotation_gen_svc.empty_quotation)
       : !this.helper.object.isEqual(forms_contents, this._orig_quotation);
   }
 
   isFormTouched(): boolean {
     return (
-      this.form_quotation_details.touched ||
-      this.form_customer_details.touched ||
-      this.form_quotation_items.touched
+      this.form_quotation_details.touched || this.form_customer_details.touched || this.form_quotation_items.touched
     );
   }
 
@@ -387,10 +311,7 @@ export class FormQuotationComponent implements OnInit {
       (res: ApiResponse) => {
         let flag_duplicate_quotation_num = false;
         for (const quotation of res.data) {
-          if (
-            this.form_quotation_details.get('quotation_num').value ===
-            quotation.quotation_num
-          ) {
+          if (this.form_quotation_details.get('quotation_num').value === quotation.quotation_num) {
             flag_duplicate_quotation_num = true;
             break;
           }
@@ -398,25 +319,20 @@ export class FormQuotationComponent implements OnInit {
 
         if (!flag_duplicate_quotation_num) {
           const quotation = {
-            quotation_num: this.form_quotation_details.get('quotation_num')
-              .value,
+            quotation_num: this.form_quotation_details.get('quotation_num').value,
             customer_details: {
               name: this.form_customer_details.get('customer_name').value,
               address: this.form_customer_details.get('address').value,
               person_of_contact: {
-                title: this.form_customer_details.get('person_of_contact_title')
-                  .value,
-                name: this.form_customer_details.get('person_of_contact_name')
-                  .value
+                title: this.form_customer_details.get('person_of_contact_title').value,
+                name: this.form_customer_details.get('person_of_contact_name').value
               },
               contact_no: this.form_customer_details.get('contact_no').value
             },
             other_details: this.form_quotation_items.get('other_details').value
           };
 
-          for (const item of this.helper.object.Keys(
-            this._quotation_gen_svc.quotation_item_names
-          )) {
+          for (const item of this.helper.object.Keys(this._quotation_gen_svc.quotation_item_names)) {
             quotation[item] = {
               qty:
                 this._quotation_gen_svc.quotation_item_types[item] === 'number'
@@ -450,8 +366,7 @@ export class FormQuotationComponent implements OnInit {
         name: this.form_customer_details.get('customer_name').value,
         address: this.form_customer_details.get('address').value,
         person_of_contact: {
-          title: this.form_customer_details.get('person_of_contact_title')
-            .value,
+          title: this.form_customer_details.get('person_of_contact_title').value,
           name: this.form_customer_details.get('person_of_contact_name').value
         },
         contact_no: this.form_customer_details.get('contact_no').value
@@ -459,9 +374,7 @@ export class FormQuotationComponent implements OnInit {
       other_details: this.form_quotation_items.get('other_details').value
     };
 
-    for (const item of this.helper.object.Keys(
-      this._quotation_gen_svc.quotation_item_names
-    )) {
+    for (const item of this.helper.object.Keys(this._quotation_gen_svc.quotation_item_names)) {
       quotation[item] = {
         qty:
           this._quotation_gen_svc.quotation_item_types[item] === 'number'

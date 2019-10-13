@@ -6,9 +6,7 @@ describe('HttpTransactionsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: HttpTransactionsService = TestBed.get(
-      HttpTransactionsService
-    );
+    const service: HttpTransactionsService = TestBed.get(HttpTransactionsService);
     expect(service).toBeTruthy();
   });
 });

@@ -80,9 +80,7 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this._title.setTitle(
-      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
-    );
+    this._title.setTitle(this.config.page_map[this._page_id].name + ' - ' + this.config.app_title);
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
       this.config.page_map[this._page_id].name,
@@ -92,28 +90,24 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
     this._sidebar.activate();
     this._sidebar.colorize(this.config.page_map[this._page_id].identifier);
 
-    this._auth_state_change_subscription = this._auth_service.auth_state_change.subscribe(
-      (auth_state: boolean) => {
-        if (auth_state) {
-          this.getQuotationConfigs();
-          const app_permissions = JSON.parse(
-            this._localstorage_service.get(
-              this._localstorage_service.lsname.app_permissions
-            )
-          );
-          for (const app of app_permissions) {
-            if (app.app === this._page_id) {
-              this.app_permission = app.permissions;
-              break;
-            }
-          }
-          if (!this.app_permission.includes('read')) {
-            alert('You are not allowed here');
-            this._sidebar.logout();
+    this._auth_state_change_subscription = this._auth_service.auth_state_change.subscribe((auth_state: boolean) => {
+      if (auth_state) {
+        this.getQuotationConfigs();
+        const app_permissions = JSON.parse(
+          this._localstorage_service.get(this._localstorage_service.lsname.app_permissions)
+        );
+        for (const app of app_permissions) {
+          if (app.app === this._page_id) {
+            this.app_permission = app.permissions;
+            break;
           }
         }
+        if (!this.app_permission.includes('read')) {
+          alert('You are not allowed here');
+          this._sidebar.logout();
+        }
       }
-    );
+    });
   }
 
   ngOnDestroy(): void {
@@ -150,23 +144,13 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
           },
           (users_err: Error) => {
             console.error(users_err);
-            this.showToast(
-              'Something went wrong. Please try again later.',
-              'Close',
-              null,
-              true
-            );
+            this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
           }
         );
       },
       (quotation_config_err: Error) => {
         console.error(quotation_config_err);
-        this.showToast(
-          'Something went wrong. Please try again later.',
-          'Close',
-          null,
-          true
-        );
+        this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
         this.mode.fetching_configs = false;
       }
     );
@@ -177,60 +161,34 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
       .confirm({
         title: 'Confirm Delete Quotation Config',
         message: `Are you sure you want to delete Quotation Config <b>${quotation_config.config_name}</b> permanently?`,
-        info:
-          'All data related to the config will be deleted. This operation cannot be undone.',
+        info: 'All data related to the config will be deleted. This operation cannot be undone.',
         positive_btn_text: 'Yes',
         negative_btn_text: 'No'
       })
       .subscribe((confirm_resp: DialogResponse) => {
         if (confirm_resp && confirm_resp.operation === 'confirm.ok') {
           this.mode.editing_config_ids.push(quotation_config._id);
-          this._http_service.delete_quotations_configs_config_id
-            .sendRequest(quotation_config._id)
-            .subscribe(
-              (res: ApiResponse) => {
-                for (const config of this.quotation_configs) {
-                  if (config._id === quotation_config._id) {
-                    this.quotation_configs.splice(
-                      this.quotation_configs.indexOf(config),
-                      1
-                    );
-                    break;
-                  }
-                }
-                this.showToast(
-                  'Quotation config deleted permanently successfully',
-                  'OK',
-                  3000,
-                  false
-                );
-                if (
-                  this.mode.editing_config_ids.includes(quotation_config._id)
-                ) {
-                  this.mode.editing_config_ids.splice(
-                    this.mode.editing_config_ids.indexOf(quotation_config._id),
-                    1
-                  );
-                }
-              },
-              (err: Error) => {
-                console.error(err);
-                this.showToast(
-                  'Something went wrong. Please try again later.',
-                  'Close',
-                  null,
-                  true
-                );
-                if (
-                  this.mode.editing_config_ids.includes(quotation_config._id)
-                ) {
-                  this.mode.editing_config_ids.splice(
-                    this.mode.editing_config_ids.indexOf(quotation_config._id),
-                    1
-                  );
+          this._http_service.delete_quotations_configs_config_id.sendRequest(quotation_config._id).subscribe(
+            (res: ApiResponse) => {
+              for (const config of this.quotation_configs) {
+                if (config._id === quotation_config._id) {
+                  this.quotation_configs.splice(this.quotation_configs.indexOf(config), 1);
+                  break;
                 }
               }
-            );
+              this.showToast('Quotation config deleted permanently successfully', 'OK', 3000, false);
+              if (this.mode.editing_config_ids.includes(quotation_config._id)) {
+                this.mode.editing_config_ids.splice(this.mode.editing_config_ids.indexOf(quotation_config._id), 1);
+              }
+            },
+            (err: Error) => {
+              console.error(err);
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              if (this.mode.editing_config_ids.includes(quotation_config._id)) {
+                this.mode.editing_config_ids.splice(this.mode.editing_config_ids.indexOf(quotation_config._id), 1);
+              }
+            }
+          );
         }
         confirm_sub.unsubscribe();
       });
@@ -247,30 +205,23 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
       .subscribe((confirm_resp: DialogResponse) => {
         if (confirm_resp && confirm_resp.operation === 'confirm.ok') {
           this.mode.fetching_configs = true;
-          this._http_service.patch_quotations_configs_config_id_enable
-            .sendRequest(quotation_config._id)
-            .subscribe(
-              (res: ApiResponse) => {
-                for (const config of this.quotation_configs) {
-                  if (config._id === quotation_config._id) {
-                    config.is_active = true;
-                  } else {
-                    config.is_active = false;
-                  }
+          this._http_service.patch_quotations_configs_config_id_enable.sendRequest(quotation_config._id).subscribe(
+            (res: ApiResponse) => {
+              for (const config of this.quotation_configs) {
+                if (config._id === quotation_config._id) {
+                  config.is_active = true;
+                } else {
+                  config.is_active = false;
                 }
-                this.mode.fetching_configs = false;
-              },
-              (err: Error) => {
-                console.error(err);
-                this.showToast(
-                  'Something went wrong. Please try again later.',
-                  'Close',
-                  null,
-                  true
-                );
-                this.mode.fetching_configs = false;
               }
-            );
+              this.mode.fetching_configs = false;
+            },
+            (err: Error) => {
+              console.error(err);
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              this.mode.fetching_configs = false;
+            }
+          );
         }
         confirm_sub.unsubscribe();
       });
@@ -283,10 +234,7 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
     });
 
     dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
-      if (
-        dialog_response &&
-        dialog_response.operation === 'quotation-config.edit'
-      ) {
+      if (dialog_response && dialog_response.operation === 'quotation-config.edit') {
         this.mode.editing_config_ids.push(dialog_response.data._id);
         this._http_service.put_quotations_configs_config_id
           .sendRequest(dialog_response.data._id, dialog_response.data)
@@ -295,53 +243,23 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
               for (const quotation_config of this.quotation_configs) {
                 if (quotation_config._id === res.data._id) {
                   const extra_data = quotation_config.extra_data;
-                  const quotation_config_index = this.quotation_configs.indexOf(
-                    quotation_config
-                  );
-                  this.quotation_configs[
-                    quotation_config_index
-                  ] = this.helper_service.object.copy.deep(
+                  const quotation_config_index = this.quotation_configs.indexOf(quotation_config);
+                  this.quotation_configs[quotation_config_index] = this.helper_service.object.copy.deep(
                     res.data
                   ) as QuotationConfigData;
-                  this.quotation_configs[
-                    quotation_config_index
-                  ].extra_data = extra_data;
+                  this.quotation_configs[quotation_config_index].extra_data = extra_data;
                 }
               }
-              this.showToast(
-                `Quotation Config ${res.data.config_name} edited successfully.`,
-                'OK',
-                3000,
-                false
-              );
-              if (
-                this.mode.editing_config_ids.includes(dialog_response.data._id)
-              ) {
-                this.mode.editing_config_ids.splice(
-                  this.mode.editing_config_ids.indexOf(
-                    dialog_response.data._id
-                  ),
-                  1
-                );
+              this.showToast(`Quotation Config ${res.data.config_name} edited successfully.`, 'OK', 3000, false);
+              if (this.mode.editing_config_ids.includes(dialog_response.data._id)) {
+                this.mode.editing_config_ids.splice(this.mode.editing_config_ids.indexOf(dialog_response.data._id), 1);
               }
             },
             (err: Error) => {
               console.error(err);
-              this.showToast(
-                'Something went wrong. Please try again later.',
-                'Close',
-                null,
-                true
-              );
-              if (
-                this.mode.editing_config_ids.includes(dialog_response.data._id)
-              ) {
-                this.mode.editing_config_ids.splice(
-                  this.mode.editing_config_ids.indexOf(
-                    dialog_response.data._id
-                  ),
-                  1
-                );
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              if (this.mode.editing_config_ids.includes(dialog_response.data._id)) {
+                this.mode.editing_config_ids.splice(this.mode.editing_config_ids.indexOf(dialog_response.data._id), 1);
               }
             }
           );
@@ -356,108 +274,94 @@ export class QuotationConfigComponent implements OnInit, OnDestroy {
     });
 
     dialog_ref.afterClosed().subscribe((dialog_response: DialogResponse) => {
-      if (
-        dialog_response &&
-        dialog_response.operation === 'quotation-config.add'
-      ) {
+      if (dialog_response && dialog_response.operation === 'quotation-config.add') {
         this.mode.adding_config = true;
 
         const flag_make_default: boolean = dialog_response.data.is_active;
-        this._http_service.post_quotations_configs
-          .sendRequest(dialog_response.data)
-          .subscribe(
-            (res_add_config: ApiResponse) => {
-              if (flag_make_default) {
-                this._http_service.patch_quotations_configs_config_id_enable
-                  .sendRequest(res_add_config.data._id)
-                  .subscribe(
-                    (res_make_defualt: ApiResponse) => {
-                      this._http_service.get_users_min.sendRequest().subscribe(
-                        (res_users_min: ApiResponse) => {
-                          delete res_add_config.data.__v;
-                          res_add_config.data.created_date = new Date(
-                            res_add_config.data.created_date
-                          );
-                          res_add_config.data.is_active = true;
+        this._http_service.post_quotations_configs.sendRequest(dialog_response.data).subscribe(
+          (res_add_config: ApiResponse) => {
+            if (flag_make_default) {
+              this._http_service.patch_quotations_configs_config_id_enable
+                .sendRequest(res_add_config.data._id)
+                .subscribe(
+                  (res_make_defualt: ApiResponse) => {
+                    this._http_service.get_users_min.sendRequest().subscribe(
+                      (res_users_min: ApiResponse) => {
+                        delete res_add_config.data.__v;
+                        res_add_config.data.created_date = new Date(res_add_config.data.created_date);
+                        res_add_config.data.is_active = true;
 
-                          for (const user of res_users_min.data) {
-                            if (res_add_config.data.created_by === user._id) {
-                              res_add_config.data.extra_data = {
-                                creator: {
-                                  username: user.username,
-                                  name: user.name
-                                }
-                              };
-                              break;
-                            }
+                        for (const user of res_users_min.data) {
+                          if (res_add_config.data.created_by === user._id) {
+                            res_add_config.data.extra_data = {
+                              creator: {
+                                username: user.username,
+                                name: user.name
+                              }
+                            };
+                            break;
                           }
-
-                          for (const config of this.quotation_configs) {
-                            config.is_active = false;
-                          }
-
-                          this.quotation_configs.push(res_add_config.data);
-
-                          this.mode.adding_config = false;
-                        },
-                        (err_users_min: HttpErrorResponse) => {
-                          console.error(err_users_min);
-                          this.mode.adding_config = false;
                         }
-                      );
-                    },
-                    (err_make_defualt: HttpErrorResponse) => {
-                      console.error(err_make_defualt);
-                      this.mode.adding_config = false;
-                    }
-                  );
-              } else {
-                this._http_service.get_users_min.sendRequest().subscribe(
-                  (res_users_min: ApiResponse) => {
-                    delete res_add_config.data.__v;
-                    res_add_config.data.created_date = new Date(
-                      res_add_config.data.created_date
-                    );
-                    res_add_config.data.is_active = false;
 
-                    for (const user of res_users_min.data) {
-                      if (res_add_config.data.created_by === user._id) {
-                        res_add_config.data.extra_data = {
-                          creator: {
-                            username: user.username,
-                            name: user.name
-                          }
-                        };
-                        break;
+                        for (const config of this.quotation_configs) {
+                          config.is_active = false;
+                        }
+
+                        this.quotation_configs.push(res_add_config.data);
+
+                        this.mode.adding_config = false;
+                      },
+                      (err_users_min: HttpErrorResponse) => {
+                        console.error(err_users_min);
+                        this.mode.adding_config = false;
                       }
-                    }
-
-                    this.quotation_configs.push(res_add_config.data);
-
-                    this.mode.adding_config = false;
+                    );
                   },
-                  (err_users_min: HttpErrorResponse) => {
-                    console.error(err_users_min);
+                  (err_make_defualt: HttpErrorResponse) => {
+                    console.error(err_make_defualt);
                     this.mode.adding_config = false;
                   }
                 );
-              }
-            },
-            (err: HttpErrorResponse) => {
-              console.error(err);
-              this.mode.adding_config = false;
+            } else {
+              this._http_service.get_users_min.sendRequest().subscribe(
+                (res_users_min: ApiResponse) => {
+                  delete res_add_config.data.__v;
+                  res_add_config.data.created_date = new Date(res_add_config.data.created_date);
+                  res_add_config.data.is_active = false;
+
+                  for (const user of res_users_min.data) {
+                    if (res_add_config.data.created_by === user._id) {
+                      res_add_config.data.extra_data = {
+                        creator: {
+                          username: user.username,
+                          name: user.name
+                        }
+                      };
+                      break;
+                    }
+                  }
+
+                  this.quotation_configs.push(res_add_config.data);
+
+                  this.mode.adding_config = false;
+                },
+                (err_users_min: HttpErrorResponse) => {
+                  console.error(err_users_min);
+                  this.mode.adding_config = false;
+                }
+              );
             }
-          );
+          },
+          (err: HttpErrorResponse) => {
+            console.error(err);
+            this.mode.adding_config = false;
+          }
+        );
       }
     });
   }
 
-  showToast(
-    message: string,
-    action: string,
-    duration: number = null,
-    is_error: boolean = true
-  ) {
+  showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {
     const toast_config: any = {
       horizontalPosition: 'end'
     };

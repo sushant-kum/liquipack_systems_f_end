@@ -67,9 +67,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this._title.setTitle(
-      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
-    );
+    this._title.setTitle(this.config.page_map[this._page_id].name + ' - ' + this.config.app_title);
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
       this.config.page_map[this._page_id].name,
@@ -79,28 +77,24 @@ export class UsersComponent implements OnInit, OnDestroy {
     this._sidebar.activate();
     this._sidebar.colorize(this.config.page_map[this._page_id].identifier);
 
-    this._auth_state_change_subscription = this._auth_service.auth_state_change.subscribe(
-      (auth_state: boolean) => {
-        if (auth_state) {
-          this.getUsers();
-          const app_permissions = JSON.parse(
-            this._localstorage_service.get(
-              this._localstorage_service.lsname.app_permissions
-            )
-          );
-          for (const app of app_permissions) {
-            if (app.app === this._page_id) {
-              this.app_permission = app.permissions;
-              break;
-            }
-          }
-          if (!this.app_permission.includes('read')) {
-            alert('You are not allowed here');
-            this._sidebar.logout();
+    this._auth_state_change_subscription = this._auth_service.auth_state_change.subscribe((auth_state: boolean) => {
+      if (auth_state) {
+        this.getUsers();
+        const app_permissions = JSON.parse(
+          this._localstorage_service.get(this._localstorage_service.lsname.app_permissions)
+        );
+        for (const app of app_permissions) {
+          if (app.app === this._page_id) {
+            this.app_permission = app.permissions;
+            break;
           }
         }
+        if (!this.app_permission.includes('read')) {
+          alert('You are not allowed here');
+          this._sidebar.logout();
+        }
       }
-    );
+    });
   }
 
   ngOnDestroy(): void {
@@ -127,12 +121,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       },
       error => {
         console.error(error);
-        this.showToast(
-          'Something went wrong. Please try again later.',
-          'Close',
-          null,
-          true
-        );
+        this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
       }
     );
   }
@@ -155,35 +144,22 @@ export class UsersComponent implements OnInit, OnDestroy {
       .subscribe((resp: DialogResponse) => {
         if (resp && resp.operation === 'confirm.ok') {
           this.mode.editing_user_ids.push(user._id);
-          this._http_service.patch_users_user_id_disable
-            .sendRequest(user._id)
-            .subscribe(
-              (res: ApiResponse) => {
-                user.is_active = res.data.is_active;
-                this.showToast('User disabled successfully', 'OK', 3000, false);
-                if (this.mode.editing_user_ids.includes(user._id)) {
-                  this.mode.editing_user_ids.splice(
-                    this.mode.editing_user_ids.indexOf(user._id),
-                    1
-                  );
-                }
-              },
-              (err: Error) => {
-                console.error(err);
-                this.showToast(
-                  'Something went wrong. Please try again later.',
-                  'Close',
-                  null,
-                  true
-                );
-                if (this.mode.editing_user_ids.includes(user._id)) {
-                  this.mode.editing_user_ids.splice(
-                    this.mode.editing_user_ids.indexOf(user._id),
-                    1
-                  );
-                }
+          this._http_service.patch_users_user_id_disable.sendRequest(user._id).subscribe(
+            (res: ApiResponse) => {
+              user.is_active = res.data.is_active;
+              this.showToast('User disabled successfully', 'OK', 3000, false);
+              if (this.mode.editing_user_ids.includes(user._id)) {
+                this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(user._id), 1);
               }
-            );
+            },
+            (err: Error) => {
+              console.error(err);
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              if (this.mode.editing_user_ids.includes(user._id)) {
+                this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(user._id), 1);
+              }
+            }
+          );
         }
         confirm_sub.unsubscribe();
       });
@@ -200,50 +176,28 @@ export class UsersComponent implements OnInit, OnDestroy {
         const user_data = dialog_response.data;
         this.mode.editing_user_ids.push(user_data._id);
 
-        this._http_service.put_users_user_id
-          .sendRequest(user_data._id, user_data)
-          .subscribe(
-            (res: ApiResponse) => {
-              for (const userdata of this.users_data) {
-                if (userdata._id === res.data._id) {
-                  this.users_data[this.users_data.indexOf(userdata)] = res.data;
-                }
-              }
-
-              this.showToast(
-                'Successfully saved user details.',
-                'OK',
-                3000,
-                false
-              );
-
-              if (
-                this.mode.editing_user_ids.includes(dialog_response.data._id)
-              ) {
-                this.mode.editing_user_ids.splice(
-                  this.mode.editing_user_ids.indexOf(res.data._id),
-                  1
-                );
-              }
-            },
-            (error: Error) => {
-              console.error(error);
-              this.showToast(
-                'Something went wrong. Please try again later.',
-                'Close',
-                null,
-                true
-              );
-              if (
-                this.mode.editing_user_ids.includes(dialog_response.data._id)
-              ) {
-                this.mode.editing_user_ids.splice(
-                  this.mode.editing_user_ids.indexOf(dialog_response.data._id),
-                  1
-                );
+        this._http_service.put_users_user_id.sendRequest(user_data._id, user_data).subscribe(
+          (res: ApiResponse) => {
+            for (const userdata of this.users_data) {
+              if (userdata._id === res.data._id) {
+                this.users_data[this.users_data.indexOf(userdata)] = res.data;
               }
             }
-          );
+
+            this.showToast('Successfully saved user details.', 'OK', 3000, false);
+
+            if (this.mode.editing_user_ids.includes(dialog_response.data._id)) {
+              this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(res.data._id), 1);
+            }
+          },
+          (error: Error) => {
+            console.error(error);
+            this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+            if (this.mode.editing_user_ids.includes(dialog_response.data._id)) {
+              this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(dialog_response.data._id), 1);
+            }
+          }
+        );
       }
     });
   }
@@ -267,12 +221,7 @@ export class UsersComponent implements OnInit, OnDestroy {
           },
           (err: Error) => {
             console.error(err);
-            this.showToast(
-              'Something went wrong. Please try again later.',
-              'Close',
-              null,
-              true
-            );
+            this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
             this.mode.adding_user = false;
           }
         );
@@ -285,56 +234,34 @@ export class UsersComponent implements OnInit, OnDestroy {
       .confirm({
         title: 'Confirm Delete User Permanently',
         message: `Are you sure you want to delete user <b>${user.username}</b> permanently?`,
-        info:
-          'All data related to the user will be deleted. This operation cannot be undone.',
+        info: 'All data related to the user will be deleted. This operation cannot be undone.',
         positive_btn_text: 'Yes',
         negative_btn_text: 'No'
       })
       .subscribe((resp: DialogResponse) => {
         if (resp && resp.operation === 'confirm.ok') {
           this.mode.editing_user_ids.push(user._id);
-          this._http_service.delete_users_user_id
-            .sendRequest(user._id)
-            .subscribe(
-              (res: ApiResponse) => {
-                for (const user_data of this.users_data) {
-                  if (user_data._id === user._id) {
-                    this.users_data.splice(
-                      this.users_data.indexOf(user_data),
-                      1
-                    );
-                    break;
-                  }
-                }
-                this.showToast(
-                  'User deleted permanently successfully',
-                  'OK',
-                  3000,
-                  false
-                );
-                if (this.mode.editing_user_ids.includes(user._id)) {
-                  this.mode.editing_user_ids.splice(
-                    this.mode.editing_user_ids.indexOf(user._id),
-                    1
-                  );
-                }
-              },
-              (err: Error) => {
-                console.error(err);
-                this.showToast(
-                  'Something went wrong. Please try again later.',
-                  'Close',
-                  null,
-                  true
-                );
-                if (this.mode.editing_user_ids.includes(user._id)) {
-                  this.mode.editing_user_ids.splice(
-                    this.mode.editing_user_ids.indexOf(user._id),
-                    1
-                  );
+          this._http_service.delete_users_user_id.sendRequest(user._id).subscribe(
+            (res: ApiResponse) => {
+              for (const user_data of this.users_data) {
+                if (user_data._id === user._id) {
+                  this.users_data.splice(this.users_data.indexOf(user_data), 1);
+                  break;
                 }
               }
-            );
+              this.showToast('User deleted permanently successfully', 'OK', 3000, false);
+              if (this.mode.editing_user_ids.includes(user._id)) {
+                this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(user._id), 1);
+              }
+            },
+            (err: Error) => {
+              console.error(err);
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              if (this.mode.editing_user_ids.includes(user._id)) {
+                this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(user._id), 1);
+              }
+            }
+          );
         }
         confirm_sub.unsubscribe();
       });
@@ -351,46 +278,28 @@ export class UsersComponent implements OnInit, OnDestroy {
       .subscribe((resp: DialogResponse) => {
         if (resp && resp.operation === 'confirm.ok') {
           this.mode.editing_user_ids.push(user._id);
-          this._http_service.patch_users_user_id_enable
-            .sendRequest(user._id)
-            .subscribe(
-              (res: ApiResponse) => {
-                user.is_active = res.data.is_active;
-                this.showToast('User enabled successfully', 'OK', 3000, false);
-                if (this.mode.editing_user_ids.includes(user._id)) {
-                  this.mode.editing_user_ids.splice(
-                    this.mode.editing_user_ids.indexOf(user._id),
-                    1
-                  );
-                }
-              },
-              (err: Error) => {
-                console.error(err);
-                this.showToast(
-                  'Something went wrong. Please try again later.',
-                  'Close',
-                  null,
-                  true
-                );
-                if (this.mode.editing_user_ids.includes(user._id)) {
-                  this.mode.editing_user_ids.splice(
-                    this.mode.editing_user_ids.indexOf(user._id),
-                    1
-                  );
-                }
+          this._http_service.patch_users_user_id_enable.sendRequest(user._id).subscribe(
+            (res: ApiResponse) => {
+              user.is_active = res.data.is_active;
+              this.showToast('User enabled successfully', 'OK', 3000, false);
+              if (this.mode.editing_user_ids.includes(user._id)) {
+                this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(user._id), 1);
               }
-            );
+            },
+            (err: Error) => {
+              console.error(err);
+              this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+              if (this.mode.editing_user_ids.includes(user._id)) {
+                this.mode.editing_user_ids.splice(this.mode.editing_user_ids.indexOf(user._id), 1);
+              }
+            }
+          );
         }
         confirm_sub.unsubscribe();
       });
   }
 
-  showToast(
-    message: string,
-    action: string,
-    duration: number = null,
-    is_error: boolean = true
-  ) {
+  showToast(message: string, action: string, duration: number = null, is_error: boolean = true) {
     const toast_config: any = {
       horizontalPosition: 'end'
     };

@@ -27,15 +27,7 @@ import {
   faCog as fasCog,
   faQuestionCircle as fasQuestionCircle
 } from '@fortawesome/free-solid-svg-icons';
-library.add(
-  fasTimes,
-  fasPlusSquare,
-  fasSave,
-  fasUndoAlt,
-  fasInfo,
-  fasCog,
-  fasQuestionCircle
-);
+library.add(fasTimes, fasPlusSquare, fasSave, fasUndoAlt, fasInfo, fasCog, fasQuestionCircle);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
 library.add();

@@ -6,9 +6,7 @@ describe('QuotationGeneralService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: QuotationGeneralService = TestBed.get(
-      QuotationGeneralService
-    );
+    const service: QuotationGeneralService = TestBed.get(QuotationGeneralService);
     expect(service).toBeTruthy();
   });
 });

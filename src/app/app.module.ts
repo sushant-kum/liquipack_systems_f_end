@@ -64,14 +64,8 @@ import { AppComponent } from 'src/app/app.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { FooterComponent } from 'src/app/components/footer/footer.component';
 import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
-import {
-  AlertComponent,
-  AlertModalComponent
-} from 'src/app/components/alert/alert.component';
-import {
-  ConfirmComponent,
-  ConfirmModalComponent
-} from './components/confirm/confirm.component';
+import { AlertComponent, AlertModalComponent } from 'src/app/components/alert/alert.component';
+import { ConfirmComponent, ConfirmModalComponent } from './components/confirm/confirm.component';
 
 @NgModule({
   declarations: [

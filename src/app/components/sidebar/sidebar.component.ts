@@ -29,16 +29,10 @@ export class SidebarComponent implements OnInit {
 
   activate() {
     if (window.innerWidth <= 700) {
-      this._cookie_service.set(
-        this._cookie_service.cname.sidebar_collapsed,
-        'true'
-      );
+      this._cookie_service.set(this._cookie_service.cname.sidebar_collapsed, 'true');
     }
 
-    if (
-      this._cookie_service.get(this._cookie_service.cname.sidebar_collapsed) ===
-      'true'
-    ) {
+    if (this._cookie_service.get(this._cookie_service.cname.sidebar_collapsed) === 'true') {
       this.collapseSidebar();
     } else {
       this.uncollapseSidebar();
@@ -70,20 +64,12 @@ export class SidebarComponent implements OnInit {
 
       $this.addClass('is-active');
     });
-    $ripple.on(
-      'animationend webkitAnimationEnd oanimationend MSAnimationEnd',
-      function(e) {
-        $(this).removeClass('is-active');
-      }
-    );
+    $ripple.on('animationend webkitAnimationEnd oanimationend MSAnimationEnd', function(e) {
+      $(this).removeClass('is-active');
+    });
   }
 
-  redirectTo(
-    path,
-    timeout = 0,
-    router_path: boolean = false,
-    absolute_path: boolean = false
-  ) {
+  redirectTo(path, timeout = 0, router_path: boolean = false, absolute_path: boolean = false) {
     const url = absolute_path ? path : this.config.app_base_path + path;
     if (router_path) {
       this._router.navigate([path]);
@@ -95,9 +81,7 @@ export class SidebarComponent implements OnInit {
   }
 
   showMenuItems() {
-    const user_id = this._localstorage_service.get(
-      this._localstorage_service.lsname.user_id
-    );
+    const user_id = this._localstorage_service.get(this._localstorage_service.lsname.user_id);
     this._auth_service.getAccess(user_id, (error, data) => {
       if (error) {
         console.error(error);
@@ -105,9 +89,7 @@ export class SidebarComponent implements OnInit {
         window.location.href = this.config.page_map.login.path;
         this._auth_service.changeAuthState(false);
       } else {
-        const menuitems = Array.from(
-          document.getElementsByClassName('menuitem')
-        );
+        const menuitems = Array.from(document.getElementsByClassName('menuitem'));
         for (const menuitem of menuitems) {
           menuitem.classList.add('w3-hide');
           if (menuitem.getAttribute('data-menuitem') !== 'login') {
@@ -118,10 +100,7 @@ export class SidebarComponent implements OnInit {
             }
           }
         }
-        this._localstorage_service.set(
-          this._localstorage_service.lsname.app_permissions,
-          JSON.stringify(data.access)
-        );
+        this._localstorage_service.set(this._localstorage_service.lsname.app_permissions, JSON.stringify(data.access));
         this._auth_service.changeAuthState(true);
       }
     });
@@ -176,10 +155,7 @@ export class SidebarComponent implements OnInit {
     }
     const logout = document.getElementById('logout');
     logout.classList.remove('sidebar-collapsed');
-    this._cookie_service.set(
-      this._cookie_service.cname.sidebar_collapsed,
-      false.toString()
-    );
+    this._cookie_service.set(this._cookie_service.cname.sidebar_collapsed, false.toString());
   }
 
   collapseSidebar() {
@@ -204,10 +180,7 @@ export class SidebarComponent implements OnInit {
     }
     const logout = document.getElementById('logout');
     logout.classList.add('sidebar-collapsed');
-    this._cookie_service.set(
-      this._cookie_service.cname.sidebar_collapsed,
-      true.toString()
-    );
+    this._cookie_service.set(this._cookie_service.cname.sidebar_collapsed, true.toString());
   }
 
   getToggleButtonTooltipContent() {

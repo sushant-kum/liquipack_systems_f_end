@@ -10,8 +10,7 @@
     class="menuitem w3-bar-item w3-button hover-text-white app-hover-theme-accent w3-padding-large ripple-btn"
     [ngClass]="{
       'w3-padding-left-16': !config.page_map[page].is_subpage,
-      'w3-padding-left-32 app-theme-primary-dark':
-        config.page_map[page].is_subpage
+      'w3-padding-left-32 app-theme-primary-dark': config.page_map[page].is_subpage
     }"
     (click)="redirectTo(config.page_map[page].path, 400, true)"
   >
@@ -23,10 +22,7 @@
   </div>
 </nav>
 
-<nav
-  id="sidebar-collapsed"
-  class="w3-sidebar w3-bar-block app-theme-primary-d3 w3-hide"
->
+<nav id="sidebar-collapsed" class="w3-sidebar w3-bar-block app-theme-primary-d3 w3-hide">
   <div id="logo-holder-collapsed" class="w3-white w3-padding-small">
     <img src="assets/images/logo-favicon-1024x1024.png" />
   </div>

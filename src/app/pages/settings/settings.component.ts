@@ -32,16 +32,10 @@ export class SettingsComponent implements OnInit {
   config: Config = new Config();
 
   apps: PageMapWithHover[] = [];
-  constructor(
-    private _title: Title,
-    private _header_service: HeaderService,
-    public sidebar: SidebarComponent
-  ) {}
+  constructor(private _title: Title, private _header_service: HeaderService, public sidebar: SidebarComponent) {}
 
   ngOnInit() {
-    this._title.setTitle(
-      this.config.page_map[this._page_id].name + ' - ' + this.config.app_title
-    );
+    this._title.setTitle(this.config.page_map[this._page_id].name + ' - ' + this.config.app_title);
     this._header_service.changePageInfo(
       this.config.page_map[this._page_id].identifier,
       this.config.page_map[this._page_id].name,
@@ -53,9 +47,7 @@ export class SettingsComponent implements OnInit {
 
     for (const app_name of this.config.pages) {
       if (app_name.indexOf('settings-') === 0) {
-        const temp_app = JSON.parse(
-          JSON.stringify(this.config.page_map[app_name])
-        );
+        const temp_app = JSON.parse(JSON.stringify(this.config.page_map[app_name]));
         temp_app.hovered = false;
         this.apps.push(temp_app);
       }

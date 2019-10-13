@@ -10,9 +10,9 @@ const routes: Routes = [
   {
     path: 'config',
     loadChildren: () =>
-      import(
-        'src/app/pages/apps/quotation/quotation-config/quotation-config.module'
-      ).then(module => module.QuotationConfigModule)
+      import('src/app/pages/apps/quotation/quotation-config/quotation-config.module').then(
+        module => module.QuotationConfigModule
+      )
   }
 ];
 

@@ -18,19 +18,11 @@ import { Config } from 'src/app/configs/config';
 export class DeveloperComponent implements OnInit {
   config: Config = new Config();
 
-  constructor(
-    private _title: Title,
-    private _header_service: HeaderService,
-    private _sidebar: SidebarComponent
-  ) {}
+  constructor(private _title: Title, private _header_service: HeaderService, private _sidebar: SidebarComponent) {}
 
   ngOnInit() {
     this._title.setTitle('About the Developer' + ' - ' + this.config.app_title);
-    this._header_service.changePageInfo(
-      'developer',
-      'About the Developer',
-      'code'
-    );
+    this._header_service.changePageInfo('developer', 'About the Developer', 'code');
 
     this._sidebar.activate();
     this._sidebar.colorize();

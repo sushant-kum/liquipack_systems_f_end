@@ -64,9 +64,7 @@ export class FormQuotationConfigComponent implements OnInit, AfterViewInit {
 
     if (this._orig_quotation_config) {
       this.mode.new_config = false;
-      this.quotation_config = this.helper.object.copy.deep(
-        this._orig_quotation_config
-      ) as QuotationConfigData;
+      this.quotation_config = this.helper.object.copy.deep(this._orig_quotation_config) as QuotationConfigData;
     } else {
       this.mode.new_config = true;
       this.quotation_config = this.helper.object.copy.deep(
@@ -79,28 +77,18 @@ export class FormQuotationConfigComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     const inputs_price = document.querySelectorAll('.input-price');
     inputs_price.forEach((input_price_ele: HTMLInputElement) => {
-      this._input_filter_service.setInputFilter(
-        input_price_ele,
-        this.regex_svc.price
-      );
+      this._input_filter_service.setInputFilter(input_price_ele, this.regex_svc.price);
     });
     this.mode.component_view_ready = true;
   }
 
   private _populateFormFields(): void {
-    this.quotation_config_config_name_ctrl = new FormControl(
-      this.quotation_config.config_name,
-      [
-        Validators.required,
-        Validators.pattern(this._regex_service.quotation_config_name)
-      ]
-    );
-    this.quotation_config_is_active_ctrl = new FormControl(
-      this.quotation_config.is_active
-    );
-    for (const field of Object.keys(
-      this.quotation_gen_svc.quotation_item_names
-    )) {
+    this.quotation_config_config_name_ctrl = new FormControl(this.quotation_config.config_name, [
+      Validators.required,
+      Validators.pattern(this._regex_service.quotation_config_name)
+    ]);
+    this.quotation_config_is_active_ctrl = new FormControl(this.quotation_config.is_active);
+    for (const field of Object.keys(this.quotation_gen_svc.quotation_item_names)) {
       this.form_error[field] = null;
     }
   }
@@ -122,11 +110,7 @@ export class FormQuotationConfigComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onDefaultOptionSlidToggleChange(
-    field: string,
-    option_index: number,
-    event: MatSlideToggleChange
-  ): void {
+  onDefaultOptionSlidToggleChange(field: string, option_index: number, event: MatSlideToggleChange): void {
     if (event.checked === true) {
       this.quotation_config[field].default_option_index = option_index;
     } else {
@@ -154,24 +138,17 @@ export class FormQuotationConfigComponent implements OnInit, AfterViewInit {
       return false;
     }
 
-    for (const field of Object.keys(
-      this.quotation_gen_svc.quotation_item_names
-    )) {
-      if (
-        this.quotation_config[field].default_option_index >
-        this.quotation_config[field].options.length
-      ) {
+    for (const field of Object.keys(this.quotation_gen_svc.quotation_item_names)) {
+      if (this.quotation_config[field].default_option_index > this.quotation_config[field].options.length) {
         this.form_error[field] = 'Invalid default option selection.';
         return false;
       }
 
       for (const option of this.quotation_config[field].options) {
         if (option.qty === '' || option.qty === null) {
-          this.form_error[
-            field
-          ] = `Invalid option quantity for option ${this.quotation_config[
-            field
-          ].options.indexOf(option) + 1}.`;
+          this.form_error[field] = `Invalid option quantity for option ${this.quotation_config[field].options.indexOf(
+            option
+          ) + 1}.`;
           return false;
         }
       }
@@ -194,9 +171,7 @@ export class FormQuotationConfigComponent implements OnInit, AfterViewInit {
       this.quotation_config_config_name_ctrl.setValue(null);
       this.quotation_config_config_name_ctrl.setValue(false);
     } else {
-      this.quotation_config = this.helper.object.copy.deep(
-        this._orig_quotation_config
-      ) as QuotationConfigData;
+      this.quotation_config = this.helper.object.copy.deep(this._orig_quotation_config) as QuotationConfigData;
     }
     this.isFormValid();
   }
@@ -206,9 +181,7 @@ export class FormQuotationConfigComponent implements OnInit, AfterViewInit {
       (res: ApiResponse) => {
         let flag_non_unique_config_name = false;
         for (const config of res.data) {
-          if (
-            config.config_name === this.quotation_config_config_name_ctrl.value
-          ) {
+          if (config.config_name === this.quotation_config_config_name_ctrl.value) {
             this.quotation_config_config_name_ctrl.setErrors({
               notUnique: true
             });

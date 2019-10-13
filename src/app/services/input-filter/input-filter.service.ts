@@ -15,24 +15,11 @@ export class InputFilterService {
    * @param inputFilterRegExp regexp of filter
    * @param [formControl=null] formcontrol to apply filter
    */
-  setInputFilter(
-    inputEle: HTMLInputElement,
-    inputFilterRegExp: RegExp,
-    formControl: FormControl = null
-  ) {
+  setInputFilter(inputEle: HTMLInputElement, inputFilterRegExp: RegExp, formControl: FormControl = null) {
     const inputFilterFunc = (value: any): boolean => {
       return inputFilterRegExp.test(value);
     };
-    [
-      'input',
-      'keydown',
-      'keyup',
-      'mousedown',
-      'mouseup',
-      'select',
-      'contextmenu',
-      'drop'
-    ].forEach(event => {
+    ['input', 'keydown', 'keyup', 'mousedown', 'mouseup', 'select', 'contextmenu', 'drop'].forEach(event => {
       inputEle.addEventListener(event, function() {
         if (inputFilterFunc(this.value)) {
           this.oldValue = this.value;

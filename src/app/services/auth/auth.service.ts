@@ -9,10 +9,7 @@ export class AuthService {
   private _is_authed: boolean;
   @Output() auth_state_change: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(
-    private _http_client: HttpTransactionsService,
-    private _config: Config
-  ) {}
+  constructor(private _http_client: HttpTransactionsService, private _config: Config) {}
 
   changeAuthState(auth_state: boolean) {
     this._is_authed = auth_state;

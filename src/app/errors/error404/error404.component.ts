@@ -45,11 +45,7 @@ export class Error404Component implements OnInit {
 
   ngOnInit() {
     this._title.setTitle('Error 404 - ' + this.config.app_title);
-    this._header_service.changePageInfo(
-      'error404',
-      'Error 404',
-      'exclamation-circle'
-    );
+    this._header_service.changePageInfo('error404', 'Error 404', 'exclamation-circle');
 
     this._sidebar.activate();
     this._sidebar.colorize();

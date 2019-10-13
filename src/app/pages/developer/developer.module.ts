@@ -11,10 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 /* Solid Icons */
-import {
-  faGlobe as fasGlobe,
-  faEnvelopeOpen as fasEnvelopeOpen
-} from '@fortawesome/free-solid-svg-icons';
+import { faGlobe as fasGlobe, faEnvelopeOpen as fasEnvelopeOpen } from '@fortawesome/free-solid-svg-icons';
 library.add(fasGlobe, fasEnvelopeOpen);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
@@ -25,12 +22,6 @@ library.add(fabGithubAlt);
 
 @NgModule({
   declarations: [DeveloperComponent],
-  imports: [
-    CommonModule,
-    DeveloperRoutingModule,
-    MatCardModule,
-    MatButtonModule,
-    FontAwesomeModule
-  ]
+  imports: [CommonModule, DeveloperRoutingModule, MatCardModule, MatButtonModule, FontAwesomeModule]
 })
 export class DeveloperModule {}
