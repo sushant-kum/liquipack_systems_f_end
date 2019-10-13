@@ -8,7 +8,7 @@ import * as equal from 'fast-deep-equal';
 export class HelperService {
   constructor() {}
   time = {
-    format(date: moment.Moment, format: string): string {
+    format(date: moment.Moment | Date, format: string): string {
       return moment(date).format(format);
     }
   };
