@@ -1,6 +1,9 @@
 name: "[CI] On Push"
 
-on: [push]
+on:
+  push:
+    branches:
+      - '!release'
 
 jobs:
   inspection_and_tests:
