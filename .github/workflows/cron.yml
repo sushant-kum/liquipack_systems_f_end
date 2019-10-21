@@ -1,4 +1,4 @@
-name: Scheduled Inspection and Tests for Front-end
+name: CI:Scheduled Inspection and Tests for Front-end
 
 on:
   schedule:
