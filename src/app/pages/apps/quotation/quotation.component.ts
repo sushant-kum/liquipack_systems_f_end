@@ -29,6 +29,7 @@ import { FormQuotationComponent } from './components/form-quotation/form-quotati
 import { HttpErrorResponse } from '@angular/common/http';
 
 interface Mode {
+  loading_page_content: boolean;
   editing_quotation_ids: string[];
   adding_quotation: boolean;
 }
@@ -59,6 +60,7 @@ export class QuotationComponent implements OnInit, OnDestroy {
 
   config: Config = new Config();
   mode: Mode = {
+    loading_page_content: false,
     editing_quotation_ids: [],
     adding_quotation: false
   };
@@ -90,6 +92,8 @@ export class QuotationComponent implements OnInit, OnDestroy {
 
     this._sidebar.activate();
     this._sidebar.colorize(this.config.page_map[this._page_id].identifier);
+
+    this.mode.loading_page_content = true;
 
     this._auth_state_change_subscription = this._auth_service.auth_state_change.subscribe((auth_state: boolean) => {
       if (auth_state) {
@@ -166,6 +170,7 @@ export class QuotationComponent implements OnInit, OnDestroy {
                   creator_name: user_name
                 }
               });
+              this.mode.loading_page_content = false;
             }
           },
           (get_users_err: Error) => {
