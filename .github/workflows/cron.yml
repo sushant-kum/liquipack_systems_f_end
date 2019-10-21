@@ -1,4 +1,4 @@
-name: CI:Scheduled Inspection and Tests for Front-end
+name: [CI] Scheduled Inspection and Tests
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   inspection_and_tests:
-    name: Inspection and Tests for Front-end
+    name: Inspection and Tests
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
