@@ -1,7 +1,8 @@
 name: '[CI] on Tag Creation'
 
 on:
-  create:
+  push:
+    tags: 
     - 'release/*'
 
 jobs:
