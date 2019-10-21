@@ -1,4 +1,4 @@
-name: Angular CI on Push
+name: CI:Inspection and Tests for Front-end on Push
 
 on: [push]
 
