@@ -86,6 +86,10 @@ a:not(.mat-button):not(.mat-icon-button):not(.mat-raised-button) {
   transition-timing-function: linear;
 }
 
+.loading-indicator-spinner {
+  margin: 0 auto;
+}
+
 // @keyframes animategradient {
 //   0% {
 //     background-position: 0% 79%

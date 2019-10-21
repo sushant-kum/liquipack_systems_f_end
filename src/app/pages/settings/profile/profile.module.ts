@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 /* Fontawesome Imports */
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -62,6 +63,7 @@ import { ProfileComponent } from './profile.component';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
 
     /* Font-awesome Impors */
     FontAwesomeModule,

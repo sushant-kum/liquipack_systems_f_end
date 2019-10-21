@@ -9,7 +9,11 @@
         <mat-card-subtitle class="w3-small app-text-theme-accent"> User ID: {{ user_id }} </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <form [formGroup]="form_profile">
+        <div *ngIf="mode.loading_page_content" class="w3-padding-small">
+          <mat-spinner class="loading-indicator-spinner" diameter="60" strokeWidth="3"></mat-spinner>
+        </div>
+
+        <form *ngIf="!mode.loading_page_content" [formGroup]="form_profile">
           <div class="w3-row">
             <div class="w3-col m6 w3-padding-small">
               <mat-form-field appearance="standard">
@@ -169,7 +173,11 @@
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <form [formGroup]="form_possword">
+        <div *ngIf="mode.loading_page_content" class="w3-padding-small">
+          <mat-spinner class="loading-indicator-spinner" diameter="60" strokeWidth="3"></mat-spinner>
+        </div>
+
+        <form *ngIf="!mode.loading_page_content" [formGroup]="form_possword">
           <div class="w3-row">
             <div class="w3-col m6 l4 w3-padding-small">
               <mat-form-field appearance="standard">

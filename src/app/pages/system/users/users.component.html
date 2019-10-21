@@ -9,7 +9,11 @@
       </mat-card-header>
 
       <mat-card-content>
-        <div class="w3-row">
+        <div *ngIf="mode.loading_page_content" class="w3-padding-small">
+          <mat-spinner class="loading-indicator-spinner" diameter="60" strokeWidth="3"></mat-spinner>
+        </div>
+
+        <div *ngIf="!mode.loading_page_content" class="w3-row">
           <div *ngFor="let user of users_data; let i = index" class="w3-col m6 l4 w3-padding-small">
             <mat-card
               [ngClass]="{
@@ -68,7 +72,8 @@
               </mat-card-header>
               <mat-card-content>
                 <div *ngIf="mode.editing_user_ids.includes(user._id); else templateUserData" class="w3-row w3-center">
-                  <mat-spinner color="primary" diameter="50" strokeWidth="3" class="w3-center"> </mat-spinner>
+                  <mat-spinner color="primary" color="accent" diameter="50" strokeWidth="3" class="w3-center">
+                  </mat-spinner>
                 </div>
                 <ng-template #templateUserData>
                   <div class="w3-row w3-center" style="min-height: 50px;">

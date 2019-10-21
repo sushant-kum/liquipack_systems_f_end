@@ -20,6 +20,7 @@ import { Config } from 'src/app/configs/config';
 import { RegexService } from 'src/app/services/regex/regex.service';
 
 interface Mode {
+  loading_page_content: boolean;
   saving_profile: boolean;
   changing_password: boolean;
 }
@@ -46,6 +47,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private _auth_state_change_subscription: Subscription;
 
   mode: Mode = {
+    loading_page_content: false,
     saving_profile: false,
     changing_password: false
   };
@@ -107,6 +109,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   getProfile(): void {
+    this.mode.loading_page_content = true;
     this._http_service.get_profile_user_id
       .sendRequest(this._localstorage_service.get(this._localstorage_service.lsname.user_id))
       .subscribe(
@@ -127,10 +130,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
             phone: response.data.phone,
             password_hash: response.data.password_hash
           };
+          this.mode.loading_page_content = false;
         },
         error => {
           console.error(error);
           this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+          this.mode.loading_page_content = false;
         }
       );
   }

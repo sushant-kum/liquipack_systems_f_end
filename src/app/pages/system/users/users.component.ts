@@ -30,6 +30,7 @@ import { FormUserModalComponent } from 'src/app/components/form-user-modal/form-
 const PAGE_ID = 'system-users';
 
 interface Mode {
+  loading_page_content: boolean;
   editing_user_ids: string[];
   adding_user: boolean;
 }
@@ -44,6 +45,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   config: Config = new Config();
 
   mode: Mode = {
+    loading_page_content: false,
     editing_user_ids: [],
     adding_user: false
   };
@@ -102,6 +104,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   getUsers(): void {
+    this.mode.loading_page_content = true;
     this._http_service.get_users.sendRequest().subscribe(
       (response: any) => {
         for (const user of response.data) {
@@ -118,10 +121,12 @@ export class UsersComponent implements OnInit, OnDestroy {
             phone: user.phone
           });
         }
+        this.mode.loading_page_content = false;
       },
       error => {
         console.error(error);
         this.showToast('Something went wrong. Please try again later.', 'Close', null, true);
+        this.mode.loading_page_content = false;
       }
     );
   }
