@@ -3,7 +3,7 @@ name: '[CI] on Tag Creation'
 on:
   push:
     tags:
-      - '*'
+      - 'release/*'
 jobs:
   create_release:
     name: Create Release
@@ -17,7 +17,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ 
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
