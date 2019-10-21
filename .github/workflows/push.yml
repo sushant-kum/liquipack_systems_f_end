@@ -1,4 +1,4 @@
-name: "[CI] On Push"
+name: "[CI] On Push to non-release"
 
 on:
   push:
