@@ -3,10 +3,9 @@ name: Angular CI on Push
 on: [push]
 
 jobs:
-  build:
-
+  inspection_and_tests:
+    name: Inspection and Tests for Front-end
     runs-on: ubuntu-18.04
-    
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js 10.x
