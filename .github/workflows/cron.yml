@@ -1,8 +1,8 @@
-name: "[CI] Scheduled Inspection and Tests"
+name: "[CI] Scheduled"
 
 on:
   schedule:
-  - cron: "0 2 * * 0-6"
+  - cron: "0 0 * * 0-6"
 
 jobs:
   inspection_and_tests:
