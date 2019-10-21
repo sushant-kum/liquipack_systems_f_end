@@ -28,7 +28,7 @@ jobs:
       run: npm run build_aot_gzip
   
   build:
-    name: Build
+    name: Build tag
     runs-on: ubuntu-latest
     needs: [inspection_and_tests]
     steps:
