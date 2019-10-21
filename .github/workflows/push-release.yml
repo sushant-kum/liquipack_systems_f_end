@@ -1,8 +1,9 @@
-name: "[CI] On Push to origin/release"
+name: "[CI] On Push to release"
 
 on:
   push:
-    branches: [release]
+    branches: 
+      - 'release'
     
 
 jobs:
