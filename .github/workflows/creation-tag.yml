@@ -3,7 +3,7 @@ name: '[CI] on Tag Creation'
 on:
   push:
     tags:
-      - 'release/*'
+      - '*'
 jobs:
   create_release:
     name: Create Release
