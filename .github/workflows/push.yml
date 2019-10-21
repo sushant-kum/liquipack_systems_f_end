@@ -3,9 +3,9 @@ name: "[CI] On Push to non-release"
 on:
   push:
     branches:
-      - '*'
-      - '*/*'
-      - '!release'
+    - '*'
+    - '*/*'
+    - '!release'
 
 jobs:
   inspection_and_tests:
