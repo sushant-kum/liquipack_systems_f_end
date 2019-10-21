@@ -1,4 +1,4 @@
-name: [CI] On push to master
+name: "[CI] On push to master"
 
 on:
   push:
