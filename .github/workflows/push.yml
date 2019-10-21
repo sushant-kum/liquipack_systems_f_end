@@ -1,4 +1,4 @@
-name: "[CI] Inspection and Tests on Push"
+name: "[CI] On Push"
 
 on: [push]
 
