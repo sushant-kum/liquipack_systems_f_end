@@ -1,4 +1,4 @@
-name: [CI] Scheduled Inspection and Tests
+name: "[CI] Scheduled Inspection and Tests"
 
 on:
   schedule:
