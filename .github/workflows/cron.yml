@@ -5,7 +5,7 @@ on:
   - cron: "0 0 * * 0-6"
 
 jobs:
-  inspection_and_tests:
+  inspection_and_tests_cron:
     name: Inspection and Tests
     runs-on: ubuntu-18.04
     steps:
