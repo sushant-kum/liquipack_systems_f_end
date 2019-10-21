@@ -9,7 +9,7 @@ on:
 
 
 jobs:
-  inspection_and_tests:
+  inspection_and_tests_non_release:
     name: Inspection and Tests
     runs-on: ubuntu-latest
     steps:
