@@ -2,7 +2,7 @@ name: Scheduled Inspection and Tests for Front-end
 
 on:
   schedule:
-  - cron: "0 2 * *"
+  - cron: "0 2 * * 0-6"
 
 jobs:
   inspection_and_tests:
