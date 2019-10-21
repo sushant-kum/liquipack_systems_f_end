@@ -7,13 +7,15 @@ on:
     - '*/*'
     - '!release'
 
+
 jobs:
   inspection_and_tests:
     name: Inspection and Tests
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: hmarr/debug-action
+    - name: Debug Action
+      uses: hmarr/debug-action@v1.0.0
     - name: Use Node.js 10.x
       uses: actions/setup-node@v1
       with:
