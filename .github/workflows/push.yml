@@ -3,6 +3,8 @@ name: "[CI] On Push to non-release"
 on:
   push:
     branches:
+      - '*'
+      - '*/*'
       - '!release'
 
 jobs:
