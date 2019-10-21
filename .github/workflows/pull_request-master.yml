@@ -6,7 +6,7 @@ on:
     - master
 
 jobs:
-  inspection_and_tests:
+  inspection_and_tests_pull_request_master:
     name: Inspection and Tests
     runs-on: ubuntu-18.04
     steps:
