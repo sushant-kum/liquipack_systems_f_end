@@ -10,9 +10,10 @@ on:
 jobs:
   inspection_and_tests:
     name: Inspection and Tests
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - uses: hmarr/debug-action
     - name: Use Node.js 10.x
       uses: actions/setup-node@v1
       with:
