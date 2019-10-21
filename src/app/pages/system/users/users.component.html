@@ -72,8 +72,13 @@
               </mat-card-header>
               <mat-card-content>
                 <div *ngIf="mode.editing_user_ids.includes(user._id); else templateUserData" class="w3-row w3-center">
-                  <mat-spinner color="primary" color="accent" diameter="50" strokeWidth="3" class="w3-center">
-                  </mat-spinner>
+                  <mat-spinner
+                    color="primary"
+                    color="accent"
+                    diameter="50"
+                    strokeWidth="3"
+                    class="w3-center"
+                  ></mat-spinner>
                 </div>
                 <ng-template #templateUserData>
                   <div class="w3-row w3-center" style="min-height: 50px;">

@@ -61,7 +61,13 @@
                   *ngIf="mode.editing_quotation_ids.includes(quotation._id); else templateQuotationData"
                   class="w3-row w3-center"
                 >
-                  <mat-spinner color="primary" color="accent" diameter="50" strokeWidth="3" class="w3-center"> </mat-spinner>
+                  <mat-spinner
+                    color="primary"
+                    color="accent"
+                    diameter="50"
+                    strokeWidth="3"
+                    class="w3-center"
+                  ></mat-spinner>
                 </div>
 
                 <ng-template #templateQuotationData>
