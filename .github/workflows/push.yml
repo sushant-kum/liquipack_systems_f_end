@@ -1,11 +1,10 @@
-name: '[CI] On Push to non-release'
+name: '[CI] On Push'
 
 on:
   push:
     branches:
       - '*'
       - '*/*'
-      - '!release'
 
 jobs:
   inspection_and_tests__non_release:
