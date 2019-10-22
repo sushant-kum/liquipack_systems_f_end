@@ -1,4 +1,4 @@
-name: '[CI] on Tag Creation'
+name: '[CI] On Tag Creation'
 
 on:
   push:
