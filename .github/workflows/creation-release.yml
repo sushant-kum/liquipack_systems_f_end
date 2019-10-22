@@ -1,7 +1,7 @@
 name: '[CI] On Release Creation'
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   build:
