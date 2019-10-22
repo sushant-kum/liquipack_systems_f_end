@@ -11,6 +11,8 @@ import { of, Observable, throwError } from 'rxjs';
 import { QuotationConfigData } from 'src/app/interfaces/quotation-config-data';
 import { QuotationData } from 'src/app/interfaces/quotation-data';
 
+import { environment as env } from 'src/environments/environment';
+
 interface API {
   hostname: string;
   basepath: string;
@@ -23,7 +25,7 @@ interface API {
 })
 export class HttpTransactionsService {
   private _default_hostname = '';
-  private _default_basepath = '/api';
+  private _default_basepath = `${env.api_base_url}/api`;
 
   constructor(private _http_client: HttpClient, private _localstorage_service: LocalStorageService) {}
 

@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/build_prod_aot_gzip",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
