@@ -3,9 +3,7 @@ name: '[CI] On Tag Creation'
 on:
   push:
     tags:
-      - '*' 
-      - '*/*'
-      - '!non-release/*'
+      - 'dist/*'
 
 jobs:
   create_release:
