@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_base_url: 'https://api.liquipack.sushantk.com'
+  api_base_url: `${location.protocol}//api.${location.hostname}`
 };
