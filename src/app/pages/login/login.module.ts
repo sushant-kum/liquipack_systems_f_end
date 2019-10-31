@@ -48,9 +48,9 @@ import { LoginComponent } from './login.component';
   ]
 })
 export class LoginModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(fasUser, fasKey, fasEye, fasEyeSlash, fasSignInAlt, fasCircleNotch);
+    fa_icon_library.addIcons(fasUser, fasKey, fasEye, fasEyeSlash, fasSignInAlt, fasCircleNotch);
     // Include regular fa icons
     // Include brand fa icons
   }

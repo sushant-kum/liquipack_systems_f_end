@@ -35,9 +35,9 @@ import { CardLinkModule } from 'src/app/components/card-link/card-link.module';
   ]
 })
 export class HomeModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(fasHeart);
+    fa_icon_library.addIcons(fasHeart);
     // Include regular fa icons
     // Include brand fa icons
   }

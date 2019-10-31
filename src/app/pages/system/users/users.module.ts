@@ -66,9 +66,9 @@ import { FormUserModalModule } from 'src/app/components/form-user-modal/form-use
   entryComponents: [ViewUserModalComponent, FormUserModalComponent]
 })
 export class UsersModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(
+    fa_icon_library.addIcons(
       fasPhone,
       fasEnvelope,
       fasEye,

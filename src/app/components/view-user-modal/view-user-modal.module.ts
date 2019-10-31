@@ -43,9 +43,9 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
   exports: [ViewUserModalComponent]
 })
 export class ViewUserModalModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(fasTimes, fasCheck, fasAddressCard, fasTasks);
+    fa_icon_library.addIcons(fasTimes, fasCheck, fasAddressCard, fasTasks);
     // Include regular fa icons
     // Include brand fa icons
   }

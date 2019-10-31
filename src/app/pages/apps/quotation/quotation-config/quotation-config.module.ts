@@ -60,9 +60,9 @@ import { FormQuotationConfigModule } from './components/form-quotation-config/fo
   entryComponents: [FormQuotationConfigComponent]
 })
 export class QuotationConfigModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(fasCheckCircle, fasTrash, fasPenSquare, fasPlusSquare);
+    fa_icon_library.addIcons(fasCheckCircle, fasTrash, fasPenSquare, fasPlusSquare);
     // Include regular fa icons
     // Include brand fa icons
   }

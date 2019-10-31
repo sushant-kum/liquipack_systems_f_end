@@ -88,9 +88,9 @@ import { ConfirmComponent, ConfirmModalComponent } from './components/confirm/co
   entryComponents: [AlertModalComponent, ConfirmModalComponent]
 })
 export class AppModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(
+    fa_icon_library.addIcons(
       fasUnlockAlt,
       fasHome,
       fasCogs,

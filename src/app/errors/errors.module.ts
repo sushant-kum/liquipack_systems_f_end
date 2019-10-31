@@ -47,9 +47,9 @@ import { Error404Component } from './error404/error404.component';
   ]
 })
 export class ErrorsModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(fasExclamationCircle, fasChevronRight, fasArrowLeft, fasHome);
+    fa_icon_library.addIcons(fasExclamationCircle, fasChevronRight, fasArrowLeft, fasHome);
     // Include regular fa icons
     // Include brand fa icons
   }

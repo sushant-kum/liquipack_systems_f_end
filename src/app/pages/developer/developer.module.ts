@@ -21,11 +21,11 @@ import { faGithubAlt as fabGithubAlt } from '@fortawesome/free-brands-svg-icons'
   imports: [CommonModule, DeveloperRoutingModule, MatCardModule, MatButtonModule, FontAwesomeModule]
 })
 export class DeveloperModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(fasGlobe, fasEnvelopeOpen);
+    fa_icon_library.addIcons(fasGlobe, fasEnvelopeOpen);
     // Include regular fa icons
     // Include brand fa icons
-    fa_library.addIcons(fabGithubAlt);
+    fa_icon_library.addIcons(fabGithubAlt);
   }
 }

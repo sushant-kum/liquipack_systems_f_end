@@ -57,9 +57,9 @@ import { ProfileComponent } from './profile.component';
   ]
 })
 export class ProfileModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(
+    fa_icon_library.addIcons(
       fasUser,
       fasUserShield,
       fasCalendar,

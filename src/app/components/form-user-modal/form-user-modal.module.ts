@@ -72,9 +72,9 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
   exports: [FormUserModalComponent]
 })
 export class FormUserModalModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(
+    fa_icon_library.addIcons(
       fasTimes,
       fasUserPlus,
       fasSave,

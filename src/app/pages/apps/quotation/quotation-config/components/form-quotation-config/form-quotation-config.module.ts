@@ -62,9 +62,9 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
   exports: [FormQuotationConfigComponent]
 })
 export class FormQuotationConfigModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(fasTimes, fasPlusSquare, fasSave, fasUndoAlt, fasInfo, fasCog, fasQuestionCircle);
+    fa_icon_library.addIcons(fasTimes, fasPlusSquare, fasSave, fasUndoAlt, fasInfo, fasCog, fasQuestionCircle);
     // Include regular fa icons
     // Include brand fa icons
   }

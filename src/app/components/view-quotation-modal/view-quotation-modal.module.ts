@@ -43,9 +43,9 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
   exports: [ViewQuotationModalComponent]
 })
 export class ViewQuotationModalModule {
-  constructor(fa_library: FaIconLibrary) {
+  constructor(fa_icon_library: FaIconLibrary) {
     // Include solid fa icons
-    fa_library.addIcons(fasTimes, fasBuilding, fasListUl, fasRupeeSign);
+    fa_icon_library.addIcons(fasTimes, fasBuilding, fasListUl, fasRupeeSign);
     // Include regular fa icons
     // Include brand fa icons
   }
