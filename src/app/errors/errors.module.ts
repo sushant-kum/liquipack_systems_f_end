@@ -9,8 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import {
   faExclamationCircle as fasExclamationCircle,
@@ -18,13 +17,10 @@ import {
   faArrowLeft as fasArrowLeft,
   faHome as fasHome
 } from '@fortawesome/free-solid-svg-icons';
-library.add(fasExclamationCircle, fasChevronRight, fasArrowLeft, fasHome);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import {} from '@fortawesome/free-brands-svg-icons';
-library.add();
 
 import { ErrorsRoutingModule } from './errors-routing.module';
 import { Error404Component } from './error404/error404.component';
@@ -50,4 +46,11 @@ import { Error404Component } from './error404/error404.component';
     ErrorsRoutingModule
   ]
 })
-export class ErrorsModule {}
+export class ErrorsModule {
+  constructor(fa_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_library.addIcons(fasExclamationCircle, fasChevronRight, fasArrowLeft, fasHome);
+    // Include regular fa icons
+    // Include brand fa icons
+  }
+}
