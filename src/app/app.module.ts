@@ -13,8 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import {
   faUnlockAlt as fasUnlockAlt,
@@ -32,28 +31,10 @@ import {
   faFileInvoice as fasFileInvoice,
   faTools as fasTools
 } from '@fortawesome/free-solid-svg-icons';
-library.add(
-  fasUnlockAlt,
-  fasHome,
-  fasCogs,
-  fasUser,
-  fasSlidersH,
-  fasUsers,
-  fasCode,
-  fasCircleNotch,
-  fasSignOutAlt,
-  fasCopyright,
-  fasTimes,
-  fasThList,
-  fasFileInvoice,
-  fasTools
-);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import {} from '@fortawesome/free-brands-svg-icons';
-library.add();
 
 /* Config Imports */
 import { Config } from 'src/app/configs/config';
@@ -106,4 +87,26 @@ import { ConfirmComponent, ConfirmModalComponent } from './components/confirm/co
   bootstrap: [AppComponent],
   entryComponents: [AlertModalComponent, ConfirmModalComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(fa_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_library.addIcons(
+      fasUnlockAlt,
+      fasHome,
+      fasCogs,
+      fasUser,
+      fasSlidersH,
+      fasUsers,
+      fasCode,
+      fasCircleNotch,
+      fasSignOutAlt,
+      fasCopyright,
+      fasTimes,
+      fasThList,
+      fasFileInvoice,
+      fasTools
+    );
+    // Include regular fa icons
+    // Include brand fa icons
+  }
+}
