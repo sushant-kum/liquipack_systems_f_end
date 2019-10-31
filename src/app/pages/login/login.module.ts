@@ -8,8 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import {
   faUser as fasUser,
@@ -19,13 +18,10 @@ import {
   faSignInAlt as fasSignInAlt,
   faCircleNotch as fasCircleNotch
 } from '@fortawesome/free-solid-svg-icons';
-library.add(fasUser, fasKey, fasEye, fasEyeSlash, fasSignInAlt, fasCircleNotch);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import {} from '@fortawesome/free-brands-svg-icons';
-library.add();
 
 /* Components Imports */
 import { LoginRoutingModule } from './login-routing.module';
@@ -51,4 +47,11 @@ import { LoginComponent } from './login.component';
     LoginRoutingModule
   ]
 })
-export class LoginModule {}
+export class LoginModule {
+  constructor(fa_icon_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_icon_library.addIcons(fasUser, fasKey, fasEye, fasEyeSlash, fasSignInAlt, fasCircleNotch);
+    // Include regular fa icons
+    // Include brand fa icons
+  }
+}

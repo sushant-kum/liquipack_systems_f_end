@@ -8,20 +8,24 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import { faGlobe as fasGlobe, faEnvelopeOpen as fasEnvelopeOpen } from '@fortawesome/free-solid-svg-icons';
-library.add(fasGlobe, fasEnvelopeOpen);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import { faGithubAlt as fabGithubAlt } from '@fortawesome/free-brands-svg-icons';
-library.add(fabGithubAlt);
 
 @NgModule({
   declarations: [DeveloperComponent],
   imports: [CommonModule, DeveloperRoutingModule, MatCardModule, MatButtonModule, FontAwesomeModule]
 })
-export class DeveloperModule {}
+export class DeveloperModule {
+  constructor(fa_icon_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_icon_library.addIcons(fasGlobe, fasEnvelopeOpen);
+    // Include regular fa icons
+    // Include brand fa icons
+    fa_icon_library.addIcons(fabGithubAlt);
+  }
+}

@@ -14,8 +14,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import {
   faTimes as fasTimes,
@@ -38,33 +37,10 @@ import {
   faUserLock as fasUserLock,
   faQuestionCircle as fasQuestionCircle
 } from '@fortawesome/free-solid-svg-icons';
-library.add(
-  fasTimes,
-  fasUserPlus,
-  fasSave,
-  fasAddressCard,
-  fasTasks,
-  fasUser,
-  fasUserShield,
-  fasCalendar,
-  fasVenusMars,
-  fasEnvelope,
-  fasMobile,
-  fasUndoAlt,
-  fasMars,
-  fasVenus,
-  fasTransgender,
-  fasKey,
-  fasCircleNotch,
-  fasUserLock,
-  fasQuestionCircle
-);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import {} from '@fortawesome/free-brands-svg-icons';
-library.add();
 
 import { FormUserModalComponent } from './form-user-modal.component';
 import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
@@ -95,4 +71,31 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
   ],
   exports: [FormUserModalComponent]
 })
-export class FormUserModalModule {}
+export class FormUserModalModule {
+  constructor(fa_icon_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_icon_library.addIcons(
+      fasTimes,
+      fasUserPlus,
+      fasSave,
+      fasAddressCard,
+      fasTasks,
+      fasUser,
+      fasUserShield,
+      fasCalendar,
+      fasVenusMars,
+      fasEnvelope,
+      fasMobile,
+      fasUndoAlt,
+      fasMars,
+      fasVenus,
+      fasTransgender,
+      fasKey,
+      fasCircleNotch,
+      fasUserLock,
+      fasQuestionCircle
+    );
+    // Include regular fa icons
+    // Include brand fa icons
+  }
+}

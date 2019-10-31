@@ -13,8 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import {
   faTimes as fasTimes,
@@ -33,29 +32,10 @@ import {
   faPlusCircle as fasPlusCircle,
   faInfoCircle as fasInfoCircle
 } from '@fortawesome/free-solid-svg-icons';
-library.add(
-  fasTimes,
-  fasPlusSquare,
-  fasSave,
-  fasUndoAlt,
-  fasQuestionCircle,
-  fasCircleNotch,
-  fasIndustry,
-  fasFileInvoice,
-  fasVenusMars,
-  fasUser,
-  fasPhoneAlt,
-  fasMapMarkerAlt,
-  fasList,
-  fasPlusCircle,
-  fasInfoCircle
-);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import {} from '@fortawesome/free-brands-svg-icons';
-library.add();
 
 import { FormQuotationComponent } from './form-quotation.component';
 import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
@@ -85,4 +65,27 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
   ],
   exports: [FormQuotationComponent]
 })
-export class FormQuotationModule {}
+export class FormQuotationModule {
+  constructor(fa_icon_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_icon_library.addIcons(
+      fasTimes,
+      fasPlusSquare,
+      fasSave,
+      fasUndoAlt,
+      fasQuestionCircle,
+      fasCircleNotch,
+      fasIndustry,
+      fasFileInvoice,
+      fasVenusMars,
+      fasUser,
+      fasPhoneAlt,
+      fasMapMarkerAlt,
+      fasList,
+      fasPlusCircle,
+      fasInfoCircle
+    );
+    // Include regular fa icons
+    // Include brand fa icons
+  }
+}

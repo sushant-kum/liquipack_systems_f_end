@@ -6,17 +6,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons';
-library.add(fasHeart);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import {} from '@fortawesome/free-brands-svg-icons';
-library.add();
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
@@ -38,4 +34,11 @@ import { CardLinkModule } from 'src/app/components/card-link/card-link.module';
     CardLinkModule
   ]
 })
-export class HomeModule {}
+export class HomeModule {
+  constructor(fa_icon_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_icon_library.addIcons(fasHeart);
+    // Include regular fa icons
+    // Include brand fa icons
+  }
+}

@@ -9,8 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import {
   faTimes as fasTimes,
@@ -18,13 +17,10 @@ import {
   faListUl as fasListUl,
   faRupeeSign as fasRupeeSign
 } from '@fortawesome/free-solid-svg-icons';
-library.add(fasTimes, fasBuilding, fasListUl, fasRupeeSign);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import {} from '@fortawesome/free-brands-svg-icons';
-library.add();
 
 import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
 
@@ -46,4 +42,11 @@ import { SubHeadModule } from 'src/app/components/sub-head/sub-head.module';
   ],
   exports: [ViewQuotationModalComponent]
 })
-export class ViewQuotationModalModule {}
+export class ViewQuotationModalModule {
+  constructor(fa_icon_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_icon_library.addIcons(fasTimes, fasBuilding, fasListUl, fasRupeeSign);
+    // Include regular fa icons
+    // Include brand fa icons
+  }
+}
