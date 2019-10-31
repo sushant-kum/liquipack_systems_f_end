@@ -11,8 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import {
   faUser as fasUser,
@@ -29,27 +28,10 @@ import {
   faKey as fasKey,
   faCircleNotch as fasCircleNotch
 } from '@fortawesome/free-solid-svg-icons';
-library.add(
-  fasUser,
-  fasUserShield,
-  fasCalendar,
-  fasVenusMars,
-  fasEnvelope,
-  fasMobile,
-  fasSave,
-  fasUndoAlt,
-  fasMars,
-  fasVenus,
-  fasTransgender,
-  fasKey,
-  fasCircleNotch
-);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import {} from '@fortawesome/free-brands-svg-icons';
-library.add();
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
@@ -74,4 +56,25 @@ import { ProfileComponent } from './profile.component';
     ReactiveFormsModule
   ]
 })
-export class ProfileModule {}
+export class ProfileModule {
+  constructor(fa_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_library.addIcons(
+      fasUser,
+      fasUserShield,
+      fasCalendar,
+      fasVenusMars,
+      fasEnvelope,
+      fasMobile,
+      fasSave,
+      fasUndoAlt,
+      fasMars,
+      fasVenus,
+      fasTransgender,
+      fasKey,
+      fasCircleNotch
+    );
+    // Include regular fa icons
+    // Include brand fa icons
+  }
+}
