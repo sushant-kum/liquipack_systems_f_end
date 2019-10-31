@@ -14,8 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import {
   faEye as fasEye,
@@ -29,24 +28,10 @@ import {
   faCheckCircle as fasCheckCircle,
   faPlusSquare as fasPlusSquare
 } from '@fortawesome/free-solid-svg-icons';
-library.add(
-  fasEye,
-  fasBuilding,
-  fasRupeeSign,
-  fasCalendarDay,
-  fasTimesCircle,
-  fasPenSquare,
-  fasChevronDown,
-  fasTrash,
-  fasCheckCircle,
-  fasPlusSquare
-);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import {} from '@fortawesome/free-brands-svg-icons';
-library.add();
 
 import { QuotationRoutingModule } from './quotation-routing.module';
 import { QuotationComponent } from './quotation.component';
@@ -81,4 +66,22 @@ import { FormQuotationComponent } from './components/form-quotation/form-quotati
   ],
   entryComponents: [ViewQuotationModalComponent, FormQuotationComponent]
 })
-export class QuotationModule {}
+export class QuotationModule {
+  constructor(fa_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_library.addIcons(
+      fasEye,
+      fasBuilding,
+      fasRupeeSign,
+      fasCalendarDay,
+      fasTimesCircle,
+      fasPenSquare,
+      fasChevronDown,
+      fasTrash,
+      fasCheckCircle,
+      fasPlusSquare
+    );
+    // Include regular fa icons
+    // Include brand fa icons
+  }
+}
