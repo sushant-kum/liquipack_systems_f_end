@@ -14,8 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import {
   faPhone as fasPhone,
@@ -28,23 +27,10 @@ import {
   faChevronDown as fasChevronDown,
   faTrash as fasTrash
 } from '@fortawesome/free-solid-svg-icons';
-library.add(
-  fasPhone,
-  fasEnvelope,
-  fasEye,
-  fasUserTimes,
-  fasUserEdit,
-  fasUserPlus,
-  fasCheckCircle,
-  fasChevronDown,
-  fasTrash
-);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import {} from '@fortawesome/free-brands-svg-icons';
-library.add();
 
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
@@ -79,4 +65,21 @@ import { FormUserModalModule } from 'src/app/components/form-user-modal/form-use
   ],
   entryComponents: [ViewUserModalComponent, FormUserModalComponent]
 })
-export class UsersModule {}
+export class UsersModule {
+  constructor(fa_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_library.addIcons(
+      fasPhone,
+      fasEnvelope,
+      fasEye,
+      fasUserTimes,
+      fasUserEdit,
+      fasUserPlus,
+      fasCheckCircle,
+      fasChevronDown,
+      fasTrash
+    );
+    // Include regular fa icons
+    // Include brand fa icons
+  }
+}
