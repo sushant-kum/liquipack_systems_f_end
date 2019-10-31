@@ -15,8 +15,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 /* Fontawesome Imports */
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 /* Solid Icons */
 import {
   faCheckCircle as fasCheckCircle,
@@ -24,13 +23,10 @@ import {
   faPenSquare as fasPenSquare,
   faPlusSquare as fasPlusSquare
 } from '@fortawesome/free-solid-svg-icons';
-library.add(fasCheckCircle, fasTrash, fasPenSquare, fasPlusSquare);
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
-library.add();
 /* Brand Icons */
 import {} from '@fortawesome/free-brands-svg-icons';
-library.add();
 
 import { QuotationConfigRoutingModule } from './quotation-config-routing.module';
 import { QuotationConfigComponent } from './quotation-config.component';
@@ -63,4 +59,11 @@ import { FormQuotationConfigModule } from './components/form-quotation-config/fo
   ],
   entryComponents: [FormQuotationConfigComponent]
 })
-export class QuotationConfigModule {}
+export class QuotationConfigModule {
+  constructor(fa_library: FaIconLibrary) {
+    // Include solid fa icons
+    fa_library.addIcons(fasCheckCircle, fasTrash, fasPenSquare, fasPlusSquare);
+    // Include regular fa icons
+    // Include brand fa icons
+  }
+}
