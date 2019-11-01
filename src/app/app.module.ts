@@ -34,7 +34,7 @@ import {
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
 /* Brand Icons */
-import {} from '@fortawesome/free-brands-svg-icons';
+import { faSlackHash as fabSlackHash } from '@fortawesome/free-brands-svg-icons';
 
 /* Config Imports */
 import { Config } from 'src/app/configs/config';
@@ -108,5 +108,6 @@ export class AppModule {
     );
     // Include regular fa icons
     // Include brand fa icons
+    fa_icon_library.addIcons(fabSlackHash);
   }
 }
