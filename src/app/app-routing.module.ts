@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: () => import('src/app/pages/apps/apps.module').then(module => module.AppsModule)
   },
   {
+    path: 'app-info',
+    loadChildren: () => import('src/app/pages/app-info/app-info.module').then(module => module.AppInfoModule)
+  },
+  {
     path: 'developer',
     loadChildren: () => import('src/app/pages/developer/developer.module').then(module => module.DeveloperModule)
   },

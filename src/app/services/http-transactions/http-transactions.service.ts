@@ -736,6 +736,21 @@ export class HttpTransactionsService {
     }
   };
 
+  get_3rdpartylicenses: API = {
+    hostname: null,
+    basepath: '',
+    path: '/3rdpartylicenses.txt',
+    sendRequest: (config_id: string): Observable<any> => {
+      const hostname: string =
+        this.get_3rdpartylicenses.hostname == null ? this._default_hostname : this.get_3rdpartylicenses.hostname;
+      const basepath: string =
+        this.get_3rdpartylicenses.basepath == null ? this._default_basepath : this.get_3rdpartylicenses.basepath;
+      const url: string = hostname + basepath + this.get_3rdpartylicenses.path.replace(':config_id', config_id);
+
+      return this._http_client.get(url, { responseType: 'text' });
+    }
+  };
+
   private _set_token(token: string): void {
     this._localstorage_service.set(this._localstorage_service.lsname.token, token);
   }
