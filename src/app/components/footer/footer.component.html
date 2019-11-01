@@ -4,7 +4,7 @@
     <span *ngIf="current_year > 2019">- {{ current_year }}</span>
   </span>
 
-  <span class="version w3-margin-left w3-margin-right" [routerLink]="['/', 'version-info']">
+  <span class="version w3-margin-left w3-margin-right" [routerLink]="['/', 'app-info']">
     <fa-icon [icon]="['fab', 'slack-hash']" flip="horizontal"></fa-icon>&nbsp;
     <span class="w3-hide-small">Version</span>
     {{ version_info.version }}

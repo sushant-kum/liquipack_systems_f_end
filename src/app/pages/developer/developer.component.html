@@ -1,4 +1,4 @@
-<div class="content w3-padding">
+<div class="content w3-padding-large">
   <div class="w3-content">
     <mat-card class="card mat-elevation-z">
       <div class="arch app-theme-primary w3-hide-small"></div>
@@ -48,5 +48,11 @@
         </div>
       </mat-card-content>
     </mat-card>
+
+    <div class="w3-margin-top">
+      <button mat-button color="primary" [routerLink]="['/', 'home']">
+        <fa-icon [icon]="['fas', 'arrow-left']"></fa-icon>&nbsp; Go Back to Home
+      </button>
+    </div>
   </div>
 </div>

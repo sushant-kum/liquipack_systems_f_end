@@ -24,7 +24,6 @@ export class DeveloperComponent implements OnInit {
     this._title.setTitle('About the Developer' + ' - ' + this.config.app_title);
     this._header_service.changePageInfo('developer', 'About the Developer', 'code');
 
-    this._sidebar.activate();
     this._sidebar.colorize();
   }
 }

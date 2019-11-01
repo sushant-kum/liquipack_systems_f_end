@@ -9,7 +9,7 @@ const gitInfo = gitDescribeSync({
 });
 
 gitInfo.version = version;
-gitInfo.releaseDateTime = new Date();
+gitInfo.release_date_time = new Date();
 
 const file = resolve(__dirname, 'src', 'environments', 'version-info.ts');
 writeFileSync(
