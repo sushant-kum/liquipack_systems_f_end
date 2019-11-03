@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "liquipack"
+  },
+  "targets": {
+    "liquipack": {
+      "hosting": {
+        "testbed": [
+          "testbed-liquipack"
+        ],
+        "prod": [
+          "liquipack"
+        ]
+      }
+    }
   }
 }

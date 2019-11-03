@@ -22,7 +22,11 @@
     "format": "prettier \"src/**/*.{css,html,js,json,md,scss,ts}\"",
     "format:fix": "prettier --write \"src/**/*.{css,html,js,json,md,scss,ts}\"",
     "format:check": "prettier -c \"src/**/*.{css,html,js,json,md,scss,ts}\"",
-    "version:info:gen": "node version-info-gen.ts"
+    "version:info:gen": "node version-info-gen.ts",
+    "firebase:target:apply:prod": "firebase target:apply hosting prod liquipack",
+    "firebase:target:apply:testbed": "firebase target:apply hosting testbed testbed-liquipack",
+    "firebase:deploy:prod": "firebase deploy --only hosting:prod",
+    "firebase:deploy:testbed": "firebase deploy --only hosting:testbed"
   },
   "private": true,
   "dependencies": {
