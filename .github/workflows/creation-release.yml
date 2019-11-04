@@ -5,8 +5,10 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build and Gzip
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
@@ -21,7 +23,7 @@ jobs:
           path: dist
 
   deploy:
-    name: Deploy
+    name: Deploy to Firebase
     needs: [build]
     runs-on: ubuntu-latest
     steps:
@@ -31,7 +33,7 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: dist
-      - name: Deploy to Firebase
+      - name: Deploy
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting:prod --token "$FIREBASE_TOKEN"
