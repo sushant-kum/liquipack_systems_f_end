@@ -9,13 +9,17 @@ on:
 jobs:
   inspection_and_tests__non_release:
     name: Inspection and Tests
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest]
+        node: ['10', '12']
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 10.x
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@master
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v1.1.0
         with:
-          node-version: 10.x
+          node-version: ${{ matrix.node }}
       - name: Install npm dependencies
         run: npm install
       - name: Run format check with prettier
@@ -26,4 +30,4 @@ jobs:
         run: npm run test:CI
         continue-on-error: true
       - name: Run build to check that it succeeds
-        run: npm run build_aot_gzip
+        run: npm run build_prod_aot_gzip
