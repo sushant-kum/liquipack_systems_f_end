@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,600,700,800,900|Roboto:100,300,400,500,700,900&display=swap');
-@import './palette.style.scss';
 /****************************************
 *               Scrollbar               *
 ****************************************/
@@ -89,17 +87,3 @@ a:not(.mat-button):not(.mat-icon-button):not(.mat-raised-button) {
 .loading-indicator-spinner {
   margin: 0 auto;
 }
-
-// @keyframes animategradient {
-//   0% {
-//     background-position: 0% 79%
-//   }
-
-//   50% {
-//     background-position: 100% 22%
-//   }
-
-//   100% {
-//     background-position: 0% 79%
-//   }
-// }
