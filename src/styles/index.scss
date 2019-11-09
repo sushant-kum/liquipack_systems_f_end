@@ -1,5 +1,5 @@
-@import './palette.style.scss';
-@import './theme.style.scss';
-@import './font/index.font.scss';
-@import './global.style.scss';
-@import './angular-mat-overrides.style.scss';
+@import './helper/index.helper';
+@import './palette/_index.palette';
+@import './theme/_index.theme';
+@import './font/_index.font';
+@import './style/index.style';

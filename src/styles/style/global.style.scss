@@ -21,7 +21,7 @@
 /***************************************/
 
 body {
-  font-family: 'Roboto', sans-serif;
+  @include font-raleway();
 }
 
 h1,
@@ -30,17 +30,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Raleway', sans-serif;
-}
-
-.w3-font {
-  &-roboto {
-    font-family: 'Roboto', sans-serif;
-  }
-
-  &-raleway {
-    font-family: 'Raleway', sans-serif;
-  }
+  @include font-raleway($weight: 500);
 }
 
 a:not(.mat-button):not(.mat-icon-button):not(.mat-raised-button) {
