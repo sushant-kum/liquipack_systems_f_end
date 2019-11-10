@@ -36,6 +36,10 @@ const routes: Routes = [
     loadChildren: () => import('src/app/pages/developer/developer.module').then(module => module.DeveloperModule)
   },
   {
+    path: 'dev',
+    loadChildren: () => import('src/app/pages/dev/dev.module').then(module => module.DevModule)
+  },
+  {
     path: 'error',
     loadChildren: () => import('src/app/errors/errors.module').then(module => module.ErrorsModule)
   },
