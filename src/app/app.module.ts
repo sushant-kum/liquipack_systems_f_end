@@ -30,7 +30,8 @@ import {
   faThList as fasThList,
   faFileInvoice as fasFileInvoice,
   faTools as fasTools,
-  faLayerGroup as fasLayerGroup
+  faLayerGroup as fasLayerGroup,
+  faFileCode as fasFileCode
 } from '@fortawesome/free-solid-svg-icons';
 /* Regular Icons */
 import {} from '@fortawesome/free-regular-svg-icons';
@@ -106,7 +107,8 @@ export class AppModule {
       fasThList,
       fasFileInvoice,
       fasTools,
-      fasLayerGroup
+      fasLayerGroup,
+      fasFileCode
     );
     // Include regular fa icons
     // Include brand fa icons
