@@ -21,7 +21,7 @@
 /***************************************/
 
 body {
-  @include font-raleway();
+  @include font-roboto();
 }
 
 h1,
@@ -76,4 +76,9 @@ a:not(.mat-button):not(.mat-icon-button):not(.mat-raised-button) {
 
 .loading-indicator-spinner {
   margin: 0 auto;
+}
+
+.app-card {
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }

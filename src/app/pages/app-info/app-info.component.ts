@@ -15,9 +15,6 @@ import { HttpTransactionsService } from 'src/app/services/http-transactions/http
 /* Config Imports */
 import { Config } from 'src/app/configs/config';
 
-/* Interface Imports */
-import { ApiResponse } from 'src/app/interfaces/api-response';
-
 @Component({
   selector: 'app-app-info',
   templateUrl: './app-info.component.html',
