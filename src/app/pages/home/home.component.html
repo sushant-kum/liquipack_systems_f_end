@@ -7,11 +7,8 @@
       </mat-card-header>
       <mat-card-content>
         <div class="w3-light-grey w3-padding-large w3-round" *ngIf="bookmarked_apps.length == 0">
-          No favourite apps found. Go to
-          <a class="app-text-theme-primary" (click)="sidebar.redirectTo('/settings/profile', 400, true)"
-            >Settings/Profile</a
-          >
-          to mark apps as favourite, or mark them below.
+          No favourite apps found. You can mark/unmark apps as favourite from below by clicking on&nbsp;
+          <fa-icon class="app-text-theme-accent" [icon]="['fas', 'heart']"></fa-icon>&nbsp; icon.
         </div>
         <div class="w3-row" *ngIf="bookmarked_apps.length != 0">
           <div class="w3-col m3 w3-padding-small" *ngFor="let app of bookmarked_apps; let i = index">
