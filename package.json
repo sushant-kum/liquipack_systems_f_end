@@ -1,6 +1,6 @@
 {
   "name": "liquipack-systems-f-end",
-  "version": "1.8.4",
+  "version": "1.8.5",
   "scripts": {
     "ng": "ng",
     "start": "npm run version:info:gen && ng serve --host 0.0.0.0 --disableHostCheck --proxy-config proxy.conf.json",
