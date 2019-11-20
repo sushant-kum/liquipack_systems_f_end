@@ -11,6 +11,15 @@
   }
 }
 
+.user-card {
+  .username-container,
+  .created-date-container {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 .user-loading-card {
   .mat-card-header {
     height: 68px;
