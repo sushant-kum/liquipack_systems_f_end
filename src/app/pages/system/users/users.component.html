@@ -16,6 +16,7 @@
         <div *ngIf="!mode.loading_page_content" class="w3-row">
           <div *ngFor="let user of users_data; let i = index" class="w3-col m6 l4 w3-padding-small">
             <mat-card
+              class="user-card"
               [ngClass]="{
                 'w3-card': user.is_active,
                 'app-theme-accent-light app-text-theme-accent mat-elevation-z': !user.is_active
@@ -82,16 +83,39 @@
                 </div>
                 <ng-template #templateUserData>
                   <div class="w3-row w3-center" style="min-height: 50px;">
-                    <div class="w3-col s6 w3-padding-small app-border-theme-accent w3-border-right">
+                    <div
+                      class="username-container w3-col s6 w3-padding-small app-border-theme-accent w3-border-right"
+                      [ngClass]="'username-container--' + user.username"
+                      [matTooltip]="
+                        user.is_active
+                          ? !isOverflowing('username--' + user.username, 'username-container--' + user.username)
+                            ? 'Username: ' + user.username
+                            : null
+                          : null
+                      "
+                    >
                       <span class="w3-text-bold" [ngClass]="{ 'app-text-theme-primary': user.is_active }">Username</span
                       ><br />
-                      {{ user.username }}
+                      <span class="username" [ngClass]="'username--' + user.username">{{ user.username }}</span>
                     </div>
-                    <div class="w3-col s6 w3-padding-small">
+
+                    <div
+                      class="created-date-container w3-col s6 w3-padding-small"
+                      [ngClass]="'created-date-container--' + user.username"
+                      [matTooltip]="
+                        user.is_active
+                          ? isOverflowing('created-date--' + user.username, 'created-date-container--' + user.username)
+                            ? 'Created On: ' + helper.time.format(user.created_date, 'DD MMM, YYYY')
+                            : null
+                          : null
+                      "
+                    >
                       <span class="w3-text-bold" [ngClass]="{ 'app-text-theme-primary': user.is_active }"
                         >Created On</span
                       ><br />
-                      {{ helper.time.format(user.created_date, 'DD MMM, YYYY') }}
+                      <span class="created-date" [ngClass]="'created-date--' + user.username">{{
+                        helper.time.format(user.created_date, 'DD MMM, YYYY')
+                      }}</span>
                     </div>
                   </div>
                 </ng-template>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
@@ -65,6 +65,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     private _auth_service: AuthService,
     private _dialog: MatDialog,
     private _confirm_service: ConfirmService,
+    private _ele_ref: ElementRef,
     public helper: HelperService
   ) {}
 
@@ -101,6 +102,15 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._auth_state_change_subscription.unsubscribe();
+  }
+
+  isOverflowing(eleClass: string, eleParentClass: string): boolean {
+    const ele: HTMLElement = this._ele_ref.nativeElement.getElementsByClassName(eleClass)[0];
+    const eleParent: HTMLElement = this._ele_ref.nativeElement.getElementsByClassName(eleParentClass)[0];
+    if (ele !== undefined) {
+      return ele.offsetWidth > eleParent.offsetWidth - 16;
+    }
+    return false;
   }
 
   getUsers(): void {
